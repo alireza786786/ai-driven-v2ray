@@ -1,0 +1,10 @@
+#profile-title: @Goodbaye_filtering — ALBANIA (AL)
+#profile-update-interval: 1
+#subscription-userinfo: upload=0; download=0; total=0; expire=0
+#support-url: https://t.me/Goodbaye_filtering
+#profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
+# @Goodbaye_filtering — ALBANIA (AL) — 1 configs
+# source: verified/ — every config passed a real proxied request in ALL L3 rounds
+# location: GeoIP (DB-IP Country Lite) on the real network address of the server
+# quality: VIP Strict (<500ms) | Goodbaye Universal Standard
+ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpjWkdyOG5MSGRmK0ZFNVpBdzBZL1J6c21sNEF5aWtHTDQ4MVBnN2VCcHNJPQ@130.49.189.158:43558#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%A6%F0%9F%87%B1%20AL%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A508ms%0A%E2%9A%A1VIP-Strict%20%7C%20SHADOWSOCKS%20IPv4

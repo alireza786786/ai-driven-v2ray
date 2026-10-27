@@ -1,0 +1,16 @@
+# Goodbaye Git Collector Report — Generated at 2026-10-27 08:58:15 UTC
+# Total Sources Queried: 13
+
+- base64.txt                          | Count:  240 | Status: ok
+- sub_1.txt                           | Count:   22 | Status: ok
+- proxy_configs.txt                   | Count:  177 | Status: ok
+- V2RAY_RAW.txt                       | Count:  150 | Status: ok
+- All_Configs_Sub.txt                 | Count: 7458 | Status: ok
+- VPN-cat                             | Count:  143 | Status: ok
+- AllConfigsSub.txt                   | Count:  547 | Status: ok
+- sub_1.txt                           | Count:   11 | Status: ok
+- sub                                 | Count:  498 | Status: ok
+- v2ray-base64.txt                    | Count: 1751 | Status: ok
+- server.txt                          | Count: 3866 | Status: ok
+- All_Configs_base64_Sub.txt          | Count: 7459 | Status: ok
+- all_configs.txt                     | Count: 4675 | Status: ok

@@ -1,0 +1,13 @@
+#profile-title: @Goodbaye_filtering — PORTUGAL (PT)
+#profile-update-interval: 1
+#subscription-userinfo: upload=0; download=0; total=0; expire=0
+#support-url: https://t.me/Goodbaye_filtering
+#profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
+# @Goodbaye_filtering — PORTUGAL (PT) — 4 configs
+# source: verified/ — every config passed a real proxied request in ALL L3 rounds
+# location: GeoIP (DB-IP Country Lite) on the real network address of the server
+# quality: VIP Strict (<500ms) | Goodbaye Universal Standard
+vless://98a24806-141a-43d3-b094-bd66c4eb93b8@198.16.113.222:8443?&security=reality&flow=xtls-rprx-vision&pbk=8NkTRxC5Q7bptx-8ADobkuhPK-ZN0kEEbzv6tCFGMzE&sid=69984b9e02545831&fp=chrome&sni=www.apple.com&type=tcp&headerType=none&host=www.apple.com&path=%2F#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%B5%F0%9F%87%B9%20Portugal%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1330ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
+vless://98a24806-141a-43d3-b094-bd66c4eb93b8@198.16.113.220:8443?&security=reality&flow=xtls-rprx-vision&pbk=8NkTRxC5Q7bptx-8ADobkuhPK-ZN0kEEbzv6tCFGMzE&sid=69984b9e02545831&fp=chrome&sni=www.apple.com&type=tcp&headerType=none&host=www.apple.com&path=%2F#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%B5%F0%9F%87%B9%20Portugal%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1331ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
+vless://98a24806-141a-43d3-b094-bd66c4eb93b8@198.16.113.221:8443?&security=reality&flow=xtls-rprx-vision&pbk=8NkTRxC5Q7bptx-8ADobkuhPK-ZN0kEEbzv6tCFGMzE&sid=69984b9e02545831&fp=chrome&sni=www.apple.com&type=tcp&headerType=none&host=www.apple.com&path=%2F#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%B5%F0%9F%87%B9%20Portugal%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1331ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
+vless://e3e0e1c3-599e-4ae1-8ad4-d9e90effacc4@198.16.113.219:8443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=8NkTRxC5Q7bptx-8ADobkuhPK-ZN0kEEbzv6tCFGMzE&sid=69984b9e02545831&sni=www.apple.com#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%B5%F0%9F%87%B9%20Portugal%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1361ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4

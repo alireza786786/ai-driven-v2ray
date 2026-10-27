@@ -1,0 +1,227 @@
+{
+  "brand": "@Goodbaye_filtering",
+  "vip_channel": "@CONFIG_V2RAY_VIP",
+  "generator": "Goodbaye Universal Standard aggregator",
+  "updated_at": "2026-10-27T08:58:40.897020+00:00",
+  "updated_at_unix": 1793091520,
+  "next_update_eta": "2026-10-27T09:43:40.897020+00:00",
+  "update_interval_minutes": 45,
+  "elapsed_seconds": 24.4,
+  "raw_base": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main",
+  "cdn_base": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main",
+  "primary_base": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main",
+  "mirror_base": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main",
+  "pages_url": "https://alireza786786.github.io/ai-driven-v2ray/",
+  "publish_branch": "main",
+  "data_branch": "main",
+  "self_url": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/index.json",
+  "self_url_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/index.json",
+  "link_policy": {
+    "primary": "raw.githubusercontent.com",
+    "primary_cache_seconds": 300,
+    "mirror": "cdn.jsdelivr.net",
+    "mirror_cache_seconds": 43200,
+    "note": "raw is ~144x fresher (300s vs 43200s cache). Use raw when possible."
+  },
+  "categories": {
+    "all": {
+      "unique": 11281,
+      "broken": 4,
+      "duplicates": 15702,
+      "total_fetched": 26997,
+      "active_sources": 13,
+      "protocols": {
+        "vless": 5102,
+        "vmess": 3392,
+        "trojan": 1487,
+        "shadowsocks": 1033,
+        "hysteria2": 259,
+        "socks": 6,
+        "anytls": 1,
+        "shadowsocksr": 1
+      },
+      "files": {
+        "configs_txt": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/configs.txt",
+        "configs_base64": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/configs_base64.txt",
+        "clash_yaml": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/clash.yaml",
+        "singbox_json": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/singbox.json",
+        "configs_txt_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/all/configs.txt",
+        "configs_base64_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/all/configs_base64.txt",
+        "clash_yaml_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/all/clash.yaml",
+        "singbox_json_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/all/singbox.json"
+      }
+    },
+    "heavy": {
+      "unique": 7359,
+      "broken": 3,
+      "duplicates": 12513,
+      "total_fetched": 19885,
+      "active_sources": 5,
+      "protocols": {
+        "vless": 4569,
+        "trojan": 1394,
+        "shadowsocks": 1001,
+        "vmess": 350,
+        "hysteria2": 44,
+        "shadowsocksr": 1
+      },
+      "files": {
+        "configs_txt": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/heavy/configs.txt",
+        "configs_base64": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/heavy/configs_base64.txt",
+        "clash_yaml": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/heavy/clash.yaml",
+        "singbox_json": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/heavy/singbox.json",
+        "configs_txt_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/heavy/configs.txt",
+        "configs_base64_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/heavy/configs_base64.txt",
+        "clash_yaml_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/heavy/clash.yaml",
+        "singbox_json_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/heavy/singbox.json"
+      }
+    },
+    "light": {
+      "unique": 5155,
+      "broken": 1,
+      "duplicates": 1956,
+      "total_fetched": 7112,
+      "active_sources": 8,
+      "protocols": {
+        "vmess": 3323,
+        "vless": 1208,
+        "hysteria2": 220,
+        "shadowsocks": 211,
+        "trojan": 186,
+        "socks": 6,
+        "anytls": 1
+      },
+      "files": {
+        "configs_txt": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/configs.txt",
+        "configs_base64": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/configs_base64.txt",
+        "clash_yaml": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/clash.yaml",
+        "singbox_json": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/singbox.json",
+        "configs_txt_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/light/configs.txt",
+        "configs_base64_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/light/configs_base64.txt",
+        "clash_yaml_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/light/clash.yaml",
+        "singbox_json_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/light/singbox.json"
+      }
+    }
+  },
+  "protocols": {
+    "vless": 5102,
+    "vmess": 3392,
+    "trojan": 1487,
+    "shadowsocks": 1033,
+    "hysteria2": 259,
+    "socks": 6,
+    "shadowsocksr": 1,
+    "anytls": 1,
+    "hysteria": 0,
+    "tuic": 0,
+    "wireguard": 0,
+    "juicity": 0,
+    "snell": 0,
+    "mieru": 0
+  },
+  "protocol_files": {
+    "vless": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vless.txt",
+    "vmess": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vmess.txt",
+    "trojan": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/trojan.txt",
+    "shadowsocks": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocks.txt",
+    "shadowsocksr": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocksr.txt",
+    "hysteria2": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/hysteria2.txt",
+    "anytls": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/anytls.txt",
+    "socks": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/socks.txt"
+  },
+  "protocol_files_base64": {
+    "vless": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vless_base64.txt",
+    "vmess": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vmess_base64.txt",
+    "trojan": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/trojan_base64.txt",
+    "shadowsocks": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocks_base64.txt",
+    "shadowsocksr": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocksr_base64.txt",
+    "hysteria2": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/hysteria2_base64.txt",
+    "anytls": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/anytls_base64.txt",
+    "socks": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/socks_base64.txt"
+  },
+  "protocol_files_mirror": {
+    "vless": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/protocols/vless.txt",
+    "vmess": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/protocols/vmess.txt",
+    "trojan": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/protocols/trojan.txt",
+    "shadowsocks": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/protocols/shadowsocks.txt",
+    "shadowsocksr": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/protocols/shadowsocksr.txt",
+    "hysteria2": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/protocols/hysteria2.txt",
+    "anytls": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/protocols/anytls.txt",
+    "socks": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/protocols/socks.txt"
+  },
+  "archive": {
+    "all_broken": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/archive/all_broken.txt",
+    "heavy_broken": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/archive/heavy_broken.txt",
+    "light_broken": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/archive/light_broken.txt",
+    "all_broken_base64": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/archive/all_broken_base64.txt",
+    "heavy_broken_base64": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/archive/heavy_broken_base64.txt",
+    "light_broken_base64": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/archive/light_broken_base64.txt"
+  },
+  "sources": {
+    "light_count": 8,
+    "heavy_count": 5,
+    "total_count": 13,
+    "healthy": 13,
+    "unhealthy": 0,
+    "health_url": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/health.json",
+    "health_url_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/health.json"
+  },
+  "cascade_categories": {
+    "verified": {
+      "unique": 1489,
+      "criterion": "a real proxied request succeeded in ALL rounds of this run",
+      "files": {
+        "configs_txt": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/configs.txt",
+        "configs_txt_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/verified/configs.txt",
+        "configs_base64": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/configs_base64.txt",
+        "configs_base64_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/verified/configs_base64.txt",
+        "clash_yaml": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/clash.yaml",
+        "clash_yaml_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/verified/clash.yaml",
+        "singbox_json": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/singbox.json",
+        "singbox_json_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/verified/singbox.json"
+      }
+    },
+    "fast": {
+      "unique": 474,
+      "criterion": "verified AND median delay across all rounds is under 500ms (VIP Strict)",
+      "files": {
+        "configs_txt": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/configs.txt",
+        "configs_txt_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/fast/configs.txt",
+        "configs_base64": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/configs_base64.txt",
+        "configs_base64_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/fast/configs_base64.txt",
+        "clash_yaml": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/clash.yaml",
+        "clash_yaml_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/fast/clash.yaml",
+        "singbox_json": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/singbox.json",
+        "singbox_json_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/fast/singbox.json"
+      }
+    },
+    "secure": {
+      "unique": 1110,
+      "criterion": "verified AND forward secrecy ((EC)DHE via TLS/REALITY/QUIC) AND certificate validation active",
+      "files": {
+        "configs_txt": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/configs.txt",
+        "configs_txt_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/secure/configs.txt",
+        "configs_base64": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/configs_base64.txt",
+        "configs_base64_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/secure/configs_base64.txt",
+        "clash_yaml": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/clash.yaml",
+        "clash_yaml_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/secure/clash.yaml",
+        "singbox_json": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/singbox.json",
+        "singbox_json_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/secure/singbox.json"
+      }
+    }
+  },
+  "top100": {
+    "count": 100,
+    "criterion": "verified configs sorted by median delay (<500ms first); never padded",
+    "url": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/top100.txt",
+    "url_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/top100.txt"
+  },
+  "countries": {
+    "count": 57,
+    "configs": 1489,
+    "source": "verified",
+    "criterion": "verified configs grouped by the server's country (GeoIP); one .txt per country",
+    "index": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/index.json",
+    "index_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/Countries/index.json"
+  }
+}
