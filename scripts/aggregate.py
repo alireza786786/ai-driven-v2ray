@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-scripts/aggregate.py — خط‌لوله اصلی تجمیع و استانداردسازی کانفیگ‌های Goodbaye Universal Standard.
-پروژه: Goodbaye Universal Standard | ai-driven-v2ray
-مالک: alireza786786 | کانال رسمی: @Goodbaye_filtering
+scripts/aggregate.py — خط‌لولهٔ اصلیِ تجمیع، پاک‌سازی و انتشار کانفیگ‌های Goodbaye Universal Standard.
+مالک: alireza786786 | مخزن: ai-driven-v2ray | برند: @Goodbaye_filtering
 
-وظایف و ویژگی‌ها:
-  ۱) واکشی هم‌روند منابع با retry و backoff هوشمند
-  ۲) تصفیه ساختاری و اعمال ریمارک ۵ خطی رسمی منشور بر روی دسته‌های ALL / HEAVY / LIGHT
-  ۳) استخراج فرمت‌های Clash Meta YAML، Singbox JSON و سابسکریپشن‌های Base64
-  ۴) ادغام حافظه تاریخی state.py و گزارش سلامت منابع در health.json
-  ۵) تولید index.json ماشین‌خوان برای وب‌پنل گیت‌هاب پیجز (https://alireza786786.github.io/ai-driven-v2ray/)
+وظایف اصلی:
+  ۱) واکشی هم‌زمان منابع سبک و سنگین (با بازخورد وضعیت شبکه و Backoff)
+  ۲) استخراج و تمیزسازی کانفیگ‌ها (Direct و Base64)
+  ۳) یکتاسازی هویتی CDN-aware و حذف کانفیگ‌های Dummy
+  ۴) اعمال برندینگ رسمی و ریمارک ۵ خطی
+  ۵) ساخت سابسکریپشن‌های چندگانه (Base64, Clash Meta YAML, Sing-box JSON, Protocols)
+  ۶) ساخت ایندکس متادیتا (index.json) و گزارش سلامت جامع (health.json)
 """
 from __future__ import annotations
 
@@ -39,7 +39,7 @@ except Exception:  # pragma: no cover
     geo = None  # type: ignore
 
 # ──────────────────────────────────────────────────────────────────────────────
-# متغیرهای هویتی گیت‌هاب و وب‌پنل پیجز (منطبق بر اصل اول منشور)
+# پیکربندی هویت و لینک‌های اصلی و آینه (Goodbaye Universal Standard)
 # ──────────────────────────────────────────────────────────────────────────────
 GH_USER = os.environ.get("AGG_GH_USER", "alireza786786")
 GH_REPO = os.environ.get("AGG_GH_REPO", "ai-driven-v2ray")
@@ -57,6 +57,11 @@ CDN_BASE = f"https://cdn.jsdelivr.net/gh/{GH_USER}/{GH_REPO}@{GH_BRANCH}"
 PRIMARY_BASE = RAW_BASE
 MIRROR_BASE = CDN_BASE
 
+# تعریف قطعی و پویا برای رفع خطای NameError
+BASE_PAGES_URL = os.environ.get(
+    "AGG_PAGES_URL", f"https://{GH_USER}.github.io/{GH_REPO}/"
+)
+
 USER_AGENTS = (
     "v2rayNG/1.8.36",
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -68,8 +73,8 @@ FETCH_TIMEOUT = int(os.getenv("AGG_FETCH_TIMEOUT", "15"))
 MAX_WORKERS = int(os.getenv("AGG_MAX_WORKERS", "16"))
 FETCH_RETRIES = int(os.getenv("AGG_FETCH_RETRIES", "3"))
 RETRY_BACKOFF = 1.5
-UPDATE_INTERVAL_MIN = int(os.getenv("AGG_UPDATE_INTERVAL_MIN", "15"))
 
+UPDATE_INTERVAL_MIN = int(os.getenv("AGG_UPDATE_INTERVAL_MIN", "45"))
 SOURCE_HEALTH: Dict[str, dict] = {}
 
 
@@ -79,11 +84,11 @@ def log(msg: str) -> None:
 
 
 # ──────────────────────────────────────────────────────────────────────────────
-# واکشی منابع با گارد ضد کرش
+# واکشی منابع
 # ──────────────────────────────────────────────────────────────────────────────
 
 def fetch_source(url: str) -> Tuple[str, List[str]]:
-    """واکشی یک سورس با retry و ثبت تلمتری در SOURCE_HEALTH."""
+    """واکشی یک منبع همراه با تلاش مجدد، تغییر User-Agent و ثبت سلامت."""
     name = url.rsplit("/", 1)[-1] or url
     last_err = ""
     last_code = 0
@@ -100,11 +105,8 @@ def fetch_source(url: str) -> Tuple[str, List[str]]:
                 cfgs = core.extract_valid_lines(body)
                 if cfgs:
                     SOURCE_HEALTH[url] = {
-                        "name": name,
-                        "status": "ok",
-                        "count": len(cfgs),
-                        "http_code": resp.status_code,
-                        "attempts": attempt,
+                        "name": name, "status": "ok", "count": len(cfgs),
+                        "http_code": resp.status_code, "attempts": attempt,
                         "latency_ms": int((time.time() - t_start) * 1000),
                     }
                     return url, cfgs
@@ -119,20 +121,16 @@ def fetch_source(url: str) -> Tuple[str, List[str]]:
             time.sleep(RETRY_BACKOFF * attempt)
 
     SOURCE_HEALTH[url] = {
-        "name": name,
-        "status": "empty" if "0 valid" in last_err else "fail",
-        "count": 0,
-        "http_code": last_code,
-        "attempts": attempt,
-        "latency_ms": int((time.time() - t_start) * 1000),
-        "error": last_err,
+        "name": name, "status": "empty" if "0 valid" in last_err else "fail",
+        "count": 0, "http_code": last_code, "attempts": attempt,
+        "latency_ms": int((time.time() - t_start) * 1000), "error": last_err,
     }
     log(f"  ⚠️ fetch fail {name}: {last_err} (after {attempt} tries)")
     return url, []
 
 
 def fetch_all(urls: List[str]) -> Dict[str, List[str]]:
-    """واکشی همروند تمامی URLها."""
+    """واکشی هم‌زمان تمامی منابع."""
     results: Dict[str, List[str]] = {}
     with ThreadPoolExecutor(max_workers=max(1, MAX_WORKERS)) as ex:
         futs = {ex.submit(fetch_source, u): u for u in urls}
@@ -144,7 +142,7 @@ def fetch_all(urls: List[str]) -> Dict[str, List[str]]:
 
 
 # ──────────────────────────────────────────────────────────────────────────────
-# پردازش دسته‌ها (یکتاسازی، سپرهای هیدیفای و برندینگ ۵ خطی)
+# پردازش و فیلترینگ دسته‌ها
 # ──────────────────────────────────────────────────────────────────────────────
 
 class CategoryResult:
@@ -177,7 +175,7 @@ def process_category(
     source_urls: List[str],
     _cache: Optional[Dict[str, Tuple[bool, str]]] = None,
 ) -> CategoryResult:
-    """یکتاسازی و اعمال برندینگ رسمی منشور Goodbaye بر روی نودها."""
+    """یکتاسازی هویتی و اعمال برندینگ رسمی ۵ خطی Goodbaye."""
     if _cache is None:
         _cache = {}
     r = CategoryResult()
@@ -213,15 +211,17 @@ def process_category(
 
     if geo is not None:
         try:
-            hosts = [core.endpoint_of(ln) for ln in ordered if core.endpoint_of(ln)]
+            hosts = []
+            for ln in ordered:
+                ep = core.endpoint_of(ln)
+                if ep:
+                    hosts.append(ep)
             geo.warm_up(hosts)
         except Exception as e:
             log(f"  ⚠️ geo warm-up skipped: {e}")
 
     for idx, line in enumerate(ordered, start=1):
         branded = core.brand_remark(line, idx)
-
-        # گارد ناوردای برند Goodbaye
         if not core.is_branded(branded):
             retry = core.brand_remark(branded, idx)
             if core.is_branded(retry):
@@ -241,7 +241,7 @@ def process_category(
 
 
 # ──────────────────────────────────────────────────────────────────────────────
-# نگارش اتمیک و مدیریت خروجی‌ها
+# نوشتن فایل‌ها و خروجی‌ها
 # ──────────────────────────────────────────────────────────────────────────────
 
 def _write_text(path: str, content: str) -> None:
@@ -255,10 +255,10 @@ CONVERT_FAILURES: Dict[str, str] = {}
 
 
 def write_category(out_dir: str, cat: str, r: CategoryResult) -> None:
-    """نگارش پکیج‌های دسته‌ای (configs.txt, configs_base64.txt, clash.yaml, singbox.json)."""
     base = os.path.join(out_dir, cat)
     hh = core.hiddify_profile_header(cat.upper())
-    header = hh + f"# {core.BRAND_CHANNEL} — {cat.upper()} VIP — {len(r.unique)} unique configs\n"
+    header = hh + f"# {core.BRAND_CHANNEL} — {cat.upper()} — {len(r.unique)} unique configs\n"
+
     _write_text(
         os.path.join(base, "configs.txt"),
         header + "\n".join(core.shield_unsupported_runs(r.unique)) + "\n",
@@ -267,6 +267,7 @@ def write_category(out_dir: str, cat: str, r: CategoryResult) -> None:
         os.path.join(base, "configs_base64.txt"),
         core.encode_base64_subscription(r.unique, header=hh),
     )
+
     try:
         _write_text(
             os.path.join(base, "clash.yaml"),
@@ -303,24 +304,24 @@ def _remove_if_exists(path: str) -> bool:
 
 
 def write_archive(out_dir: str, cat: str, r: CategoryResult) -> None:
-    """بایگانی نودهای خراب در archive/ بدون نگارش تکراری‌ها برای جلوگیری از باد کردن گیت."""
     base = os.path.join(out_dir, "archive")
     btxt = os.path.join(base, f"{cat}_broken.txt")
     bb64 = os.path.join(base, f"{cat}_broken_base64.txt")
     if r.broken:
-        bh = f"# {core.BRAND_CHANNEL} — {cat.upper()} BROKEN — {len(r.broken)} configs\n"
+        bh = f"# {core.BRAND_CHANNEL} — {cat.upper()} BROKEN/dummy — {len(r.broken)} configs\n"
         _write_text(btxt, bh + "\n".join(core.shield_unsupported_runs(r.broken)) + "\n")
         _write_text(bb64, core.encode_base64_subscription(r.broken))
     else:
-        _remove_if_exists(btxt)
-        _remove_if_exists(bb64)
+        gone_txt = _remove_if_exists(btxt)
+        gone_b64 = _remove_if_exists(bb64)
+        if gone_txt or gone_b64:
+            log(f"  🗑️ pruned empty archive/{cat}_broken*")
 
     for stale in (f"{cat}_duplicates.txt", f"{cat}_duplicates_base64.txt"):
         _remove_if_exists(os.path.join(base, stale))
 
 
 def write_protocols(out_dir: str, all_unique: List[str]) -> Dict[str, int]:
-    """تفکیک فایل‌های هر پروتکل در پوشه protocols/ با حذف فایل‌های خالی."""
     base = os.path.join(out_dir, "protocols")
     buckets: Dict[str, List[str]] = {}
     for line in all_unique:
@@ -338,7 +339,7 @@ def write_protocols(out_dir: str, all_unique: List[str]) -> Dict[str, int]:
         b64 = os.path.join(base, f"{proto}_base64.txt")
         if lines:
             hh = core.hiddify_profile_header(proto.upper())
-            h = hh + f"# {core.BRAND_CHANNEL} — {proto.upper()} VIP — {len(lines)} configs\n"
+            h = hh + f"# {core.BRAND_CHANNEL} — {proto} — {len(lines)} configs\n"
             _write_text(txt, h + "\n".join(core.shield_unsupported_runs(lines)) + "\n")
             _write_text(b64, core.encode_base64_subscription(lines, header=hh))
             written += 1
@@ -368,7 +369,6 @@ def build_index(
     elapsed: float,
     out_dir: Optional[str] = None,
 ) -> dict:
-    """تولید سند index.json با رعایت کامل آدرس‌های وب‌پنل منشور Goodbaye."""
     now = _dt.datetime.now(_dt.timezone.utc)
     next_run = now + _dt.timedelta(minutes=UPDATE_INTERVAL_MIN)
 
@@ -413,7 +413,7 @@ def build_index(
         "cdn_base": CDN_BASE,
         "primary_base": PRIMARY_BASE,
         "mirror_base": MIRROR_BASE,
-        "pages_webpanel": BASE_PAGES_URL,
+        "pages_url": BASE_PAGES_URL,
         "publish_branch": GH_BRANCH,
         "data_branch": GH_BRANCH,
         "self_url": f"{PRIMARY_BASE}/index.json",
@@ -423,7 +423,7 @@ def build_index(
             "primary_cache_seconds": 300,
             "mirror": "cdn.jsdelivr.net",
             "mirror_cache_seconds": 43200,
-            "note": "raw link is 144x fresher. jsDelivr is mirror.",
+            "note": "raw is ~144x fresher (300s vs 43200s cache). Use raw when possible.",
         },
         "categories": {
             "all": cat_block("all", results["all"]),
@@ -578,12 +578,15 @@ def source_keys(per_source: Dict[str, List[str]]) -> Dict[str, set]:
     return keys
 
 
-def unique_yield(per_source: Dict[str, List[str]]) -> Tuple[Dict[str, int], Dict[str, int], int]:
+def unique_yield(
+    per_source: Dict[str, List[str]]
+) -> Tuple[Dict[str, int], Dict[str, int], int]:
     keys = source_keys(per_source)
     owners: Dict[str, int] = {}
     for ks in keys.values():
         for k in ks:
             owners[k] = owners.get(k, 0) + 1
+
     totals = {u: len(ks) for u, ks in keys.items()}
     uniq = {u: sum(1 for k in ks if owners.get(k) == 1) for u, ks in keys.items()}
     return totals, uniq, len(owners)
@@ -618,10 +621,8 @@ def advance_memory(
         top = sorted(uniq.items(), key=lambda kv: -kv[1])[:3]
         zero = [u.rsplit("/", 1)[-1] for u, n in uniq.items() if n == 0]
         log(memory.summary(state))
-        log(
-            f"  📊 union={union} · top unique: "
-            + ", ".join(f"{u.rsplit('/', 1)[-1]}={n}" for u, n in top)
-        )
+        log(f"  📊 union={union} · top unique: "
+            + ", ".join(f"{u.rsplit('/', 1)[-1]}={n}" for u, n in top))
         if zero:
             log(f"  ⚠️ zero unique yield this round ({len(zero)}): {', '.join(zero)}")
     except Exception as exc:  # noqa: BLE001
@@ -630,12 +631,12 @@ def advance_memory(
 
 
 # ──────────────────────────────────────────────────────────────────────────────
-# نقطه ورود اصلی خط‌لوله تجمیع
+# نقطه اجرای اصلی (main)
 # ──────────────────────────────────────────────────────────────────────────────
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="Goodbaye Universal Standard Config Aggregator")
-    ap.add_argument("--out", default=os.getcwd(), help="Output directory (repo root)")
+    ap = argparse.ArgumentParser(description="Goodbaye config aggregator")
+    ap.add_argument("--out", default=os.getcwd(), help="output directory (repo root)")
     args = ap.parse_args()
     out_dir = os.path.abspath(args.out)
     os.makedirs(out_dir, exist_ok=True)
@@ -646,20 +647,21 @@ def main() -> int:
 
     state_path = os.path.join(out_dir, memory.STATE_PATH)
     mem = memory.load_state(state_path)
-    skipped = [u for u in memory.disabled_urls(mem) if u in (LIGHT_SOURCES + HEAVY_SOURCES)]
+    skipped = [
+        u for u in memory.disabled_urls(mem)
+        if u in (LIGHT_SOURCES + HEAVY_SOURCES)
+    ]
     disabled_reasons = disabled_reasons_for(mem, skipped)
 
     all_urls = [u for u in (LIGHT_SOURCES + HEAVY_SOURCES) if u not in set(skipped)]
     if skipped:
-        log(
-            f"🧠 memory disabled {len(skipped)} source(s) → fetching "
-            f"{len(all_urls)} of {len(LIGHT_SOURCES) + len(HEAVY_SOURCES)}"
-        )
+        log(f"🧠 memory disabled {len(skipped)} source(s) → fetching "
+            f"{len(all_urls)} of {len(LIGHT_SOURCES) + len(HEAVY_SOURCES)}")
         for u in skipped:
             log(f"     ⏭️ {u.rsplit('/', 1)[-1]}")
     per_source = fetch_all(all_urls)
 
-    log("🧮 Processing categories (dedup + Goodbaye 5-line remark) …")
+    log("🧮 Processing categories (dedup + Goodbaye 5-line brand) …")
     analysis_cache: Dict[str, Tuple[bool, str]] = {}
     res_all = process_category(per_source, all_urls, analysis_cache)
     res_heavy = process_category(per_source, HEAVY_SOURCES, analysis_cache)
@@ -667,11 +669,9 @@ def main() -> int:
     results = {"all": res_all, "heavy": res_heavy, "light": res_light}
 
     for cat, r in results.items():
-        log(
-            f"  • {cat:<5}: {len(r.unique):>6} unique | "
+        log(f"  • {cat:<5}: {len(r.unique):>6} unique | "
             f"{len(r.duplicates):>6} dup | {len(r.broken):>5} broken | "
-            f"{r.active_sources}/{len(HEAVY_SOURCES if cat=='heavy' else LIGHT_SOURCES if cat=='light' else all_urls)} src"
-        )
+            f"{r.active_sources}/{len(HEAVY_SOURCES if cat=='heavy' else LIGHT_SOURCES if cat=='light' else all_urls)} src")
 
     if not res_all.unique:
         log("❌ No configs produced — aborting BEFORE writing (existing files preserved)")
@@ -689,35 +689,42 @@ def main() -> int:
             pass
         write_archive(out_dir, cat, r)
 
+    # همگام‌سازی فایل all_servers.txt در ریشه برای سازگاری کامل
+    all_txt = os.path.join(out_dir, "all", "configs.txt")
+    all_srv = os.path.join(out_dir, "all_servers.txt")
+    if os.path.exists(all_txt):
+        try:
+            with open(all_txt, "r", encoding="utf-8") as sf, open(all_srv, "w", encoding="utf-8") as df:
+                df.write(sf.read())
+        except Exception as e:
+            log(f"  ⚠️ sync all_servers.txt: {e}")
+
     for cat, r in results.items():
         if r.unbranded_dropped or r.unbranded_rebranded:
-            log(
-                f"  ⚠️ brand gate [{cat}]: dropped={r.unbranded_dropped} "
-                f"rebranded={r.unbranded_rebranded}"
-            )
+            log(f"  ⚠️ brand gate [{cat}]: dropped={r.unbranded_dropped} "
+                f"rebranded={r.unbranded_rebranded}")
             for s in r.unbranded_samples:
                 log(f"       ↳ {s}")
     for cat, r in results.items():
         if r.mihomo_fatal:
-            log(
-                f"  🛡️ mihomo gate [{cat}]: dropped {sum(r.mihomo_fatal.values())} "
-                f"line(s) — {r.mihomo_fatal}"
-            )
+            log(f"  🛡️ mihomo gate [{cat}]: dropped {sum(r.mihomo_fatal.values())} "
+                f"line(s) that would empty the whole subscription — {r.mihomo_fatal}")
 
     proto_counts = write_protocols(out_dir, res_all.unique)
     log("  • protocols: " + ", ".join(f"{k}={v}" for k, v in proto_counts.items() if v))
 
     elapsed = time.time() - t0
     index = build_index(results, proto_counts, elapsed, out_dir)
-    _write_text(os.path.join(out_dir, "index.json"), json.dumps(index, ensure_ascii=False, indent=2))
+    _write_text(os.path.join(out_dir, "index.json"),
+                json.dumps(index, ensure_ascii=False, indent=2))
 
     health = build_health_report(elapsed, conv_by_cat, results, disabled=disabled_reasons)
-    _write_text(os.path.join(out_dir, "health.json"), json.dumps(health, ensure_ascii=False, indent=2))
+    _write_text(os.path.join(out_dir, "health.json"),
+                json.dumps(health, ensure_ascii=False, indent=2))
     hs = health["summary"]
-    log(
-        f"  • source health: {hs['ok']} ok / {hs['empty']} empty / {hs['fail']} fail"
-        f" / {hs['disabled']} disabled / {hs['unknown']} unknown (total {hs['total']})"
-    )
+    log(f"  • source health: {hs['ok']} ok / {hs['empty']} empty / {hs['fail']} fail"
+        f" / {hs['disabled']} disabled / {hs['unknown']} unknown"
+        f"  (total {hs['total']})")
 
     cs = health.get("converters") or {}
     for target in ("clash", "singbox"):
@@ -728,17 +735,14 @@ def main() -> int:
 
     gs = health.get("geo")
     if gs:
-        log(
-            "  • geo: db="
-            + ("yes" if gs.get("db_loaded") else "no")
-            + f" ip={gs.get('by_ip_literal', 0)} dns={gs.get('by_dns', 0)} "
-            f"dns_failed={gs.get('dns_failed', 0)}"
-        )
+        log("  • geo: db=" + ("yes" if gs.get("db_loaded") else "no")
+            + f" ip={gs.get('by_ip_literal', 0)}"
+            + f" dns={gs.get('by_dns', 0)}"
+            + f" dns_failed={gs.get('dns_failed', 0)}"
+            + f" unknown={gs.get('unknown_ip_literal', 0) + gs.get('unknown_after_dns', 0)}")
 
-    log(
-        f"✅ Goodbaye Aggregation Done in {elapsed:.1f}s — "
-        f"ALL={len(res_all.unique)} HEAVY={len(res_heavy.unique)} LIGHT={len(res_light.unique)} unique"
-    )
+    log(f"✅ Done in {elapsed:.1f}s — "
+        f"ALL={len(res_all.unique)} HEAVY={len(res_heavy.unique)} LIGHT={len(res_light.unique)} unique")
     return 0
 
 
