@@ -2,8 +2,8 @@ name: 🚀 Goodbaye Universal Automation Pipeline
 
 on:
   schedule:
-    # اجرا در فواصل منظم ۱۵ دقیقه‌ای برای تضمین حداکثر تازگی کانفیگ‌ها
-    - cron: '*/15 * * * *'
+    # اجرا در فواصل منظم ۱ ساعته (دقیقه ۰ هر ساعت)
+    - cron: '0 * * * *'
   workflow_dispatch:
 
 concurrency:
@@ -32,12 +32,12 @@ jobs:
 
     steps:
       - name: 📥 Checkout Repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1
 
       - name: 🐍 Setup Python 3.11
-        uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
           cache: "pip"
@@ -48,7 +48,7 @@ jobs:
           if [ -f requirements.txt ]; then
             pip install -r requirements.txt
           else
-            pip install requests pyyaml maxminddb
+            pip install requests pyyaml maxminddb jdatetime
           fi
 
       # ────────────────────────────────────────────────────────────────────────
@@ -56,7 +56,7 @@ jobs:
       # ────────────────────────────────────────────────────────────────────────
       - name: 🗄️ Cache xray-knife Binary
         id: cache-xray-knife
-        uses: actions/cache/restore@1bd1e3241382caab8d0477083445aa60c87da332 # v4.2.0
+        uses: actions/cache/restore@v4
         with:
           path: ~/.local/bin/xray-knife
           key: xray-knife-10.1.1-a3b10a40ccaf423d96836f9606ffec8b2e5f4fce36375eac1aadc10ba9c58034
@@ -96,7 +96,7 @@ jobs:
 
       - name: 💾 Save xray-knife Cache
         if: steps.cache-xray-knife.outputs.cache-hit != 'true'
-        uses: actions/cache/save@1bd1e3241382caab8d0477083445aa60c87da332 # v4.2.0
+        uses: actions/cache/save@v4
         with:
           path: ~/.local/bin/xray-knife
           key: xray-knife-10.1.1-a3b10a40ccaf423d96836f9606ffec8b2e5f4fce36375eac1aadc10ba9c58034
@@ -106,7 +106,7 @@ jobs:
       # ────────────────────────────────────────────────────────────────────────
       - name: 🌐 Restore GeoIP Database Cache
         id: geoip_restore
-        uses: actions/cache/restore@1bd1e3241382caab8d0477083445aa60c87da332 # v4.2.0
+        uses: actions/cache/restore@v4
         with:
           path: .cache/dbip-country-lite.mmdb
           key: geoip-dbip-country-lite-${{ steps.geoip_have.outputs.ym }}
@@ -136,7 +136,7 @@ jobs:
 
       - name: 💾 Save Verified GeoIP Cache
         if: steps.geoip_dl.outputs.got != ''
-        uses: actions/cache/save@1bd1e3241382caab8d0477083445aa60c87da332 # v4.2.0
+        uses: actions/cache/save@v4
         with:
           path: .cache/dbip-country-lite.mmdb
           key: geoip-dbip-country-lite-${{ steps.geoip_dl.outputs.got }}
