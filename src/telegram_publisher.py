@@ -3,6 +3,7 @@
 # ==============================================================================
 # Goodbaye Universal Standard - Telegram Publisher
 # Rules: 4 Inline Buttons | VIP Strict (Ping < 500ms) | Approval Gate ("ارسال شود")
+# Schedule: ۳ اجرای خودکار استراحت (۴۵ دقیقه‌ای) + اجرای چهارم ارسال به تلگرام
 # Repository: https://github.com/alireza786786/ai-driven-v2ray
 # ==============================================================================
 
@@ -170,20 +171,26 @@ def main():
     if not target_chats:
         target_chats = [MAIN_CHANNEL]
 
-    # بررسی چرخه ارسال (شمارنده هر ۳ ساعت / دوره ۱۲ گیت‌هاب اکشنز)
-    Path("data").mkdir(exist_ok=True)
+    # مدیریت چرخه ارسال: ۳ اجرای خودکار استراحت + اجرای چهارم ارسال به تلگرام
+    counter_path = Path(COUNTER_FILE)
+    counter_path.parent.mkdir(parents=True, exist_ok=True)
     cycle_count = 0
-    if Path(COUNTER_FILE).exists():
+    if counter_path.exists():
         try:
-            cycle_count = int(Path(COUNTER_FILE).read_text(encoding="utf-8").strip())
+            cycle_count = int(counter_path.read_text(encoding="utf-8").strip())
         except Exception:
             cycle_count = 0
 
-    if cycle_count % 12 != 0:
-        logger.info(f"⏳ Cycle #{cycle_count % 12}/12: Telegram broadcast deferred until cycle #12.")
+    # ثبت دور جدید
+    cycle_count += 1
+    counter_path.write_text(str(cycle_count), encoding="utf-8")
+
+    # اگر اجرای اول، دوم یا سوم باشد -> تلگرام استراحت می‌کند
+    if cycle_count % 4 != 0:
+        logger.info(f"⏳ دور #{cycle_count % 4}/4: سیستم در حال استراحت ۴۵ دقیقه‌ای است (ارسال تلگرام در دور چهارم انجام می‌شود).")
         return
 
-    logger.info(f"🚀 Cycle #{cycle_count}: Evaluating packages for Telegram broadcast...")
+    logger.info(f"🚀 دور #{cycle_count} (اجرای چهارم): آغاز فرآیند انتشار پکیج‌های مجاز به تلگرام...")
 
     for pkg in TELEGRAM_PACKAGES:
         file_path_str = pkg.get("file", "")
