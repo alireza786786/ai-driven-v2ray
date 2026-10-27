@@ -1,202 +1,228 @@
 {
-  "round": 1,
+  "round": 2,
   "schema": 1,
   "sources": {
     "03dd6ba32e0a": {
       "disabled_since": null,
       "fail": 0,
-      "last_seen": "2026-10-27T08:58:33Z",
+      "last_seen": "2026-10-27T10:09:36Z",
       "reason": null,
-      "rounds": 1,
+      "rounds": 2,
       "tier": "light",
       "unique": [
+        0,
         0
       ],
       "url": "https://raw.githubusercontent.com/mahsanet/MahsaFreeConfig/refs/heads/main/mtn/sub_1.txt",
       "yield": [
-        18
+        18,
+        19
       ]
     },
     "099e14c9420a": {
       "disabled_since": null,
       "fail": 0,
-      "last_seen": "2026-10-27T08:58:33Z",
+      "last_seen": "2026-10-27T10:09:36Z",
       "reason": null,
-      "rounds": 1,
+      "rounds": 2,
       "tier": "light",
       "unique": [
+        1,
         1
       ],
       "url": "https://raw.githubusercontent.com/mahsanet/MahsaFreeConfig/refs/heads/main/mci/sub_1.txt",
       "yield": [
-        11
+        11,
+        12
       ]
     },
     "17d79afe99aa": {
       "disabled_since": null,
       "fail": 0,
-      "last_seen": "2026-10-27T08:58:33Z",
+      "last_seen": "2026-10-27T10:09:36Z",
       "reason": null,
-      "rounds": 1,
+      "rounds": 2,
       "tier": "light",
       "unique": [
+        69,
         69
       ],
       "url": "https://raw.githubusercontent.com/4n0nymou3/multi-proxy-config-fetcher/refs/heads/main/configs/proxy_configs.txt",
       "yield": [
+        177,
         177
       ]
     },
     "26c4b656bc53": {
       "disabled_since": null,
       "fail": 0,
-      "last_seen": "2026-10-27T08:58:33Z",
+      "last_seen": "2026-10-27T10:09:36Z",
       "reason": null,
-      "rounds": 1,
+      "rounds": 2,
       "tier": "light",
       "unique": [
+        461,
         461
       ],
       "url": "https://raw.githubusercontent.com/Au1rxx/free-vpn-subscriptions/main/output/v2ray-base64.txt",
       "yield": [
-        965
+        965,
+        969
       ]
     },
     "3d9683d61c66": {
       "disabled_since": null,
       "fail": 0,
-      "last_seen": "2026-10-27T08:58:33Z",
+      "last_seen": "2026-10-27T10:09:36Z",
       "reason": null,
-      "rounds": 1,
+      "rounds": 2,
       "tier": "heavy",
       "unique": [
-        8
+        8,
+        11
       ],
       "url": "https://raw.githubusercontent.com/roosterkid/openproxylist/refs/heads/main/V2RAY_RAW.txt",
       "yield": [
-        144
+        144,
+        148
       ]
     },
     "651369651731": {
       "disabled_since": null,
       "fail": 0,
-      "last_seen": "2026-10-27T08:58:33Z",
+      "last_seen": "2026-10-27T10:09:36Z",
       "reason": null,
-      "rounds": 1,
+      "rounds": 2,
       "tier": "heavy",
       "unique": [
-        2374
+        2374,
+        2371
       ],
       "url": "https://raw.githubusercontent.com/Delta-Kronecker/V2ray-Config/refs/heads/main/config/all_configs.txt",
       "yield": [
+        3212,
         3212
       ]
     },
     "8686f61fd235": {
       "disabled_since": null,
       "fail": 0,
-      "last_seen": "2026-10-27T08:58:33Z",
+      "last_seen": "2026-10-27T10:09:36Z",
       "reason": null,
-      "rounds": 1,
+      "rounds": 2,
       "tier": "heavy",
       "unique": [
+        0,
         0
       ],
       "url": "https://raw.githubusercontent.com/barry-far/V2ray-Config/refs/heads/main/All_Configs_base64_Sub.txt",
       "yield": [
+        4438,
         4438
       ]
     },
     "a04365da7f6d": {
       "disabled_since": null,
       "fail": 0,
-      "last_seen": "2026-10-27T08:58:33Z",
+      "last_seen": "2026-10-27T10:09:36Z",
       "reason": null,
-      "rounds": 1,
+      "rounds": 2,
       "tier": "light",
       "unique": [
-        3132
+        3132,
+        3135
       ],
       "url": "https://raw.githubusercontent.com/ALIILAPRO/v2rayNG-Config/main/server.txt",
       "yield": [
-        3725
+        3725,
+        3727
       ]
     },
     "c751be4ebbaa": {
       "disabled_since": null,
       "fail": 0,
-      "last_seen": "2026-10-27T08:58:33Z",
+      "last_seen": "2026-10-27T10:09:36Z",
       "reason": null,
-      "rounds": 1,
+      "rounds": 2,
       "tier": "light",
       "unique": [
+        32,
         32
       ],
       "url": "https://raw.githubusercontent.com/Danialsamadi/v2go/main/AllConfigsSub.txt",
       "yield": [
+        546,
         546
       ]
     },
     "d55275670dda": {
       "disabled_since": null,
       "fail": 0,
-      "last_seen": "2026-10-27T08:58:33Z",
+      "last_seen": "2026-10-27T10:09:36Z",
       "reason": null,
-      "rounds": 1,
+      "rounds": 2,
       "tier": "heavy",
       "unique": [
+        0,
         0
       ],
       "url": "https://raw.githubusercontent.com/Epodonios/v2ray-configs/main/All_Configs_Sub.txt",
       "yield": [
+        4438,
         4438
       ]
     },
     "dbf1e97aa252": {
       "disabled_since": null,
       "fail": 0,
-      "last_seen": "2026-10-27T08:58:33Z",
+      "last_seen": "2026-10-27T10:09:36Z",
       "reason": null,
-      "rounds": 1,
+      "rounds": 2,
       "tier": "light",
       "unique": [
+        47,
         47
       ],
       "url": "https://raw.githubusercontent.com/iampedii/whitedns-sub/main/base64.txt",
       "yield": [
+        175,
         175
       ]
     },
     "ec3b2e2b4363": {
       "disabled_since": null,
       "fail": 0,
-      "last_seen": "2026-10-27T08:58:33Z",
+      "last_seen": "2026-10-27T10:09:36Z",
       "reason": null,
-      "rounds": 1,
+      "rounds": 2,
       "tier": "heavy",
       "unique": [
+        84,
         84
       ],
       "url": "https://raw.githubusercontent.com/ShadowException/VPN/refs/heads/main/configs/VPN-cat",
       "yield": [
+        106,
         106
       ]
     },
     "f9192be4f09b": {
       "disabled_since": null,
       "fail": 0,
-      "last_seen": "2026-10-27T08:58:33Z",
+      "last_seen": "2026-10-27T10:09:36Z",
       "reason": null,
-      "rounds": 1,
+      "rounds": 2,
       "tier": "light",
       "unique": [
-        47
+        47,
+        48
       ],
       "url": "https://raw.githubusercontent.com/LalatinaHub/LatinaSub/main/result/sub",
       "yield": [
+        253,
         253
       ]
     }
   },
-  "updated_at": "2026-10-27T08:58:33Z"
+  "updated_at": "2026-10-27T10:09:36Z"
 }

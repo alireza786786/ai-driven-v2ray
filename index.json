@@ -2,11 +2,11 @@
   "brand": "@Goodbaye_filtering",
   "vip_channel": "@CONFIG_V2RAY_VIP",
   "generator": "Goodbaye Universal Standard aggregator",
-  "updated_at": "2026-10-27T08:58:40.897020+00:00",
-  "updated_at_unix": 1793091520,
-  "next_update_eta": "2026-10-27T09:43:40.897020+00:00",
+  "updated_at": "2026-10-27T10:09:46.219339+00:00",
+  "updated_at_unix": 1793095786,
+  "next_update_eta": "2026-10-27T10:54:46.219339+00:00",
   "update_interval_minutes": 45,
-  "elapsed_seconds": 24.4,
+  "elapsed_seconds": 40.4,
   "raw_base": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main",
   "cdn_base": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main",
   "primary_base": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main",
@@ -25,17 +25,17 @@
   },
   "categories": {
     "all": {
-      "unique": 11281,
+      "unique": 11282,
       "broken": 4,
-      "duplicates": 15702,
-      "total_fetched": 26997,
+      "duplicates": 15712,
+      "total_fetched": 27008,
       "active_sources": 13,
       "protocols": {
-        "vless": 5102,
+        "vless": 5103,
         "vmess": 3392,
-        "trojan": 1487,
+        "trojan": 1489,
         "shadowsocks": 1033,
-        "hysteria2": 259,
+        "hysteria2": 257,
         "socks": 6,
         "anytls": 1,
         "shadowsocksr": 1
@@ -52,16 +52,16 @@
       }
     },
     "heavy": {
-      "unique": 7359,
+      "unique": 7360,
       "broken": 3,
-      "duplicates": 12513,
+      "duplicates": 12512,
       "total_fetched": 19885,
       "active_sources": 5,
       "protocols": {
-        "vless": 4569,
-        "trojan": 1394,
+        "vless": 4572,
+        "trojan": 1393,
         "shadowsocks": 1001,
-        "vmess": 350,
+        "vmess": 349,
         "hysteria2": 44,
         "shadowsocksr": 1
       },
@@ -77,17 +77,17 @@
       }
     },
     "light": {
-      "unique": 5155,
+      "unique": 5157,
       "broken": 1,
-      "duplicates": 1956,
-      "total_fetched": 7112,
+      "duplicates": 1965,
+      "total_fetched": 7123,
       "active_sources": 8,
       "protocols": {
-        "vmess": 3323,
-        "vless": 1208,
-        "hysteria2": 220,
-        "shadowsocks": 211,
-        "trojan": 186,
+        "vmess": 3324,
+        "vless": 1210,
+        "hysteria2": 218,
+        "shadowsocks": 209,
+        "trojan": 189,
         "socks": 6,
         "anytls": 1
       },
@@ -104,11 +104,11 @@
     }
   },
   "protocols": {
-    "vless": 5102,
+    "vless": 5103,
     "vmess": 3392,
-    "trojan": 1487,
+    "trojan": 1489,
     "shadowsocks": 1033,
-    "hysteria2": 259,
+    "hysteria2": 257,
     "socks": 6,
     "shadowsocksr": 1,
     "anytls": 1,
@@ -168,7 +168,7 @@
   },
   "cascade_categories": {
     "verified": {
-      "unique": 1489,
+      "unique": 1434,
       "criterion": "a real proxied request succeeded in ALL rounds of this run",
       "files": {
         "configs_txt": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/configs.txt",
@@ -182,7 +182,7 @@
       }
     },
     "fast": {
-      "unique": 474,
+      "unique": 389,
       "criterion": "verified AND median delay across all rounds is under 500ms (VIP Strict)",
       "files": {
         "configs_txt": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/configs.txt",
@@ -196,7 +196,7 @@
       }
     },
     "secure": {
-      "unique": 1110,
+      "unique": 1069,
       "criterion": "verified AND forward secrecy ((EC)DHE via TLS/REALITY/QUIC) AND certificate validation active",
       "files": {
         "configs_txt": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/configs.txt",
@@ -217,8 +217,8 @@
     "url_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/top100.txt"
   },
   "countries": {
-    "count": 57,
-    "configs": 1489,
+    "count": 54,
+    "configs": 1434,
     "source": "verified",
     "criterion": "verified configs grouped by the server's country (GeoIP); one .txt per country",
     "index": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/index.json",
