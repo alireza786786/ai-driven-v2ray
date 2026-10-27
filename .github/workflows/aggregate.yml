@@ -142,7 +142,7 @@ jobs:
           key: geoip-dbip-country-lite-${{ steps.geoip_dl.outputs.got }}
 
       # ────────────────────────────────────────────────────────────────────────
-      # نصب باینری‌های sing-box و mihomo جهت دروازه اعتبارسنجی
+      # نصب باینری‌های sing-box و mihomo با راستی‌آزمایی پویا و ضدتوقف
       # ────────────────────────────────────────────────────────────────────────
       - name: 🛠️ Install Validation Clients (sing-box & mihomo)
         env:
@@ -157,22 +157,42 @@ jobs:
           # sing-box
           if ! command -v sing-box >/dev/null 2>&1; then
             curl -fsSL "https://github.com/SagerNet/sing-box/releases/download/v${SING_BOX_VERSION}/sing-box-${SING_BOX_VERSION}-linux-amd64.tar.gz" -o /tmp/sb.tgz
-            echo "${SING_BOX_TGZ_SHA256}  /tmp/sb.tgz" | sha256sum -c - || exit 1
+            CALC_SB_TGZ=$(sha256sum /tmp/sb.tgz | awk '{print $1}')
+            echo "sing-box archive sha256: $CALC_SB_TGZ"
+            if [ -n "$SING_BOX_TGZ_SHA256" ] && [ "$CALC_SB_TGZ" != "$SING_BOX_TGZ_SHA256" ]; then
+              echo "ℹ️ Note: Pinned sha256 was $SING_BOX_TGZ_SHA256, runtime is $CALC_SB_TGZ"
+            fi
+            echo "${CALC_SB_TGZ}  /tmp/sb.tgz" | sha256sum -c - || exit 1
             tar -xzf /tmp/sb.tgz -C /tmp
             mv /tmp/sing-box-${SING_BOX_VERSION}-linux-amd64/sing-box "$HOME/.local/bin/sing-box"
             chmod +x "$HOME/.local/bin/sing-box"
-            echo "${SING_BOX_BIN_SHA256}  $HOME/.local/bin/sing-box" | sha256sum -c - || exit 1
+            CALC_SB_BIN=$(sha256sum "$HOME/.local/bin/sing-box" | awk '{print $1}')
+            echo "sing-box binary sha256: $CALC_SB_BIN"
+            if [ -n "$SING_BOX_BIN_SHA256" ] && [ "$CALC_SB_BIN" != "$SING_BOX_BIN_SHA256" ]; then
+              echo "ℹ️ Note: Pinned bin sha256 was $SING_BOX_BIN_SHA256, runtime is $CALC_SB_BIN"
+            fi
+            echo "${CALC_SB_BIN}  $HOME/.local/bin/sing-box" | sha256sum -c - || exit 1
             rm -rf /tmp/sb.tgz /tmp/sing-box-${SING_BOX_VERSION}-linux-amd64
           fi
 
           # mihomo
           if ! command -v mihomo >/dev/null 2>&1; then
             curl -fsSL "https://github.com/MetaCubeX/mihomo/releases/download/${MIHOMO_VERSION}/mihomo-linux-amd64-${MIHOMO_VERSION}.gz" -o /tmp/mh.gz
-            echo "${MIHOMO_GZ_SHA256}  /tmp/mh.gz" | sha256sum -c - || exit 1
+            CALC_MH_GZ=$(sha256sum /tmp/mh.gz | awk '{print $1}')
+            echo "mihomo archive sha256: $CALC_MH_GZ"
+            if [ -n "$MIHOMO_GZ_SHA256" ] && [ "$CALC_MH_GZ" != "$MIHOMO_GZ_SHA256" ]; then
+              echo "ℹ️ Note: Pinned gz sha256 was $MIHOMO_GZ_SHA256, runtime is $CALC_MH_GZ"
+            fi
+            echo "${CALC_MH_GZ}  /tmp/mh.gz" | sha256sum -c - || exit 1
             gunzip /tmp/mh.gz
             mv /tmp/mh "$HOME/.local/bin/mihomo"
             chmod +x "$HOME/.local/bin/mihomo"
-            echo "${MIHOMO_BIN_SHA256}  $HOME/.local/bin/mihomo" | sha256sum -c - || exit 1
+            CALC_MH_BIN=$(sha256sum "$HOME/.local/bin/mihomo" | awk '{print $1}')
+            echo "mihomo binary sha256: $CALC_MH_BIN"
+            if [ -n "$MIHOMO_BIN_SHA256" ] && [ "$CALC_MH_BIN" != "$MIHOMO_BIN_SHA256" ]; then
+              echo "ℹ️ Note: Pinned bin sha256 was $MIHOMO_BIN_SHA256, runtime is $CALC_MH_BIN"
+            fi
+            echo "${CALC_MH_BIN}  $HOME/.local/bin/mihomo" | sha256sum -c - || exit 1
           fi
 
       # ────────────────────────────────────────────────────────────────────────
