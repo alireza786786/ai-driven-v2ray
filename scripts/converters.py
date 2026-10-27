@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 """
 scripts/converters.py — مبدل جامع پروتکل‌های پروکسی به فرمت‌های استاندارد Clash (Mihomo) YAML و Sing-box JSON.
