@@ -1,0 +1,33 @@
+name: Config problem
+description: A config does not connect or work
+title: "[Config]: "
+labels: ["config"]
+body:
+  - type: dropdown
+    id: protocol
+    attributes:
+      label: Protocol
+      options:
+        - VLESS
+        - VMess
+        - Trojan
+        - Shadowsocks
+        - Hysteria2
+        - TUIC
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: client
+    attributes:
+      label: Client app
+      placeholder: v2rayNG, Hiddify, NekoBox ...
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: What happened?
+      description: Do not paste private data.
+    validations:
+      required: true
