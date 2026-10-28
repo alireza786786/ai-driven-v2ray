@@ -18,8 +18,6 @@ env:
   AGG_GH_REPO: ai-driven-v2ray
   AGG_PUBLISH_BRANCH: main
   L3_FAST_MS: "500"
-  BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-  TARGET_CHAT_ID: ${{ secrets.TARGET_CHAT_ID }}
 
 jobs:
   aggregate:
@@ -52,7 +50,7 @@ jobs:
           fi
 
       # ────────────────────────────────────────────────────────────────────────
-      # نصب و کش باینری xray-knife (موتور L3 آزمون ترافیک) با اعتبارسنجی Checksum
+      # نصب و کش باینری xray-knife (موتور L3 آزمون ترافیک)
       # ────────────────────────────────────────────────────────────────────────
       - name: 🗄️ Cache xray-knife Binary
         id: cache-xray-knife
@@ -102,7 +100,7 @@ jobs:
           key: xray-knife-10.1.1-a3b10a40ccaf423d96836f9606ffec8b2e5f4fce36375eac1aadc10ba9c58034
 
       # ────────────────────────────────────────────────────────────────────────
-      # دانلود و کش دیتابیس DB-IP با مهار باگ مسمومیت کَش (geoip_probe.py)
+      # دانلود و کش دیتابیس DB-IP با مهار باگ مسمومیت کَش
       # ────────────────────────────────────────────────────────────────────────
       - name: 🌐 Restore GeoIP Database Cache
         id: geoip_restore
@@ -142,7 +140,7 @@ jobs:
           key: geoip-dbip-country-lite-${{ steps.geoip_dl.outputs.got }}
 
       # ────────────────────────────────────────────────────────────────────────
-      # نصب باینری‌های sing-box و mihomo با راستی‌آزمایی پویا و ضدتوقف
+      # نصب باینری‌های sing-box و mihomo با راستی‌آزمایی پویا
       # ────────────────────────────────────────────────────────────────────────
       - name: 🛠️ Install Validation Clients (sing-box & mihomo)
         env:
@@ -187,11 +185,6 @@ jobs:
             gunzip /tmp/mh.gz
             mv /tmp/mh "$HOME/.local/bin/mihomo"
             chmod +x "$HOME/.local/bin/mihomo"
-            CALC_MH_BIN=$(sha256sum "$HOME/.local/bin/mihomo" | awk '{print $1}')
-            echo "mihomo binary sha256: $CALC_MH_BIN"
-            if [ -n "$MIHOMO_BIN_SHA256" ] && [ "$CALC_MH_BIN" != "$MIHOMO_BIN_SHA256" ]; then
-              echo "ℹ️ Note: Pinned bin sha256 was $MIHOMO_BIN_SHA256, runtime is $CALC_MH_BIN"
-            fi
             echo "${CALC_MH_BIN}  $HOME/.local/bin/mihomo" | sha256sum -c - || exit 1
           fi
 
@@ -205,14 +198,14 @@ jobs:
           python src/collector_git.py || true
 
       # ────────────────────────────────────────────────────────────────────────
-      # اجرای فاز ۲: تجمیع ایستا و اعمال ریمارک اولیه
+      # اجرای فاز ۲: تجمیع ایستا، ورود کانال‌های تلگرام و ساخت پوشه servers/
       # ────────────────────────────────────────────────────────────────────────
       - name: 🧮 Run Static Aggregator
         run: |
           python scripts/aggregate.py --out .
 
       # ────────────────────────────────────────────────────────────────────────
-      # اجرای فاز ۳: آبشار تست حقیقت‌سنجی L0-L3 (شاخص پینگ زیر ۵۰۰ms)
+      # اجرای فاز ۳: آبشار تست حقیقت‌سنجی L0-L3 (Bypass هوشمند پروتکل‌های UDP)
       # ────────────────────────────────────────────────────────────────────────
       - name: 🔬 Run L3 Cascade Engine (Ping < 500ms)
         timeout-minutes: 12
@@ -221,21 +214,14 @@ jobs:
           python scripts/pipeline.py all/configs.txt --out . --fast-ms 500
 
       # ────────────────────────────────────────────────────────────────────────
-      # اجرای فاز ۴: دروازه اعتبارسنجی خروج (Validation Gate)
+      # اجرای فاز ۴: دروازه اعتبارسنجی خروج
       # ────────────────────────────────────────────────────────────────────────
       - name: 🔍 Validate Generated Artifacts
         run: |
           python scripts/validate.py --out . --strict --json validation.json
 
       # ────────────────────────────────────────────────────────────────────────
-      # اجرای فاز ۵: ارسال پکیج‌ها به تلگرام در هر دور چهارم (هر ۳ ساعت)
-      # ────────────────────────────────────────────────────────────────────────
-      - name: 📢 Publish to Telegram (Goodbaye Standard)
-        run: |
-          python src/telegram_publisher.py || true
-
-      # ────────────────────────────────────────────────────────────────────────
-      # انتشار امن روی شاخه main با الگوریتم Rolling Squash
+      # انتشار امن روی شاخه main با الگوریتم Rolling Squash (حل قطعی باگ ۱ گیت)
       # ────────────────────────────────────────────────────────────────────────
       - name: 🚀 Publish Clean Artifacts to Main Branch
         timeout-minutes: 5
@@ -243,7 +229,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          OUTPUT_PATHS="all heavy light verified fast secure Countries top100.txt index.json health.json validation.json state.json all_servers.txt data"
+          OUTPUT_PATHS="all heavy light verified fast secure Countries servers top100.txt all_servers.txt index.json health.json validation.json state.json data"
           MUST_EXIST="all/configs.txt all/clash.yaml all/singbox.json heavy/clash.yaml heavy/singbox.json light/clash.yaml light/singbox.json"
 
           for f in $MUST_EXIST; do
@@ -255,8 +241,8 @@ jobs:
 
           is_output_path() {
             case "$1" in
-              all/*|heavy/*|light/*|verified/*|fast/*|secure/*|Countries/*) return 0 ;;
-              top100.txt|index.json|health.json|validation.json|state.json|all_servers.txt) return 0 ;;
+              all/*|heavy/*|light/*|verified/*|fast/*|secure/*|Countries/*|servers/*) return 0 ;;
+              top100.txt|all_servers.txt|index.json|health.json|validation.json|state.json) return 0 ;;
               data/*) return 0 ;;
               *) return 1 ;;
             esac
@@ -273,9 +259,8 @@ jobs:
             ANCHOR=$(git rev-parse HEAD)
           fi
 
-          git checkout -B "$PUBLISH_BRANCH" "$ANCHOR"
+          # ساخت مستقیم Commit از index گیت بدون خطای checkout روی دایرکتوری در حال کار
           git add -A -- $OUTPUT_PATHS
-
           TREE=$(git write-tree)
           if [ -z "$TREE" ]; then
             echo "❌ Refusing to publish: EMPTY tree!"
@@ -288,6 +273,16 @@ jobs:
           git update-ref "refs/heads/$PUBLISH_BRANCH" "$NEW_COMMIT"
           git push --force-with-lease="refs/heads/$PUBLISH_BRANCH" origin "$PUBLISH_BRANCH"
           echo "✅ Published successfully to $PUBLISH_BRANCH."
+
+      # ────────────────────────────────────────────────────────────────────────
+      # اجرای فاز ۵: ارسال به تلگرام (تنها پس از موفقیت قطعی Push - حل باگ ۶)
+      # ────────────────────────────────────────────────────────────────────────
+      - name: 📢 Publish to Telegram (Goodbaye Standard)
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          TARGET_CHAT_ID: ${{ secrets.TARGET_CHAT_ID }}
+        run: |
+          python src/telegram_publisher.py || true
 
       # ────────────────────────────────────────────────────────────────────────
       # گزارش پایانی اجرای ورک‌فلو (Job Summary)
