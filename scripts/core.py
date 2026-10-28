@@ -5,7 +5,7 @@ scripts/core.py — موتور مرکزی هویت، برندینگ و پردا�
 کانال اصلی: @Goodbaye_filtering | کانال VIP: @CONFIG_V2RAY_VIP
 
 ویژگی‌های منطبق بر منشور:
-  • پیاده‌سازی ریمارک ۵ خطی رسمی (نمایش خط‌به‌خط واقعی در VMess و انکود پایدار در سایر پروتکل‌ها)
+  • پیاده‌سازی ریمارک ۵ خطی رسمی (URL-Encoded تک‌خطی برای پایداری در تمام کلاینت‌ها)
   • برندینگ رسمی و غیرقابل‌تغییر: 👉🆔@Goodbaye_filtering
   • سرآیندهای درون‌فایلی هیدیفای منطبق بر مخزن ai-driven-v2ray
   • یکتاسازی CDN-aware، فینگرپرینت هویت سرور و رفع باگ‌های پنهان هسته‌ها
@@ -24,25 +24,32 @@ from typing import Any, Dict, List, Optional, Tuple
 # ۱. هویت برند و متغیرهای منشور بنیادین Goodbaye Universal Standard
 # ──────────────────────────────────────────────────────────────────────────────
 
+#: هویت رسمی و ثابت برند Goodbaye
 BRAND_CHANNEL: str = "@Goodbaye_filtering"
 VIP_CHANNEL: str = "@CONFIG_V2RAY_VIP"
 
+#: بازه به‌روزرسانی پیشنهادی به کلاینت‌ها (بر حسب ساعت)
 HIDDIFY_UPDATE_INTERVAL_HOURS: str = os.environ.get("AGG_HIDDIFY_UPDATE_HOURS", "1")
 
+#: لینک پشتیبانی رسمی (اصل اول منشور)
 SUPPORT_URL: str = os.environ.get(
     "AGG_SUPPORT_URL", "https://t.me/Goodbaye_filtering"
 )
 
+#: آدرس پروژه در گیت‌هاب
 PROJECT_URL: str = os.environ.get(
     "AGG_PROJECT_URL", "https://github.com/alireza786786/ai-driven-v2ray"
 )
 
+#: وب‌پنل آنلاین سابسکریپشن گیت‌هاب پیجز
 BASE_PAGES_URL: str = os.environ.get(
     "AGG_PAGES_URL", "https://alireza786786.github.io/ai-driven-v2ray/"
 )
 
+#: ترافیک و انقضای نامحدود برای اشتراک‌های عمومی در Hiddify
 HIDDIFY_SUBSCRIPTION_USERINFO: str = "upload=0; download=0; total=0; expire=0"
 
+#: کلیدهای متادیتای هیدیفای
 HIDDIFY_HEADER_KEYS: Tuple[str, ...] = (
     "profile-title",
     "profile-update-interval",
@@ -100,11 +107,13 @@ PROTOCOL_ORDER: Tuple[str, ...] = (
 
 
 def normalize_scheme(scheme: str) -> str:
+    """تبدیل پیشوند به نام کانونیکال پروتکل."""
     s = (scheme or "").strip().lower()
     return _SCHEME_ALIASES.get(s, s)
 
 
 def is_proxy_config(line: str) -> bool:
+    """تشخیص معتبر بودن ساختار یک کانفیگ پروکسی."""
     if not line:
         return False
     line = line.strip()
@@ -222,6 +231,7 @@ def _flag_to_country_code(flag: str) -> Optional[str]:
 
 
 def detect_country_from_remark(remark: str) -> Tuple[str, str]:
+    """استخراج کشور و پرچم از ریمارک (با پشتیبانی از ریمارک‌های انکودشده و چندخطی)."""
     if not remark:
         return ("Global", "🌐")
     unquoted = urllib.parse.unquote(remark)
@@ -253,6 +263,7 @@ _HOST_COUNTRY_CACHE: Dict[str, Tuple[str, str]] = {}
 
 
 def country_for_endpoint(endpoint: str, remark_hint: str = "") -> Tuple[str, str]:
+    """تعیین کشور واقعی سرور با اولویت GeoIP محلی."""
     ep = (endpoint or "").strip().lower()
     if not ep:
         return detect_country_from_remark(remark_hint)
@@ -299,7 +310,6 @@ def build_5line_remark(
     proto: str = "VLESS",
     ip_version: str = "IPv4",
     feature: str = "VIP-Strict",
-    url_encode: bool = True,
 ) -> str:
     """
     ساخت الگوی ۵ خطی رسمی طبق اصل اول منشور:
@@ -308,7 +318,9 @@ def build_5line_remark(
       ®️[دیتاسنتر یا شهر]
       🅿️ping:[پینگ]ms
       ⚡[قابلیت] | [پروتکل و آی‌پی]
+    سپس URL-Encode استاندارد برای نگهداری ایمن و تک‌خطی در سابسکریپشن‌ها.
     """
+    # تضمین شاخص پینگ (در صورت نبود تست لحظه‌ای، مقدار پیش‌فرض استاندارد ۲۵۰ms)
     p_str = f"{int(ping_ms)}" if (ping_ms is not None and ping_ms > 0) else "250"
     dc_str = city_or_dc.strip() if (city_or_dc and city_or_dc.strip()) else "Cloud"
     country_clean = country_name.strip() if country_name else "Global Network"
@@ -321,7 +333,8 @@ def build_5line_remark(
         f"⚡{feature} | {proto.upper()} {ip_version}",
     ]
     raw_multiline = "\n".join(lines)
-    return urllib.parse.quote(raw_multiline, safe="") if url_encode else raw_multiline
+    # انکود استاندارد برای قرارگیری در URL fragment یا JSON
+    return urllib.parse.quote(raw_multiline, safe="")
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -332,6 +345,7 @@ _B64_BODY_RE = re.compile(r"^[A-Za-z0-9+/_-]+={0,2}$")
 
 
 def decode_base64_text(candidate: str) -> Optional[str]:
+    """دیکد امن و مستقل از نسخه CPython برای متون Base64."""
     s = (candidate or "").strip()
     if not s or not _B64_BODY_RE.match(s):
         return None
@@ -382,6 +396,7 @@ def _ssr_parts(line: str) -> Optional[Tuple[str, str, str, str, str, str, str, s
 
 
 def endpoint_of(line: str) -> str:
+    """استخراج آدرس سرور (هاست یا IP) بدون درگاه."""
     line = (line or "").strip()
     if not line:
         return ""
@@ -411,6 +426,7 @@ def endpoint_of(line: str) -> str:
 
 
 def stable_label(line: str) -> str:
+    """شناسه یکتا و قطعی ۶ کاراکتری از هش محتوای کانفیگ."""
     key = dedup_key(line) or (line or "").strip()
     return hashlib.sha256(key.encode("utf-8")).hexdigest()[:6].upper()
 
@@ -516,6 +532,7 @@ def _vmess_security(scy: object) -> str:
 
 
 def dedup_key(line: str) -> str:
+    """اثرانگشت یکتا و مستقل از ریمارک برای جلوگیری از سرورهای تکراری."""
     line = line.strip()
     if not line:
         return line
@@ -651,7 +668,7 @@ def dedup_key(line: str) -> str:
 
 
 # ──────────────────────────────────────────────────────────────────────────────
-# ۶. تشخیص کانفیگ خراب، برندینگ ۵ خطی واقعی و راستی‌آزمایی
+# ۶. تشخیص کانفیگ خراب، برندینگ ۵ خطی و راستی‌آزمایی
 # ──────────────────────────────────────────────────────────────────────────────
 
 _DUMMY_INDICATORS = (
@@ -676,9 +693,12 @@ def brand_remark(
     city_or_dc: Optional[str] = None,
 ) -> str:
     """
-    اعمال الگوی ۵ خطی رسمی منشور بنیادین:
-      • در VMess: ثبت به صورت متن ۵ خطی با خطوط واقعی (\n) درون JSON
-      • در سایر پروتکل‌ها: انکود استاندارد برای Fragment لینک
+    اعمال الگوی ۵ خطی رسمی منشور بنیادین بر روی ریمارک تمام کانفیگ‌ها:
+      👉🆔@Goodbaye_filtering
+      📡[پرچم] [کشور]
+      ®️[دیتاسنتر یا شهر]
+      🅿️ping:[پینگ]ms
+      ⚡[قابلیت] | [پروتکل و آی‌پی]
     """
     line = line.strip()
     if not line:
@@ -688,32 +708,35 @@ def brand_remark(
     host = endpoint_of(line)
     ip_version = "IPv6" if (":" in host and not host.startswith(".")) else "IPv4"
 
+    # ۱. استخراج اطلاعات از ریمارک فعلی (در صورت وجود)
     old_remark = remark_of(line)
     code, flag = country_for_endpoint(host, old_remark)
     country_name = _CC_TO_NAME.get(code, code)
+
+    # تعیین دیتاسنتر یا شهر
     datacenter = city_or_dc or "Cloud"
 
-    # پشتیبانی کامل و اصولی از VMess JSON (نمایش خط‌به‌خط واقعی در کلاینت)
+    # ساخت ریمارک ۵ خطی انکودشده (تک‌خطی استاندارد)
+    new_encoded_remark = build_5line_remark(
+        flag=flag,
+        country_name=country_name,
+        city_or_dc=datacenter,
+        ping_ms=delay,
+        proto=proto,
+        ip_version=ip_version,
+        feature="VIP-Strict",
+    )
+
+    # پشتیبانی کامل از VMess JSON
     if line.startswith("vmess://"):
         try:
             b64 = line[8:].split("#")[0].strip()
             _txt = decode_base64_text(b64)
             obj = json.loads(_txt) if _txt is not None else None
             if isinstance(obj, dict):
-                # برای VMess در JSON مقدار ps به صورت ۵ خطی واقعی درج می‌شود (بدون درصد و کدهای انکود)
-                multiline_remark = build_5line_remark(
-                    flag=flag,
-                    country_name=country_name,
-                    city_or_dc=datacenter,
-                    ping_ms=delay,
-                    proto="VMESS",
-                    ip_version=ip_version,
-                    feature="VIP-Strict",
-                    url_encode=False,
-                )
-                obj["ps"] = multiline_remark
+                obj["ps"] = new_encoded_remark
                 if "name" in obj:
-                    obj["name"] = multiline_remark
+                    obj["name"] = new_encoded_remark
                 encoded = base64.b64encode(
                     json.dumps(obj, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
                 ).decode("utf-8")
@@ -722,22 +745,12 @@ def brand_remark(
             pass
 
     # برای تمامی پروتکل‌های دیگر (VLESS, Trojan, SS, TUIC, Hysteria2 و...)
-    encoded_remark = build_5line_remark(
-        flag=flag,
-        country_name=country_name,
-        city_or_dc=datacenter,
-        ping_ms=delay,
-        proto=proto,
-        ip_version=ip_version,
-        feature="VIP-Strict",
-        url_encode=True,
-    )
     core_part = line.split("#", 1)[0]
-    return f"{core_part}#{encoded_remark}"
+    return f"{core_part}#{new_encoded_remark}"
 
 
 def remark_of(line: str) -> str:
-    """خواندن ریمارک کاربر (با پشتیبانی از خطوط واقعی و انکودشده)."""
+    """خواندن ریمارک کاربر (رمزگشایی‌شده از JSON یا Fragment)."""
     if not line:
         return ""
     s = line.strip()
@@ -762,11 +775,13 @@ def remark_of(line: str) -> str:
 
 
 def is_branded(line: str) -> bool:
+    """آیا ریمارک کانفیگ دارای هویت رسمی برند Goodbaye است؟"""
     rem = remark_of(line)
     return BRAND_CHANNEL in rem or BRAND_CHANNEL in urllib.parse.unquote(rem)
 
 
 def protocol_of(line: str) -> Optional[str]:
+    """تشخیص کانونیکال پروتکل."""
     if not line:
         return None
     m = _URI_SCHEME_RE.match(line.strip())
@@ -783,6 +798,7 @@ def protocol_of(line: str) -> Optional[str]:
 # ──────────────────────────────────────────────────────────────────────────────
 
 def try_base64_decode(raw: str) -> Optional[str]:
+    """دیکد امن محتوای سابسکریپشن Base64 با بررسی چگالی کانفیگ‌ها."""
     clean_raw = re.sub(r"\s+", "", raw)
     if not clean_raw:
         return None
@@ -915,6 +931,7 @@ def _normalize_packet_encoding(line: str) -> str:
 
 
 def extract_valid_lines(content: str) -> List[str]:
+    """استخراج خطوط معتبر کانفیگ و فیلتر کاراکترهای مخرب و بایت‌های ناهنجار."""
     if not content:
         return []
     first_real = next(
@@ -956,6 +973,7 @@ def _is_shield(line: str) -> bool:
 
 
 def shield_unsupported_runs(lines: List[str]) -> List[str]:
+    """سپرگذاری برای پروتکل‌های ناشناخته Hiddify جهت جلوگیری از تخریب کانفیگ‌های مجاور."""
     out: List[str] = []
     prev_is_shield = False
     for line in lines:
@@ -974,12 +992,13 @@ def shield_unsupported_runs(lines: List[str]) -> List[str]:
 
 
 def encode_base64_subscription(lines: List[str], header: str = "") -> str:
+    """تبدیل لیست کانفیگ‌ها به سابسکریپشن رسمی Base64 همراه با هدرهای درون‌فایلی."""
     joined = "\n".join(shield_unsupported_runs(lines))
     return base64.b64encode((header + joined).encode("utf-8")).decode("ascii")
 
 
 class ControlByteInOutput(ValueError):
-    """گارد سخت‌گیرانه برای ممانعت از نشت بایت‌های کنترلی ممنوع."""
+    """گارد سخت‌گیرانه برای ممانعت از نشت هرگونه بایت کنترلی به فایل‌های خروجی."""
 
 
 _FORBIDDEN_OUTPUT_CHAR_RE = re.compile(r"[\x00-\x09\x0b-\x1f\x7f]")
