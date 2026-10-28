@@ -3,9 +3,12 @@
 scripts/validate.py — دروازهٔ اعتبارسنجی خروجی‌ها با کلاینت واقعی (sing-box و mihomo).
 برند: @Goodbaye_filtering | مخزن: ai-driven-v2ray
 
-اصلاحات:
-  • حل باگ شماره ۷: مدیریت هوشمند دسته‌های اختیاری خالی تا --strict انتشار را بی‌دلیل مسدود نکند
-  • حفظ فهرست سفید مجاز (F-5) و لفاف خطای کامل (F-4)
+ویژگی‌ها و قابلیت‌های کامل:
+  • اعتبارسنجی ساختاری عمیق با دکوراتور @_total_check (مقاوم در برابر ۲۳ ناهنجاری سندی)
+  • بررسی باینری‌های واقعی sing-box check و mihomo -t
+  • بارگذاری زنده اشتراک‌های متنی در دیمون می‌هومو از طریق Unix Domain Socket (check_subscriptions)
+  • حل باگ شماره ۷: مدیریت دسته‌های اختیاری خالی بدون مسدود شدن انتشار با --strict
+  • پشتیبانی از پوشه‌های Countries، protocols و servers
 """
 from __future__ import annotations
 
@@ -171,6 +174,180 @@ def check_clash(path: str, binary: Optional[str]) -> Dict[str, Any]:
     return {"status": "fail", "detail": detail[:300]}
 
 
+# ──────────────────────────────────────────────────────────────────────────────
+# بارگذاریِ واقعیِ اشتراک‌های متنی در mihomo (Provider Load Test)
+# ──────────────────────────────────────────────────────────────────────────────
+
+MIHOMO_URI_SCHEMES = frozenset({
+    "hysteria", "hysteria2", "hy2", "hysteria2+realm", "hy2+realm", "tuic",
+    "trojan", "vless", "vmess", "ss", "ssr", "socks", "socks5", "socks5h",
+    "http", "https", "anytls", "mierus", "wireguard", "warp", "wg",
+})
+
+SUBSCRIPTION_TIMEOUT = 120
+_SENTINEL = "zz_load_sentinel"
+_PROVIDER_ERR_RE = re.compile(r'initial proxy provider (p\d{3}) error: (.*?)"?\s*$', re.M)
+
+
+def _subscription_files(out_dir: str, categories: List[str]) -> List[str]:
+    """یافتن تمام فایل‌های سابسکریپشن متنی شامل دسته‌ها، پروتکل‌ها، کشورها و پوشه servers."""
+    rels: List[str] = []
+    for cat in categories:
+        for name in ("configs.txt", "configs_base64.txt"):
+            rels.append(f"{cat}/{name}")
+    rels.append("top100.txt")
+    rels.append("all_servers.txt")
+    for sub in ("protocols", "Countries", "servers"):
+        for p in glob.glob(os.path.join(out_dir, sub, "*.txt")):
+            rels.append(f"{sub}/{os.path.basename(p)}")
+    seen = sorted(set(rels))
+    return [r for r in seen if os.path.isfile(os.path.join(out_dir, r))]
+
+
+def _supported_lines(text: str) -> int:
+    n = 0
+    for line in text.split("\n"):
+        scheme, sep, _ = line.strip().partition("://")
+        if sep and scheme.lower() in MIHOMO_URI_SCHEMES:
+            n += 1
+    return n
+
+
+def _mihomo_relevant_lines(buf: bytes) -> int:
+    text = buf.decode("utf-8", errors="replace")
+    best = _supported_lines(text)
+    compact = "".join(text.split())
+    if compact:
+        try:
+            dec = base64.b64decode(compact + "=" * (-len(compact) % 4), validate=True)
+            best = max(best, _supported_lines(dec.decode("utf-8", "replace")))
+        except Exception:
+            pass
+    return best
+
+
+def _parse_provider_errors(log_text: str) -> Dict[str, str]:
+    return {m.group(1): m.group(2).replace('\\"', '"') for m in _PROVIDER_ERR_RE.finditer(_clean(log_text))}
+
+
+def _api_get(sock_path: str, path: str) -> Any:
+    import http.client
+    import socket
+
+    class _Unix(http.client.HTTPConnection):
+        def connect(self) -> None:
+            self.sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+            self.sock.settimeout(30)
+            self.sock.connect(sock_path)
+
+    conn = _Unix("mihomo")
+    try:
+        conn.request("GET", path)
+        return json.loads(conn.getresponse().read())
+    finally:
+        conn.close()
+
+
+def _classify_subscription(relevant: int, loaded: int, error: Optional[str]) -> Dict[str, Any]:
+    entry: Dict[str, Any] = {"lines": relevant, "loaded": loaded}
+    if relevant == 0:
+        entry["status"] = "n/a"
+        if error:
+            entry["detail"] = error[:300]
+    elif error:
+        entry.update(status="fail", detail=error[:300])
+    elif loaded == 0:
+        entry.update(status="fail", detail="provider loaded 0 proxies")
+    else:
+        entry["status"] = "pass"
+    return entry
+
+
+def check_subscriptions(out_dir: str, binary: Optional[str],
+                        categories: Optional[List[str]] = None,
+                        timeout: Optional[float] = None) -> Dict[str, Any]:
+    """بارگذاری آزمایشی سابسکریپشن‌ها با دیمون واقعی می‌هومو از طریق سوکت یونیکس."""
+    cats = list(categories) if categories is not None else list(CORE_CATEGORIES)
+    if not binary:
+        return {"status": "skipped", "files": {}, "detail": "mihomo binary unavailable; subscription load not run"}
+    limit = float(timeout if timeout is not None else SUBSCRIPTION_TIMEOUT)
+    files = _subscription_files(out_dir, cats)
+    if not files:
+        return {"status": "fail", "files": {}, "detail": "no subscription files"}
+    work = tempfile.mkdtemp(prefix="mh_sub_")
+    proc = None
+    try:
+        names: Dict[str, str] = {}
+        relevant: Dict[str, int] = {}
+        cfg = ["mixed-port: 0", "log-level: info",
+               f"external-controller-unix: {json.dumps(os.path.join(work, 'api.sock'))}",
+               "proxy-providers:"]
+        for i, rel in enumerate(files):
+            name = f"p{i:03d}"
+            names[name] = rel
+            with open(os.path.join(out_dir, rel), "rb") as fh:
+                buf = fh.read()
+            relevant[name] = _mihomo_relevant_lines(buf)
+            with open(os.path.join(work, f"{name}.txt"), "wb") as fh:
+                fh.write(buf)
+            cfg.append(f"  {name}: {{type: file, path: ./{name}.txt, health-check: {{enable: false}}}}")
+        with open(os.path.join(work, "sentinel.txt"), "w", encoding="utf-8") as fh:
+            fh.write("DOMAIN,sentinel.invalid\n")
+        cfg += ["rule-providers:",
+                f"  {_SENTINEL}: {{type: file, behavior: classical, format: text, path: ./sentinel.txt}}",
+                "proxy-groups:",
+                "  - {name: g, type: select, use: [" + ", ".join(names) + "]}",
+                f'rules: ["RULE-SET,{_SENTINEL},DIRECT", "MATCH,DIRECT"]']
+        conf = os.path.join(work, "config.yaml")
+        with open(conf, "w", encoding="utf-8") as fh:
+            fh.write("\n".join(cfg) + "\n")
+
+        log_path = os.path.join(work, "mihomo.log")
+        marker = f"Start initial provider {_SENTINEL}"
+        with open(log_path, "wb") as log:
+            proc = subprocess.Popen([binary, "-d", work, "-f", conf],
+                                    stdin=subprocess.DEVNULL, stdout=log,
+                                    stderr=subprocess.STDOUT)
+            started = time.time()
+            while True:
+                with open(log_path, encoding="utf-8", errors="replace") as fh:
+                    text = fh.read()
+                if marker in text:
+                    break
+                if proc.poll() is not None:
+                    last = _clean(text).strip().splitlines()[-1:] or [""]
+                    return {"status": "fail", "files": {},
+                            "detail": f"mihomo exited {proc.returncode} before loading: {last[0][:300]}"}
+                if time.time() - started > limit:
+                    return {"status": "fail", "files": {}, "detail": f"providers not loaded within {limit:g}s"}
+                time.sleep(0.2)
+            elapsed = round(time.time() - started, 2)
+            data = _api_get(os.path.join(work, "api.sock"), "/providers/proxies").get("providers", {})
+        with open(log_path, encoding="utf-8", errors="replace") as fh:
+            errors = _parse_provider_errors(fh.read())
+
+        results: Dict[str, Any] = {}
+        for name, rel in names.items():
+            loaded = len((data.get(name) or {}).get("proxies") or [])
+            results[rel] = _classify_subscription(relevant[name], loaded, errors.get(name))
+        failed = sorted(r for r, e in results.items() if e["status"] == "fail")
+        return {"status": "fail" if failed else "pass", "files": results,
+                "failed": failed, "seconds": elapsed,
+                "detail": (f"{len(failed)} of {len(results)} subscription file(s) load 0 proxies in mihomo") if failed else
+                          f"{len(results)} subscription file(s) loaded"}
+    except Exception as e:  # noqa: BLE001
+        return {"status": "fail", "files": {}, "detail": f"subscription check error ({type(e).__name__}: {str(e)[:200]})"}
+    finally:
+        if proc is not None and proc.poll() is None:
+            proc.terminate()
+            try:
+                proc.wait(timeout=10)
+            except subprocess.TimeoutExpired:
+                proc.kill()
+                proc.wait()
+        shutil.rmtree(work, ignore_errors=True)
+
+
 def validate_outputs(out_dir: str) -> Dict[str, Any]:
     sb = _find_binary("sing-box")
     mh = _find_binary("mihomo", "clash-meta", "clash")
@@ -186,7 +363,7 @@ def validate_outputs(out_dir: str) -> Dict[str, Any]:
         sb_file = os.path.join(cat_dir, "singbox.json")
         cl_file = os.path.join(cat_dir, "clash.yaml")
 
-        # حل باگ شماره ۷: اگر دسته‌ای اختیاری فاقد فایل بود یا دایرکتوری نداشت، آن را به عنوان غایب تلقی کن
+        # حل باگ شماره ۷: اگر دسته‌ای اختیاری فاقد فایل بود یا تولید نشد، آن را به عنوان skipped ثبت کن
         if cat in OPTIONAL_CATEGORIES:
             if not os.path.isdir(cat_dir) or (not os.path.exists(sb_file) and not os.path.exists(cl_file)):
                 absent.append(cat)
@@ -210,6 +387,9 @@ def validate_outputs(out_dir: str) -> Dict[str, Any]:
     report["offending"] = offending
     report["ok"] = not offending
     report["real_validation"] = report["summary"]["pass"] > 0
+
+    # بررسی لود پرووایدرها در می‌هومو
+    report["subscriptions"] = check_subscriptions(out_dir, mh, categories=list(report["results"]))
     return report
 
 
@@ -217,6 +397,8 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="Validate generated client configs")
     ap.add_argument("--out", default=os.getcwd(), help="repo root containing all/ heavy/ light/")
     ap.add_argument("--strict", action="store_true", help="exit non-zero when any file fails validation")
+    ap.add_argument("--strict-subscriptions", action="store_true",
+                    help="also exit non-zero when a .txt subscription loads 0 proxies in mihomo")
     ap.add_argument("--json", dest="json_path", default="", help="also write the report to this path")
     args = ap.parse_args()
 
@@ -234,6 +416,13 @@ def main() -> int:
     s = rep["summary"]
     print(f"   → pass={s['pass']} fail={s['fail']} skipped={s['skipped']} missing={s['missing']}")
 
+    sub = rep.get("subscriptions") or {}
+    sub_icon = {"pass": "✅", "fail": "❌", "skipped": "⚠️"}.get(sub.get("status"), "?")
+    print(f"   {sub_icon} subscriptions (mihomo provider load): {sub.get('status')} — {sub.get('detail', '')}")
+    for rel in sub.get("failed", []):
+        e = sub["files"][rel]
+        print(f"      ❌ {rel}: lines={e['lines']} loaded={e['loaded']} {e.get('detail', '')}")
+
     if args.json_path:
         os.makedirs(os.path.dirname(os.path.abspath(args.json_path)) or ".", exist_ok=True)
         with open(args.json_path, "w", encoding="utf-8") as f:
@@ -241,6 +430,9 @@ def main() -> int:
 
     if args.strict and not rep["ok"]:
         print("❌ Validation gate FAILED — outputs must not be published.")
+        return 1
+    if args.strict_subscriptions and sub.get("status") == "fail":
+        print("❌ Subscription gate FAILED — a .txt subscription loads 0 proxies in mihomo.")
         return 1
     return 0
 
