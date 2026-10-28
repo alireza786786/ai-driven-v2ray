@@ -2,8 +2,8 @@ name: 🚀 Goodbaye Universal Automation Pipeline
 
 on:
   schedule:
-    # اجرا در فواصل ۴۵ دقیقه‌ای (حدود ۴۰ دقیقه استراحت پس از هر اجرا)
-    - cron: '*/45 * * * *'
+    # اجرا در فواصل ۳۰ دقیقه‌ای (حدود ۳۰ دقیقه استراحت پس از هر اجرا)
+    - cron: '*/30 * * * *'
   workflow_dispatch:
 
 concurrency:
