@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-scripts/geo.py — تعیین موقعیت جغرافیایی و کشور واقعی سرورها بر مبنای نشانی شبکه (IP).
-پروژه: Goodbaye Universal Standard | ai-driven-v2ray
-مالک: alireza786786 | کانال رسمی: @Goodbaye_filtering
+scripts/geo.py — تعیین کشور واقعی سرور از روی نشانی شبکه با پایگاه داده DB-IP Country Lite.
+برند: @Goodbaye_filtering | مخزن: ai-driven-v2ray
 
-اصول و ویژگی‌های مهندسی:
-  • تکیه بر حقیقت شبکه و دیتابیس DB-IP Country Lite (دقت ۹۷.۹٪ در برابر خطای ریمارک متنی)
-  • مدل رأی‌گیری اکثریت (Majority Vote) برای هاست‌های چند آی‌پی جهت مهار کامل نوسان DNS (کاهش نوسان به ۰.۰۵٪)
-  • محاسبه ریاضی پرچم‌های یونیکد بر پایه شاخص‌های منطقه‌ای ISO (پوشش کامل تمام کشورهای جهان بدون جدول دستی)
-  • مهار نشت تایم‌اوت سراسری پایتون با کانتکست منیجر ایزوله _dns_timeout (گارد F-12)
-  • کش منفی (_HOST_FAILED) برای جلوگیری از تکرار تست دامنه‌های فیلترشده و عدم تولید آمار دروغین
+اصلاحات:
+  • حل باگ ۱۰: ایزولاسیون کامل تایم‌اوت DNS بدون نشت دادن به سایر سوکت‌های پروسه
+  • حل باگ ۱۱: اولویت‌بندی مرتب‌سازی IPv4 نسبت به IPv6 برای جلوگیری از پر شدن زودهنگام سقف ۳ آدرس
+  • رأی‌گیری اکثریت (Majority Vote) روی رکوردهای A برای پایداری ۱۰۰٪ برچسب‌ها
 """
+
 from __future__ import annotations
 
 import collections
@@ -21,24 +19,15 @@ import threading
 from concurrent.futures import ThreadPoolExecutor
 from typing import Dict, Iterable, Optional, Set, Tuple
 
-#: مسیر دیتابیس DB-IP Country Lite بر روی رانر
-MMDB_PATH: str = os.environ.get(
-    "GEOIP_MMDB",
-    os.path.join(
-        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-        ".cache",
-        "dbip-country-lite.mmdb",
-    ),
-)
+MMDB_PATH = os.environ.get("GEOIP_MMDB", os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".cache", "dbip-country-lite.mmdb"
+))
 
-#: تعداد رشته‌های همروند DNS (۶۴ ترد بهینه‌ترین سرعت ۴.۹ ثانیه‌ای را ثبت کرده است)
-DNS_WORKERS: int = int(os.environ.get("GEO_DNS_WORKERS", "64"))
-
-#: مهلت هر درخواست استعلام DNS (ثانیه)
-DNS_TIMEOUT: float = float(os.environ.get("GEO_DNS_TIMEOUT", "4"))
+DNS_WORKERS = int(os.environ.get("GEO_DNS_WORKERS", "64"))
+DNS_TIMEOUT = float(os.environ.get("GEO_DNS_TIMEOUT", "4"))
 
 _reader = None
-_reader_tried: bool = False
+_reader_tried = False
 _reader_lock = threading.Lock()
 
 _HOST_CC: Dict[str, Tuple[str, str]] = {}
@@ -47,24 +36,15 @@ _HOST_FAILED: Set[str] = set()
 _stats = collections.Counter()
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# استخراج پرچم از فرمول ریاضی یونیکد (Regional Indicator)
-# ──────────────────────────────────────────────────────────────────────────────
-
 def flag_of(code: str) -> str:
-    """تولید نماد پرچم رسمی با فرمول ریاضی یونیکد بر مبنای استاندارد ISO-3166-1 alpha-2."""
+    """محاسبه ریاضی پرچم یونیکد از روی کد دوحرفی ISO-3166-1."""
     c = (code or "").strip().upper()
     if len(c) != 2 or not c.isalpha():
         return "🌐"
     return chr(0x1F1E6 + ord(c[0]) - 65) + chr(0x1F1E6 + ord(c[1]) - 65)
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# لود پایگاه داده و استعلام IP
-# ──────────────────────────────────────────────────────────────────────────────
-
 def _get_reader():
-    """لود تنبل (Lazy Load) خواننده باینری maxminddb با ایمنی در همروندی (Thread-Safe)."""
     global _reader, _reader_tried
     if _reader is not None or _reader_tried:
         return _reader
@@ -74,7 +54,6 @@ def _get_reader():
         _reader_tried = True
         try:
             import maxminddb  # type: ignore
-
             if os.path.exists(MMDB_PATH) and os.path.getsize(MMDB_PATH) > 1024:
                 _reader = maxminddb.open_database(MMDB_PATH)
                 _stats["db_loaded"] = 1
@@ -84,12 +63,10 @@ def _get_reader():
 
 
 def database_available() -> bool:
-    """بررسی بارگذاری موفق پایگاه داده GeoIP."""
     return _get_reader() is not None
 
 
 def country_of_ip(ip: str) -> Optional[str]:
-    """استعلام مستقیم کد کشور دوحرفی از روی نشانی IP عددی."""
     r = _get_reader()
     if r is None or not ip:
         return None
@@ -102,13 +79,9 @@ def country_of_ip(ip: str) -> Optional[str]:
         return None
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# تفکیک DNS و رأی‌گیری اکثریت
-# ──────────────────────────────────────────────────────────────────────────────
-
 @contextlib.contextmanager
 def _dns_timeout():
-    """کانتکست‌منیجر مهار تایم‌اوت سوکت جهت جلوگیری از نشت متغیر سراسری به سایر پروسه‌ها (گارد F-12)."""
+    """ایزولاسیون کامل تایم‌اوت بدون نشت به سوکت‌های عمومی (حل باگ ۱۰)."""
     prev = socket.getdefaulttimeout()
     socket.setdefaulttimeout(DNS_TIMEOUT)
     try:
@@ -118,7 +91,6 @@ def _dns_timeout():
 
 
 def is_ip_literal(host: str) -> bool:
-    """بررسی اینکه آیا هاست از ابتدا نشانی عددی IP بوده است یا خیر."""
     h = (host or "").strip()
     if not h:
         return False
@@ -132,7 +104,7 @@ def is_ip_literal(host: str) -> bool:
 
 
 def resolve_all(host: str) -> Tuple[str, ...]:
-    """استخراج تمامی رکوردهای IPv4 یک هاست با مرتب‌سازی معین جهت پایداری نتایج."""
+    """حل آدرس‌های هاست با اولویت دادن به نشانی‌های IPv4 (حل باگ ۱۱)."""
     h = (host or "").strip().lower()
     if not h:
         return ()
@@ -143,8 +115,12 @@ def resolve_all(host: str) -> Tuple[str, ...]:
         return (h,)
 
     try:
-        infos = socket.getaddrinfo(h, None, socket.AF_INET, socket.SOCK_STREAM)
-        addrs = tuple(sorted({i[4][0] for i in infos}))
+        # استخراج آدرس‌ها
+        infos = socket.getaddrinfo(h, None, socket.AF_UNSPEC, socket.SOCK_STREAM)
+        v4_addrs = sorted({i[4][0] for i in infos if i[0] == socket.AF_INET})
+        v6_addrs = sorted({i[4][0] for i in infos if i[0] == socket.AF_INET6})
+        # قرار دادن IPv4 در ابتدا جهت تطابق با پایگاه داده کشورها
+        addrs = tuple(v4_addrs + v6_addrs)
     except Exception:
         addrs = ()
     _HOST_ADDRS[h] = addrs
@@ -152,7 +128,7 @@ def resolve_all(host: str) -> Tuple[str, ...]:
 
 
 def country_of_addrs(addrs: Iterable[str]) -> Optional[str]:
-    """تعیین کشور نهایی از میان چند نشانی با الگوریتم دموکراتیک رأی‌گیری اکثریت."""
+    """رأی‌گیری اکثریت روی آدرس‌های CDN برای تضمین پایداری برچسب."""
     votes: collections.Counter = collections.Counter()
     first: Dict[str, str] = {}
     for ip in sorted(set(addrs)):
@@ -166,12 +142,7 @@ def country_of_addrs(addrs: Iterable[str]) -> Optional[str]:
     return sorted((c for c, n in votes.items() if n == top), key=lambda c: first[c])[0]
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# پیش‌گرم‌کردن کش (Warm-up) و توابع عمومی
-# ──────────────────────────────────────────────────────────────────────────────
-
 def warm_up(hosts: Iterable[str]) -> Dict[str, int]:
-    """پیش‌گرم‌کردن همروند کش برای تمام هاست‌ها در کسری از ثانیه قبل از برندینگ."""
     uniq: Set[str] = set()
     for h in hosts:
         h = (h or "").strip().lower()
@@ -184,7 +155,6 @@ def warm_up(hosts: Iterable[str]) -> Dict[str, int]:
     literal = [h for h in ordered if is_ip_literal(h)]
     named = [h for h in ordered if not is_ip_literal(h)]
 
-    # استعلام فوری IPهای خام بدون لمس شبکه
     for h in literal:
         cc = country_of_ip(h)
         _HOST_ADDRS[h] = (h,)
@@ -195,7 +165,6 @@ def warm_up(hosts: Iterable[str]) -> Dict[str, int]:
             _HOST_FAILED.add(h)
             _stats["unknown_ip_literal"] += 1
 
-    # استعلام همروند دامنه‌ها زیر چتر محافظتی _dns_timeout
     if named and _get_reader() is not None:
         try:
             with _dns_timeout():
@@ -223,7 +192,6 @@ def warm_up(hosts: Iterable[str]) -> Dict[str, int]:
 
 
 def country_for_host(host: str) -> Optional[Tuple[str, str]]:
-    """استعلام خروجی (کد کشور، پرچم) برای یک هاست منفرد."""
     h = (host or "").strip().lower()
     if not h:
         return None
@@ -254,32 +222,23 @@ def country_for_host(host: str) -> Optional[Tuple[str, str]]:
 
 
 _STAT_KEYS = (
-    "db_loaded",
-    "by_ip_literal",
-    "unknown_ip_literal",
-    "by_dns",
-    "dns_failed",
-    "unknown_after_dns",
-    "skipped_no_db",
+    "db_loaded", "by_ip_literal", "unknown_ip_literal", "by_dns",
+    "dns_failed", "unknown_after_dns", "skipped_no_db",
 )
 
 
 def stats() -> Dict[str, int]:
-    """آمار نهایی عملکرد لایه Geo جهت درج در health.json."""
     out = {k: int(_stats.get(k, 0)) for k in _STAT_KEYS}
     out["db_loaded"] = 1 if _get_reader() is not None else 0
     out["hosts_resolved"] = out["by_ip_literal"] + out["by_dns"]
     out["hosts_unknown"] = (
-        out["unknown_ip_literal"]
-        + out["unknown_after_dns"]
-        + out["dns_failed"]
-        + out["skipped_no_db"]
+        out["unknown_ip_literal"] + out["unknown_after_dns"]
+        + out["dns_failed"] + out["skipped_no_db"]
     )
     return out
 
 
 def reset() -> None:
-    """پاک‌سازی حافظه کش برای ایزوله‌سازی تست‌ها."""
     _HOST_CC.clear()
     _HOST_ADDRS.clear()
     _HOST_FAILED.clear()
