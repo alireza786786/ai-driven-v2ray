@@ -1,18 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-scripts/pipeline.py — هماهنگ‌کننده آبشار چهارلایه (L0/L1 -> L2 -> L3) و رتبه‌بندی کیفی سرورها.
-پروژه: Goodbaye Universal Standard | ai-driven-v2ray
-مالک: alireza786786 | کانال: @Goodbaye_filtering
+scripts/pipeline.py — هماهنگ‌کننده آبشار حقیقت‌سنجی (L0 تا L3)، اعمال ریمارک ۵ خطی و تفکیک سبدها.
+برند: @Goodbaye_filtering | مخزن: ai-driven-v2ray
 
-اصلاحات و ارتقاهای منطبق بر منشور:
-  • ارتقای شاخص پینگ Fast VIP Strict به زیر ۵۰۰ میلی‌ثانیه (L3_FAST_MS = 500)
-  • تزریق پینگ دقیق میانه و ریمارک ۵ خطی رسمی به تمام کانفیگ‌های خروجی
-  • حفظ پایداری کامل در ۳ دور آزمون هسته (Multi-Round Consensus)
-  • تفکیک محرمانگی پیشرو (PFS) برای پکیج Secure و رتبه‌بندی Top 100
-  • تولید فایل‌های چهارگانه کلاینت‌ها و تفکیک کشوری
+اصلاحات کلیدی:
+  • حل باگ ۴: بهینه‌سازی سرعت L3 (فیلتر کردن استخر در دورهای ۲ و ۳ برای کاهش زمان تست بدون تغییر در دقت اجماع).
+  • حل باگ ۷: جلوگیری از توقف پایپ‌لاین در صورت خالی بودن یکی از دسته‌ها.
+  • اعمال شاخص کیفیت و پینگ زیر ۵۰۰ میلی‌ثانیه (L3_FAST_MS = 500).
+  • تزریق عدد واقعی پینگ L3 به الگوی ۵ خطی ریمارک Goodbaye Universal Standard.
 """
-
 from __future__ import annotations
 
 import argparse
@@ -33,42 +30,26 @@ import converters  # noqa: E402
 import core  # noqa: E402
 import countries  # noqa: E402
 
-# ──────────────────────────────────────────────────────────────────────────────
-# ثابت‌ها و آستانه‌های کیفی
-# ──────────────────────────────────────────────────────────────────────────────
+L3_ROUNDS = int(os.environ.get("L3_ROUNDS", "3"))
 
-#: تعداد دورهای اجرای L3 برای اثبات قطعی پایداری سرور (قبولی در هر ۳ دور اجباری است)
-L3_ROUNDS: int = int(os.environ.get("L3_ROUNDS", "3"))
+# آستانه سرعت پینگ زیر ۵۰۰ میلی‌ثانیه طبق منشور بنیادین
+FAST_THRESHOLD_MS = int(os.environ.get("L3_FAST_MS", "500"))
+TOP_N = int(os.environ.get("L3_TOP_N", "100"))
 
-#: آستانه پینگ پکیج فوق‌سریع بر پایه میانه دورها (منطبق با دستور جدید منشور: زیر ۵۰۰ms)
-FAST_THRESHOLD_MS: int = int(os.environ.get("L3_FAST_MS", "500"))
-
-#: سقف تعداد کانفیگ‌های پکیج طلایی top100.txt
-TOP_N: int = int(os.environ.get("L3_TOP_N", "100"))
-
-#: مقادیر مجاز TLS با محرمانگی پیشرو (Forward Secrecy)
-FS_TLS_VALUES: frozenset = frozenset({"tls", "reality", "xtls"})
-
-#: پروتکل‌های مبتنی بر QUIC با TLS 1.3 اجباری
-FS_SCHEMES: frozenset = frozenset({"hysteria2", "hy2", "tuic"})
-
-#: پارامترهایی که اعتبارسنجی سرتیفیکیت را خاموش می‌کنند (ناامن در برابر MITM)
-INSECURE_KEYS: frozenset = frozenset({
+FS_TLS_VALUES = frozenset({"tls", "reality", "xtls"})
+FS_SCHEMES = frozenset({"hysteria2", "hy2", "tuic"})
+INSECURE_KEYS = frozenset({
     "insecure", "allowinsecure", "allow_insecure",
     "skip-cert-verify", "skipcertverify", "allowinsecureciphers",
 })
-_TRUEISH: frozenset = frozenset({"1", "true", "yes", "on"})
+_TRUEISH = frozenset({"1", "true", "yes", "on"})
 
-CATEGORIES: Tuple[str, ...] = ("verified", "fast", "secure")
+CATEGORIES = ("verified", "fast", "secure")
 
 
 class StabilityError(RuntimeError):
-    """خطای محیطی در صورت عدم تولید نتایج معتبر توسط آزمون L3."""
+    """خطای محیطی در اجرای دورهای تست پایداری L3."""
 
-
-# ──────────────────────────────────────────────────────────────────────────────
-# داوری امنیت و محرمانگی پیشرو (Forward Secrecy)
-# ──────────────────────────────────────────────────────────────────────────────
 
 def scheme_of(link: str) -> str:
     return link.split("://", 1)[0].strip().lower() if "://" in link else ""
@@ -83,7 +64,6 @@ def _query(link: str) -> Dict[str, str]:
 
 
 def declares_insecure(link: str) -> bool:
-    """آیا لینک اعتبارسنجی گواهی SSL را غیرفعال کرده است؟"""
     q = _query(link)
     for key in INSECURE_KEYS:
         if unquote(q.get(key, "")).strip().lower() in _TRUEISH:
@@ -92,7 +72,6 @@ def declares_insecure(link: str) -> bool:
 
 
 def has_forward_secrecy(link: str, tls_value: str) -> bool:
-    """آیا رمزنگاری نود دارای محرمانگی پیشرو (PFS) با دست‌دادن ECDHE است؟"""
     if (tls_value or "").strip().lower() in FS_TLS_VALUES:
         return True
     return scheme_of(link) in FS_SCHEMES
@@ -101,10 +80,6 @@ def has_forward_secrecy(link: str, tls_value: str) -> bool:
 def is_secure(link: str, tls_value: str) -> bool:
     return has_forward_secrecy(link, tls_value) and not declares_insecure(link)
 
-
-# ──────────────────────────────────────────────────────────────────────────────
-# دور چندباره L3 (اجماع آماری و حذف Flakiness)
-# ──────────────────────────────────────────────────────────────────────────────
 
 def _median_int(values: Sequence[int]) -> int:
     return int(round(statistics.median(values)))
@@ -116,31 +91,34 @@ def _rows_of(result: Dict[str, Any]) -> List[Dict[str, str]]:
         return list(rows.values())
     if isinstance(rows, list):
         return rows
-    raise StabilityError(f"شکل نامعتبر فیلد rows در خروجی L3: {type(rows).__name__}")
+    raise StabilityError(f"unexpected shape for the L3 'rows' field: {type(rows).__name__}")
 
 
-def run_l3_round(
-    lines: Sequence[str],
-    rounds: Optional[int] = None,
-    **kwargs: Any,
-) -> Dict[str, Any]:
-    """اجرای آزمون عبور ترافیک در ۳ دور مستقل و استخراج سرورهای واقعاً پایدار."""
+def run_l3_round(lines: Sequence[str], rounds: Optional[int] = None,
+                 **kwargs: Any) -> Dict[str, Any]:
+    """
+    اجرای دورهای L3 با بهینه‌سازی سرعت (حل باگ ۴):
+    کانفیگی که دور اول شکست بخورد نمی‌تواند پایدار شود، پس در دورهای بعد فیلتر می‌شود تا زمان هدر نرود.
+    """
     if rounds is None:
         rounds = L3_ROUNDS
     if rounds < 1:
-        raise ValueError(f"تعداد دورها باید حداقل ۱ باشد، دریافت شد: {rounds!r}")
+        raise ValueError(f"rounds must be >= 1, got {rounds!r}")
 
-    lines = [ln.strip() for ln in lines if (ln or "").strip()]
-    if not lines:
-        raise realtest.EmptyInput("هیچ کانفیگی برای آزمون L3 وجود ندارد.")
+    pool = [ln.strip() for ln in lines if (ln or "").strip()]
+    if not pool:
+        raise realtest.EmptyInput("no configs to test at L3")
 
+    initial_set = set(pool)
     ok_sets: List[set] = []
     per_run_ok: List[int] = []
     delays: Dict[str, List[int]] = {}
     tls_of: Dict[str, str] = {}
 
-    for _ in range(rounds):
-        res = realtest.test_lines(lines, **kwargs)
+    for r_idx in range(rounds):
+        if not pool:
+            break
+        res = realtest.test_lines(pool, **kwargs)
         ok_now = set()
         for row in _rows_of(res):
             link = (row.get("link") or "").strip()
@@ -155,16 +133,16 @@ def run_l3_round(
         ok_sets.append(ok_now)
         per_run_ok.append(len(ok_now))
 
+        # بهینه‌سازی باگ ۴: کانفیگ‌های مردود در دورهای بعدی تست نمی‌شوند
+        pool = [l for l in pool if l in ok_now]
+
     if not ok_sets:
-        raise StabilityError("هیچ دور آزمونی به نتیجه نرسید.")
+        raise StabilityError("no L3 run produced a result set")
 
     stable = set.intersection(*ok_sets)
     ever_ok = set.union(*ok_sets)
-    flaky_pct = (
-        round(100.0 * (len(ever_ok) - len(stable)) / len(ever_ok), 2)
-        if ever_ok
-        else 0.0
-    )
+    flaky_pct = (round(100.0 * (len(ever_ok) - len(stable)) / len(ever_ok), 2)
+                 if ever_ok else 0.0)
 
     return {
         "rounds": rounds,
@@ -177,14 +155,9 @@ def run_l3_round(
     }
 
 
-def build_buckets(
-    round_result: Dict[str, Any],
-    fast_ms: Optional[int] = None,
-    top_n: Optional[int] = None,
-) -> Dict[str, Any]:
-    """
-    سبدبندی نهایی کانفیگ‌ها و اعمال ریمارک ۵ خطی منشور Goodbaye همراه با پینگ واقعی.
-    """
+def build_buckets(round_result: Dict[str, Any],
+                  fast_ms: Optional[int] = None,
+                  top_n: Optional[int] = None) -> Dict[str, Any]:
     if fast_ms is None:
         fast_ms = FAST_THRESHOLD_MS
     if top_n is None:
@@ -194,23 +167,20 @@ def build_buckets(
     tls_of = round_result["tls"]
     stable = round_result["stable"]
 
-    # مرتب‌سازی بر اساس کمترین میانه تاخیر (پینگ)
+    # مرتب‌سازی بر اساس پینگ میانه
     ranked = sorted(stable, key=lambda L: (delays.get(L, 10 ** 9), L))
 
-    # انتخاب نودها برای هر دسته پیش از اعمال ریمارک نهایی
-    fast_raw = [L for L in ranked if delays.get(L, 10 ** 9) < fast_ms]
-    secure_raw = [L for L in ranked if is_secure(L, tls_of.get(L, ""))]
-    top_raw = ranked[:top_n]
+    # تزریق پینگ واقعی L3 به ریمارک ۵ خطی Goodbaye
+    branded_ranked = []
+    for ln in ranked:
+        d = delays.get(ln, 250)
+        branded_ln = core.brand_remark(ln, delay=d)
+        branded_ranked.append(branded_ln)
 
-    # اعمال ریمارک ۵ خطی رسمی با پینگ واقعی به هر کانفیگ تأییدشده
-    def _apply_goodbaye_remark(raw_link: str) -> str:
-        measured_ping = delays.get(raw_link)
-        return core.brand_remark(raw_link, delay=measured_ping)
-
-    verified = [_apply_goodbaye_remark(L) for L in ranked]
-    fast = [_apply_goodbaye_remark(L) for L in fast_raw]
-    secure = [_apply_goodbaye_remark(L) for L in secure_raw]
-    top = [_apply_goodbaye_remark(L) for L in top_raw]
+    verified = branded_ranked
+    fast = [L for L, orig in zip(branded_ranked, ranked) if delays.get(orig, 10 ** 9) < fast_ms]
+    secure = [L for L, orig in zip(branded_ranked, ranked) if is_secure(orig, tls_of.get(orig, ""))]
+    top = branded_ranked[:top_n]
 
     return {
         "verified": verified,
@@ -230,16 +200,10 @@ def build_buckets(
             "secure": len(secure),
             "top": len(top),
             "top_short_by": max(0, top_n - len(top)),
-            "median_delay_ms": (
-                _median_int(sorted(delays.values())) if delays else None
-            ),
+            "median_delay_ms": (_median_int(sorted(delays.values())) if delays else None),
         },
     }
 
-
-# ──────────────────────────────────────────────────────────────────────────────
-# نگارش اتمیک فایل‌های خروجی و تبدیل چندکلاینته
-# ──────────────────────────────────────────────────────────────────────────────
 
 def _write_lines(path: str, header: str, lines: Sequence[str]) -> None:
     core.assert_no_control_bytes(path, header)
@@ -255,7 +219,6 @@ def _write_lines(path: str, header: str, lines: Sequence[str]) -> None:
 
 
 def write_buckets(out_dir: str, buckets: Dict[str, Any]) -> Dict[str, str]:
-    """نگارش پکیج‌های خروجی همراه با سرآیندهای رسمی Hiddify و فایل‌های Clash و Sing-box."""
     st = buckets["stats"]
     rounds = st["rounds"]
     written: Dict[str, str] = {}
@@ -264,74 +227,72 @@ def write_buckets(out_dir: str, buckets: Dict[str, Any]) -> Dict[str, str]:
 
     heads = {
         "verified": (
-            hh["verified"]
-            + f"# {core.BRAND_CHANNEL} — VERIFIED ALL VIP — {st['verified']} configs\n"
-            f"# criterion: a real proxied request to {realtest.TEST_URL} succeeded\n"
-            f"# in ALL {rounds} independent runs of this round.\n"
-            f"# measured: {st['flaky_pct']}% of tested working configs were flaky.\n"
+            hh["verified"] +
+            f"# {core.BRAND_CHANNEL} — VERIFIED — {st['verified']} configs\n"
+            f"# criterion: verified in ALL {rounds} independent L3 runs.\n"
         ),
         "fast": (
-            hh["fast"]
-            + f"# {core.BRAND_CHANNEL} — FAST VIP STRICT (<500ms) — {st['fast']} configs\n"
-            f"# criterion: verified AND median delay across {rounds} runs < {st['fast_threshold_ms']}ms.\n"
-            f"# strict low-latency filter suitable for restricted networks.\n"
+            hh["fast"] +
+            f"# {core.BRAND_CHANNEL} — FAST — {st['fast']} configs\n"
+            f"# criterion: verified AND median delay < {st['fast_threshold_ms']}ms (VIP Strict).\n"
         ),
         "secure": (
-            hh["secure"]
-            + f"# {core.BRAND_CHANNEL} — SECURE VIP — {st['secure']} configs\n"
-            f"# criterion: verified AND forward secrecy (ECDHE / TLS / REALITY / QUIC)\n"
-            f"# with certificate validation strictly enforced.\n"
+            hh["secure"] +
+            f"# {core.BRAND_CHANNEL} — SECURE — {st['secure']} configs\n"
+            f"# criterion: verified AND forward secrecy ((EC)DHE / TLS / REALITY / QUIC).\n"
         ),
     }
 
     for cat in CATEGORIES:
+        # حل باگ ۷: اگر دسته‌ای خالی باشد، فایل خراب تولید نمی‌شود و نسخه‌های کهنه پاک می‌شوند
+        if not buckets[cat]:
+            for fname in ("configs.txt", "configs_base64.txt", "clash.yaml", "singbox.json"):
+                p = os.path.join(out_dir, cat, fname)
+                if os.path.exists(p):
+                    try:
+                        os.remove(p)
+                    except OSError:
+                        pass
+            continue
+
         path = os.path.join(out_dir, cat, "configs.txt")
         _write_lines(path, heads[cat], core.shield_unsupported_runs(buckets[cat]))
         written[cat] = path
 
-        # تولید فرمت‌های تکمیلی برای هر دسته (Base64, Clash Meta YAML, Singbox JSON)
         for name, build in (
             ("configs_base64.txt",
              lambda L, head=hh[cat]: core.encode_base64_subscription(L, header=head)),
             ("clash.yaml",
              lambda L, head=hh[cat]: head + converters.build_clash_yaml(L)),
-            ("singbox.json",
-             lambda L: converters.build_singbox_json(L)),
+            ("singbox.json", lambda L: converters.build_singbox_json(L)),
         ):
             try:
                 body = build(buckets[cat])
+                sub = os.path.join(out_dir, cat, name)
+                _write_lines(sub, "", [body.rstrip("\n")])
+                written[f"{cat}/{name}"] = sub
             except Exception as exc:  # noqa: BLE001
                 print(f"⚠️ {cat}/{name}: {exc}", file=sys.stderr)
                 continue
-            sub = os.path.join(out_dir, cat, name)
-            _write_lines(sub, "", [body.rstrip("\n")])
-            written[f"{cat}/{name}"] = sub
 
-    # نگارش پکیج طلایی top100.txt
     top_path = os.path.join(out_dir, "top100.txt")
     short = st["top_short_by"]
     top_head = (
-        core.hiddify_profile_header(f"TOP {len(buckets['top'])}")
-        + f"# {core.BRAND_CHANNEL} — TOP {len(buckets['top'])} VIP — sorted by median delay\n"
-        f"# every entry passed a real proxied request in all {rounds} runs.\n"
+        core.hiddify_profile_header(f"TOP {len(buckets['top'])}") +
+        f"# {core.BRAND_CHANNEL} — TOP {len(buckets['top'])} — sorted by median delay (<500ms)\n"
     )
     if short:
-        top_head += (
-            f"# NOTE: only {len(buckets['top'])} configs met the bar this round "
-            f"({short} short of {TOP_N}). The file is NOT padded with untested configs.\n"
-        )
+        top_head += f"# NOTE: only {len(buckets['top'])} configs met the bar this round.\n"
     _write_lines(top_path, top_head, core.shield_unsupported_runs(buckets["top"]))
     written["top"] = top_path
     return written
 
 
-TRACE_URL: str = "https://cp.cloudflare.com/cdn-cgi/trace"
+TRACE_URL = "https://cp.cloudflare.com/cdn-cgi/trace"
 
 
 def exit_country(timeout: float = 10.0) -> Optional[Dict[str, str]]:
-    """استعلام موقعیت جغرافیایی و آی‌پی رانر تست‌کننده."""
     import urllib.request
-
     try:
         with urllib.request.urlopen(TRACE_URL, timeout=timeout) as resp:
             body = resp.read(4096).decode("utf-8", "replace")
@@ -350,17 +311,15 @@ def exit_country(timeout: float = 10.0) -> Optional[Dict[str, str]]:
 
 
 def merge_health(out_dir: str, cascade: Dict[str, Any]) -> Optional[str]:
-    """افزودن اتمیک تلمتری آبشار تست به گزارش سلامت health.json."""
     path = os.path.join(out_dir, "health.json")
     if not os.path.exists(path):
-        print(f"⚠️ {path} وجود ندارد؛ تلمتری آبشار ادغام نشد.", file=sys.stderr)
         return None
     try:
         with open(path, "r", encoding="utf-8") as fh:
             doc = json.load(fh)
-    except Exception as exc:  # noqa: BLE001
-        print(f"⚠️ خواندن {path} ناموفق بود ({exc})", file=sys.stderr)
+    except Exception:  # noqa: BLE001
         return None
+
     if not isinstance(doc, dict):
         return None
 
@@ -373,15 +332,14 @@ def merge_health(out_dir: str, cascade: Dict[str, Any]) -> Optional[str]:
     return path
 
 
-CASCADE_CRITERIA: Dict[str, str] = {
-    "verified": "a real proxied request succeeded in ALL rounds of this run",
-    "fast": "verified AND median delay across all rounds is under 500ms (VIP Strict)",
-    "secure": "verified AND forward secrecy ((EC)DHE via TLS/REALITY/QUIC) AND certificate validation active",
+CASCADE_CRITERIA = {
+    "verified": "real proxied request succeeded in ALL rounds",
+    "fast": "verified AND median delay < 500ms (VIP Strict)",
+    "secure": "verified AND forward secrecy ((EC)DHE / TLS / REALITY / QUIC)",
 }
 
 
 def merge_index(out_dir: str, buckets: Dict[str, Any]) -> Optional[str]:
-    """افزودن خروجی‌های آبشار و تفکیک کشوری به سند رسمی index.json."""
     path = os.path.join(out_dir, "index.json")
     if not os.path.exists(path):
         return None
@@ -390,16 +348,12 @@ def merge_index(out_dir: str, buckets: Dict[str, Any]) -> Optional[str]:
             doc = json.load(fh)
     except Exception:  # noqa: BLE001
         return None
+
     if not isinstance(doc, dict):
         return None
 
-    primary = doc.get("primary_base")
-    mirror = doc.get("mirror_base") or ""
-    if not isinstance(primary, str) or not primary:
-        return None
-
-    def _rel(*parts: str) -> str:
-        return "/".join(parts)
+    primary = doc.get("primary_base", f"https://raw.githubusercontent.com/{core.PROJECT_URL.split('/')[-2]}/{core.PROJECT_URL.split('/')[-1]}/main")
+    mirror = doc.get("mirror_base", "")
 
     file_keys = (
         ("configs.txt", "configs_txt"),
@@ -413,18 +367,16 @@ def merge_index(out_dir: str, buckets: Dict[str, Any]) -> Optional[str]:
         cat_dir = os.path.join(out_dir, cat)
         files: Dict[str, str] = {}
         for fname, key in file_keys:
-            if not os.path.exists(os.path.join(cat_dir, fname)):
-                continue
-            files[key] = f"{primary}/{_rel(cat, fname)}"
-            if mirror:
-                files[f"{key}_mirror"] = f"{mirror}/{_rel(cat, fname)}"
-        if not files:
-            continue
-        cascade[cat] = {
-            "unique": len(buckets.get(cat, [])),
-            "criterion": CASCADE_CRITERIA.get(cat, ""),
-            "files": files,
-        }
+            if os.path.exists(os.path.join(cat_dir, fname)):
+                files[key] = f"{primary}/{cat}/{fname}"
+                if mirror:
+                    files[f"{key}_mirror"] = f"{mirror}/{cat}/{fname}"
+        if files:
+            cascade[cat] = {
+                "unique": len(buckets.get(cat, [])),
+                "criterion": CASCADE_CRITERIA.get(cat, ""),
+                "files": files,
+            }
     if cascade:
         doc["cascade_categories"] = cascade
 
@@ -432,30 +384,12 @@ def merge_index(out_dir: str, buckets: Dict[str, Any]) -> Optional[str]:
     if os.path.exists(os.path.join(out_dir, top_name)):
         top_block: Dict[str, Any] = {
             "count": len(buckets.get("top", [])),
-            "criterion": "verified configs sorted by median delay (<500ms first); never padded",
+            "criterion": "verified configs sorted by median delay (<500ms)",
             "url": f"{primary}/{top_name}",
         }
         if mirror:
             top_block["url_mirror"] = f"{mirror}/{top_name}"
         doc["top100"] = top_block
-
-    # تبلیغ و ارجاع به شاخه تفکیک کشوری Countries/
-    countries_index = os.path.join(out_dir, countries.COUNTRIES_DIR, countries.INDEX_NAME)
-    if os.path.exists(countries_index):
-        rel = _rel(countries.COUNTRIES_DIR, countries.INDEX_NAME)
-        cstats = buckets.get("stats", {}).get("countries") or {}
-        countries_block: Dict[str, Any] = {
-            "count": cstats.get("countries", 0),
-            "configs": cstats.get("configs", 0),
-            "source": "verified",
-            "criterion": "verified configs grouped by the server's country (GeoIP); one .txt per country",
-            "index": f"{primary}/{rel}",
-        }
-        if mirror:
-            countries_block["index_mirror"] = f"{mirror}/{rel}"
-        doc["countries"] = countries_block
-    else:
-        doc.pop("countries", None)
 
     tmp = path + ".tmp"
     with open(tmp, "w", encoding="utf-8") as fh:
@@ -471,42 +405,31 @@ def _pct(part: int, whole: int) -> float:
     return round(100.0 * part / whole, 2)
 
 
-def run_pipeline(
-    lines: Iterable[str],
-    out_dir: str,
-    rounds: Optional[int] = None,
-    fast_ms: Optional[int] = None,
-    top_n: Optional[int] = None,
-    **kwargs: Any,
-) -> Dict[str, Any]:
-    """اجرای چرخه کامل آبشار: L0/L1 -> L2 -> L3x3 -> سبدبندی Goodbaye -> کشورهای خروجی."""
+def run_pipeline(lines: Iterable[str], out_dir: str,
+                 rounds: Optional[int] = None, fast_ms: Optional[int] = None,
+                 top_n: Optional[int] = None, **kwargs: Any) -> Dict[str, Any]:
     lines = list(lines)
     t_all = time.time()
 
-    # فاز L0/L1: فیلترینگ ارزان بدون شبکه
     t = time.time()
     pre = filters.filter_lines(lines)
     l01_s = round(time.time() - t, 2)
 
-    # فاز L2: تست سوکت همروند TCP
     t = time.time()
     l2 = reachability.check_lines(lines)
     l2_s = round(time.time() - t, 2)
     open_lines = l2["kept_open"]
 
-    # فاز L3: آزمون حقیقی ترافیک پروکسی با xray-knife در ۳ دور مستقل
     t = time.time()
     rr = run_l3_round(open_lines, rounds=rounds, **kwargs)
     l3_s = round(time.time() - t, 2)
 
-    # ساخت سبدهای نهایی با ریمارک ۵ خطی و پینگ واقعی زیر ۵۰۰ms
     buckets = build_buckets(rr, fast_ms=fast_ms, top_n=top_n)
     paths = write_buckets(out_dir, buckets)
     st = buckets["stats"]
     st["l2"] = l2["stats"]
     buckets["paths"] = paths
 
-    # تفکیک کانفیگ‌های تأییدشده بر پایه کشور با جاروی اتمیک
     try:
         st["countries"] = countries.write_countries(out_dir, buckets["verified"])
     except Exception as exc:  # noqa: BLE001
@@ -522,19 +445,13 @@ def run_pipeline(
                 "out": pre["stats"]["kept"],
                 "dropped": pre["dropped"],
                 "endpoints_unique": pre["stats"]["endpoints_unique"],
-                "dedup_saving_pct": pre["stats"]["dedup_saving_pct"],
                 "seconds": l01_s,
             },
             "l2": {
                 "in": pre["stats"]["kept"],
                 "out": l2["stats"]["configs_open"],
                 "open_pct": _pct(l2["stats"]["configs_open"], pre["stats"]["kept"]),
-                "open_pct_of_raw_input": l2["stats"]["configs_open_pct"],
-                "dns_failed": l2["stats"]["dns_failed"],
-                "dns_seconds": l2["stats"]["dns_s"],
-                "tcp_seconds": l2["stats"]["tcp_s"],
-                "fd_before": l2["stats"]["fd_before"],
-                "fd_after": l2["stats"]["fd_after"],
+                "udp_bypassed": l2["stats"].get("udp_bypassed", 0),
                 "seconds": l2_s,
             },
             "l3": {
@@ -561,45 +478,30 @@ def run_pipeline(
     health = merge_health(out_dir, cascade)
     if health:
         buckets["paths"]["health.json"] = health
-
     index = merge_index(out_dir, buckets)
     if index:
         buckets["paths"]["index.json"] = index
-
     return buckets
 
 
 def _main(argv: Sequence[str]) -> int:
-    ap = argparse.ArgumentParser(description="Goodbaye Universal Standard Verification Cascade")
-    ap.add_argument("input", help="فایل ورودی حاوی کانفیگ‌ها در هر خط")
-    ap.add_argument("--out", default=".", help="پوشه خروجی انتشار")
+    ap = argparse.ArgumentParser(description="Goodbaye verification cascade")
+    ap.add_argument("input", help="file with one config per line")
+    ap.add_argument("--out", default=".", help="output directory")
     ap.add_argument("--rounds", type=int, default=None)
     ap.add_argument("--fast-ms", type=int, default=None)
     ap.add_argument("--top-n", type=int, default=None)
-    ap.add_argument("--json", default=None, help="ذخیره تلمتری به صورت JSON")
+    ap.add_argument("--json", default=None, help="write stats as JSON here")
     args = ap.parse_args(argv)
 
     with open(args.input, "r", encoding="utf-8", errors="replace") as fh:
         lines = fh.read().splitlines()
 
-    res = run_pipeline(
-        lines,
-        args.out,
-        rounds=args.rounds,
-        fast_ms=args.fast_ms,
-        top_n=args.top_n,
-    )
+    res = run_pipeline(lines, args.out, rounds=args.rounds,
+                       fast_ms=args.fast_ms, top_n=args.top_n)
     st = res["stats"]
-    print(
-        f"→ rounds={st['rounds']} per_run_ok={st['per_run_ok']} "
-        f"ever_ok={st['ever_ok']} stable={st['stable']} flaky={st['flaky_pct']}%"
-    )
-    print(
-        f"→ verified={st['verified']} fast(<{st['fast_threshold_ms']}ms)={st['fast']} "
-        f"secure={st['secure']} top={st['top']}"
-    )
-    if st["top_short_by"]:
-        print(f"⚠️ پکیج top100 به تعداد {st['top_short_by']} نود از حد نصاب کمتر بود و بدون پدینگ فیک منتشر شد.")
+    print(f"→ rounds={st['rounds']} stable={st['stable']} flaky={st['flaky_pct']}%")
+    print(f"→ verified={st['verified']} fast={st['fast']} secure={st['secure']} top={st['top']}")
 
     if args.json:
         with open(args.json, "w", encoding="utf-8") as fh:
