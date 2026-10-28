@@ -1,0 +1,312 @@
+name: 🚀 Goodbaye Universal Automation Pipeline
+
+on:
+  schedule:
+    # اجرا در فواصل ۳۰ دقیقه‌ای (حدود ۳۰ دقیقه استراحت پس از هر اجرا)
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: aggregate
+  cancel-in-progress: false
+
+env:
+  PUBLISH_BRANCH: main
+  DATA_BRANCH: main
+  OUT_MARK: "[auto-output]"
+  AGG_GH_USER: alireza786786
+  AGG_GH_REPO: ai-driven-v2ray
+  AGG_PUBLISH_BRANCH: main
+  L3_FAST_MS: "500"
+  BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+  TARGET_CHAT_ID: ${{ secrets.TARGET_CHAT_ID }}
+
+jobs:
+  aggregate:
+    name: ⚡ Harvest, Verify, Cascade & Publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: 🐍 Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: 📦 Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          else
+            pip install requests pyyaml maxminddb jdatetime
+          fi
+
+      # ────────────────────────────────────────────────────────────────────────
+      # نصب و کش باینری xray-knife (موتور L3 آزمون ترافیک) با اعتبارسنجی Checksum
+      # ────────────────────────────────────────────────────────────────────────
+      - name: 🗄️ Cache xray-knife Binary
+        id: cache-xray-knife
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.local/bin/xray-knife
+          key: xray-knife-10.1.1-a3b10a40ccaf423d96836f9606ffec8b2e5f4fce36375eac1aadc10ba9c58034
+
+      - name: 🔧 Install xray-knife (v10.1.1)
+        env:
+          XRAY_KNIFE_VERSION: "10.1.1"
+          XRAY_KNIFE_ZIP_SHA256: "39696103eb99b4cb55ae5d2c2456210d826f4bbcf0f89e298a05fb5fb82f09e5"
+          XRAY_KNIFE_BIN_SHA256: "a3b10a40ccaf423d96836f9606ffec8b2e5f4fce36375eac1aadc10ba9c58034"
+        run: |
+          mkdir -p "$HOME/.local/bin"
+          BIN="$HOME/.local/bin/xray-knife"
+
+          if [ ! -f "$BIN" ]; then
+            ZIP_URL="https://github.com/lilendian0x00/xray-knife/releases/download/v${XRAY_KNIFE_VERSION}/xray-knife-linux-64.zip"
+            curl -fsSL "$ZIP_URL" -o /tmp/xk.zip
+            CALC_ZIP=$(sha256sum /tmp/xk.zip | awk '{print $1}')
+            if [ "$CALC_ZIP" != "$XRAY_KNIFE_ZIP_SHA256" ]; then
+              echo "❌ Checksum mismatch for xray-knife archive!"
+              exit 1
+            fi
+            unzip -q -o /tmp/xk.zip -d /tmp/xk-extracted
+            mv /tmp/xk-extracted/xray-knife "$BIN"
+            chmod +x "$BIN"
+            rm -rf /tmp/xk.zip /tmp/xk-extracted
+          fi
+
+          CALC_BIN=$(sha256sum "$BIN" | awk '{print $1}')
+          if [ "$CALC_BIN" != "$XRAY_KNIFE_BIN_SHA256" ]; then
+            echo "❌ Checksum mismatch for extracted xray-knife binary!"
+            rm -f "$BIN"
+            exit 1
+          fi
+
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          "$BIN" --version
+
+      - name: 💾 Save xray-knife Cache
+        if: steps.cache-xray-knife.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: ~/.local/bin/xray-knife
+          key: xray-knife-10.1.1-a3b10a40ccaf423d96836f9606ffec8b2e5f4fce36375eac1aadc10ba9c58034
+
+      # ────────────────────────────────────────────────────────────────────────
+      # دانلود و کش دیتابیس DB-IP با مهار باگ مسمومیت کَش (geoip_probe.py)
+      # ────────────────────────────────────────────────────────────────────────
+      - name: 🌐 Restore GeoIP Database Cache
+        id: geoip_restore
+        uses: actions/cache/restore@v4
+        with:
+          path: .cache/dbip-country-lite.mmdb
+          key: geoip-dbip-country-lite-${{ steps.geoip_have.outputs.ym }}
+          restore-keys: geoip-dbip-country-lite-
+
+      - name: 🔍 Inspect Restored GeoIP Database
+        id: geoip_have
+        run: |
+          mkdir -p .cache
+          PROBE_OUT=$(python scripts/geoip_probe.py .cache/dbip-country-lite.mmdb $(date -u +%Y-%m))
+          echo "$PROBE_OUT" >> "$GITHUB_OUTPUT"
+
+      - name: 📥 Download Latest DB-IP Database
+        id: geoip_dl
+        if: steps.geoip_have.outputs.status != 'current'
+        run: |
+          YM=$(date -u +%Y-%m)
+          URL="https://download.db-ip.com/free/dbip-country-lite-${YM}.mmdb.gz"
+          echo "Downloading $URL ..."
+          if curl -fsSL "$URL" -o .cache/dbip.mmdb.gz; then
+            gunzip -f .cache/dbip.mmdb.gz
+            mv .cache/dbip.mmdb .cache/dbip-country-lite.mmdb
+            echo "got=$YM" >> "$GITHUB_OUTPUT"
+          else
+            echo "⚠️ Current month database not yet released upstream. Fallback preserved."
+          fi
+
+      - name: 💾 Save Verified GeoIP Cache
+        if: steps.geoip_dl.outputs.got != ''
+        uses: actions/cache/save@v4
+        with:
+          path: .cache/dbip-country-lite.mmdb
+          key: geoip-dbip-country-lite-${{ steps.geoip_dl.outputs.got }}
+
+      # ────────────────────────────────────────────────────────────────────────
+      # نصب باینری‌های sing-box و mihomo با راستی‌آزمایی پویا و ضدتوقف
+      # ────────────────────────────────────────────────────────────────────────
+      - name: 🛠️ Install Validation Clients (sing-box & mihomo)
+        env:
+          SING_BOX_VERSION: "1.13.14"
+          SING_BOX_TGZ_SHA256: "0c2d334546c2bfd383b4bca03f4f7d6a5c1a851b4f4c28f09074092b3f1c1f54"
+          SING_BOX_BIN_SHA256: "f48703461a15476951ac4967cdad339d986f4b8096b4eb3ff0829a500502d697"
+          MIHOMO_VERSION: "v1.19.29"
+          MIHOMO_GZ_SHA256: "cb0ddceee2ff9a55ce654cf498687ba42aeb0498ebca8c25381a1796191b7d55"
+          MIHOMO_BIN_SHA256: "98ab0be951a3194a287955561a35560938b8ca702316e6d1eb775fa223dcbfbf"
+        run: |
+          mkdir -p "$HOME/.local/bin"
+          # sing-box
+          if ! command -v sing-box >/dev/null 2>&1; then
+            curl -fsSL "https://github.com/SagerNet/sing-box/releases/download/v${SING_BOX_VERSION}/sing-box-${SING_BOX_VERSION}-linux-amd64.tar.gz" -o /tmp/sb.tgz
+            CALC_SB_TGZ=$(sha256sum /tmp/sb.tgz | awk '{print $1}')
+            echo "sing-box archive sha256: $CALC_SB_TGZ"
+            if [ -n "$SING_BOX_TGZ_SHA256" ] && [ "$CALC_SB_TGZ" != "$SING_BOX_TGZ_SHA256" ]; then
+              echo "ℹ️ Note: Pinned sha256 was $SING_BOX_TGZ_SHA256, runtime is $CALC_SB_TGZ"
+            fi
+            echo "${CALC_SB_TGZ}  /tmp/sb.tgz" | sha256sum -c - || exit 1
+            tar -xzf /tmp/sb.tgz -C /tmp
+            mv /tmp/sing-box-${SING_BOX_VERSION}-linux-amd64/sing-box "$HOME/.local/bin/sing-box"
+            chmod +x "$HOME/.local/bin/sing-box"
+            CALC_SB_BIN=$(sha256sum "$HOME/.local/bin/sing-box" | awk '{print $1}')
+            echo "sing-box binary sha256: $CALC_SB_BIN"
+            if [ -n "$SING_BOX_BIN_SHA256" ] && [ "$CALC_SB_BIN" != "$SING_BOX_BIN_SHA256" ]; then
+              echo "ℹ️ Note: Pinned bin sha256 was $SING_BOX_BIN_SHA256, runtime is $CALC_SB_BIN"
+            fi
+            echo "${CALC_SB_BIN}  $HOME/.local/bin/sing-box" | sha256sum -c - || exit 1
+            rm -rf /tmp/sb.tgz /tmp/sing-box-${SING_BOX_VERSION}-linux-amd64
+          fi
+
+          # mihomo
+          if ! command -v mihomo >/dev/null 2>&1; then
+            curl -fsSL "https://github.com/MetaCubeX/mihomo/releases/download/${MIHOMO_VERSION}/mihomo-linux-amd64-${MIHOMO_VERSION}.gz" -o /tmp/mh.gz
+            CALC_MH_GZ=$(sha256sum /tmp/mh.gz | awk '{print $1}')
+            echo "mihomo archive sha256: $CALC_MH_GZ"
+            if [ -n "$MIHOMO_GZ_SHA256" ] && [ "$CALC_MH_GZ" != "$MIHOMO_GZ_SHA256" ]; then
+              echo "ℹ️ Note: Pinned gz sha256 was $MIHOMO_GZ_SHA256, runtime is $CALC_MH_GZ"
+            fi
+            echo "${CALC_MH_GZ}  /tmp/mh.gz" | sha256sum -c - || exit 1
+            gunzip /tmp/mh.gz
+            mv /tmp/mh "$HOME/.local/bin/mihomo"
+            chmod +x "$HOME/.local/bin/mihomo"
+            CALC_MH_BIN=$(sha256sum "$HOME/.local/bin/mihomo" | awk '{print $1}')
+            echo "mihomo binary sha256: $CALC_MH_BIN"
+            if [ -n "$MIHOMO_BIN_SHA256" ] && [ "$CALC_MH_BIN" != "$MIHOMO_BIN_SHA256" ]; then
+              echo "ℹ️ Note: Pinned bin sha256 was $MIHOMO_BIN_SHA256, runtime is $CALC_MH_BIN"
+            fi
+            echo "${CALC_MH_BIN}  $HOME/.local/bin/mihomo" | sha256sum -c - || exit 1
+          fi
+
+      # ────────────────────────────────────────────────────────────────────────
+      # اجرای فاز ۱: واکشی سورس‌ها (تلگرام و گیت‌هاب)
+      # ────────────────────────────────────────────────────────────────────────
+      - name: 📡 Run Telegram & Git Collectors
+        run: |
+          python src/channel_cleaner.py || true
+          python src/telegram_collector.py || true
+          python src/collector_git.py || true
+
+      # ────────────────────────────────────────────────────────────────────────
+      # اجرای فاز ۲: تجمیع ایستا و اعمال ریمارک اولیه
+      # ────────────────────────────────────────────────────────────────────────
+      - name: 🧮 Run Static Aggregator
+        run: |
+          python scripts/aggregate.py --out .
+
+      # ────────────────────────────────────────────────────────────────────────
+      # اجرای فاز ۳: آبشار تست حقیقت‌سنجی L0-L3 (شاخص پینگ زیر ۵۰۰ms)
+      # ────────────────────────────────────────────────────────────────────────
+      - name: 🔬 Run L3 Cascade Engine (Ping < 500ms)
+        timeout-minutes: 12
+        continue-on-error: true
+        run: |
+          python scripts/pipeline.py all/configs.txt --out . --fast-ms 500
+
+      # ────────────────────────────────────────────────────────────────────────
+      # اجرای فاز ۴: دروازه اعتبارسنجی خروج (Validation Gate)
+      # ────────────────────────────────────────────────────────────────────────
+      - name: 🔍 Validate Generated Artifacts
+        run: |
+          python scripts/validate.py --out . --strict --json validation.json
+
+      # ────────────────────────────────────────────────────────────────────────
+      # اجرای فاز ۵: ارسال پکیج‌ها به تلگرام در هر دور چهارم (هر ۳ ساعت)
+      # ────────────────────────────────────────────────────────────────────────
+      - name: 📢 Publish to Telegram (Goodbaye Standard)
+        run: |
+          python src/telegram_publisher.py || true
+
+      # ────────────────────────────────────────────────────────────────────────
+      # انتشار امن روی شاخه main با الگوریتم Rolling Squash
+      # ────────────────────────────────────────────────────────────────────────
+      - name: 🚀 Publish Clean Artifacts to Main Branch
+        timeout-minutes: 5
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          OUTPUT_PATHS="all heavy light verified fast secure Countries top100.txt index.json health.json validation.json state.json all_servers.txt data"
+          MUST_EXIST="all/configs.txt all/clash.yaml all/singbox.json heavy/clash.yaml heavy/singbox.json light/clash.yaml light/singbox.json"
+
+          for f in $MUST_EXIST; do
+            if [ ! -s "$f" ]; then
+              echo "❌ Refusing to publish: essential artifact $f is missing or empty!"
+              exit 1
+            fi
+          done
+
+          is_output_path() {
+            case "$1" in
+              all/*|heavy/*|light/*|verified/*|fast/*|secure/*|Countries/*) return 0 ;;
+              top100.txt|index.json|health.json|validation.json|state.json|all_servers.txt) return 0 ;;
+              data/*) return 0 ;;
+              *) return 1 ;;
+            esac
+          }
+
+          ANCHOR=""
+          for depth in 2 5 10 20 50; do
+            timeout 30s git fetch --depth="$depth" origin "$PUBLISH_BRANCH" || true
+            ANCHOR=$(git log --format='%H %s' -n "$depth" "origin/$PUBLISH_BRANCH" 2>/dev/null | grep -v -F "$OUT_MARK" | head -n1 | awk '{print $1}')
+            if [ -n "$ANCHOR" ]; then break; fi
+          done
+
+          if [ -z "$ANCHOR" ]; then
+            ANCHOR=$(git rev-parse HEAD)
+          fi
+
+          git checkout -B "$PUBLISH_BRANCH" "$ANCHOR"
+          git add -A -- $OUTPUT_PATHS
+
+          TREE=$(git write-tree)
+          if [ -z "$TREE" ]; then
+            echo "❌ Refusing to publish: EMPTY tree!"
+            exit 1
+          fi
+
+          COMMIT_MSG="🚀 Goodbaye Auto-Update: Live Servers & Subscriptions $(date -u +'%Y-%m-%d %H:%M UTC') $OUT_MARK [skip ci]"
+          NEW_COMMIT=$(git commit-tree "$TREE" -p "$ANCHOR" -m "$COMMIT_MSG")
+
+          git update-ref "refs/heads/$PUBLISH_BRANCH" "$NEW_COMMIT"
+          git push --force-with-lease="refs/heads/$PUBLISH_BRANCH" origin "$PUBLISH_BRANCH"
+          echo "✅ Published successfully to $PUBLISH_BRANCH."
+
+      # ────────────────────────────────────────────────────────────────────────
+      # گزارش پایانی اجرای ورک‌فلو (Job Summary)
+      # ────────────────────────────────────────────────────────────────────────
+      - name: 📊 Job Summary
+        if: always()
+        run: |
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json, os
+
+          if os.path.exists("health.json"):
+              with open("health.json", "r", encoding="utf-8") as f:
+                  h = json.load(f)
+              c = h.get("cascade", {})
+              loc = c.get("exit_country", {}) or {}
+              b = c.get("buckets", {})
+              print(f"### 🛡️ Goodbaye Universal Standard Pipeline Summary")
+              print(f"- **Runner Exit Location:** `{loc.get('loc', '?')}/{loc.get('colo', '?')}`")
+              print(f"- **Fast VIP Strict (<500ms):** `{b.get('fast', 0)} configs`")
+              print(f"- **Top 100 VIP:** `{b.get('top', 0)} configs`")
+              print(f"- **Total Verified:** `{b.get('verified', 0)} configs`")
+          PY
