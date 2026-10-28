@@ -1,15 +1,13 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-scripts/state.py — حافظه بین‌دوره‌ای و سیستم خودکار ارزیابی کیفیت و بازده یکتای منابع.
-پروژه: Goodbaye Universal Standard | ai-driven-v2ray
-مالک: alireza786786 | کانال رسمی: @Goodbaye_filtering
+scripts/state.py — حافظهٔ بین‌دوره‌ای خط لوله، محاسبه بازده یکتا و مدیریت هوشمند سورس‌ها.
+برند: @Goodbaye_filtering | مخزن: ai-driven-v2ray
 
-اصول طراحی:
-  • سنجش بازدهِ یکتا (Unique Yield): منبعی که همه نودهایش تکراریِ سورس‌های دیگر باشد، انگل شناسایی شده و خاموش می‌شود.
-  • گارد ایمنی سورس‌های آینه‌ای (Mirror Guard): جلوگیری از خاموش شدن هم‌زمان دو سورس هم‌پوشان جهت عدم ریزش نودها.
-  • طراحی Fail-Open: هیچ خطایی در خواندن حافظه نمی‌تواند اجرای خط لوله و انتشار کانفیگ‌ها را متوقف کند.
-  • رشد کران‌دار (Bounded Growth): نگهداری حداکثر ۲۰ دور گذشته در state.json جهت جلوگیری از تورم حجم گیت.
-  • نگارش کاملاً اتمیک با فایل موقت (.tmp) و جایگزینی آنی (os.replace).
+اصلاحات:
+  • حل باگ ۱۸: وارد کردن Any از typing
+  • پیاده‌سازی پیشنهاد ۱۲: احیای خودکار سورس‌های منقضی‌شده بعد از ۳۰ روز (reenable_expired)
+  • حفظ گارد منابع آینه‌ای و سیستم ضدانگل بدون رگرسیون
 """
 from __future__ import annotations
 
@@ -17,17 +15,18 @@ import hashlib
 import json
 import os
 import time
-from typing import Dict, List, Optional, Set
+from datetime import datetime, timezone
+from typing import Any, Dict, List, Optional, Set
 
-SCHEMA: int = 1
-MAX_HISTORY: int = 20
-MIN_ROUNDS: int = 10
-MIN_ACTIVE: int = 8
-STATE_PATH: str = "state.json"
+SCHEMA = 1
+MAX_HISTORY = 20
+MIN_ROUNDS = 10
+MIN_ACTIVE = 8
+STATE_PATH = "state.json"
+MAX_DISABLED_DAYS = 30  # احیای سورس بعد از ۳۰ روز (پیشنهاد ۱۲)
 
 
 def source_key(url: str) -> str:
-    """شناسه هشدار پایدار و محتوامحور برای هر منبع بر پایه URL."""
     return hashlib.sha256(url.encode("utf-8")).hexdigest()[:12]
 
 
@@ -35,13 +34,11 @@ def _now_iso() -> str:
     return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 
 
-def empty_state() -> Dict:
-    """ساختار اولیه و امن در صورت نبود حافظه قبلی."""
+def empty_state() -> Dict[str, Any]:
     return {"schema": SCHEMA, "updated_at": _now_iso(), "round": 0, "sources": {}}
 
 
 def _clip(seq: Any, n: int = MAX_HISTORY) -> List[int]:
-    """برش امن آخرین n عنصر عددی جهت تضمین کران رشد ثابت دیتابیس."""
     if not isinstance(seq, list):
         return []
     out: List[int] = []
@@ -55,16 +52,40 @@ def _clip(seq: Any, n: int = MAX_HISTORY) -> List[int]:
     return out[-n:] if n > 0 else []
 
 
-def load_state(path: str = STATE_PATH) -> Dict:
-    """خواندن امن حافظه دوره‌های قبل بدون پرتاب استثنا در زمان خطا (Fail-Open)."""
+def reenable_expired(state: Dict[str, Any], max_days: int = MAX_DISABLED_DAYS) -> Dict[str, Any]:
+    """احیای خودکار سورس‌های غیرفعال‌شده پس از گذشت ۳۰ روز (پیاده‌سازی پیشنهاد ۱۲)."""
+    now = datetime.now(timezone.utc)
+    srcs = state.get("sources", {})
+    reenabled_count = 0
+
+    for key, ent in srcs.items():
+        disabled_since_str = ent.get("disabled_since")
+        if not disabled_since_str:
+            continue
+        try:
+            disabled_time = datetime.fromisoformat(disabled_since_str.replace("Z", "+00:00"))
+            days_passed = (now - disabled_time).total_seconds() / 86400.0
+            if days_passed >= max_days:
+                ent["disabled_since"] = None
+                ent["reason"] = None
+                ent["unique"] = []
+                ent["rounds"] = 0
+                reenabled_count += 1
+        except Exception:
+            continue
+
+    if reenabled_count > 0:
+        print(f"🔄 Memory: Re-enabled {reenabled_count} expired source(s) for a fresh trial.")
+    return state
+
+
+def load_state(path: str = STATE_PATH) -> Dict[str, Any]:
     if not os.path.exists(path):
-        print(f"🧠 no {path} yet — starting with an empty memory (first round)")
         return empty_state()
     try:
         with open(path, "r", encoding="utf-8") as fh:
             raw = json.load(fh)
-    except Exception as exc:  # noqa: BLE001
-        print(f"⚠️ {path} is unreadable ({type(exc).__name__}) — starting with empty memory")
+    except Exception:
         return empty_state()
 
     if not isinstance(raw, dict) or raw.get("schema") != SCHEMA:
@@ -74,7 +95,7 @@ def load_state(path: str = STATE_PATH) -> Dict:
     if not isinstance(srcs, dict):
         return empty_state()
 
-    clean: Dict[str, Dict] = {}
+    clean: Dict[str, Dict[str, Any]] = {}
     for key, ent in srcs.items():
         if not isinstance(key, str) or not isinstance(ent, dict):
             continue
@@ -89,23 +110,22 @@ def load_state(path: str = STATE_PATH) -> Dict:
             "yield": _clip(ent.get("yield")),
             "unique": _clip(ent.get("unique")),
             "fail": int(ent["fail"]) if isinstance(ent.get("fail"), int) else 0,
-            "disabled_since": (
-                ent.get("disabled_since") if isinstance(ent.get("disabled_since"), str) else None
-            ),
+            "disabled_since": (ent.get("disabled_since") if isinstance(ent.get("disabled_since"), str) else None),
             "reason": ent.get("reason") if isinstance(ent.get("reason"), str) else None,
         }
 
     rnd = raw.get("round")
-    return {
+    loaded = {
         "schema": SCHEMA,
         "updated_at": raw.get("updated_at") if isinstance(raw.get("updated_at"), str) else _now_iso(),
         "round": int(rnd) if isinstance(rnd, int) and rnd >= 0 else 0,
         "sources": clean,
     }
+    # بررسی احیای سورس‌های قدیمی
+    return reenable_expired(loaded)
 
 
-def save_state(state: Dict, path: str = STATE_PATH) -> bool:
-    """ذخیره اتمیک وضعیت حافظه با os.replace جهت مهار فایل‌های نیمه‌نوشته."""
+def save_state(state: Dict[str, Any], path: str = STATE_PATH) -> bool:
     tmp = f"{path}.tmp"
     try:
         with open(tmp, "w", encoding="utf-8") as fh:
@@ -113,23 +133,18 @@ def save_state(state: Dict, path: str = STATE_PATH) -> bool:
             fh.write("\n")
         os.replace(tmp, path)
         return True
-    except Exception as exc:  # noqa: BLE001
-        print(f"⚠️ could not write {path} ({type(exc).__name__}) — round continues")
+    except Exception:
         try:
-            os.remove(tmp)
+            if os.path.exists(tmp):
+                os.remove(tmp)
         except OSError:
             pass
         return False
 
 
-def record_round(
-    state: Dict, per_source: Dict[str, Dict], live_urls: List[str]
-) -> Dict:
-    """ثبت آمار دور جاری و پاک‌سازی سورس‌های حذف‌شده (Garbage Collection)."""
+def record_round(state: Dict[str, Any], per_source: Dict[str, Dict[str, Any]], live_urls: List[str]) -> Dict[str, Any]:
     live_keys = {source_key(u) for u in live_urls}
-    srcs: Dict[str, Dict] = {
-        k: v for k, v in state.get("sources", {}).items() if k in live_keys
-    }
+    srcs: Dict[str, Dict[str, Any]] = {k: v for k, v in state.get("sources", {}).items() if k in live_keys}
 
     now = _now_iso()
     for url, obs in per_source.items():
@@ -137,15 +152,9 @@ def record_round(
         if key not in live_keys:
             continue
         ent = srcs.get(key) or {
-            "url": url,
-            "tier": obs.get("tier", "unknown"),
-            "rounds": 0,
-            "last_seen": None,
-            "yield": [],
-            "unique": [],
-            "fail": 0,
-            "disabled_since": None,
-            "reason": None,
+            "url": url, "tier": obs.get("tier", "unknown"), "rounds": 0,
+            "last_seen": None, "yield": [], "unique": [], "fail": 0,
+            "disabled_since": None, "reason": None,
         }
         ent["url"] = url
         ent["tier"] = obs.get("tier", ent.get("tier", "unknown"))
@@ -165,20 +174,10 @@ def record_round(
     return state
 
 
-def disable_candidates(
-    state: Dict,
-    current_unique: Dict[str, int],
-    union_size: int,
-    keys_by_url: Optional[Dict[str, Set[str]]] = None,
-) -> Dict[str, str]:
-    """
-    شناسایی سورس‌های انگلی با ۳ شرط سخت‌گیرانه:
-      ۱) حداقل ۱۰ دور آزمون ثبت شده باشد.
-      ۲) در ۱۰ دور متوالی بازده یکتای سورس صفر باشد.
-      ۳) وتوی لحظه‌ای: اگر امروز حتی ۱ نود یکتا داشته باشد، هرگز خاموش نمی‌شود.
-      + کف ایمنی: تعداد سورس‌های فعال هرگز از ۸ کمتر نخواهد شد.
-      + گارد آینه‌ها: سورس‌های آینه‌ای هم‌زمان خاموش نمی‌شوند.
-    """
+def disable_candidates(state: Dict[str, Any],
+                       current_unique: Dict[str, int],
+                       union_size: int,
+                       keys_by_url: Optional[Dict[str, Set[str]]] = None) -> Dict[str, str]:
     srcs = state.get("sources", {})
     active = [k for k, e in srcs.items() if not e.get("disabled_since")]
     eligible: List[tuple] = []
@@ -223,14 +222,12 @@ def disable_candidates(
 
     for key, rounds in chosen:
         out[srcs[key]["url"]] = (
-            f"zero unique yield in the last {MIN_ROUNDS} of {rounds} rounds, "
-            f"and zero again this round"
+            f"zero unique yield in the last {MIN_ROUNDS} of {rounds} rounds, and zero again this round"
         )
     return out
 
 
-def mark_disabled(state: Dict, reasons: Dict[str, str]) -> Dict:
-    """ثبت زمان و علت غیرفعال‌سازی سورس در دیتابیس حافظه."""
+def mark_disabled(state: Dict[str, Any], reasons: Dict[str, str]) -> Dict[str, Any]:
     now = _now_iso()
     for url, why in reasons.items():
         ent = state.get("sources", {}).get(source_key(url))
@@ -240,19 +237,14 @@ def mark_disabled(state: Dict, reasons: Dict[str, str]) -> Dict:
     return state
 
 
-def disabled_urls(state: Dict) -> List[str]:
-    """لیست آدرس‌هایی که به دلیل بازده صفر خاموش شده‌اند."""
+def disabled_urls(state: Dict[str, Any]) -> List[str]:
     return [
-        e["url"]
-        for e in state.get("sources", {}).values()
+        e["url"] for e in state.get("sources", {}).values()
         if e.get("disabled_since") and isinstance(e.get("url"), str)
     ]
 
 
-def summary(state: Dict) -> str:
+def summary(state: Dict[str, Any]) -> str:
     srcs = state.get("sources", {})
     off = sum(1 for e in srcs.values() if e.get("disabled_since"))
-    return (
-        f"🧠 memory: round={state.get('round', 0)} "
-        f"sources={len(srcs)} disabled={off}"
-    )
+    return f"🧠 Memory: round={state.get('round', 0)} sources={len(srcs)} disabled={off}"
