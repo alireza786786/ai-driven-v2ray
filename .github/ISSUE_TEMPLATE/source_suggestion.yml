@@ -1,0 +1,19 @@
+name: Source suggestion
+description: Suggest a new source of configs
+title: "[Source]: "
+labels: ["source"]
+body:
+  - type: input
+    id: url
+    attributes:
+      label: Source URL
+      placeholder: https://raw.githubusercontent.com/...
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Why is this source useful?
+    validations:
+      required: false
