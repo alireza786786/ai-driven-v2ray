@@ -1,0 +1,19 @@
+name: Accessibility issue
+description: Report a problem with accessibility
+title: "[A11y]: "
+labels: ["accessibility"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is the problem?
+      description: Describe the accessibility barrier you found.
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested improvement
+      description: How could it be better?
+    validations:
+      required: false
