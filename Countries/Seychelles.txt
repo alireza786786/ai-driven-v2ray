@@ -1,0 +1,13 @@
+#profile-title: @Goodbaye_filtering — SEYCHELLES (SC)
+#profile-update-interval: 1
+#subscription-userinfo: upload=0; download=0; total=0; expire=0
+#support-url: https://t.me/goodbaye_filtering
+#profile-web-page-url: https://github.com/0xRadikal/ai-driven-v2ray
+# @Goodbaye_filtering — SEYCHELLES (SC) — 4 configs
+# source: verified/ — every config passed a real proxied request in ALL L3 rounds
+# location: GeoIP (DB-IP Country Lite) on the real network address of the server
+# note: this is where the SERVER is, not necessarily where your traffic exits
+trojan://humanity@45.130.125.160:443?path=/assignment&security=tls&insecure=0&host=www.calmlunch.com&type=ws&allowInsecure=0&sni=www.calmlunch.com#SC 🇸🇨 | @Goodbaye_filtering | 4A9E9D
+trojan://humanity@45.130.125.126:443?security=tls&type=ws&host=www.calmlunch.com&path=%2Fassignment&sni=www.calmlunch.com#SC 🇸🇨 | @Goodbaye_filtering | 049AD9
+trojan://humanity@45.130.125.69:443?type=ws&security=tls&path=%2Fassignment&host=www.calmlunch.com&sni=www.calmlunch.com&allowInsecure=0#SC 🇸🇨 | @Goodbaye_filtering | 7A773D
+trojan://humanity@45.130.125.160:443?allowInsecure=0&sni=www.calmlunch.com&type=ws&host=www.calmlunch.com&path=%2Fassignment#SC 🇸🇨 | @Goodbaye_filtering | 62C09D

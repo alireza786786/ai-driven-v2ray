@@ -1,8 +1,7 @@
-# Cleaned & Verified Telegram Channels — Count: 476
+# Cleaned & Verified Telegram Channels — Count: 475
 ada_free_connect
 ae_proxy
 ai_duet
-akhbarforiir24
 alfred_config
 allnetwork900
 alovpnv

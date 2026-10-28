@@ -3,15 +3,21 @@
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
 #support-url: https://t.me/goodbaye_filtering
 #profile-web-page-url: https://github.com/0xRadikal/ai-driven-v2ray
-# @Goodbaye_filtering — INDIA (IN) — 8 configs
+# @Goodbaye_filtering — INDIA (IN) — 14 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
-vless://68512eac-cd53-4de3-8d1e-08f6e04af1a9@13.140.56.100:14430?path=%2Fvless&security=none&type=ws#IN 🇮🇳 | @Goodbaye_filtering | 89E794
+vless://68512eac-cd53-4de3-8d1e-08f6e04af1a9@13.140.56.100:14430?host=13.140.56.100&path=%2Fvless&security=none&type=ws#IN 🇮🇳 | @Goodbaye_filtering | F29707
+vless://68512eac-cd53-4de3-8d1e-08f6e04af1a9@13.140.56.100:14430?fp=chrome&host=13.140.56.100&path=%2Fvless&security=none&sni=13.140.56.100&type=ws#IN 🇮🇳 | @Goodbaye_filtering | 2BC896
 vless://68512eac-cd53-4de3-8d1e-08f6e04af1a9@13.140.56.100:14430?path=%2Fvless&security=none&sni=13.140.56.100&type=ws#IN 🇮🇳 | @Goodbaye_filtering | 53BA91
-vless://68512eac-cd53-4de3-8d1e-08f6e04af1a9@13.140.56.100:14430?host=13.140.56.100&path=%2Fvless&security=none&sni=13.140.56.100&type=ws#IN 🇮🇳 | @Goodbaye_filtering | 2BC896
+vmess://eyJ2IjpudWxsLCJwcyI6IklOIPCfh67wn4ezIHwgQEdvb2RiYXllX2ZpbHRlcmluZyB8IDQ4QjU1NSIsImFkZCI6IjE1Mi42Ny44LjIwNSIsInBvcnQiOjgwLCJpZCI6IjlkYjRjNzA4LWFlZjgtNDM1OS04MjFiLTM4ZTQ3OTkwYmUwZCIsImFpZCI6IjAiLCJzY3kiOiJhdXRvIiwibmV0Ijoid3MiLCJ0eXBlIjpudWxsLCJob3N0IjoiaW4tMTUyLjY3LjguMjA1LTAyMDQiLCJhbHBuIjpudWxsLCJwYXRoIjoiLyIsInRscyI6Im5vbmUiLCJzbmkiOm51bGwsImZwIjpudWxsLCJuYW1lIjoiSU4g8J+HrvCfh7MgfCBAR29vZGJheWVfZmlsdGVyaW5nIHwgNDhCNTU1In0=
+vmess://eyJhZGQiOiIxNTIuNjcuOC4yMDUiLCJhaWQiOjAsImhvc3QiOiJpbi0xNTIuNjcuOC4yMDUtMDE3OSIsImlkIjoiOWRiNGM3MDgtYWVmOC00MzU5LTgyMWItMzhlNDc5OTBiZTBkIiwibmV0Ijoid3MiLCJwYXRoIjoiIiwicG9ydCI6IjgwIiwicHMiOiJJTiDwn4eu8J+HsyB8IEBHb29kYmF5ZV9maWx0ZXJpbmcgfCA5MDk5QzYiLCJzbmkiOiIiLCJ0bHMiOiIiLCJ0eXBlIjoibm9uZSIsInYiOiIyIn0=
+vmess://eyJ2IjoiMiIsInBzIjoiSU4g8J+HrvCfh7MgfCBAR29vZGJheWVfZmlsdGVyaW5nIHwgRDcwOTk5IiwiYWRkIjoiMTUyLjY3LjguMjA1IiwicG9ydCI6IjgwIiwiaWQiOiI5ZGI0YzcwOC1hZWY4LTQzNTktODIxYi0zOGU0Nzk5MGJlMGQiLCJhaWQiOiIwIiwic2N5IjoiYXV0byIsIm5ldCI6IndzIiwidHlwZSI6IiIsInRscyI6IiIsInBhdGgiOiIvIiwiaG9zdCI6ImluLTE1Mi42Ny44LjIwNS0wMjAyIn0=
+vmess://eyJ2IjpudWxsLCJwcyI6IklOIPCfh67wn4ezIHwgQEdvb2RiYXllX2ZpbHRlcmluZyB8IDg3M0M1MSIsImFkZCI6IjE1Mi42Ny44LjIwNSIsInBvcnQiOjgwLCJpZCI6IjlkYjRjNzA4LWFlZjgtNDM1OS04MjFiLTM4ZTQ3OTkwYmUwZCIsImFpZCI6IjAiLCJzY3kiOiJhdXRvIiwibmV0Ijoid3MiLCJ0eXBlIjpudWxsLCJob3N0IjoiaW4tMTUyLjY3LjguMjA1LTAyNTAiLCJhbHBuIjpudWxsLCJwYXRoIjoiLyIsInRscyI6Im5vbmUiLCJzbmkiOm51bGwsImZwIjpudWxsLCJuYW1lIjoiSU4g8J+HrvCfh7MgfCBAR29vZGJheWVfZmlsdGVyaW5nIHwgODczQzUxIn0=
+vmess://eyJhZGQiOiIxNTIuNjcuOC4yMDUiLCJhaWQiOjAsImhvc3QiOiIiLCJpZCI6IjlkYjRjNzA4LWFlZjgtNDM1OS04MjFiLTM4ZTQ3OTkwYmUwZCIsIm5ldCI6IndzIiwicGF0aCI6IiIsInBvcnQiOiI4MCIsInBzIjoiSU4g8J+HrvCfh7MgfCBAR29vZGJheWVfZmlsdGVyaW5nIHwgQTcxMjBCIiwic25pIjoiaW4tMTUyLjY3LjguMjA1LTAyMDAiLCJ0bHMiOiIiLCJ0eXBlIjoibm9uZSIsInYiOiIyIn0=
+vmess://eyJhZGQiOiIxNTIuNjcuOC4yMDUiLCJhaWQiOjAsImhvc3QiOiJpbi0xNTIuNjcuOC4yMDUtMDI0MiIsImlkIjoiOWRiNGM3MDgtYWVmOC00MzU5LTgyMWItMzhlNDc5OTBiZTBkIiwibmV0Ijoid3MiLCJwYXRoIjoiIiwicG9ydCI6IjgwIiwicHMiOiJJTiDwn4eu8J+HsyB8IEBHb29kYmF5ZV9maWx0ZXJpbmcgfCBFRDM3QUIiLCJzbmkiOiIiLCJ0bHMiOiIiLCJ0eXBlIjoibm9uZSIsInYiOiIyIn0=
 vless://e9a8144e-5237-488a-afb1-9ca3d8d54c80@in002.zestapp778.com:46362?security=tls&type=tcp&sni=in002.zestapp778.com&fp=chrome#IN 🇮🇳 | @Goodbaye_filtering | C4590A
-vless://16ae3ea5-cf3e-6973-7bf3-2b4b28d0ea88@122.176.216.52:443?fp=chrome&host=app-6ada5023.deploy.meerasolution.com&path=%2Fws%2F16ae3ea5-cf3e-6973-7bf3-2b4b28d0ea88&security=tls&sni=app-6ada5023.deploy.meerasolution.com&type=ws#IN 🇮🇳 | @Goodbaye_filtering | 8537A4
 vless://16ae3ea5-cf3e-6973-7bf3-2b4b28d0ea88@122.176.216.52:443?path=/ws/16ae3ea5-cf3e-6973-7bf3-2b4b28d0ea88&security=tls&alpn=h2&encryption=none&insecure=0&host=app-6ada5023.deploy.meerasolution.com&fp=chrome&type=ws&allowInsecure=0&sni=app-6ada5023.deploy.meerasolution.com#IN 🇮🇳 | @Goodbaye_filtering | E43169
-vless://5e679ccd-1586-4d5f-b87b-48251046cad8@hydra.yokkastars.com:2443?fp=qq&pbk=h85e28MxBgNyT9d9cNeOLVtWfHq6cT_1_oxZOTajtTg&security=reality&serviceName=rex-eb0bf76b710ce763&sid=92c32de179e5d908&sni=deepl.com&type=grpc#IN 🇮🇳 | @Goodbaye_filtering | F87C61
-vless://5e679ccd-1586-4d5f-b87b-48251046cad8@5.253.28.240:2443?encryption=none&fp=firefox&pbk=h85e28MxBgNyT9d9cNeOLVtWfHq6cT_1_oxZOTajtTg&security=reality&serviceName=rex-eb0bf76b710ce763&sid=92c32de179e5d908&sni=deepl.com&type=grpc#IN 🇮🇳 | @Goodbaye_filtering | 4406EA
+vless://16ae3ea5-cf3e-6973-7bf3-2b4b28d0ea88@122.176.216.52:443?fp=chrome&host=app-6ada5023.deploy.meerasolution.com&path=%2Fws%2F16ae3ea5-cf3e-6973-7bf3-2b4b28d0ea88&security=tls&sni=app-6ada5023.deploy.meerasolution.com&type=ws#IN 🇮🇳 | @Goodbaye_filtering | 8537A4
+vless://5e679ccd-1586-4d5f-b87b-48251046cad8@5.253.28.240:2443?fp=random&pbk=h85e28MxBgNyT9d9cNeOLVtWfHq6cT_1_oxZOTajtTg&security=reality&serviceName=rex-eb0bf76b710ce763&sid=92c32de179e5d908&sni=deepl.com&type=grpc#IN 🇮🇳 | @Goodbaye_filtering | 4406EA
+vless://5e679ccd-1586-4d5f-b87b-48251046cad8@hydra.yokkastars.com:2443?fp=qq&pbk=h85e28MxBgNyT9d9cNeOLVtWfHq6cT_1_oxZOTajtTg&security=reality&serviceName=rex-eb0bf76b710ce763&sid=92c32de179e5d908&sni=deepl.com&spx=%2F+&type=grpc#IN 🇮🇳 | @Goodbaye_filtering | F87C61

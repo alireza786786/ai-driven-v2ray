@@ -3,8 +3,10 @@
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
 #support-url: https://t.me/goodbaye_filtering
 #profile-web-page-url: https://github.com/0xRadikal/ai-driven-v2ray
-# @Goodbaye_filtering — AUSTRIA (AT) — 1 configs
+# @Goodbaye_filtering — AUSTRIA (AT) — 3 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
-vless://46c16b68-2553-4e5e-8176-f63d6bf6ec0c@vena.solomon-planet.ru:443?type=raw&security=reality&flow=xtls-rprx-vision&fp=firefox&pbk=rvDa0xNkcJYEIJ-1Ncrq54BUjjwm99C_8Vv_-He6j1U&sni=vena.solomon-planet.ru#AT 🇦🇹 | @Goodbaye_filtering | 96D912
+trojan://humanity@212.183.88.136:443?path=/assignment&security=tls&insecure=0&type=ws&allowInsecure=0&sni=www.calmlunch.com#AT 🇦🇹 | @Goodbaye_filtering | 8BFCF0
+trojan://humanity@212.183.88.136:443?path=/assignment&security=tls&insecure=0&host=www.calmlunch.com&type=ws&allowInsecure=0&sni=www.calmlunch.com#AT 🇦🇹 | @Goodbaye_filtering | BE2A03
+trojan://humanity@212.183.88.136:443?path=//assignment&security=tls&insecure=0&host=www.calmlunch.com&type=ws&allowInsecure=0&sni=www.calmlunch.com#AT 🇦🇹 | @Goodbaye_filtering | DC0C67

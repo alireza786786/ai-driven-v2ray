@@ -7,7 +7,7 @@
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
-trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@45.63.30.142:443?sni=connectwithemployerstohireyouridealteam.com&type=tcp#AU 🇦🇺 | @Goodbaye_filtering | 063CD6
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@45.63.30.142:443?security=tls&sni=connectwithemployerstohireyouridealteam.com#AU 🇦🇺 | @Goodbaye_filtering | 373E2E
+trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@45.63.30.142:443?sni=connectwithemployerstohireyouridealteam.com&type=tcp#AU 🇦🇺 | @Goodbaye_filtering | 063CD6
+vless://a14b736b-a92a-48d6-a596-5d31f7378ded@51.161.204.242:443?flow=xtls-rprx-vision&fp=random&host=www.cloudflare.com&pbk=a2qGjvUPq6Nz5FTbn_MSHp-055q2h8YXqIL5VIJ5zwE&security=reality&sid=d15c17cef9b2e456&sni=www.cloudflare.com&type=tcp#AU 🇦🇺 | @Goodbaye_filtering | 849AAB
 vless://a14b736b-a92a-48d6-a596-5d31f7378ded@51.161.204.242:443?security=reality&encryption=none&pbk=a2qGjvUPq6Nz5FTbn_MSHp-055q2h8YXqIL5VIJ5zwE&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=www.cloudflare.com&sid=d15c17cef9b2e456#AU 🇦🇺 | @Goodbaye_filtering | AD387D
-vless://e9a8144e-5237-488a-afb1-9ca3d8d54c80@au001.zestapp778.com:35652?security=tls&type=tcp&allowInsecure=1&sni=au001.zestapp778.com&fp=chrome#AU 🇦🇺 | @Goodbaye_filtering | E3FA3D

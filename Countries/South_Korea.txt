@@ -3,22 +3,20 @@
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
 #support-url: https://t.me/goodbaye_filtering
 #profile-web-page-url: https://github.com/0xRadikal/ai-driven-v2ray
-# @Goodbaye_filtering — SOUTH KOREA (KR) — 15 configs
+# @Goodbaye_filtering — SOUTH KOREA (KR) — 13 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
-vmess://eyJ2IjoiMiIsInBzIjoiS1Ig8J+HsPCfh7cgfCBAR29vZGJheWVfZmlsdGVyaW5nIHwgRTlGOTdBIiwiYWRkIjoiMTQwLjIzOC4yLjI1MCIsInBvcnQiOiI0NDMiLCJpZCI6IjQxYTcwODlhLTA0MGItNDUzOC04YjhkLTAxMDkwMjQwNWJkZSIsImFpZCI6IjAiLCJzY3kiOiJhdXRvIiwibmV0IjoidGNwIiwidHlwZSI6IiIsInRscyI6IiJ9
-vmess://eyJ2IjoiMiIsInBzIjoiS1Ig8J+HsPCfh7cgfCBAR29vZGJheWVfZmlsdGVyaW5nIHwgOTY1MkUxIiwiYWRkIjoiNDMuMTA4LjEwMy4xNjciLCJwb3J0IjoiMTIzIiwiaWQiOiIzNWFhMGZkYS0xNzVhLTRhZWMtYzQ2OC0wMjMxZGVlMWExMjEiLCJhaWQiOiIwIiwic2N5IjoiYXV0byIsIm5ldCI6InRjcCIsInR5cGUiOiJodHRwIiwidGxzIjoiIiwicGF0aCI6Ii8ifQ==
 vmess://eyJ2IjoiMiIsInBzIjoiS1Ig8J+HsPCfh7cgfCBAR29vZGJheWVfZmlsdGVyaW5nIHwgMTY4MTE4IiwiYWRkIjoiMjE3LjE0Mi4xMzguNjEiLCJwb3J0IjoiODAiLCJpZCI6ImFjMWI5MzNkLWFmZmYtNDQ4Ny05M2VmLWY1NzEzMGE1NWRmZiIsImFpZCI6IjAiLCJzY3kiOiJhdXRvIiwibmV0IjoidGNwIiwidHlwZSI6Imh0dHAiLCJ0bHMiOiIiLCJhbHBuIjoiIiwicGF0aCI6Ii8ifQ==
+vmess://eyJ2IjoiMiIsInBzIjoiS1Ig8J+HsPCfh7cgfCBAR29vZGJheWVfZmlsdGVyaW5nIHwgRTlGOTdBIiwiYWRkIjoiMTQwLjIzOC4yLjI1MCIsInBvcnQiOiI0NDMiLCJpZCI6IjQxYTcwODlhLTA0MGItNDUzOC04YjhkLTAxMDkwMjQwNWJkZSIsImFpZCI6IjAiLCJzY3kiOiJhdXRvIiwibmV0IjoidGNwIiwidHlwZSI6IiIsInRscyI6IiJ9
 vless://27c5483f-17f4-48ae-9a04-def53d88440d@152.69.226.63:25555?security=none&type=ws#KR 🇰🇷 | @Goodbaye_filtering | E820CB
-vless://27c5483f-17f4-48ae-9a04-def53d88440d@152.69.226.63:25555?security=none&type=ws&path=%2F#KR 🇰🇷 | @Goodbaye_filtering | 6913F7
-ss://YWVzLTI1Ni1nY206WEtGS2wyclVMaklwNzQ=@141.164.45.187:8008#KR 🇰🇷 | @Goodbaye_filtering | F95186
-ss://YWVzLTI1Ni1nY206bEdxczk1UWtGSG8yTlY@141.164.45.187:5498#KR 🇰🇷 | @Goodbaye_filtering | 308A49
-vless://814bd064-544d-4255-a070-5705c03f6da9@3.39.4.109:13672?flow=xtls-rprx-vision&fp=chrome&pbk=k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0&security=reality&sid=48050fab&sni=www.apple.com&type=tcp#KR 🇰🇷 | @Goodbaye_filtering | 6E78E9
 vless://814bd064-544d-4255-a070-5705c03f6da9@3.39.4.109:18967?flow=xtls-rprx-vision&fp=random&host=www.apple.com&pbk=k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0&security=reality&sid=48050fab&sni=www.apple.com&type=tcp#KR 🇰🇷 | @Goodbaye_filtering | E3757C
-vless://814bd064-544d-4255-a070-5705c03f6da9@3.39.4.109:18967?flow=xtls-rprx-vision&fp=chrome&pbk=k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0&security=reality&sid=48050fab&sni=www.apple.com&type=raw#KR 🇰🇷 | @Goodbaye_filtering | F949F0
 vless://814bd064-544d-4255-a070-5705c03f6da9@3.39.4.109:13672?flow=xtls-rprx-vision&fp=random&host=www.apple.com&pbk=k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0&security=reality&sid=48050fab&sni=www.apple.com&type=tcp#KR 🇰🇷 | @Goodbaye_filtering | 4AE7A6
+vless://814bd064-544d-4255-a070-5705c03f6da9@3.39.4.109:13672?flow=xtls-rprx-vision&fp=chrome&pbk=k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0&security=reality&sid=48050fab&sni=www.apple.com&type=tcp#KR 🇰🇷 | @Goodbaye_filtering | 6E78E9
 vless://814bd064-544d-4255-a070-5705c03f6da9@3.39.4.109:13672?flow=xtls-rprx-vision&path=%2F&pbk=k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0&security=reality&sid=48050fab&sni=www.apple.com&type=tcp#KR 🇰🇷 | @Goodbaye_filtering | F84964
-vless://a2de9567-9646-45a9-a410-7303a43bdb6c@151.245.106.49:2053?fp=random&pbk=F6C33iIbfmt1mUsuLTarIC8ygdHKMqsaGvrSQltyxUo&security=reality&sid=429499c03d4cc8a0&sni=www.cloudflare.com&type=tcp#KR 🇰🇷 | @Goodbaye_filtering | C26A71
+vless://814bd064-544d-4255-a070-5705c03f6da9@3.39.4.109:18967?flow=xtls-rprx-vision&fp=safari&pbk=k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0&security=reality&sid=48050fab&sni=www.apple.com&type=raw#KR 🇰🇷 | @Goodbaye_filtering | F949F0
+vless://27c5483f-17f4-48ae-9a04-def53d88440d@152.69.226.63:25555?security=none&type=ws&path=%2F#KR 🇰🇷 | @Goodbaye_filtering | 6913F7
 vless://a2de9567-9646-45a9-a410-7303a43bdb6c@151.245.106.49:2053?fp=random&host=www.cloudflare.com&pbk=F6C33iIbfmt1mUsuLTarIC8ygdHKMqsaGvrSQltyxUo&security=reality&sid=429499c03d4cc8a0&sni=www.cloudflare.com&type=tcp#KR 🇰🇷 | @Goodbaye_filtering | B1880B
+vless://a2de9567-9646-45a9-a410-7303a43bdb6c@151.245.106.49:2053?fp=random&pbk=F6C33iIbfmt1mUsuLTarIC8ygdHKMqsaGvrSQltyxUo&security=reality&sid=429499c03d4cc8a0&sni=www.cloudflare.com&type=tcp#KR 🇰🇷 | @Goodbaye_filtering | C26A71
+vmess://eyJ2IjoiMiIsInBzIjoiS1Ig8J+HsPCfh7cgfCBAR29vZGJheWVfZmlsdGVyaW5nIHwgOTY1MkUxIiwiYWRkIjoiNDMuMTA4LjEwMy4xNjciLCJwb3J0IjoiMTIzIiwiaWQiOiIzNWFhMGZkYS0xNzVhLTRhZWMtYzQ2OC0wMjMxZGVlMWExMjEiLCJhaWQiOiIwIiwic2N5IjoiYXV0byIsIm5ldCI6InRjcCIsInR5cGUiOiJodHRwIiwidGxzIjoiIiwicGF0aCI6Ii8ifQ==
 vless://319d5ffb-57e8-4bbd-ac0c-5d55d0c253de@47.80.19.173:2053?security=reality&encryption=none&pbk=DfFU5OG93GxB1x25Dl2BTkxKsBTFF4Su4PXYPbYvmms&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=gateway.icloud.com&sid=3c4041d3#KR 🇰🇷 | @Goodbaye_filtering | B37B15

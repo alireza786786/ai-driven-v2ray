@@ -8,7 +8,7 @@
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@64.176.163.182:443?security=tls&sni=exploreeducationsectoropportunitiestodayandadvancecareers.com&type=tcp#IL 🇮🇱 | @Goodbaye_filtering | 60EE8A
-trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@64.176.163.182:443?sni=exploreeducationsectoropportunitiestodayandadvancecareers.com&type=tcp#IL 🇮🇱 | @Goodbaye_filtering | 7C445A
+trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@64.176.163.182:443?allowInsecure=1&sni=exploreeducationsectoropportunitiestodayandadvancecareers.com&type=tcp#IL 🇮🇱 | @Goodbaye_filtering | 7C445A
+vless://5a519754-a673-4462-83f6-5eb25d2af141@79.182.39.35:25548?encryption=none&security=reality&sni=www.cloudflare.com&fp=firefox&pbk=lceynvFy326oU4ew9OPR7079m-L5ZcFELgCl0sqxU2M&sid=bceb5b2197b76818&type=tcp&headerType=none&insecure=0#IL 🇮🇱 | @Goodbaye_filtering | C743FE
 vless://f0b144bd-4c44-440d-b630-d79ec82cad3a@77.91.69.169:19226?security=reality&encryption=none&pbk=PQjgf7GxBd2tDXf0zl9Z5rTZo7LdsWj0hGZLH-lJ-Uk&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=yahoo.com&sid=7c#IL 🇮🇱 | @Goodbaye_filtering | 09F4D1
-vless://36fb6650-8a50-42b5-9f66-06538806f32c@79.182.39.75:25362?security=reality&encryption=none&pbk=hFee7zTreqlv_wccK_8zxN5v23hj9u-DshByvGf-KAA&headerType=none&fp=chrome&type=tcp&sni=www.chip.de&sid=23732d14a527990d#IL 🇮🇱 | @Goodbaye_filtering | B8710F
-vless://36fb6650-8a50-42b5-9f66-06538806f32c@79.182.39.236:25362?encryption=none&fp=firefox&pbk=hFee7zTreqlv_wccK_8zxN5v23hj9u-DshByvGf-KAA&security=reality&sid=23732d14a527990d&sni=www.chip.de&type=tcp#IL 🇮🇱 | @Goodbaye_filtering | B7C489
+vless://f90b7d43-69e2-4b46-a672-8029bc6796a2@79.182.39.233:25895?encryption=none&type=tcp&security=reality&sni=www.samsung.com&fp=firefox&pbk=jOVKSP-bS9OkILJ8Epz8hadh6qhavCrOiJYeF0NCn0k&sid=a73f0410d728c823#IL 🇮🇱 | @Goodbaye_filtering | 01C0D7

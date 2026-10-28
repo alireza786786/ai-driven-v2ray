@@ -1,10 +1,10 @@
-#profile-title: @Goodbaye_filtering — HUNGARY (HU)
+#profile-title: @Goodbaye_filtering — CZECHIA (CZ)
 #profile-update-interval: 1
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
 #support-url: https://t.me/goodbaye_filtering
 #profile-web-page-url: https://github.com/0xRadikal/ai-driven-v2ray
-# @Goodbaye_filtering — HUNGARY (HU) — 1 configs
+# @Goodbaye_filtering — CZECHIA (CZ) — 1 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
-trojan://humanity@185.225.68.232:443?path=/assignment&security=tls&insecure=0&host=www.calmlunch.com&type=ws&allowInsecure=0&sni=www.calmlunch.com#HU 🇭🇺 | @Goodbaye_filtering | 5C1081
+vless://7c053ca8-38cc-45e2-930c-eda1fd66f903@195.123.245.241:443?security=reality&type=tcp&packetEncoding=xudp&sni=gateway.icloud.com&fp=chrome&flow=xtls-rprx-vision&sid=23d0950d60bc0d5b&pbk=hlY5ce1UsVIgE46y5PlEZhUsSaXUnCtoDLLaGrhInjw#CZ 🇨🇿 | @Goodbaye_filtering | E19598

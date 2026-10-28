@@ -3,9 +3,8 @@
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
 #support-url: https://t.me/goodbaye_filtering
 #profile-web-page-url: https://github.com/0xRadikal/ai-driven-v2ray
-# @Goodbaye_filtering — ALBANIA (AL) — 2 configs
+# @Goodbaye_filtering — ALBANIA (AL) — 1 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
-ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpoVFRnN2x3UU16cGFGN0tYcFkzQTh3@alb.rvpn.app:8388#AL 🇦🇱 | @Goodbaye_filtering | DFB2D0
 ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpjWkdyOG5MSGRmK0ZFNVpBdzBZL1J6c21sNEF5aWtHTDQ4MVBnN2VCcHNJPQ@130.49.189.158:43558#AL 🇦🇱 | @Goodbaye_filtering | C7E3DD
