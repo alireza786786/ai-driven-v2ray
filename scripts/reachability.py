@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-scripts/reachability.py — لایهٔ L2 آبشار حقیقت‌سنجی: آزمون همروند دسترسی‌پذیری سوکت TCP.
-پروژه: Goodbaye Universal Standard | ai-driven-v2ray
-مالک: alireza786786 | کانال رسمی: @Goodbaye_filtering
+scripts/reachability.py — لایهٔ L2: سنجشِ دسترسی‌پذیریِ TCP با همروندی ۸۰۰ سوکت.
+برند: @Goodbaye_filtering | مخزن: ai-driven-v2ray
 
-اصول مهندسی سیستم‌عامل در این لایه:
-  ۱) جداسازی کامل DNS از TCP با استخر ۶۴ رشته‌ای و پشتیبانی از AF_UNSPEC (IPv4 و IPv6)
-  ۲) تنظیم همروندی دقیق روی ۸۰۰ سوکت هم‌زمان (سقف مجاز ulimit لینوکس جهت جلوگیری از خطای EMFILE)
-  ۳) سیستم پایش نشت سوکت در هسته لینوکس از طریق /proc/self/fd (گارد F-13)
-  ۴) سنجش تا سقف ۳ نشانی برای هاست‌های CDN و Anycast با انتخاب کمترین تاخیر (۹۹.۵٪ بازیابی سرورها)
+اصلاحات کلیدی:
+  • حل باگ ۳: پروتکل‌های مبتنی بر UDP (مانند WireGuard, Hysteria2, TUIC) تست TCP را دور می‌زنند
+    تا اشتباهاً حذف نشوند و مستقیماً به آزمون واقعی L3 برسند.
+  • مهار نشت سوکت لینوکس (F-13) و ایزولاسیون کامل تایم‌اوت DNS.
 """
 from __future__ import annotations
 
@@ -24,26 +22,12 @@ from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-# ──────────────────────────────────────────────────────────────────────────────
-# پارامترهای اندازه‌گیری‌شده و محیطی
-# ──────────────────────────────────────────────────────────────────────────────
-
-#: سقف همروندی سوکت‌ها (۸۰۰ سقف اثبات‌شده روی ulimit نرم ۱۰۲۴ رانرهای لینوکس)
-CONCURRENCY: int = int(os.environ.get("L2_CONCURRENCY", "800"))
-
-#: مهلت دست‌دادن اولیه TCP بر حسب ثانیه
-TCP_TIMEOUT: float = float(os.environ.get("L2_TCP_TIMEOUT", "3"))
-
-#: تعداد رشته‌های استخر حل نام DNS
-DNS_WORKERS: int = int(os.environ.get("L2_DNS_WORKERS", "64"))
-
-#: مهلت پاسخ‌دهی استعلام DNS
-DNS_TIMEOUT: float = float(os.environ.get("L2_DNS_TIMEOUT", "4"))
-
-#: سقف بررسی IPهای متعلق به یک هاست Anycast یا CDN
-ADDR_CAP: int = int(os.environ.get("L2_ADDR_CAP", "3"))
-
-_FD_HEADROOM: int = 200
+CONCURRENCY = int(os.environ.get("L2_CONCURRENCY", "800"))
+TCP_TIMEOUT = float(os.environ.get("L2_TCP_TIMEOUT", "3"))
+DNS_WORKERS = int(os.environ.get("L2_DNS_WORKERS", "64"))
+DNS_TIMEOUT = float(os.environ.get("L2_DNS_TIMEOUT", "4"))
+ADDR_CAP = int(os.environ.get("L2_ADDR_CAP", "3"))
+_FD_HEADROOM = 200
 
 ERR_TIMEOUT = "timeout"
 ERR_REFUSED = "refused"
@@ -51,23 +35,17 @@ ERR_UNREACHABLE = "unreachable"
 ERR_DNS = "dns_failed"
 ERR_EMFILE = "emfile"
 ERR_OTHER = "other"
-ALL_ERRORS = (
-    ERR_TIMEOUT,
-    ERR_REFUSED,
-    ERR_UNREACHABLE,
-    ERR_DNS,
-    ERR_EMFILE,
-    ERR_OTHER,
-)
+ALL_ERRORS = (ERR_TIMEOUT, ERR_REFUSED, ERR_UNREACHABLE, ERR_DNS, ERR_EMFILE, ERR_OTHER)
+
+# پروتکل‌هایی که بر بستر UDP کار می‌کنند و تست TCP نباید آنها را فیلتر کند
+UDP_SCHEMES = frozenset({
+    "hysteria", "hysteria2", "hy", "hy2", "tuic", "wireguard", "wg", "warp"
+})
 
 
 class FileDescriptorExhaustion(RuntimeError):
-    """خطای کشنده سرریز File Descriptor سیستم‌عامل یا نشت سوکت."""
+    """کمبود یا نشت سوکت در سیستم‌عامل رخ داده است."""
 
-
-# ──────────────────────────────────────────────────────────────────────────────
-# فاز تفکیک و حل DNS
-# ──────────────────────────────────────────────────────────────────────────────
 
 def _is_ip(host: str) -> bool:
     try:
@@ -78,7 +56,6 @@ def _is_ip(host: str) -> bool:
 
 
 def _resolve_one(host: str) -> Tuple[str, Tuple[str, ...]]:
-    """حل قطعی و مرتب‌شده آدرس با پشتیبانی هم‌زمان از IPv4 و IPv6."""
     try:
         infos = socket.getaddrinfo(host, None, proto=socket.IPPROTO_TCP)
     except Exception:
@@ -87,7 +64,6 @@ def _resolve_one(host: str) -> Tuple[str, Tuple[str, ...]]:
 
 
 def resolve_hosts(hosts: Iterable[str]) -> Tuple[Dict[str, Tuple[str, ...]], float]:
-    """حل هم‌روند نام دامنه‌ها جهت رفع گلوگاه اتصال TCP."""
     out: Dict[str, Tuple[str, ...]] = {}
     named: List[str] = []
     for h in hosts:
@@ -113,12 +89,7 @@ def resolve_hosts(hosts: Iterable[str]) -> Tuple[Dict[str, Tuple[str, ...]], flo
     return out, time.monotonic() - t0
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# فاز پایش دیسکریپتورها و آزمون TCP
-# ──────────────────────────────────────────────────────────────────────────────
-
 def fd_count() -> int:
-    """تعداد کل فایل‌دیسکریپتورهای باز پروسه."""
     try:
         return len(os.listdir("/proc/self/fd"))
     except OSError:
@@ -126,7 +97,6 @@ def fd_count() -> int:
 
 
 def socket_fd_count() -> int:
-    """شمارش دقیق سوکت‌های باز باینری در /proc/self/fd جهت کشف نشت سوکت (F-13)."""
     try:
         names = os.listdir("/proc/self/fd")
     except OSError:
@@ -141,10 +111,8 @@ def socket_fd_count() -> int:
     return n
 
 
-async def _probe(
-    ip: str, port: int, sem: asyncio.Semaphore, timeout: float, tally: Dict[str, int]
-) -> Optional[int]:
-    """آزمون یک سوکت TCP با بستن فوری دیسکریپتور پس از اندازه‌گیری تاخیر."""
+async def _probe(ip: str, port: int, sem: asyncio.Semaphore,
+                 timeout: float, tally: Dict[str, int]) -> Optional[int]:
     async with sem:
         t0 = time.monotonic()
         writer = None
@@ -176,75 +144,41 @@ async def _probe(
         return None
 
 
-async def _probe_endpoint(
-    addrs: Sequence[str],
-    port: int,
-    sem: asyncio.Semaphore,
-    timeout: float,
-    tally: Dict[str, int],
-) -> Optional[int]:
-    """تست نود روی حداکثر ۳ آی‌پی و انتخاب کمترین تاخیر پاسخ‌دهی."""
-    results = await asyncio.gather(
-        *[_probe(ip, port, sem, timeout, tally) for ip in addrs[:max(1, ADDR_CAP)]]
-    )
+async def _probe_endpoint(addrs: Sequence[str], port: int,
+                          sem: asyncio.Semaphore, timeout: float,
+                          tally: Dict[str, int]) -> Optional[int]:
+    results = await asyncio.gather(*[
+        _probe(ip, port, sem, timeout, tally)
+        for ip in addrs[:max(1, ADDR_CAP)]
+    ])
     ok = [r for r in results if r is not None]
     return min(ok) if ok else None
 
 
-async def _run_tcp(
-    targets: Sequence[Tuple[Tuple[str, int], Tuple[str, ...]]],
-    conc: int,
-    timeout: float,
-    tally: Dict[str, int],
-) -> List[Optional[int]]:
+async def _run_tcp(targets: Sequence[Tuple[Tuple[str, int], Tuple[str, ...]]],
+                   conc: int, timeout: float,
+                   tally: Dict[str, int]) -> List[Optional[int]]:
     sem = asyncio.Semaphore(conc)
-    return list(
-        await asyncio.gather(
-            *[_probe_endpoint(addrs, port, sem, timeout, tally) for (_host, port), addrs in targets]
-        )
-    )
+    return list(await asyncio.gather(*[
+        _probe_endpoint(addrs, port, sem, timeout, tally)
+        for (_host, port), addrs in targets
+    ]))
 
 
-def _soft_nofile() -> int:
-    try:
-        import resource
-        return resource.getrlimit(resource.RLIMIT_NOFILE)[0]
-    except Exception:  # noqa: BLE001
-        return -1
-
-
-def headroom_warning(concurrency: Optional[int] = None) -> Optional[str]:
-    conc = int(concurrency if concurrency is not None else CONCURRENCY)
-    soft = _soft_nofile()
-    if soft > 0 and conc + _FD_HEADROOM > soft:
-        return (
-            f"concurrency={conc} leaves less than {_FD_HEADROOM} spare "
-            f"descriptors under soft limit {soft}."
-        )
-    return None
-
-
-# ──────────────────────────────────────────────────────────────────────────────
-# توابع اجرایی عمومی
-# ──────────────────────────────────────────────────────────────────────────────
-
-def check_endpoints(
-    endpoints: Sequence[Tuple[str, int]],
-    concurrency: Optional[int] = None,
-    timeout: Optional[float] = None,
-) -> Dict[str, Any]:
-    """اجرای فاز L2 روی لیستی از زوج‌های (host, port)."""
-    conc = int(concurrency if concurrency is not None else CONCURRENCY)
-    tmo = float(timeout if timeout is not None else TCP_TIMEOUT)
+def check_endpoints(endpoints: Sequence[Tuple[str, int]],
+                    concurrency: Optional[int] = None,
+                    timeout: Optional[float] = None) -> Dict[str, Any]:
+    conc = int(concurrency or CONCURRENCY)
+    tmo = float(timeout or TCP_TIMEOUT)
 
     eps = [(str(h).strip().strip("[]"), int(p)) for h, p in endpoints]
     fd_before = fd_count()
     sock_before = socket_fd_count()
 
     addrs, dns_s = resolve_hosts({h for h, _ in eps})
+
     targets = [(ep, addrs.get(ep[0], ())) for ep in eps]
     resolvable = [(ep, a) for ep, a in targets if a]
-
     tally = {k: 0 for k in ALL_ERRORS}
     tally[ERR_DNS] = sum(1 for _ep, a in targets if not a)
 
@@ -286,47 +220,89 @@ def check_endpoints(
         },
     }
 
-    # گارد اول: اگر حتی ۱ خطای سرریز EMFILE رخ دهد، اندازه‌گیری باطل است
     if tally[ERR_EMFILE]:
         raise FileDescriptorExhaustion(
-            f"{tally[ERR_EMFILE]} EMFILE errors at concurrency={conc}; measurement void. "
-            f"Lower L2_CONCURRENCY or raise ulimit (soft limit is {_soft_nofile()})."
+            f"{tally[ERR_EMFILE]} EMFILE errors at concurrency={conc}; measurement is void."
         )
 
-    # گارد دوم: جلوگیری از نشت سوکت در پایان اجرای تست
     if sock_before >= 0 and sock_after > sock_before:
         raise FileDescriptorExhaustion(
-            f"socket leak: {sock_after - sock_before} socket descriptor(s) still open. "
-            f"({sock_before} before, {sock_after} after)."
+            f"socket leak: {sock_after - sock_before} socket descriptor(s) still open."
         )
 
     return res
 
 
+def headroom_warning(concurrency: Optional[int] = None) -> Optional[str]:
+    conc = int(concurrency or CONCURRENCY)
+    try:
+        import resource
+        soft = resource.getrlimit(resource.RLIMIT_NOFILE)[0]
+    except Exception:  # noqa: BLE001
+        soft = -1
+    if soft > 0 and conc + _FD_HEADROOM > soft:
+        return f"concurrency={conc} leaves less than {_FD_HEADROOM} spare descriptors under {soft}"
+    return None
+
+
+def is_udp_protocol(line: str) -> bool:
+    """تشخیص پروتکل‌های مبتنی بر UDP (برای حل باگ ۳)."""
+    s = (line or "").strip().lower()
+    scheme = s.split("://", 1)[0] if "://" in s else ""
+    return scheme in UDP_SCHEMES
+
+
 def check_lines(lines: Iterable[str]) -> Dict[str, Any]:
-    """اجرای متوالی L0 + L1 + L2 روی خطوط ورودی و نسبت دادن تاخیر سوکت به نودها."""
+    """
+    اجرای L0/L1 + L2 با بای‌پاس هوشمند پروتکل‌های UDP (WireGuard, Hy2, TUIC).
+    """
     import filters
 
     pre = filters.filter_lines(lines)
-    res = check_endpoints(pre["endpoints"])
+
+    # تفکیک کانفیگ‌های UDP از TCP: کانفیگ‌های UDP مستقیماً عبور داده می‌شوند
+    tcp_endpoints: List[Tuple[str, int]] = []
+    tcp_lines_idx: set = set()
+    udp_lines: List[str] = []
+    udp_delays: List[int] = []
+
+    for idx, line in enumerate(pre["kept"]):
+        if is_udp_protocol(line):
+            udp_lines.append(line)
+            udp_delays.append(100)  # مقدار پیش‌فرض پینگ تا تست در L3
+        else:
+            tcp_lines_idx.add(idx)
+
+    for ep, idxs in pre["ep_to_lines"].items():
+        if any(i in tcp_lines_idx for i in idxs):
+            tcp_endpoints.append(ep)
+
+    res = check_endpoints(tcp_endpoints)
 
     kept_open: List[str] = []
     line_delay: List[int] = []
+
+    # افزودن کانفیگ‌های TCP که پورت آنها باز بود
     for ep, idxs in pre["ep_to_lines"].items():
         if ep in res["open"]:
             for i in idxs:
-                kept_open.append(pre["kept"][i])
-                line_delay.append(res["open"][ep])
+                if i in tcp_lines_idx:
+                    kept_open.append(pre["kept"][i])
+                    line_delay.append(res["open"][ep])
+
+    # افزودن تمام کانفیگ‌های UDP که آزمون TCP را دور زدند (حل باگ ۳)
+    kept_open.extend(udp_lines)
+    line_delay.extend(udp_delays)
 
     res["kept_open"] = kept_open
     res["line_delay"] = line_delay
     res["filter"] = pre["stats"]
     res["stats"]["configs_in"] = pre["stats"]["input"]
     res["stats"]["configs_open"] = len(kept_open)
+    res["stats"]["udp_bypassed"] = len(udp_lines)
     res["stats"]["configs_open_pct"] = (
         round(100.0 * len(kept_open) / pre["stats"]["input"], 2)
-        if pre["stats"]["input"]
-        else 0.0
+        if pre["stats"]["input"] else 0.0
     )
     return res
 
@@ -338,7 +314,6 @@ def check_file(path: str) -> Dict[str, Any]:
 
 def _main(argv: Sequence[str]) -> int:
     import json
-
     path = argv[1] if len(argv) > 1 else "all/configs.txt"
 
     warn = headroom_warning()
@@ -351,14 +326,11 @@ def _main(argv: Sequence[str]) -> int:
         print(f"!! {exc}", file=sys.stderr)
         return 2
 
-    print(
-        json.dumps(
-            {"stats": res["stats"], "errors": res["errors"], "filter": res["filter"]},
-            ensure_ascii=False,
-            indent=2,
-            sort_keys=True,
-        )
-    )
+    print(json.dumps({
+        "stats": res["stats"],
+        "errors": res["errors"],
+        "filter": res["filter"]
+    }, ensure_ascii=False, indent=2, sort_keys=True))
     return 0
 
 
