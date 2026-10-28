@@ -1,16 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-scripts/converters.py — مبدل جامع پروتکل‌های پروکسی به فرمت‌های استاندارد Clash (Mihomo) YAML و Sing-box JSON.
-پروژه: Goodbaye Universal Standard | ai-driven-v2ray
-مالک: alireza786786 | کانال رسمی: @Goodbaye_filtering
+scripts/converters.py — تبدیل کانفیگ‌های V2Ray به فرمت‌های Clash (Mihomo) YAML و Sing-box JSON.
+برند: @Goodbaye_filtering | مخزن: ai-driven-v2ray
 
-پروتکل‌های تحت پوشش: VLESS, VMess, Trojan, Shadowsocks, ShadowsocksR, Hysteria2, TUIC.
-ویژگی‌ها و تضمین‌های منشور:
-  • اتصال مستقیم به هویت رسمی برند: @Goodbaye_filtering
-  • سازگاری کامل با ریمارک‌های ۵ خطی رسمی (URL-Encoded تک‌خطی برای جلوگیری از شکستن کلاینت‌ها)
-  • حفظ گارد طلایی: هرگز خروجی نامعتبر تولید نکن (جلوگیری از باگ‌های All-or-Nothing در کلش و هیدیفای)
-  • اصلاح خودکار کاراکترهای درصد تنها (%) در مسیرها برای جلوگیری از کرش هسته Go
-  • دامپر اختصاصی YAML برای حل ناسازگاری PyYAML 1.1 با YAML 1.2
+ویژگی‌ها:
+  • پشتیبانی از پروتکل‌های vless, vmess, trojan, shadowsocks, shadowsocksr, hysteria2, tuic
+  • تبدیل هوشمند ریمارک ۵ خطی Goodbaye به نام‌های تک‌خطی استاندارد در YAML/JSON
+  • حل تله ناسازگاری YAML 1.1 پایتون با YAML 1.2 گو
+  • رفع باگ‌های کاراکتر درصد در مسیرها (Incident 2026-08-24) و حفظ پایداری کامل کلاینت‌ها
 """
 from __future__ import annotations
 
@@ -23,10 +20,7 @@ from typing import Any, Dict, List, Optional
 
 import core
 
-# ──────────────────────────────────────────────────────────────────────────────
-# ۱. هویت برند و گروه‌های خروجی (Goodbaye Universal Standard)
-# ──────────────────────────────────────────────────────────────────────────────
-BRAND: str = core.BRAND_CHANNEL
+BRAND = core.BRAND_CHANNEL
 
 GROUP_MAIN: str = f"🚀 {BRAND}"
 GROUP_AUTO: str = f"♻️ Auto | {BRAND}"
@@ -34,25 +28,21 @@ GROUP_FALLBACK: str = f"🔯 Fallback | {BRAND}"
 
 
 def _branded_fallback(kind: Optional[str]) -> str:
-    """تولید نام پشتیبان دارای هویت رسمی برند در صورت نبود ریمارک اولیه."""
     k = (kind or "").strip() or "node"
     return f"{k} | {BRAND}"
 
 
 def _enforce_brand(name: Optional[str], kind: Optional[str]) -> str:
-    """
-    تضمین حضور هویت رسمی @Goodbaye_filtering در نام و تگ نهایی خروجی
-    (با پشتیبانی از ریمارک‌های ۵ خطی انکودشده و دیکودشده).
-    """
-    nm = name or ""
-    if BRAND in nm or BRAND in urllib.parse.unquote(nm):
+    """تضمین حضور برند و تبدیل ریمارک‌های ۵ خطی به فرمت تک‌خطی مناسب کلاینت‌ها."""
+    nm = (name or "").strip()
+    if "\n" in nm or "%0A" in nm or "%0a" in nm:
+        decoded = urllib.parse.unquote(nm)
+        lines = [ln.strip() for ln in decoded.splitlines() if ln.strip()]
+        nm = " | ".join(lines)
+    if BRAND in nm:
         return nm
     return _branded_fallback(kind)
 
-
-# ──────────────────────────────────────────────────────────────────────────────
-# ۲. لیست‌های سفید سازگاری هسته‌ها (Mihomo & Sing-box)
-# ──────────────────────────────────────────────────────────────────────────────
 
 SS_CIPHERS: frozenset = frozenset({
     "aes-128-gcm", "aes-192-gcm", "aes-256-gcm",
@@ -71,11 +61,9 @@ SS2022_KEY_BYTES: Dict[str, int] = {
 }
 
 SSR_CIPHERS: frozenset = frozenset({
-    "rc4-md5",
-    "aes-128-ctr", "aes-192-ctr", "aes-256-ctr",
+    "rc4-md5", "aes-128-ctr", "aes-192-ctr", "aes-256-ctr",
     "aes-128-cfb", "aes-192-cfb", "aes-256-cfb",
-    "chacha20", "chacha20-ietf", "xchacha20",
-    "none", "dummy",
+    "chacha20", "chacha20-ietf", "xchacha20", "none", "dummy",
 })
 
 SSR_OBFS: frozenset = frozenset({
@@ -93,9 +81,9 @@ UTLS_FINGERPRINTS: frozenset = frozenset({
     "random", "randomized", "qq", "360",
 })
 
-DEFAULT_UTLS_FINGERPRINT: str = "chrome"
+DEFAULT_UTLS_FINGERPRINT = "chrome"
 VLESS_FLOWS: frozenset = frozenset({"xtls-rprx-vision"})
-_HEX_DIGITS: frozenset = frozenset("0123456789abcdefABCDEF")
+_HEX_DIGITS = frozenset("0123456789abcdefABCDEF")
 
 
 def _sanitize_flow(flow: str) -> str:
@@ -132,9 +120,7 @@ def _sanitize_pbk(pbk: str) -> Optional[str]:
 
 def _sanitize_ss(cipher: str, password: str) -> Optional[tuple]:
     cipher = (cipher or "").strip().lower()
-    if cipher not in SS_CIPHERS:
-        return None
-    if not password:
+    if cipher not in SS_CIPHERS or not password:
         return None
     need = SS2022_KEY_BYTES.get(cipher)
     if need is not None:
@@ -227,13 +213,9 @@ def _ss_plugin(query: str) -> Any:
         mode = opts.get("mode") or opts.get("obfs", "")
         if mode != "websocket":
             return _SS_PLUGIN_UNUSABLE
-        return {
-            "name": "v2ray-plugin",
-            "mode": "websocket",
-            "host": _clean_sni(opts.get("host") or opts.get("obfs-host")) or "",
-            "path": opts.get("path", ""),
-            "tls": "tls" in flags or "tls" in opts,
-        }
+        return {"name": "v2ray-plugin", "mode": "websocket",
+                "host": _clean_sni(opts.get("host") or opts.get("obfs-host")) or "",
+                "path": opts.get("path", ""), "tls": "tls" in flags or "tls" in opts}
     return _SS_PLUGIN_UNUSABLE
 
 
@@ -251,9 +233,7 @@ def _ub64_text(s: Optional[str], *, allow_empty: bool = False) -> Optional[str]:
 
 def _sanitize_ssr(cipher: str, password: str, obfs: str, protocol: str) -> Optional[tuple]:
     cipher = (cipher or "").strip().lower()
-    if cipher not in SSR_CIPHERS:
-        return None
-    if not password:
+    if cipher not in SSR_CIPHERS or not password:
         return None
     obfs = (obfs or "").strip().lower()
     if obfs not in SSR_OBFS:
@@ -282,17 +262,12 @@ def _safe_int(v: Any, default: int = 0) -> int:
 
 def _remark_of(line: str) -> str:
     if "#" in line:
-        frag = line.split("#", 1)[1]
         try:
-            return urllib.parse.unquote(frag).strip()
+            return urllib.parse.unquote(line.split("#", 1)[1]).strip()
         except Exception:
-            return frag.strip()
+            return line.split("#", 1)[1].strip()
     return ""
 
-
-# ──────────────────────────────────────────────────────────────────────────────
-# ۳. ثبت آمار کانفیگ‌های حذف‌شده (Drop Telemetry)
-# ──────────────────────────────────────────────────────────────────────────────
 
 class _DropRecorder:
     def __init__(self) -> None:
@@ -301,9 +276,7 @@ class _DropRecorder:
     def clear_target(self, target: str) -> None:
         self.data[target] = {"total": 0, "by_reason": {}, "by_protocol": {}}
 
-    def record(
-        self, target: str, reason: str, line: str, proto: Optional[str] = None
-    ) -> None:
+    def record(self, target: str, reason: str, line: str, proto: Optional[str] = None) -> None:
         d = self.data.setdefault(target, {"total": 0, "by_reason": {}, "by_protocol": {}})
         d["total"] += 1
         d["by_reason"][reason] = d["by_reason"].get(reason, 0) + 1
@@ -313,11 +286,9 @@ class _DropRecorder:
 
     def snapshot(self) -> Dict[str, Dict[str, Any]]:
         return {
-            t: {
-                "total": v["total"],
+            t: {"total": v["total"],
                 "by_reason": dict(sorted(v["by_reason"].items())),
-                "by_protocol": dict(sorted(v["by_protocol"].items(), key=lambda kv: (-kv[1], kv[0]))),
-            }
+                "by_protocol": dict(sorted(v["by_protocol"].items(), key=lambda kv: (-kv[1], kv[0])))}
             for t, v in sorted(self.data.items())
         }
 
@@ -354,13 +325,8 @@ def _is_unroutable_server(host: Any) -> bool:
         ip = ipaddress.ip_address(s)
     except ValueError:
         return False
-    return bool(
-        ip.is_loopback
-        or ip.is_unspecified
-        or ip.is_multicast
-        or ip.is_reserved
-        or ip.is_link_local
-    )
+    return bool(ip.is_loopback or ip.is_unspecified or ip.is_multicast
+                or ip.is_reserved or ip.is_link_local)
 
 
 def _is_structurally_invalid_server(host: Any) -> bool:
@@ -392,10 +358,12 @@ def _clean_sni(raw: Any) -> str:
     s = s.strip()
     s = re.sub(r":\d{1,5}$", "", s)
     s = s.strip("$").strip(".").strip()
+
     if not s or len(s) > 253 or s.lower() in _SNI_SENTINELS:
         return ""
-    if any(ch in s for ch in ("://", "/", "?", "@", " ", ":")):
+    if "://" in s or "/" in s or "?" in s or "@" in s or " " in s or ":" in s:
         return ""
+
     labels = s.split(".")
     if len(labels) < 2 or not all(_SNI_LABEL.match(lb) for lb in labels):
         return ""
@@ -428,12 +396,7 @@ def _sanitize_vmess_security(scy: Any) -> str:
     return s if s in VMESS_SECURITY else "auto"
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# ۴. تجزیه یکپارچه پروتکل‌ها (Parse Proxy)
-# ──────────────────────────────────────────────────────────────────────────────
-
 def parse_proxy(line: str) -> Optional[Dict[str, Any]]:
-    """پارس استاندارد پروتکل به ساختار دیکشنری واسط."""
     line = line.strip()
     try:
         if line.startswith("vmess://"):
@@ -442,11 +405,7 @@ def parse_proxy(line: str) -> Optional[Dict[str, Any]]:
                 return None
             return {
                 "type": "vmess",
-                "name": (
-                    _remark_of(line)
-                    or str(obj.get("ps") or obj.get("name") or "")
-                    or _branded_fallback("vmess")
-                ),
+                "name": (_remark_of(line) or str(obj.get("ps") or obj.get("name") or "") or _branded_fallback("vmess")),
                 "server": str(obj.get("add") or ""),
                 "port": _safe_int(obj.get("port")),
                 "uuid": str(obj.get("id") or ""),
@@ -511,14 +470,12 @@ def parse_proxy(line: str) -> Optional[Dict[str, Any]]:
 
         if scheme in ("ss", "shadowsocks"):
             rest = line[len(scheme) + 3:].split("#")[0]
-            method = password = ""
-            host = ""
-            port = 0
             authority, _qsep, query = rest.partition("?")
             if "@" in authority:
                 userinfo, hostpart = authority.rsplit("@", 1)
                 hostpart = hostpart.split("/", 1)[0]
                 userinfo = _ss_userinfo(userinfo)
+                method = password = ""
                 if ":" in userinfo:
                     method, password = userinfo.split(":", 1)
                 h, _, p = hostpart.rpartition(":")
@@ -529,12 +486,14 @@ def parse_proxy(line: str) -> Optional[Dict[str, Any]]:
                 try:
                     dec = base64.urlsafe_b64decode(rest + "==").decode("utf-8", errors="ignore")
                     creds, _, hp = dec.rpartition("@")
+                    method = password = ""
                     if ":" in creds:
                         method, password = creds.split(":", 1)
                     h, _, p = hp.rpartition(":")
                     host, port = h, _safe_int(p)
                 except Exception:
                     return None
+
             if not host or not port:
                 return None
             ok = _sanitize_ss(method, password)
@@ -606,13 +565,9 @@ def parse_proxy(line: str) -> Optional[Dict[str, Any]]:
                 "port": _safe_int(parsed.port),
                 "password": pwd,
                 "sni": _clean_sni(q.get("sni") or q.get("peer")),
-                "insecure": _truthy(
-                    q.get("insecure") or q.get("allowInsecure") or q.get("allow_insecure")
-                ),
+                "insecure": _truthy(q.get("insecure") or q.get("allowInsecure") or q.get("allow_insecure")),
                 "obfs": obfs,
-                "obfs_password": urllib.parse.unquote(
-                    q.get("obfs-password") or q.get("obfs_password") or ""
-                ),
+                "obfs_password": urllib.parse.unquote(q.get("obfs-password") or q.get("obfs_password") or ""),
                 "alpn": _alpn_list(q.get("alpn")),
                 "tls": True,
             }
@@ -624,12 +579,7 @@ def parse_proxy(line: str) -> Optional[Dict[str, Any]]:
             pwd = urllib.parse.unquote(parsed.password or "")
             if not uuid or not pwd:
                 return None
-            cc = (
-                q.get("congestion_control")
-                or q.get("congestion-control")
-                or q.get("congestion")
-                or "cubic"
-            ).strip().lower()
+            cc = (q.get("congestion_control") or q.get("congestion-control") or q.get("congestion") or "cubic").strip().lower()
             if cc not in _TUIC_CONGESTION:
                 cc = "cubic"
             urm = (q.get("udp_relay_mode") or q.get("udp-relay-mode") or "native").strip().lower()
@@ -645,9 +595,7 @@ def parse_proxy(line: str) -> Optional[Dict[str, Any]]:
                 "congestion_control": cc,
                 "udp_relay_mode": urm,
                 "sni": _clean_sni(q.get("sni")),
-                "insecure": _truthy(
-                    q.get("allow_insecure") or q.get("insecure") or q.get("allowInsecure")
-                ),
+                "insecure": _truthy(q.get("allow_insecure") or q.get("insecure") or q.get("allowInsecure")),
                 "alpn": _alpn_list(q.get("alpn")),
                 "tls": True,
             }
@@ -655,10 +603,6 @@ def parse_proxy(line: str) -> Optional[Dict[str, Any]]:
         return None
     return None
 
-
-# ──────────────────────────────────────────────────────────────────────────────
-# ۵. نرمال‌سازی ترنسپورت و ترمیم مسیرها
-# ──────────────────────────────────────────────────────────────────────────────
 
 _CLASH_NETWORK_MAP: Dict[str, str] = {
     "tcp": "tcp", "raw": "tcp", "": "tcp", "none": "tcp",
@@ -676,7 +620,6 @@ _BAD_PCT_ESCAPE_RE = re.compile(r"%(?![0-9A-Fa-f]{2})")
 
 
 def _safe_transport_path(raw: Any) -> str:
-    """ترمیم کاراکترهای درصد بدون هگز (مانند path=%) به %25 جهت جلوگیری از کرش کلاینت‌ها."""
     return _BAD_PCT_ESCAPE_RE.sub("%25", raw if isinstance(raw, str) else "")
 
 
@@ -749,10 +692,6 @@ def _clash_transport_opts(p: Dict[str, Any], out: Dict[str, Any]) -> None:
         out["http-opts"] = ho
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# ۶. تولید Clash / Mihomo YAML
-# ──────────────────────────────────────────────────────────────────────────────
-
 def _to_clash_proxy(p: Dict[str, Any]) -> Optional[Dict[str, Any]]:
     t = p["type"]
     base = {"name": p["name"], "server": p["server"], "port": p["port"]}
@@ -760,11 +699,9 @@ def _to_clash_proxy(p: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         return None
     try:
         if t == "vmess":
-            out = {
-                **base, "type": "vmess", "uuid": p["uuid"],
-                "alterId": p.get("alterId", 0), "cipher": p.get("cipher", "auto"),
-                "udp": True, "tls": p["tls"],
-            }
+            out = {**base, "type": "vmess", "uuid": p["uuid"],
+                   "alterId": p.get("alterId", 0), "cipher": p.get("cipher", "auto"),
+                   "udp": True, "tls": p["tls"]}
             if p["sni"]:
                 out["servername"] = p["sni"]
             _clash_transport_opts(p, out)
@@ -798,10 +735,7 @@ def _to_clash_proxy(p: Dict[str, Any]) -> Optional[Dict[str, Any]]:
             _clash_transport_opts(p, out)
             return out
         if t == "shadowsocks":
-            out = {
-                **base, "type": "ss", "cipher": p["cipher"],
-                "password": p["password"], "udp": True,
-            }
+            out = {**base, "type": "ss", "cipher": p["cipher"], "password": p["password"], "udp": True}
             pl = p.get("plugin")
             if pl:
                 if pl["name"] == "obfs":
@@ -809,13 +743,11 @@ def _to_clash_proxy(p: Dict[str, Any]) -> Optional[Dict[str, Any]]:
                     out["plugin-opts"] = {"mode": pl["mode"], "host": pl["host"]}
                 else:
                     out["plugin"] = "v2ray-plugin"
-                    out["plugin-opts"] = {
-                        "mode": "websocket", "host": pl["host"],
-                        "path": pl["path"], "tls": bool(pl["tls"]),
-                    }
+                    out["plugin-opts"] = {"mode": "websocket", "host": pl["host"],
+                                          "path": pl["path"], "tls": bool(pl["tls"])}
             return out
         if t == "shadowsocksr":
-            # به دلیل عدم پشتیبانی در هسته تبدیل Hiddify و جلوگیری از سوختن کل فایل، در clash.yaml قرار نمی‌گیرد
+            # SSR مستقیماً در فایل اختصاصی servers/shadowsocksr.txt قرار می‌گیرد
             return None
         if t == "hysteria2":
             out = {**base, "type": "hysteria2", "password": p["password"]}
@@ -828,16 +760,14 @@ def _to_clash_proxy(p: Dict[str, Any]) -> Optional[Dict[str, Any]]:
                 if p.get("obfs_password"):
                     out["obfs-password"] = p["obfs_password"]
                 else:
-                    out.pop("obfs")
+                    out.pop("obfs", None)
             if p.get("alpn"):
                 out["alpn"] = list(p["alpn"])
             return out
         if t == "tuic":
-            out = {
-                **base, "type": "tuic", "uuid": p["uuid"], "password": p["password"],
-                "congestion-controller": p.get("congestion_control", "cubic"),
-                "udp-relay-mode": p.get("udp_relay_mode", "native"),
-            }
+            out = {**base, "type": "tuic", "uuid": p["uuid"], "password": p["password"],
+                   "congestion-controller": p.get("congestion_control", "cubic"),
+                   "udp-relay-mode": p.get("udp_relay_mode", "native")}
             if p.get("sni"):
                 out["sni"] = p["sni"]
             if p.get("insecure"):
@@ -855,7 +785,8 @@ _YAML12_AMBIGUOUS = re.compile(
     r"""^(?:
           [-+]?[0-9]+
         | 0[oO][0-7]+ | 0[xX][0-9a-fA-F]+
-        | [-+]?(?:[0-9]+\.[0-9]*|\.[0-9]+|[0-9]+)(?:[eE][-+]?[0-9]+)?
+        | [-+]?(?:[0-9]+\.[0-9]*|\.[0-9]+|[0-9]+)
+              (?:[eE][-+]?[0-9]+)?
         | [-+]?\.(?:inf|Inf|INF) | \.(?:nan|NaN|NAN)
         | true|True|TRUE|false|False|FALSE
         | null|Null|NULL|~
@@ -872,7 +803,6 @@ def _yaml_str_representer(dumper, data):
 
 def _clash_dumper():
     import yaml
-
     base = getattr(yaml, "CSafeDumper", None) or yaml.SafeDumper
 
     class _SafeClashDumper(base):
@@ -883,13 +813,11 @@ def _clash_dumper():
 
 
 def build_clash_yaml(lines: List[str], limit: int = OUTPUT_PROXY_LIMIT) -> str:
-    """تبدیل کانفیگ‌ها به فایل ساختاریافته Clash Meta YAML همراه با گروه‌های رسمی Goodbaye."""
     import yaml
 
     proxies: List[Dict[str, Any]] = []
     used_names: set = {GROUP_MAIN, GROUP_AUTO, GROUP_FALLBACK}
     _drops.clear_target("clash")
-
     for line in lines:
         if len(proxies) >= limit:
             _drops.record("clash", "over_limit", line)
@@ -928,26 +856,11 @@ def build_clash_yaml(lines: List[str], limit: int = OUTPUT_PROXY_LIMIT) -> str:
         "log-level": "info",
         "proxies": proxies,
         "proxy-groups": [
-            {
-                "name": GROUP_MAIN,
-                "type": "select",
-                "proxies": [GROUP_AUTO, GROUP_FALLBACK] + names,
-            },
-            {
-                "name": GROUP_AUTO,
-                "type": "url-test",
-                "url": "http://www.gstatic.com/generate_204",
-                "interval": 300,
-                "tolerance": 50,
-                "proxies": names,
-            },
-            {
-                "name": GROUP_FALLBACK,
-                "type": "fallback",
-                "url": "http://www.gstatic.com/generate_204",
-                "interval": 300,
-                "proxies": names,
-            },
+            {"name": GROUP_MAIN, "type": "select", "proxies": [GROUP_AUTO, GROUP_FALLBACK] + names},
+            {"name": GROUP_AUTO, "type": "url-test", "url": "http://www.gstatic.com/generate_204",
+             "interval": 300, "tolerance": 50, "proxies": names},
+            {"name": GROUP_FALLBACK, "type": "fallback", "url": "http://www.gstatic.com/generate_204",
+             "interval": 300, "proxies": names},
         ],
         "rules": [f"MATCH,{GROUP_MAIN}"],
     }
@@ -961,10 +874,6 @@ def build_clash_yaml(lines: List[str], limit: int = OUTPUT_PROXY_LIMIT) -> str:
         width=10 ** 6,
     )
 
-
-# ──────────────────────────────────────────────────────────────────────────────
-# ۷. تولید Sing-box JSON
-# ──────────────────────────────────────────────────────────────────────────────
 
 def _singbox_tls(p: Dict[str, Any]) -> Dict[str, Any]:
     tls: Dict[str, Any] = {"enabled": True, "server_name": p.get("sni") or p["server"]}
@@ -1014,20 +923,19 @@ def _singbox_transport(p: Dict[str, Any]) -> Optional[Dict[str, Any]]:
 
 def _to_singbox_outbound(p: Dict[str, Any]) -> Optional[Dict[str, Any]]:
     t = p["type"]
-    if t == "shadowsocksr" or not p["server"] or not p["port"]:
+    if t == "shadowsocksr":
         return None
-
+    if not p["server"] or not p["port"]:
+        return None
     try:
         transport = _singbox_transport(p)
         if transport is False:
             return None
 
         if t == "vmess":
-            ob = {
-                "type": "vmess", "tag": p["name"], "server": p["server"],
-                "server_port": p["port"], "uuid": p["uuid"],
-                "security": p.get("cipher", "auto"), "alter_id": p.get("alterId", 0),
-            }
+            ob = {"type": "vmess", "tag": p["name"], "server": p["server"],
+                  "server_port": p["port"], "uuid": p["uuid"],
+                  "security": p.get("cipher", "auto"), "alter_id": p.get("alterId", 0)}
             if p["tls"]:
                 ob["tls"] = _singbox_tls(p)
             if transport:
@@ -1036,10 +944,8 @@ def _to_singbox_outbound(p: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         if t == "vless":
             if p.get("reality") and _reality_params(p) is None:
                 return None
-            ob = {
-                "type": "vless", "tag": p["name"], "server": p["server"],
-                "server_port": p["port"], "uuid": p["uuid"],
-            }
+            ob = {"type": "vless", "tag": p["name"], "server": p["server"],
+                  "server_port": p["port"], "uuid": p["uuid"]}
             flow = _sanitize_flow(p.get("flow", ""))
             if flow:
                 ob["flow"] = flow
@@ -1049,19 +955,15 @@ def _to_singbox_outbound(p: Dict[str, Any]) -> Optional[Dict[str, Any]]:
                 ob["transport"] = transport
             return ob
         if t == "trojan":
-            ob = {
-                "type": "trojan", "tag": p["name"], "server": p["server"],
-                "server_port": p["port"], "password": p["password"],
-                "tls": _singbox_tls(p),
-            }
+            ob = {"type": "trojan", "tag": p["name"], "server": p["server"],
+                  "server_port": p["port"], "password": p["password"],
+                  "tls": _singbox_tls(p)}
             if transport:
                 ob["transport"] = transport
             return ob
         if t == "shadowsocks":
-            ob = {
-                "type": "shadowsocks", "tag": p["name"], "server": p["server"],
-                "server_port": p["port"], "method": p["cipher"], "password": p["password"],
-            }
+            ob = {"type": "shadowsocks", "tag": p["name"], "server": p["server"],
+                  "server_port": p["port"], "method": p["cipher"], "password": p["password"]}
             pl = p.get("plugin")
             if pl:
                 if pl["name"] == "obfs":
@@ -1081,34 +983,23 @@ def _to_singbox_outbound(p: Dict[str, Any]) -> Optional[Dict[str, Any]]:
                 ob["plugin_opts"] = ";".join(opts)
             return ob
         if t == "hysteria2":
-            ob = {
-                "type": "hysteria2", "tag": p["name"], "server": p["server"],
-                "server_port": p["port"], "password": p["password"],
-                "tls": {
-                    "enabled": True,
-                    "server_name": p.get("sni") or p["server"],
-                    "insecure": bool(p.get("insecure")),
-                },
-            }
+            ob = {"type": "hysteria2", "tag": p["name"], "server": p["server"],
+                  "server_port": p["port"], "password": p["password"],
+                  "tls": {"enabled": True, "server_name": p.get("sni") or p["server"],
+                          "insecure": bool(p.get("insecure"))}}
             if p.get("alpn"):
                 ob["tls"]["alpn"] = list(p["alpn"])
             if p.get("obfs") and p.get("obfs_password"):
                 ob["obfs"] = {"type": p["obfs"], "password": p["obfs_password"]}
             return ob
         if t == "tuic":
-            ob = {
-                "type": "tuic", "tag": p["name"], "server": p["server"],
-                "server_port": p["port"], "uuid": p["uuid"],
-                "password": p["password"],
-                "congestion_control": p.get("congestion_control", "cubic"),
-                "udp_relay_mode": p.get("udp_relay_mode", "native"),
-                "tls": {
-                    "enabled": True,
-                    "server_name": p.get("sni") or p["server"],
-                    "insecure": bool(p.get("insecure")),
-                    "alpn": list(p["alpn"]) if p.get("alpn") else ["h3"],
-                },
-            }
+            ob = {"type": "tuic", "tag": p["name"], "server": p["server"],
+                  "server_port": p["port"], "uuid": p["uuid"], "password": p["password"],
+                  "congestion_control": p.get("congestion_control", "cubic"),
+                  "udp_relay_mode": p.get("udp_relay_mode", "native"),
+                  "tls": {"enabled": True, "server_name": p.get("sni") or p["server"],
+                          "insecure": bool(p.get("insecure")),
+                          "alpn": list(p["alpn"]) if p.get("alpn") else ["h3"]}}
             return ob
     except Exception:
         return None
@@ -1116,11 +1007,9 @@ def _to_singbox_outbound(p: Dict[str, Any]) -> Optional[Dict[str, Any]]:
 
 
 def build_singbox_json(lines: List[str], limit: int = OUTPUT_PROXY_LIMIT) -> str:
-    """تبدیل کانفیگ‌ها به سند رسمی و سازگار Sing-box JSON."""
     outbounds: List[Dict[str, Any]] = []
     used_tags: set = {GROUP_MAIN, GROUP_AUTO}
     _drops.clear_target("singbox")
-
     for line in lines:
         if len(outbounds) >= limit:
             _drops.record("singbox", "over_limit", line)
@@ -1152,11 +1041,8 @@ def build_singbox_json(lines: List[str], limit: int = OUTPUT_PROXY_LIMIT) -> str
 
     tags = [o["tag"] for o in outbounds]
     if not tags:
-        return json.dumps(
-            {"log": {"level": "info"}, "outbounds": [{"type": "direct", "tag": "direct"}]},
-            ensure_ascii=False,
-            indent=2,
-        )
+        return json.dumps({"log": {"level": "info"}, "outbounds": [
+            {"type": "direct", "tag": "direct"}]}, ensure_ascii=False, indent=2)
 
     doc = {
         "log": {"level": "info", "timestamp": True},
@@ -1174,26 +1060,16 @@ def build_singbox_json(lines: List[str], limit: int = OUTPUT_PROXY_LIMIT) -> str
             "independent_cache": True,
         },
         "inbounds": [
-            {
-                "type": "tun", "tag": "tun-in",
-                "address": ["172.19.0.1/30", "fdfe:dcba:9876::1/126"],
-                "auto_route": True, "strict_route": True, "stack": "mixed",
-            },
-            {
-                "type": "mixed", "tag": "mixed-in",
-                "listen": "127.0.0.1", "listen_port": 2080,
-            },
+            {"type": "tun", "tag": "tun-in",
+             "address": ["172.19.0.1/30", "fdfe:dcba:9876::1/126"],
+             "auto_route": True, "strict_route": True, "stack": "mixed"},
+            {"type": "mixed", "tag": "mixed-in",
+             "listen": "127.0.0.1", "listen_port": 2080},
         ],
         "outbounds": [
-            {
-                "type": "selector", "tag": GROUP_MAIN,
-                "outbounds": [GROUP_AUTO] + tags, "default": GROUP_AUTO,
-            },
-            {
-                "type": "urltest", "tag": GROUP_AUTO, "outbounds": tags,
-                "url": "https://www.gstatic.com/generate_204",
-                "interval": "5m", "tolerance": 50,
-            },
+            {"type": "selector", "tag": GROUP_MAIN, "outbounds": [GROUP_AUTO] + tags, "default": GROUP_AUTO},
+            {"type": "urltest", "tag": GROUP_AUTO, "outbounds": tags,
+             "url": "https://www.gstatic.com/generate_204", "interval": "5m", "tolerance": 50},
             *outbounds,
             {"type": "direct", "tag": "direct"},
         ],
