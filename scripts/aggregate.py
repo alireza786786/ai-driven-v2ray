@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-scripts/aggregate.py — خط‌لولهٔ اصلیِ تجمیع، پاک‌سازی و تفکیک سرورهای Goodbaye Universal Standard.
+scripts/aggregate.py — خط‌لولهٔ اصلیِ تجمیع، پاک‌سازی و انتشار کانفیگ‌های Goodbaye Universal Standard.
 مالک: alireza786786 | مخزن: ai-driven-v2ray | برند: @Goodbaye_filtering
 
-ویژگی‌ها و اصلاحات اعمال‌شده:
-  • اتصال مستقیم کانفیگ‌های تلگرام (data/telegram_configs.txt) و گیت‌هاب (data/git_configs.txt)
-  • تولید پوشه تخصصی servers/ با تفکیک ۹ پروتکل اصلی شامل WireGuard و ShadowsocksR
-  • تولید فایل جامع all_servers.txt در ریشه مخزن
-  • اعمال الگوی ریمارک ۵ خطی و حفظ رصدپذیری کامل در index.json و health.json
+وظایف اصلی:
+  ۱) واکشی هم‌زمان منابع سبک و سنگین (با بازخورد وضعیت شبکه و Backoff)
+  ۲) استخراج و تمیزسازی کانفیگ‌ها (Direct و Base64)
+  ۳) یکتاسازی هویتی CDN-aware و حذف کانفیگ‌های Dummy
+  ۴) اعمال برندینگ رسمی و ریمارک ۵ خطی
+  ۵) ساخت سابسکریپشن‌های چندگانه (Base64, Clash Meta YAML, Sing-box JSON, Protocols)
+  ۶) ساخت ایندکس متادیتا (index.json) و گزارش سلامت جامع (health.json)
 """
 from __future__ import annotations
 
@@ -36,6 +38,9 @@ try:
 except Exception:  # pragma: no cover
     geo = None  # type: ignore
 
+# ──────────────────────────────────────────────────────────────────────────────
+# پیکربندی هویت و لینک‌های اصلی و آینه (Goodbaye Universal Standard)
+# ──────────────────────────────────────────────────────────────────────────────
 GH_USER = os.environ.get("AGG_GH_USER", "alireza786786")
 GH_REPO = os.environ.get("AGG_GH_REPO", "ai-driven-v2ray")
 
@@ -51,7 +56,11 @@ RAW_BASE = f"https://raw.githubusercontent.com/{GH_USER}/{GH_REPO}/{GH_BRANCH}"
 CDN_BASE = f"https://cdn.jsdelivr.net/gh/{GH_USER}/{GH_REPO}@{GH_BRANCH}"
 PRIMARY_BASE = RAW_BASE
 MIRROR_BASE = CDN_BASE
-BASE_PAGES_URL = os.environ.get("AGG_PAGES_URL", f"https://{GH_USER}.github.io/{GH_REPO}/")
+
+# تعریف قطعی و پویا برای رفع خطای NameError
+BASE_PAGES_URL = os.environ.get(
+    "AGG_PAGES_URL", f"https://{GH_USER}.github.io/{GH_REPO}/"
+)
 
 USER_AGENTS = (
     "v2rayNG/1.8.36",
@@ -74,23 +83,12 @@ def log(msg: str) -> None:
     print(f"[{ts}] {msg}", flush=True)
 
 
-def load_local_pools() -> List[str]:
-    """خواندن کانفیگ‌های شکارشده از کانال‌های تلگرام و سورس‌های گیت (حل باگ ۲)."""
-    configs: List[str] = []
-    pool_files = ["data/telegram_configs.txt", "data/git_configs.txt"]
-    for pf in pool_files:
-        if os.path.exists(pf):
-            try:
-                with open(pf, "r", encoding="utf-8", errors="ignore") as f:
-                    lines = [ln.strip() for ln in f if ln.strip() and not ln.startswith("#")]
-                    configs.extend(lines)
-                log(f"  📥 Loaded {len(lines):>5} configs from local pool: {pf}")
-            except Exception as e:
-                log(f"  ⚠️ Error reading {pf}: {e}")
-    return configs
-
+# ──────────────────────────────────────────────────────────────────────────────
+# واکشی منابع
+# ──────────────────────────────────────────────────────────────────────────────
 
 def fetch_source(url: str) -> Tuple[str, List[str]]:
+    """واکشی یک منبع همراه با تلاش مجدد، تغییر User-Agent و ثبت سلامت."""
     name = url.rsplit("/", 1)[-1] or url
     last_err = ""
     last_code = 0
@@ -132,6 +130,7 @@ def fetch_source(url: str) -> Tuple[str, List[str]]:
 
 
 def fetch_all(urls: List[str]) -> Dict[str, List[str]]:
+    """واکشی هم‌زمان تمامی منابع."""
     results: Dict[str, List[str]] = {}
     with ThreadPoolExecutor(max_workers=max(1, MAX_WORKERS)) as ex:
         futs = {ex.submit(fetch_source, u): u for u in urls}
@@ -141,6 +140,10 @@ def fetch_all(urls: List[str]) -> Dict[str, List[str]]:
             log(f"  ✓ {len(cfgs):>5} configs ← {url.rsplit('/', 1)[-1]}")
     return results
 
+
+# ──────────────────────────────────────────────────────────────────────────────
+# پردازش و فیلترینگ دسته‌ها
+# ──────────────────────────────────────────────────────────────────────────────
 
 class CategoryResult:
     def __init__(self) -> None:
@@ -171,20 +174,16 @@ def process_category(
     per_source: Dict[str, List[str]],
     source_urls: List[str],
     _cache: Optional[Dict[str, Tuple[bool, str]]] = None,
-    extra_configs: Optional[List[str]] = None,
 ) -> CategoryResult:
+    """یکتاسازی هویتی و اعمال برندینگ رسمی ۵ خطی Goodbaye."""
     if _cache is None:
         _cache = {}
     r = CategoryResult()
     seen_cores: set = set()
     raw_unique: List[str] = []
 
-    all_incoming_lists = [per_source.get(url, []) for url in source_urls]
-    if extra_configs:
-        all_incoming_lists.append(extra_configs)
-        r.active_sources += 1
-
-    for cfgs in all_incoming_lists:
+    for url in source_urls:
+        cfgs = per_source.get(url, [])
         if not cfgs:
             continue
         r.active_sources += 1
@@ -240,6 +239,10 @@ def process_category(
             r.protocol_counts[proto] = r.protocol_counts.get(proto, 0) + 1
     return r
 
+
+# ──────────────────────────────────────────────────────────────────────────────
+# نوشتن فایل‌ها و خروجی‌ها
+# ──────────────────────────────────────────────────────────────────────────────
 
 def _write_text(path: str, content: str) -> None:
     core.assert_no_control_bytes(path, content)
@@ -318,12 +321,8 @@ def write_archive(out_dir: str, cat: str, r: CategoryResult) -> None:
         _remove_if_exists(os.path.join(base, stale))
 
 
-def write_servers_and_protocols(out_dir: str, all_unique: List[str]) -> Dict[str, int]:
-    """ساخت کامل پوشه تخصصی servers/ با تفکیک تمام پروتکل‌ها از جمله WireGuard و SSR."""
-    target_dirs = [os.path.join(out_dir, "servers"), os.path.join(out_dir, "protocols")]
-    for td in target_dirs:
-        os.makedirs(td, exist_ok=True)
-
+def write_protocols(out_dir: str, all_unique: List[str]) -> Dict[str, int]:
+    base = os.path.join(out_dir, "protocols")
     buckets: Dict[str, List[str]] = {}
     for line in all_unique:
         proto = core.protocol_of(line)
@@ -331,27 +330,36 @@ def write_servers_and_protocols(out_dir: str, all_unique: List[str]) -> Dict[str
             buckets.setdefault(proto, []).append(line)
 
     counts: Dict[str, int] = {}
-    all_protos = list(core.PROTOCOL_ORDER)
-    for p in sorted(buckets.keys()):
-        if p not in all_protos:
-            all_protos.append(p)
+    written = 0
+    pruned = 0
 
-    for proto in all_protos:
+    def emit(proto: str, lines: List[str]) -> None:
+        nonlocal written, pruned
+        txt = os.path.join(base, f"{proto}.txt")
+        b64 = os.path.join(base, f"{proto}_base64.txt")
+        if lines:
+            hh = core.hiddify_profile_header(proto.upper())
+            h = hh + f"# {core.BRAND_CHANNEL} — {proto} — {len(lines)} configs\n"
+            _write_text(txt, h + "\n".join(core.shield_unsupported_runs(lines)) + "\n")
+            _write_text(b64, core.encode_base64_subscription(lines, header=hh))
+            written += 1
+        else:
+            gone_txt = _remove_if_exists(txt)
+            gone_b64 = _remove_if_exists(b64)
+            if gone_txt or gone_b64:
+                pruned += 1
+
+    for proto in core.PROTOCOL_ORDER:
         lines = buckets.get(proto, [])
         counts[proto] = len(lines)
-        for base in target_dirs:
-            txt = os.path.join(base, f"{proto}.txt")
-            b64 = os.path.join(base, f"{proto}_base64.txt")
-            if lines:
-                hh = core.hiddify_profile_header(proto.upper())
-                h = hh + f"# {core.BRAND_CHANNEL} — {proto.upper()} — {len(lines)} configs\n"
-                _write_text(txt, h + "\n".join(core.shield_unsupported_runs(lines)) + "\n")
-                _write_text(b64, core.encode_base64_subscription(lines, header=hh))
-            else:
-                _remove_if_exists(txt)
-                _remove_if_exists(b64)
+        emit(proto, lines)
 
-    log(f"  📁 servers/: {len([k for k, v in counts.items() if v > 0])} protocol files published (with WireGuard & SSR)")
+    for proto, lines in sorted(buckets.items(), key=lambda x: -len(x[1])):
+        if proto not in counts:
+            counts[proto] = len(lines)
+            emit(proto, lines)
+
+    log(f"  📁 protocols: {written} file-pairs written, {pruned} empty pruned")
     return counts
 
 
@@ -423,12 +431,33 @@ def build_index(
             "light": cat_block("light", results["light"]),
         },
         "protocols": dict(sorted(proto_counts.items(), key=lambda x: -x[1])),
-        "servers": {
-            p: f"{PRIMARY_BASE}/servers/{p}.txt"
-            for p in proto_counts
-            if proto_counts[p] > 0 and _published("servers", f"{p}.txt")
+        "protocol_files": {
+            p: f"{PRIMARY_BASE}/protocols/{p}.txt"
+            for p in core.PROTOCOL_ORDER
+            if proto_counts.get(p, 0) > 0 and _published("protocols", f"{p}.txt")
         },
-        "all_servers": f"{PRIMARY_BASE}/all_servers.txt",
+        "protocol_files_base64": {
+            p: f"{PRIMARY_BASE}/protocols/{p}_base64.txt"
+            for p in core.PROTOCOL_ORDER
+            if proto_counts.get(p, 0) > 0 and _published("protocols", f"{p}_base64.txt")
+        },
+        "protocol_files_mirror": {
+            p: f"{MIRROR_BASE}/protocols/{p}.txt"
+            for p in core.PROTOCOL_ORDER
+            if proto_counts.get(p, 0) > 0 and _published("protocols", f"{p}.txt")
+        },
+        "archive": {
+            **{
+                f"{cat}_broken": f"{PRIMARY_BASE}/archive/{cat}_broken.txt"
+                for cat in ("all", "heavy", "light")
+                if results[cat].broken and _published("archive", f"{cat}_broken.txt")
+            },
+            **{
+                f"{cat}_broken_base64": f"{PRIMARY_BASE}/archive/{cat}_broken_base64.txt"
+                for cat in ("all", "heavy", "light")
+                if results[cat].broken and _published("archive", f"{cat}_broken_base64.txt")
+            },
+        },
         "sources": {
             "light_count": len(LIGHT_SOURCES),
             "heavy_count": len(HEAVY_SOURCES),
@@ -601,6 +630,10 @@ def advance_memory(
     return state
 
 
+# ──────────────────────────────────────────────────────────────────────────────
+# نقطه اجرای اصلی (main)
+# ──────────────────────────────────────────────────────────────────────────────
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Goodbaye config aggregator")
     ap.add_argument("--out", default=os.getcwd(), help="output directory (repo root)")
@@ -611,9 +644,6 @@ def main() -> int:
     t0 = time.time()
     log(f"🚀 Goodbaye Aggregator start → out={out_dir}")
     log(f"📡 Fetching {len(LIGHT_SOURCES)} light + {len(HEAVY_SOURCES)} heavy sources …")
-
-    # اتصال مستقیم کانفیگ‌های تلگرام و گیت‌هاب شما
-    local_configs = load_local_pools()
 
     state_path = os.path.join(out_dir, memory.STATE_PATH)
     mem = memory.load_state(state_path)
@@ -633,7 +663,7 @@ def main() -> int:
 
     log("🧮 Processing categories (dedup + Goodbaye 5-line brand) …")
     analysis_cache: Dict[str, Tuple[bool, str]] = {}
-    res_all = process_category(per_source, all_urls, analysis_cache, extra_configs=local_configs)
+    res_all = process_category(per_source, all_urls, analysis_cache)
     res_heavy = process_category(per_source, HEAVY_SOURCES, analysis_cache)
     res_light = process_category(per_source, LIGHT_SOURCES, analysis_cache)
     results = {"all": res_all, "heavy": res_heavy, "light": res_light}
@@ -641,7 +671,7 @@ def main() -> int:
     for cat, r in results.items():
         log(f"  • {cat:<5}: {len(r.unique):>6} unique | "
             f"{len(r.duplicates):>6} dup | {len(r.broken):>5} broken | "
-            f"{r.active_sources} active sources")
+            f"{r.active_sources}/{len(HEAVY_SOURCES if cat=='heavy' else LIGHT_SOURCES if cat=='light' else all_urls)} src")
 
     if not res_all.unique:
         log("❌ No configs produced — aborting BEFORE writing (existing files preserved)")
@@ -659,7 +689,7 @@ def main() -> int:
             pass
         write_archive(out_dir, cat, r)
 
-    # ساخت فایل جامع all_servers.txt در ریشه
+    # همگام‌سازی فایل all_servers.txt در ریشه برای سازگاری کامل
     all_txt = os.path.join(out_dir, "all", "configs.txt")
     all_srv = os.path.join(out_dir, "all_servers.txt")
     if os.path.exists(all_txt):
@@ -680,8 +710,7 @@ def main() -> int:
             log(f"  🛡️ mihomo gate [{cat}]: dropped {sum(r.mihomo_fatal.values())} "
                 f"line(s) that would empty the whole subscription — {r.mihomo_fatal}")
 
-    # تفکیک کامل ۹ پروتکل در پوشه servers/ و protocols/
-    proto_counts = write_servers_and_protocols(out_dir, res_all.unique)
+    proto_counts = write_protocols(out_dir, res_all.unique)
     log("  • protocols: " + ", ".join(f"{k}={v}" for k, v in proto_counts.items() if v))
 
     elapsed = time.time() - t0
