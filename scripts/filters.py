@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 """
-scripts/filters.py — لایهٔ L0/L1 آبشار حقیقت‌سنجی: یکتاسازی Endpoint و فیلتر ارزان بدون شبکه.
-پروژه: Goodbaye Universal Standard | ai-driven-v2ray
-مالک: alireza786786 | کانال رسمی: @Goodbaye_filtering
+scripts/filters.py — لایهٔ L0/L1 آبشارِ حقیقت‌سنجی: یکتاسازی و فیلترِ ارزانِ بی‌شبکه.
+برند: @Goodbaye_filtering | مخزن: ai-driven-v2ray
 
-وظایف این لایه:
-  • L0: استخراج زوج (host, port) یکتا به جای مقایسه متنی ساده (صرفه‌جویی بیش از ۱۳٪ پردازش شبکه)
-  • L1: حذف کانفیگ‌های ناقص ساختاری، پورت‌های نامعتبر، سرورهای loopback/غیرقابل‌مسیریابی
-  • رعایت دقیق استاندارد رسمی Xray برای شناسه‌های کاربری (قانون ۳۰ بایت و پشتیبانی از UUID فشرده ۳۲ رقمی)
-  • واگذاری هوشمندانه پارس به مبدل‌ها بدون استفاده از Regexهای شکننده
+جای این ماژول در معماری:
+    all/configs.txt → [L0 یکتاسازی] → [L1 فیلترِ ارزان] → L2 (TCP) → L3 (پروکسیِ واقعی)
+
+ویژگی‌ها:
+  • قاعده سقف ۳۰ بایتی شناسه سفارشی Xray و مهار Nil UUID
+  • یکتاسازی بر پایه زوج (host, port) و صرفه‌جویی در پردازش شبکه
+  • استفاده از converters.parse_proxy به جای عبارات منظم جهت جلوگیری از آسیب به IPv6
 """
 from __future__ import annotations
 
@@ -17,25 +18,17 @@ from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 import converters
 
-#: پروتکل‌هایی که شناسه کاربری (UUID) الزامی دارند
 UUID_PROTOCOLS = frozenset({"vless", "vmess", "tuic"})
 
-#: فرمت متعارف UUID استاندارد با خط تیره
 _UUID_RE = re.compile(
     r"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-"
     r"[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
 )
 
-#: سقف ۳۰ بایتی شناسه سفارشی طبق مستندات مرجع هسته Xray
 _CUSTOM_ID_MAX_BYTES = 30
-
-#: فرمت فشرده ۳۲ رقمی UUID (بدون خط تیره)
 _UUID_RE_COMPACT = re.compile(r"^[0-9a-fA-F]{32}$")
-
-#: شناسه تهی (جانگهدار بی‌مصرف بالادست)
 _NIL_UUID = "00000000-0000-0000-0000-000000000000"
 
-#: دلایل ثابت و رسمی حذف نودها برای درج در تلمتری
 REASON_UNPARSABLE = "unparsable"
 REASON_INVALID_PORT = "invalid_port"
 REASON_INVALID_UUID = "invalid_uuid"
@@ -52,7 +45,6 @@ ALL_REASONS = (
 
 
 def is_invalid_port(port: Any) -> bool:
-    """بررسی اعتبار پورت شبکه TCP (بازه ۱ تا ۶۵۵۳۵)."""
     try:
         p = int(str(port).strip())
     except (TypeError, ValueError):
@@ -61,10 +53,6 @@ def is_invalid_port(port: Any) -> bool:
 
 
 def is_invalid_uuid(uuid: Any, proto: str) -> bool:
-    """
-    اعتبارسنجی شناسه کاربری طبق مشخصات رسمی هسته Xray.
-    شناسه‌های زیر ۳۰ بایت مجاز هستند زیرا هسته آن‌ها را با نگاشت UUIDv5 می‌پذیرد.
-    """
     if proto not in UUID_PROTOCOLS:
         return False
     s = str(uuid or "").strip()
@@ -76,7 +64,6 @@ def is_invalid_uuid(uuid: Any, proto: str) -> bool:
 
 
 def endpoint_of_proxy(p: Dict[str, Any]) -> Optional[Tuple[str, int]]:
-    """استخراج زوج (host, port) تمیز و بدون کروشه IPv6 برای لایه L2."""
     host = str(p.get("server") or "").strip().strip("[]").lower()
     try:
         port = int(str(p.get("port")).strip())
@@ -88,7 +75,6 @@ def endpoint_of_proxy(p: Dict[str, Any]) -> Optional[Tuple[str, int]]:
 
 
 def classify(line: str) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
-    """داوری لایه‌ای از ارزان به گران: (proxy, None) در صورت قبولی، (None, reason) در صورت رد."""
     p = converters.parse_proxy(line)
     if not p:
         return None, REASON_UNPARSABLE
@@ -105,10 +91,6 @@ def classify(line: str) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
 
 
 def filter_lines(lines: Iterable[str]) -> Dict[str, Any]:
-    """
-    اجرای فاز L0 و L1 روی دنباله‌ای از کانفیگ‌ها.
-    خروجی: نودهای سالم، نقاط پایانی یکتا و تفکیک دلایل حذف نودهای معیوب.
-    """
     kept: List[str] = []
     endpoints: List[Tuple[str, int]] = []
     ep_index: Dict[Tuple[str, int], int] = {}
@@ -171,4 +153,5 @@ if __name__ == "__main__":
 
     target = sys.argv[1] if len(sys.argv) > 1 else "all/configs.txt"
     res = filter_file(target)
-    print(json.dumps({"stats": res["stats"], "dropped": res["dropped"]}, ensure_ascii=False, indent=2))
+    print(json.dumps({"stats": res["stats"], "dropped": res["dropped"]},
+                     ensure_ascii=False, indent=2))
