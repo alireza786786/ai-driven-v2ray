@@ -1,10 +1,14 @@
 #profile-title: @Goodbaye_filtering — BRAZIL (BR)
 #profile-update-interval: 1
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
-#support-url: https://t.me/Goodbaye_filtering
-#profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
-# @Goodbaye_filtering — BRAZIL (BR) — 1 configs
+#support-url: https://t.me/goodbaye_filtering
+#profile-web-page-url: https://github.com/0xRadikal/ai-driven-v2ray
+# @Goodbaye_filtering — BRAZIL (BR) — 5 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
-# quality: VIP Strict (<500ms) | Goodbaye Universal Standard
-trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@216.238.104.154:443?type=tcp&headerType=none&security=tls&encryption=none&sni=findtemporaryworkandfreelancerprojectsonlineplatform.com#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%A7%F0%9F%87%B7%20Brazil%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A732ms%0A%E2%9A%A1VIP-Strict%20%7C%20TROJAN%20IPv4
+# note: this is where the SERVER is, not necessarily where your traffic exits
+trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@216.238.104.154:443?sni=findtemporaryworkandfreelancerprojectsonlineplatform.com&type=tcp#BR 🇧🇷 | @Goodbaye_filtering | BE7C66
+trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@216.238.104.154:443?security=tls&insecure=0&headerType=none&type=tcp&allowInsecure=0&sni=findtemporaryworkandfreelancerprojectsonlineplatform.com#BR 🇧🇷 | @Goodbaye_filtering | C8B193
+vless://e9a8144e-5237-488a-afb1-9ca3d8d54c80@br001.zestapp778.com:15040?security=tls&type=tcp&sni=br001.zestapp778.com&fp=chrome#BR 🇧🇷 | @Goodbaye_filtering | 6A1520
+vless://e9a8144e-5237-488a-afb1-9ca3d8d54c80@br001.zestapp778.com:15040?security=tls&type=tcp&sni=br.zestapp778.com&fp=chrome#BR 🇧🇷 | @Goodbaye_filtering | A691A7
+vless://e9a8144e-5237-488a-afb1-9ca3d8d54c80@br001.zestapp778.com:15040?host=br001.zestapp778.com&security=tls&sni=br.zestapp778.com&type=tcp#BR 🇧🇷 | @Goodbaye_filtering | CFD49F

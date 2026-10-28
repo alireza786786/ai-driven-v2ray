@@ -1,15 +1,14 @@
 #profile-title: @Goodbaye_filtering — ISRAEL (IL)
 #profile-update-interval: 1
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
-#support-url: https://t.me/Goodbaye_filtering
-#profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
-# @Goodbaye_filtering — ISRAEL (IL) — 6 configs
+#support-url: https://t.me/goodbaye_filtering
+#profile-web-page-url: https://github.com/0xRadikal/ai-driven-v2ray
+# @Goodbaye_filtering — ISRAEL (IL) — 5 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
-# quality: VIP Strict (<500ms) | Goodbaye Universal Standard
-trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@64.176.163.182:443?security=tls&sni=exploreeducationsectoropportunitiestodayandadvancecareers.com&type=tcp#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%AE%F0%9F%87%B1%20IL%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A754ms%0A%E2%9A%A1VIP-Strict%20%7C%20TROJAN%20IPv4
-vless://5a519754-a673-4462-83f6-5eb25d2af141@79.182.39.45:25172?encryption=none&fp=firefox&pbk=Xr55Hig_JTeUluiGfSnma6zMHG2Uv5Xu30ZODGF5xGA&security=reality&sid=f09ac427e1abd14b&sni=www.cloudflare.com&type=tcp#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%AE%F0%9F%87%B1%20IL%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1058ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
-vless://f0b144bd-4c44-440d-b630-d79ec82cad3a@77.91.69.169:19226?security=reality&encryption=none&pbk=PQjgf7GxBd2tDXf0zl9Z5rTZo7LdsWj0hGZLH-lJ-Uk&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=yahoo.com&sid=7c#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%AE%F0%9F%87%B1%20IL%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1076ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
-vless://5a519754-a673-4462-83f6-5eb25d2af141@f36f5ft.us4.h1clayd.click:443?type=tcp&security=reality&fp=chrome&pbk=5KZVzOFqMgdL47--JzLlg5HmPlAYp-cmQsXxkTXngS0&sid=8d50d3a4df71468c&sni=f36f5ft.us4.h1clayd.click#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%AE%F0%9F%87%B1%20IL%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1182ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
-vless://f90b7d43-69e2-4b46-a672-8029bc6796a2@ee.h1cloud.net:25895?security=reality&encryption=none&pbk=jOVKSP-bS9OkILJ8Epz8hadh6qhavCrOiJYeF0NCn0k&headerType=none&fp=firefox&type=tcp&sni=www.samsung.com&sid=a73f0410d728c823#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%AE%F0%9F%87%B1%20IL%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1372ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
-vless://056405e8-de9f-4d0d-8145-956f13cc34da@79.182.39.37:27591?encryption=none&fp=firefox&pbk=LY0H47MWx87_L_JBzxFAuTzKZB53U7MrZQK8-dNnMxM&security=reality&sid=6c5c7900406a1ae7&sni=www.samsung.com&type=tcp#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%AE%F0%9F%87%B1%20IL%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A2655ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
+# note: this is where the SERVER is, not necessarily where your traffic exits
+trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@64.176.163.182:443?security=tls&sni=exploreeducationsectoropportunitiestodayandadvancecareers.com&type=tcp#IL 🇮🇱 | @Goodbaye_filtering | 60EE8A
+trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@64.176.163.182:443?sni=exploreeducationsectoropportunitiestodayandadvancecareers.com&type=tcp#IL 🇮🇱 | @Goodbaye_filtering | 7C445A
+vless://f0b144bd-4c44-440d-b630-d79ec82cad3a@77.91.69.169:19226?security=reality&encryption=none&pbk=PQjgf7GxBd2tDXf0zl9Z5rTZo7LdsWj0hGZLH-lJ-Uk&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=yahoo.com&sid=7c#IL 🇮🇱 | @Goodbaye_filtering | 09F4D1
+vless://36fb6650-8a50-42b5-9f66-06538806f32c@79.182.39.75:25362?security=reality&encryption=none&pbk=hFee7zTreqlv_wccK_8zxN5v23hj9u-DshByvGf-KAA&headerType=none&fp=chrome&type=tcp&sni=www.chip.de&sid=23732d14a527990d#IL 🇮🇱 | @Goodbaye_filtering | B8710F
+vless://36fb6650-8a50-42b5-9f66-06538806f32c@79.182.39.236:25362?encryption=none&fp=firefox&pbk=hFee7zTreqlv_wccK_8zxN5v23hj9u-DshByvGf-KAA&security=reality&sid=23732d14a527990d&sni=www.chip.de&type=tcp#IL 🇮🇱 | @Goodbaye_filtering | B7C489

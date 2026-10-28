@@ -1,10 +1,10 @@
 #profile-title: @Goodbaye_filtering — MOLDOVA (MD)
 #profile-update-interval: 1
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
-#support-url: https://t.me/Goodbaye_filtering
-#profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
+#support-url: https://t.me/goodbaye_filtering
+#profile-web-page-url: https://github.com/0xRadikal/ai-driven-v2ray
 # @Goodbaye_filtering — MOLDOVA (MD) — 1 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
-# quality: VIP Strict (<500ms) | Goodbaye Universal Standard
-vless://2f35965a-9a9b-45fd-ba32-987296dfb6be@md5.univesalsrv.com:443?mode=gun&security=reality&encryption=none&pbk=99MRki6b93wC-hhDHe9yq3IXE3KtPGw4RkFAnpI-8gg&fp=chrome&type=grpc&serviceName=app.v1.PushService&sni=md5.univesalsrv.com&sid=aa9884f2982b7d3c#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%B2%F0%9F%87%A9%20Moldova%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A4560ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
+# note: this is where the SERVER is, not necessarily where your traffic exits
+vless://2f35965a-9a9b-45fd-ba32-987296dfb6be@89.35.14.33:443?mode=gun&security=reality&encryption=none&authority=%2F%3FTELEGRAM%40MARAMBASHI_MARAMBASHI&pbk=TZVMqglhHzteJ6t34mtku75LKzXNq0CB6glKYMAH6zg&fp=chrome&type=grpc&serviceName=hub.v1.ApiService&sni=md4.univesalsrv.com&sid=8e07337954f9823f#MD 🇲🇩 | @Goodbaye_filtering | D11207

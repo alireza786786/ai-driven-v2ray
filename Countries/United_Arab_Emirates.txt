@@ -1,24 +1,13 @@
 #profile-title: @Goodbaye_filtering — UNITED ARAB EMIRATES (AE)
 #profile-update-interval: 1
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
-#support-url: https://t.me/Goodbaye_filtering
-#profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
-# @Goodbaye_filtering — UNITED ARAB EMIRATES (AE) — 15 configs
+#support-url: https://t.me/goodbaye_filtering
+#profile-web-page-url: https://github.com/0xRadikal/ai-driven-v2ray
+# @Goodbaye_filtering — UNITED ARAB EMIRATES (AE) — 4 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
-# quality: VIP Strict (<500ms) | Goodbaye Universal Standard
-vless://39947382-3212-41c9-bc3a-589574ac8b23@uae.unixzone.us:22573?host=uae.unixzone.us&security=none&type=ws#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%A6%F0%9F%87%AA%20UAE%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1230ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
-vless://39947382-3212-41c9-bc3a-589574ac8b23@uae.unixzone.us:22573?fp=unsafe&security=none&type=ws#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%A6%F0%9F%87%AA%20UAE%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1325ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
-vless://39947382-3212-41c9-bc3a-589574ac8b23@84.235.244.108:22573?security=none&type=ws&path=%2F&host=uae.unixzone.us#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%A6%F0%9F%87%AA%20UAE%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1344ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
-vless://965ffbbe-c6b6-4d5f-8dea-6d8abc55d9c0@95.174.68.188:14430?host=95.174.68.188&path=%2Fvless&security=none&type=ws#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%A6%F0%9F%87%AA%20UAE%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1349ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
-vless://39947382-3212-41c9-bc3a-589574ac8b23@uae.unixzone.us:22573?host=uae.unixzone.us&path=%2F&security=none&sni=uae.unixzone.us&type=ws#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%A6%F0%9F%87%AA%20UAE%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1364ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
-vless://39947382-3212-41c9-bc3a-589574ac8b23@uae.unixzone.us:22573?host=uae.unixzone.us&path=%2F&security=none&type=ws#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%A6%F0%9F%87%AA%20UAE%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1365ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
-vless://39947382-3212-41c9-bc3a-589574ac8b23@84.235.244.108:22573?security=none&type=ws&path=%2F&host=uae.unixzone.us&sni=uae.unixzone.us#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%A6%F0%9F%87%AA%20UAE%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1383ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
-vless://39947382-3212-41c9-bc3a-589574ac8b23@uae.unixzone.us:22573?security=none&sni=uae.unixzone.us&type=ws#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%A6%F0%9F%87%AA%20UAE%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1413ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
-vless://39947382-3212-41c9-bc3a-589574ac8b23@84.235.244.108:22573?host=uae.unixzone.us&security=none&type=ws#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%A6%F0%9F%87%AA%20UAE%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1437ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
-vless://965ffbbe-c6b6-4d5f-8dea-6d8abc55d9c0@95.174.68.188:14430?path=%2Fvless&security=none&sni=95.174.68.188&type=ws#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%A6%F0%9F%87%AA%20UAE%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1438ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
-vless://39947382-3212-41c9-bc3a-589574ac8b23@uae.unixzone.us:22573?fp=random&path=%2F&security=none&type=ws#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%A6%F0%9F%87%AA%20UAE%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1455ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
-vless://965ffbbe-c6b6-4d5f-8dea-6d8abc55d9c0@95.174.68.188:14430?path=%2Fvless&security=none&type=ws#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%A6%F0%9F%87%AA%20UAE%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1462ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
-vless://965ffbbe-c6b6-4d5f-8dea-6d8abc55d9c0@95.174.68.188:14430?host=95.174.68.188&path=%2Fvless&security=none&sni=95.174.68.188&type=ws#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%A6%F0%9F%87%AA%20UAE%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1466ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
-vless://39947382-3212-41c9-bc3a-589574ac8b23@uae.unixzone.us:22573?path=%2F&security=none&sni=uae.unixzone.us&type=ws#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%A6%F0%9F%87%AA%20UAE%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1470ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
-vless://aee7ae19-672f-49d8-8a92-aa7cdfc89f89@185.253.116.33:14430?path=%2Fvless&security=none&sni=185.253.116.33&type=ws#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%A6%F0%9F%87%AA%20UAE%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1691ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
+# note: this is where the SERVER is, not necessarily where your traffic exits
+vless://aee7ae19-672f-49d8-8a92-aa7cdfc89f89@185.253.116.33:14430?fp=unsafe&host=185.253.116.33&path=%2Fvless&security=none&sni=185.253.116.33&type=ws#AE 🇦🇪 | @Goodbaye_filtering | 04523B
+vless://965ffbbe-c6b6-4d5f-8dea-6d8abc55d9c0@95.174.68.188:14430?host=95.174.68.188&path=%2Fvless&security=none&sni=95.174.68.188&type=ws#AE 🇦🇪 | @Goodbaye_filtering | F16E75
+vless://965ffbbe-c6b6-4d5f-8dea-6d8abc55d9c0@95.174.68.188:14430?security=none&type=ws&path=%2Fvless&host=95.174.68.188&packetEncoding=xudp#AE 🇦🇪 | @Goodbaye_filtering | 64BB8E
+vless://39947382-3212-41c9-bc3a-589574ac8b23@uae.unixzone.us:22573?encryption=none&security=none&type=ws&host=uae.unixzone.us&path=/#AE 🇦🇪 | @Goodbaye_filtering | ABB365

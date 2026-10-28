@@ -1,0 +1,10 @@
+#profile-title: @Goodbaye_filtering — MALAYSIA (MY)
+#profile-update-interval: 1
+#subscription-userinfo: upload=0; download=0; total=0; expire=0
+#support-url: https://t.me/goodbaye_filtering
+#profile-web-page-url: https://github.com/0xRadikal/ai-driven-v2ray
+# @Goodbaye_filtering — MALAYSIA (MY) — 1 configs
+# source: verified/ — every config passed a real proxied request in ALL L3 rounds
+# location: GeoIP (DB-IP Country Lite) on the real network address of the server
+# note: this is where the SERVER is, not necessarily where your traffic exits
+vless://264bee07-e004-41c7-812f-aaf2daaad2c9@my.wawojk.dpdns.org:8443?flow=xtls-rprx-vision&fp=chrome&pbk=akVbcyv-ypq-YT4-bsi_ts85pkDwhAIapn5bCb_hj28&security=reality&sid=85f609aa0f0bead8&sni=www.asus.com&type=tcp#MY 🇲🇾 | @Goodbaye_filtering | D25185

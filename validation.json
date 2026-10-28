@@ -79,63 +79,48 @@
     "status": "fail",
     "files": {
       "Countries/Albania.txt": {
-        "lines": 1,
-        "loaded": 1,
+        "lines": 2,
+        "loaded": 2,
         "status": "pass"
       },
       "Countries/Armenia.txt": {
-        "lines": 3,
-        "loaded": 3,
+        "lines": 2,
+        "loaded": 2,
         "status": "pass"
       },
       "Countries/Australia.txt": {
-        "lines": 5,
-        "loaded": 5,
+        "lines": 4,
+        "loaded": 4,
         "status": "pass"
       },
       "Countries/Austria.txt": {
-        "lines": 13,
-        "loaded": 13,
-        "status": "pass"
-      },
-      "Countries/Azerbaijan.txt": {
         "lines": 1,
         "loaded": 1,
         "status": "pass"
       },
       "Countries/Belarus.txt": {
-        "lines": 9,
-        "loaded": 9,
+        "lines": 7,
+        "loaded": 7,
         "status": "pass"
       },
       "Countries/Brazil.txt": {
-        "lines": 1,
-        "loaded": 1,
+        "lines": 5,
+        "loaded": 5,
         "status": "pass"
       },
       "Countries/Bulgaria.txt": {
-        "lines": 4,
-        "loaded": 4,
+        "lines": 8,
+        "loaded": 8,
         "status": "pass"
       },
       "Countries/Canada.txt": {
-        "lines": 163,
-        "loaded": 163,
+        "lines": 101,
+        "loaded": 101,
         "status": "pass"
       },
       "Countries/Chile.txt": {
-        "lines": 1,
-        "loaded": 1,
-        "status": "pass"
-      },
-      "Countries/China.txt": {
-        "lines": 3,
-        "loaded": 3,
-        "status": "pass"
-      },
-      "Countries/Czechia.txt": {
-        "lines": 1,
-        "loaded": 1,
+        "lines": 2,
+        "loaded": 2,
         "status": "pass"
       },
       "Countries/Denmark.txt": {
@@ -144,33 +129,28 @@
         "status": "pass"
       },
       "Countries/Estonia.txt": {
-        "lines": 4,
-        "loaded": 4,
-        "status": "pass"
-      },
-      "Countries/Finland.txt": {
-        "lines": 41,
-        "loaded": 41,
-        "status": "pass"
-      },
-      "Countries/France.txt": {
-        "lines": 44,
-        "loaded": 44,
-        "status": "pass"
-      },
-      "Countries/Germany.txt": {
-        "lines": 137,
-        "loaded": 137,
-        "status": "pass"
-      },
-      "Countries/Greece.txt": {
         "lines": 1,
         "loaded": 1,
         "status": "pass"
       },
+      "Countries/Finland.txt": {
+        "lines": 21,
+        "loaded": 21,
+        "status": "pass"
+      },
+      "Countries/France.txt": {
+        "lines": 38,
+        "loaded": 38,
+        "status": "pass"
+      },
+      "Countries/Germany.txt": {
+        "lines": 99,
+        "loaded": 99,
+        "status": "pass"
+      },
       "Countries/Hong_Kong.txt": {
-        "lines": 34,
-        "loaded": 34,
+        "lines": 36,
+        "loaded": 36,
         "status": "pass"
       },
       "Countries/Hungary.txt": {
@@ -179,48 +159,43 @@
         "status": "pass"
       },
       "Countries/India.txt": {
+        "lines": 8,
+        "loaded": 8,
+        "status": "pass"
+      },
+      "Countries/Indonesia.txt": {
+        "lines": 2,
+        "loaded": 2,
+        "status": "pass"
+      },
+      "Countries/Ireland.txt": {
+        "lines": 4,
+        "loaded": 4,
+        "status": "pass"
+      },
+      "Countries/Israel.txt": {
+        "lines": 5,
+        "loaded": 5,
+        "status": "pass"
+      },
+      "Countries/Italy.txt": {
+        "lines": 15,
+        "loaded": 15,
+        "status": "pass"
+      },
+      "Countries/Japan.txt": {
+        "lines": 25,
+        "loaded": 25,
+        "status": "pass"
+      },
+      "Countries/Kazakhstan.txt": {
         "lines": 11,
         "loaded": 11,
         "status": "pass"
       },
-      "Countries/Iran.txt": {
-        "lines": 1,
-        "loaded": 1,
-        "status": "pass"
-      },
-      "Countries/Ireland.txt": {
-        "lines": 2,
-        "loaded": 2,
-        "status": "pass"
-      },
-      "Countries/Israel.txt": {
-        "lines": 6,
-        "loaded": 6,
-        "status": "pass"
-      },
-      "Countries/Italy.txt": {
-        "lines": 17,
-        "loaded": 17,
-        "status": "pass"
-      },
-      "Countries/Japan.txt": {
-        "lines": 27,
-        "loaded": 27,
-        "status": "pass"
-      },
-      "Countries/Kazakhstan.txt": {
-        "lines": 9,
-        "loaded": 9,
-        "status": "pass"
-      },
       "Countries/Latvia.txt": {
-        "lines": 3,
-        "loaded": 3,
-        "status": "pass"
-      },
-      "Countries/Lithuania.txt": {
-        "lines": 2,
-        "loaded": 2,
+        "lines": 4,
+        "loaded": 4,
         "status": "pass"
       },
       "Countries/Luxembourg.txt": {
@@ -228,17 +203,17 @@
         "loaded": 1,
         "status": "pass"
       },
-      "Countries/Mexico.txt": {
-        "lines": 3,
-        "loaded": 3,
-        "status": "pass"
-      },
-      "Countries/Moldova.txt": {
+      "Countries/Malaysia.txt": {
         "lines": 1,
         "loaded": 1,
         "status": "pass"
       },
-      "Countries/North_Macedonia.txt": {
+      "Countries/Mexico.txt": {
+        "lines": 5,
+        "loaded": 5,
+        "status": "pass"
+      },
+      "Countries/Moldova.txt": {
         "lines": 1,
         "loaded": 1,
         "status": "pass"
@@ -249,43 +224,28 @@
         "status": "pass"
       },
       "Countries/Philippines.txt": {
-        "lines": 2,
-        "loaded": 2,
+        "lines": 1,
+        "loaded": 1,
         "status": "pass"
       },
       "Countries/Poland.txt": {
-        "lines": 15,
-        "loaded": 15,
+        "lines": 18,
+        "loaded": 18,
         "status": "pass"
       },
       "Countries/Portugal.txt": {
-        "lines": 4,
-        "loaded": 4,
-        "status": "pass"
-      },
-      "Countries/Romania.txt": {
         "lines": 3,
         "loaded": 3,
         "status": "pass"
       },
       "Countries/Russia.txt": {
-        "lines": 60,
-        "loaded": 60,
-        "status": "pass"
-      },
-      "Countries/Seychelles.txt": {
-        "lines": 7,
-        "loaded": 7,
+        "lines": 25,
+        "loaded": 25,
         "status": "pass"
       },
       "Countries/Singapore.txt": {
-        "lines": 96,
-        "loaded": 96,
-        "status": "pass"
-      },
-      "Countries/Slovenia.txt": {
-        "lines": 7,
-        "loaded": 7,
+        "lines": 69,
+        "loaded": 69,
         "status": "pass"
       },
       "Countries/South_Africa.txt": {
@@ -294,13 +254,13 @@
         "status": "pass"
       },
       "Countries/South_Korea.txt": {
-        "lines": 17,
-        "loaded": 17,
+        "lines": 15,
+        "loaded": 15,
         "status": "pass"
       },
       "Countries/Spain.txt": {
-        "lines": 20,
-        "loaded": 20,
+        "lines": 10,
+        "loaded": 10,
         "status": "pass"
       },
       "Countries/Sweden.txt": {
@@ -314,107 +274,97 @@
         "status": "pass"
       },
       "Countries/Thailand.txt": {
-        "lines": 5,
-        "loaded": 5,
+        "lines": 6,
+        "loaded": 6,
         "status": "pass"
       },
       "Countries/The_Netherlands.txt": {
-        "lines": 215,
-        "loaded": 215,
+        "lines": 264,
+        "loaded": 264,
         "status": "pass"
       },
       "Countries/Turkey.txt": {
-        "lines": 23,
-        "loaded": 23,
+        "lines": 7,
+        "loaded": 7,
         "status": "pass"
       },
       "Countries/Ukraine.txt": {
-        "lines": 2,
-        "loaded": 2,
+        "lines": 4,
+        "loaded": 4,
         "status": "pass"
       },
       "Countries/United_Arab_Emirates.txt": {
-        "lines": 15,
-        "loaded": 15,
+        "lines": 4,
+        "loaded": 4,
         "status": "pass"
       },
       "Countries/United_Kingdom.txt": {
-        "lines": 41,
-        "loaded": 41,
+        "lines": 25,
+        "loaded": 25,
         "status": "pass"
       },
       "Countries/United_States.txt": {
-        "lines": 329,
-        "loaded": 329,
+        "lines": 309,
+        "loaded": 309,
         "status": "pass"
       },
       "all/configs.txt": {
-        "lines": 11282,
-        "loaded": 10820,
+        "lines": 11098,
+        "loaded": 10641,
         "status": "pass"
       },
       "all/configs_base64.txt": {
-        "lines": 11282,
-        "loaded": 10820,
+        "lines": 11098,
+        "loaded": 10641,
         "status": "pass"
       },
       "fast/configs.txt": {
-        "lines": 389,
-        "loaded": 389,
+        "lines": 352,
+        "loaded": 352,
         "status": "pass"
       },
       "fast/configs_base64.txt": {
-        "lines": 389,
-        "loaded": 389,
+        "lines": 352,
+        "loaded": 352,
         "status": "pass"
       },
       "heavy/configs.txt": {
-        "lines": 7360,
-        "loaded": 6920,
+        "lines": 7155,
+        "loaded": 6722,
         "status": "pass"
       },
       "heavy/configs_base64.txt": {
-        "lines": 7360,
-        "loaded": 6920,
+        "lines": 7155,
+        "loaded": 6722,
         "status": "pass"
       },
       "light/configs.txt": {
-        "lines": 5157,
-        "loaded": 5131,
+        "lines": 5139,
+        "loaded": 5111,
         "status": "pass"
       },
       "light/configs_base64.txt": {
-        "lines": 5157,
-        "loaded": 5131,
-        "status": "pass"
-      },
-      "protocols/anytls.txt": {
-        "lines": 1,
-        "loaded": 1,
-        "status": "pass"
-      },
-      "protocols/anytls_base64.txt": {
-        "lines": 1,
-        "loaded": 1,
+        "lines": 5139,
+        "loaded": 5111,
         "status": "pass"
       },
       "protocols/hysteria2.txt": {
-        "lines": 257,
-        "loaded": 257,
+        "lines": 241,
+        "loaded": 241,
         "status": "pass"
       },
       "protocols/hysteria2_base64.txt": {
-        "lines": 257,
-        "loaded": 257,
+        "lines": 241,
+        "loaded": 241,
         "status": "pass"
       },
       "protocols/shadowsocks.txt": {
-        "lines": 1033,
+        "lines": 1037,
         "loaded": 640,
         "status": "pass"
       },
       "protocols/shadowsocks_base64.txt": {
-        "lines": 1033,
+        "lines": 1037,
         "loaded": 640,
         "status": "pass"
       },
@@ -431,53 +381,63 @@
         "detail": "yaml: unmarshal errors:\\n  line 1: cannot unmarshal !!str `I3Byb2Z...` into provider.ProxySchema, convert v2ray subscribe error: format invalid"
       },
       "protocols/socks.txt": {
-        "lines": 6,
-        "loaded": 6,
+        "lines": 3,
+        "loaded": 3,
         "status": "pass"
       },
       "protocols/socks_base64.txt": {
-        "lines": 6,
-        "loaded": 6,
+        "lines": 3,
+        "loaded": 3,
         "status": "pass"
       },
       "protocols/trojan.txt": {
-        "lines": 1489,
-        "loaded": 1488,
+        "lines": 1396,
+        "loaded": 1395,
         "status": "pass"
       },
       "protocols/trojan_base64.txt": {
-        "lines": 1489,
-        "loaded": 1488,
+        "lines": 1396,
+        "loaded": 1395,
+        "status": "pass"
+      },
+      "protocols/tuic.txt": {
+        "lines": 2,
+        "loaded": 2,
+        "status": "pass"
+      },
+      "protocols/tuic_base64.txt": {
+        "lines": 2,
+        "loaded": 2,
         "status": "pass"
       },
       "protocols/vless.txt": {
-        "lines": 5103,
-        "loaded": 5101,
+        "lines": 5002,
+        "loaded": 5001,
         "status": "pass"
       },
       "protocols/vless_base64.txt": {
-        "lines": 5103,
-        "loaded": 5101,
+        "lines": 5002,
+        "loaded": 5001,
         "status": "pass"
       },
       "protocols/vmess.txt": {
-        "lines": 3392,
-        "loaded": 3327,
+        "lines": 3416,
+        "loaded": 3359,
         "status": "pass"
       },
       "protocols/vmess_base64.txt": {
-        "lines": 3392,
-        "loaded": 3327,
+        "lines": 3416,
+        "loaded": 3359,
         "status": "pass"
       },
       "secure/configs.txt": {
-        "lines": 1069,
-        "loaded": 1069,
+        "lines": 809,
+        "loaded": 809,
         "status": "pass"
       },
       "secure/configs_base64.txt": {
-        "lines": 1069,
-        "loaded": 1069,
+        "lines": 809,
+        "loaded": 809,
         "status": "pass"
       },
       "top100.txt": {
@@ -486,13 +446,13 @@
         "status": "pass"
       },
       "verified/configs.txt": {
-        "lines": 1434,
-        "loaded": 1434,
+        "lines": 1192,
+        "loaded": 1192,
         "status": "pass"
       },
       "verified/configs_base64.txt": {
-        "lines": 1434,
-        "loaded": 1434,
+        "lines": 1192,
+        "loaded": 1192,
         "status": "pass"
       }
     },
@@ -500,7 +460,7 @@
       "protocols/shadowsocksr.txt",
       "protocols/shadowsocksr_base64.txt"
     ],
-    "seconds": 2.41,
-    "detail": "2 of 83 subscription file(s) load 0 proxies in mihomo"
+    "seconds": 2.61,
+    "detail": "2 of 75 subscription file(s) load 0 proxies in mihomo"
   }
 }

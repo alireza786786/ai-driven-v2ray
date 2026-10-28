@@ -1,12 +1,13 @@
 #profile-title: @Goodbaye_filtering — LATVIA (LV)
 #profile-update-interval: 1
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
-#support-url: https://t.me/Goodbaye_filtering
-#profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
-# @Goodbaye_filtering — LATVIA (LV) — 3 configs
+#support-url: https://t.me/goodbaye_filtering
+#profile-web-page-url: https://github.com/0xRadikal/ai-driven-v2ray
+# @Goodbaye_filtering — LATVIA (LV) — 4 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
-# quality: VIP Strict (<500ms) | Goodbaye Universal Standard
-vless://5234b2b7-5e07-422c-8159-d62a676c00c6@138.124.180.137:443?flow=xtls-rprx-vision&fp=random&pbk=GBdkyDLfr0LIZo_94Xv8ycAKOmkjArYzwJAEMhuXX2c&security=reality&sid=33acba1b&sni=www.apple.com&type=tcp#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%B1%F0%9F%87%BB%20Latvia%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A713ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
-trojan://humanity@85.31.102.163:443?path=/assignment&security=tls&insecure=0&fp=chrome&type=ws&allowInsecure=0&sni=www.calmlunch.com#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%B1%F0%9F%87%BB%20Latvia%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1063ms%0A%E2%9A%A1VIP-Strict%20%7C%20TROJAN%20IPv4
-vless://1ebcb694-875c-4be7-b6a2-d53c8208991b@195.123.208.32:443?security=reality&type=tcp&packetEncoding=xudp&sni=gateway.icloud.com&fp=chrome&flow=xtls-rprx-vision&sid=757b9e1ef18e60f0&pbk=ICrsmE5hqN7IsDIyHPG2WkDUUFK_VEj9yobLv8zuDwk#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%B1%F0%9F%87%BB%20Latvia%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A1227ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
+# note: this is where the SERVER is, not necessarily where your traffic exits
+vless://042b12d8-bac4-4b3a-b661-79e333f08e4e@45.43.79.92:443?flow=xtls-rprx-vision&fp=chrome&pbk=M4Y9h339sntl5wEpiCa7f4IKhJ_8JLzPnAz2IzKlngM&security=reality&sid=af4ca5d16438c938&sni=vikt659.isgood.host&type=tcp#LV 🇱🇻 | @Goodbaye_filtering | 2FA3E2
+vless://5234b2b7-5e07-422c-8159-d62a676c00c6@138.124.180.137:443?flow=xtls-rprx-vision&fp=chrome&pbk=GBdkyDLfr0LIZo_94Xv8ycAKOmkjArYzwJAEMhuXX2c&security=reality&sid=33acba1b&sni=www.apple.com&type=tcp#LV 🇱🇻 | @Goodbaye_filtering | B55611
+vless://cebc5f19-18d9-48e6-9029-fb4b04caf393@45.38.143.210:30584?fp=chrome&pbk=2hV4TY2ygvQ7ISa5o4u_FUKXzlIhLgbsScE8M1h0m3Y&security=reality&sid=67ece882d65d0f1a&sni=m.vk.com&type=tcp#LV 🇱🇻 | @Goodbaye_filtering | D611CB
+vless://1ebcb694-875c-4be7-b6a2-d53c8208991b@195.123.208.32:443?security=reality&type=tcp&packetEncoding=xudp&sni=gateway.icloud.com&fp=chrome&flow=xtls-rprx-vision&sid=757b9e1ef18e60f0&pbk=ICrsmE5hqN7IsDIyHPG2WkDUUFK_VEj9yobLv8zuDwk#LV 🇱🇻 | @Goodbaye_filtering | C5601E

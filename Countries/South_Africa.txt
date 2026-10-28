@@ -1,12 +1,12 @@
 #profile-title: @Goodbaye_filtering — SOUTH AFRICA (ZA)
 #profile-update-interval: 1
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
-#support-url: https://t.me/Goodbaye_filtering
-#profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
+#support-url: https://t.me/goodbaye_filtering
+#profile-web-page-url: https://github.com/0xRadikal/ai-driven-v2ray
 # @Goodbaye_filtering — SOUTH AFRICA (ZA) — 3 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
-# quality: VIP Strict (<500ms) | Goodbaye Universal Standard
-ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpYc3k4T3g0eU9WM3hMbHB4dGp6czNY@102.133.165.160:16233#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%BF%F0%9F%87%A6%20South%20Africa%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A852ms%0A%E2%9A%A1VIP-Strict%20%7C%20SHADOWSOCKS%20IPv4
-ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTphZHVCOUhHeFFIakEyU0JNUmprSFg2@102.37.156.224:443#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%BF%F0%9F%87%A6%20South%20Africa%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A854ms%0A%E2%9A%A1VIP-Strict%20%7C%20SHADOWSOCKS%20IPv4
-ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpiMzltMVpZSTBIa2s4aWVi@20.164.212.103:443#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%BF%F0%9F%87%A6%20South%20Africa%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A872ms%0A%E2%9A%A1VIP-Strict%20%7C%20SHADOWSOCKS%20IPv4
+# note: this is where the SERVER is, not necessarily where your traffic exits
+ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpYc3k4T3g0eU9WM3hMbHB4dGp6czNY@102.133.165.160:16233#ZA 🇿🇦 | @Goodbaye_filtering | 6BDFB5
+ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTphZHVCOUhHeFFIakEyU0JNUmprSFg2@102.37.156.224:443#ZA 🇿🇦 | @Goodbaye_filtering | 4A412B
+ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpxSm85Z1RlczduSTNBbHhp@102.133.224.160:443#ZA 🇿🇦 | @Goodbaye_filtering | DC3B59

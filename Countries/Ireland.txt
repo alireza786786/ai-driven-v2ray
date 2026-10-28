@@ -1,11 +1,13 @@
 #profile-title: @Goodbaye_filtering — IRELAND (IE)
 #profile-update-interval: 1
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
-#support-url: https://t.me/Goodbaye_filtering
-#profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
-# @Goodbaye_filtering — IRELAND (IE) — 2 configs
+#support-url: https://t.me/goodbaye_filtering
+#profile-web-page-url: https://github.com/0xRadikal/ai-driven-v2ray
+# @Goodbaye_filtering — IRELAND (IE) — 4 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
-# quality: VIP Strict (<500ms) | Goodbaye Universal Standard
-vmess://eyJ2IjoiMiIsInBzIjoi8J+RifCfhpRAR29vZGJheWVfZmlsdGVyaW5nXG7wn5Oh8J+HrvCfh6ogSXJlbGFuZFxuwq7vuI9DbG91ZFxu8J+Fv++4j3Bpbmc6NDA0bXNcbuKaoVZJUC1TdHJpY3QgfCBWTUVTUyBJUHY0IiwiYWRkIjoiNTQuMjI5LjE1MS45NyIsInBvcnQiOiI1OTIzNiIsImlkIjoiMjM4N2JmYmMtMTBhNi00YmQ3LWRjNTUtN2NiYTk1NGNlNmU4IiwiYWlkIjoiMCIsInNjeSI6ImF1dG8iLCJuZXQiOiJ0Y3AiLCJ0eXBlIjoiaHR0cCIsInRscyI6IiIsImFscG4iOiIiLCJwYXRoIjoiLyIsImhvc3QiOiJ0bXMuZGluZ3RhbGsuY29tIn0=
-vless://cd3bb7d9-7df3-4644-ac05-c260990ac277@ir-new-ded.failspace.top:443?encryption=none&security=tls&sni=ir-new-ded.failspace.top&fp=firefox&alpn=h2&type=tcp&flow=xtls-rprx-vision#%F0%9F%91%89%F0%9F%86%94%40Goodbaye_filtering%0A%F0%9F%93%A1%F0%9F%87%AE%F0%9F%87%AA%20Ireland%0A%C2%AE%EF%B8%8FCloud%0A%F0%9F%85%BF%EF%B8%8Fping%3A633ms%0A%E2%9A%A1VIP-Strict%20%7C%20VLESS%20IPv4
+# note: this is where the SERVER is, not necessarily where your traffic exits
+vless://cd3bb7d9-7df3-4644-ac05-c260990ac277@50.7.5.188:443?flow=xtls-rprx-vision&security=tls&sni=ir-new-ded.failspace.top&type=raw#IE 🇮🇪 | @Goodbaye_filtering | 71A377
+vless://cd3bb7d9-7df3-4644-ac05-c260990ac277@ir-new-ded.failspace.top:443?flow=xtls-rprx-vision&security=tls&sni=ir-new-ded.failspace.top&type=tcp#IE 🇮🇪 | @Goodbaye_filtering | D29278
+vless://cd3bb7d9-7df3-4644-ac05-c260990ac277@ir-new-ded.failspace.top:443?encryption=none&security=tls&sni=ir-new-ded.failspace.top&fp=firefox&alpn=h2&type=tcp&flow=xtls-rprx-vision#IE 🇮🇪 | @Goodbaye_filtering | 51E111
+vmess://eyJ2IjoiMiIsInBzIjoiSUUg8J+HrvCfh6ogfCBAR29vZGJheWVfZmlsdGVyaW5nIHwgMDM3NjBEIiwiYWRkIjoiNTQuMjI5LjE1MS45NyIsInBvcnQiOiI1OTIzNiIsImlkIjoiMjM4N2JmYmMtMTBhNi00YmQ3LWRjNTUtN2NiYTk1NGNlNmU4IiwiYWlkIjoiMCIsInNjeSI6ImF1dG8iLCJuZXQiOiJ0Y3AiLCJ0eXBlIjoiaHR0cCIsInRscyI6IiIsImFscG4iOiIiLCJwYXRoIjoiLyIsImhvc3QiOiJ0bXMuZGluZ3RhbGsuY29tIn0=
