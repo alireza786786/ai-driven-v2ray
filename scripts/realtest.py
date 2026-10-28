@@ -1,17 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-scripts/realtest.py — لایهٔ L3 آبشار حقیقت‌سنجی: آزمون واقعی عبور ترافیک از هسته پروکسی با xray-knife.
-پروژه: Goodbaye Universal Standard | ai-driven-v2ray
-مالک: alireza786786 | کانال رسمی: @Goodbaye_filtering
+scripts/realtest.py — لایهٔ L3: آزمونِ واقعیِ عبور ترافیک با هسته پروکسی (xray-knife).
+برند: @Goodbaye_filtering | مخزن: ai-driven-v2ray
 
-تصمیمات مهندسی اثبات‌شده در این لایه:
-  ۱) پذیرش وضعیت semi-passed (پروکسی سالم است و صرفاً استعلام لوکیشن با تایم‌اوت مواجه شده)
-  ۲) قفل ۴ شرطی عبور نود جهت مهار باگ 0 == 0 در سطرهای خراب (broken)
-  ۳) مهار ۱۰۰٪ قفل‌شدن گیت‌هاب اکشنز (stdin=DEVNULL و تایم‌اوت سخت پایتونی)
-  ۴) حذف خروجی‌های کهنه قبل از هر اجرا و اطمینان از ساخت پوشه‌های والد
-  ۵) پارس ضدگلوله CSV با ماژول رسمی csv جهت جلوگیری از شکستن لینک‌های دارای کاما
-  ۶) همروندی بهینه ۲۰۰ ترد با تست ترافیک روی نشانی مرجع generate_204 کلودفلر
+ویژگی‌ها و گاردها:
+  • پذیرش هوشمندانه semi-passed (موفقیت پروکسی با خطای جست‌وجوی IP)
+  • قفل ۴ شرطی ضد باگ: total >= 1 و success == total و 200 <= code < 400
+  • دفاع سه‌لایه در برابر قفل شدن CI (بررسی ناتهی بودن فایل، stdin=DEVNULL، تایم‌اوت سخت)
+  • حذف فایل‌های کهنه قبل از اجرا جهت جلوگیری از داده‌های منسوخ
+  • تجزیه استاندارد CSV با کتابخانه داخلی csv جهت حفظ لینک‌های کامادار
 """
 from __future__ import annotations
 
@@ -27,27 +25,12 @@ from typing import Any, Dict, Iterable, List, Optional, Sequence
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-# ──────────────────────────────────────────────────────────────────────────────
-# پارامترهای اجرایی و محیطی
-# ──────────────────────────────────────────────────────────────────────────────
-
-#: مسیر یا نام باینری رسمی xray-knife
-XK_BIN: str = os.environ.get("L3_XK_BIN", "xray-knife")
-
-#: نشانی هدف مرجع جهت اعتبارسنجی عبور واقعی ترافیک از تونل
-TEST_URL: str = os.environ.get("L3_TEST_URL", "https://cp.cloudflare.com/generate_204")
-
-#: همروندی تست (۲۰۰ رشته هم‌زمان، بهینه‌ترین حالت برای پردازش سریع در CI)
-THREADS: int = int(os.environ.get("L3_THREADS", "200"))
-
-#: حداکثر تاخیر قابل قبول (میلی‌ثانیه)
-MDELAY_MS: int = int(os.environ.get("L3_MDELAY", "5000"))
-
-#: مهلت هر درخواست اتصال پروکسی (میلی‌ثانیه)
-TIMEOUT_MS: int = int(os.environ.get("L3_TIMEOUT", "5000"))
-
-#: مهلت سخت پروسه جهت جلوگیری از فریز شدن گیت‌هاب اکشنز (ثانیه)
-HARD_TIMEOUT: int = int(os.environ.get("L3_HARD_TIMEOUT", "1800"))
+XK_BIN = os.environ.get("L3_XK_BIN", "xray-knife")
+TEST_URL = os.environ.get("L3_TEST_URL", "https://cp.cloudflare.com/generate_204")
+THREADS = int(os.environ.get("L3_THREADS", "200"))
+MDELAY_MS = int(os.environ.get("L3_MDELAY", "5000"))
+TIMEOUT_MS = int(os.environ.get("L3_TIMEOUT", "5000"))
+HARD_TIMEOUT = int(os.environ.get("L3_HARD_TIMEOUT", "600"))
 
 STATUS_PASSED = "passed"
 STATUS_SEMI = "semi-passed"
@@ -69,28 +52,24 @@ CODE_MAX_OK = 400
 
 
 class XrayKnifeMissing(RuntimeError):
-    """باینری ابزار xray-knife در مسیر اجرایی یافت نشد."""
+    """باینری xray-knife در مسیر سیستم یافت نشد."""
 
 
 class XrayKnifeFailed(RuntimeError):
-    """ابزار اجرا شد ولی با خطا یا تایم‌اوت متوقف گردید."""
+    """اجرای ابزار xray-knife با کد خروج ناصفر مواجه شد."""
 
 
 class EmptyInput(ValueError):
-    """فایل ورودی تهی یا ناموجود است؛ جهت مهار قفل شدن روی stdin."""
+    """فایل ورودی تهی یا ناموجود است."""
 
 
 class OutputNotWritten(RuntimeError):
-    """فایل خروجی توسط باینری بر روی دیسک نوشته نشد."""
+    """ابزار بدون خطا خارج شد اما هیچ فایل خروجی ننوشت."""
 
 
 class MalformedCsv(ValueError):
-    """ساختار ستون‌های فایل CSV تغییر کرده است."""
+    """ساختار ستون‌های CSV با قرارداد ۱۵ ستونی سازگار نیست."""
 
-
-# ──────────────────────────────────────────────────────────────────────────────
-# داوری صحت کارکرد پروکسی
-# ──────────────────────────────────────────────────────────────────────────────
 
 def _as_int(value: Optional[str]) -> Optional[int]:
     if value is None:
@@ -105,13 +84,7 @@ def _as_int(value: Optional[str]) -> Optional[int]:
 
 
 def is_row_genuinely_ok(row: Dict[str, str]) -> bool:
-    """
-    قفل ۴ شرطی برای اثبات عبور واقعی ترافیک:
-      ۱) وضعیت در OK_STATUSES (شامل semi-passed)
-      ۲) total >= 1 (جهت جلوگیری از عبور سطرهای broken با success=0 و total=0)
-      ۳) success == total (موفقیت کامل در آزمون اتصال)
-      ۴) کد پاسخ HTTP بین ۲۰۰ تا ۴۰۰ (تأیید پاسخ معتبر سرور مقصد)
-    """
+    """قفل ۴ شرطی اثبات کارکرد واقعی پروکسی."""
     if (row.get("status") or "").strip() not in OK_STATUSES:
         return False
     total = _as_int(row.get("total"))
@@ -142,10 +115,6 @@ def row_tls(row: Dict[str, str]) -> str:
     return (row.get("tls") or "").strip()
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# پارس امن و طبقه‌بندی نتایج
-# ──────────────────────────────────────────────────────────────────────────────
-
 def parse_csv(text: str) -> List[Dict[str, str]]:
     if not text.strip():
         return []
@@ -153,16 +122,14 @@ def parse_csv(text: str) -> List[Dict[str, str]]:
     header = tuple(reader.fieldnames or ())
     if header != CSV_COLUMNS:
         raise MalformedCsv(
-            f"سرآیند CSV با قرارداد ۱۵ ستونی سازگار نیست.\n"
-            f"  انتظار: {CSV_COLUMNS}\n"
-            f"  واقعی: {header}"
+            f"CSV header mismatch:\n  expected: {CSV_COLUMNS}\n  actual: {header}"
         )
     rows: List[Dict[str, str]] = []
     for raw in reader:
         if raw.get(None) is not None:
-            raise MalformedCsv(f"سطر CSV بیش از ۱۵ ستون دارد: {raw.get(None)!r}")
+            raise MalformedCsv(f"Extra fields in row: {raw.get(None)!r}")
         if any(value is None for value in raw.values()):
-            raise MalformedCsv(f"سطر CSV کمتر از ۱۵ ستون دارد: {raw!r}")
+            raise MalformedCsv(f"Short row: {raw!r}")
         rows.append({key: (value or "") for key, value in raw.items()})
     return rows
 
@@ -209,19 +176,19 @@ def classify(rows: Sequence[Dict[str, str]]) -> Dict[str, Any]:
     return {"ok": ok, "failed": failed, "broken": broken, "rows": by_link, "stats": stats}
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# فراخوانی و اجرای تست ترافیک
-# ──────────────────────────────────────────────────────────────────────────────
-
 def resolve_binary(binary: Optional[str] = None) -> str:
     name = binary or XK_BIN
     if os.path.sep in name:
         if os.path.isfile(name) and os.access(name, os.X_OK):
             return os.path.abspath(name)
-        raise XrayKnifeMissing(f"xray-knife در مسیر {name!r} یک فایل اجرایی معتبر نیست.")
+        raise XrayKnifeMissing(f"xray-knife is not an executable file at {name!r}")
     found = shutil.which(name)
     if not found:
-        raise XrayKnifeMissing(f"باینری {name!r} در PATH سیستم یافت نشد.")
+        # جست‌وجو در مسیرهای متداول رانر
+        for cand in (f"{os.environ.get('HOME', '')}/.local/bin/{name}", f"/usr/local/bin/{name}"):
+            if os.path.isfile(cand) and os.access(cand, os.X_OK):
+                return cand
+        raise XrayKnifeMissing(f"xray-knife ({name!r}) is not on PATH.")
     return found
 
 
@@ -230,18 +197,14 @@ def _non_blank_count(path: str) -> int:
         return sum(1 for line in handle if line.strip())
 
 
-def build_argv(
-    in_path: str,
-    out_path: str,
-    *,
-    binary: str,
-    test_url: Optional[str] = None,
-    threads: Optional[int] = None,
-    mdelay_ms: Optional[int] = None,
-    timeout_ms: Optional[int] = None,
-    max_passed: int = 0,
-    retries: int = 0,
-) -> List[str]:
+def build_argv(in_path: str, out_path: str, *,
+               binary: str,
+               test_url: Optional[str] = None,
+               threads: Optional[int] = None,
+               mdelay_ms: Optional[int] = None,
+               timeout_ms: Optional[int] = None,
+               max_passed: int = 0,
+               retries: int = 0) -> List[str]:
     argv = [
         binary, "http",
         "-f", in_path,
@@ -259,28 +222,23 @@ def build_argv(
     return argv
 
 
-def run_test(
-    in_path: str,
-    *,
-    out_path: Optional[str] = None,
-    binary: Optional[str] = None,
-    test_url: Optional[str] = None,
-    threads: Optional[int] = None,
-    mdelay_ms: Optional[int] = None,
-    timeout_ms: Optional[int] = None,
-    max_passed: int = 0,
-    retries: int = 0,
-    hard_timeout: Optional[int] = None,
-) -> Dict[str, Any]:
-    """اجرای آزمون ترافیک با مهار تمام مسیرهای نشت فایل موقت و فریز شدن CI."""
+def run_test(in_path: str, *,
+             out_path: Optional[str] = None,
+             binary: Optional[str] = None,
+             test_url: Optional[str] = None,
+             threads: Optional[int] = None,
+             mdelay_ms: Optional[int] = None,
+             timeout_ms: Optional[int] = None,
+             max_passed: int = 0,
+             retries: int = 0,
+             hard_timeout: Optional[int] = None) -> Dict[str, Any]:
     if not os.path.isfile(in_path):
-        raise EmptyInput(f"فایل ورودی یافت نشد: {in_path!r}")
+        raise EmptyInput(f"input file does not exist: {in_path!r}")
     n_lines = _non_blank_count(in_path)
     if n_lines == 0:
-        raise EmptyInput(f"فایل ورودی تهی است: {in_path!r}")
+        raise EmptyInput(f"input file has no non-blank line: {in_path!r}")
 
     resolved = resolve_binary(binary)
-
     owned = out_path is None
     if owned:
         handle, out_path = tempfile.mkstemp(prefix="l3_", suffix=".csv")
@@ -291,45 +249,32 @@ def run_test(
         os.remove(out_path)
 
     try:
-        argv = build_argv(
-            in_path,
-            out_path,
-            binary=resolved,
-            test_url=test_url,
-            threads=threads,
-            mdelay_ms=mdelay_ms,
-            timeout_ms=timeout_ms,
-            max_passed=max_passed,
-            retries=retries,
-        )
+        argv = build_argv(in_path, out_path, binary=resolved,
+                          test_url=test_url, threads=threads,
+                          mdelay_ms=mdelay_ms, timeout_ms=timeout_ms,
+                          max_passed=max_passed, retries=retries)
         limit = int(hard_timeout if hard_timeout is not None else HARD_TIMEOUT)
-
         started = time.time()
         try:
             proc = subprocess.run(
                 argv,
-                stdin=subprocess.DEVNULL,  # لایه محافظتی برای عدم انتظار روی stdin
+                stdin=subprocess.DEVNULL,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
                 timeout=limit,
                 check=False,
             )
         except subprocess.TimeoutExpired as exc:
-            raise XrayKnifeFailed(f"xray-knife پس از {limit} ثانیه متوقف نشد.") from exc
+            raise XrayKnifeFailed(f"xray-knife timed out after {limit}s.") from exc
 
         elapsed = round(time.time() - started, 2)
         output = (proc.stdout or b"").decode("utf-8", errors="replace")
 
         if proc.returncode != 0:
-            raise XrayKnifeFailed(
-                f"xray-knife با کد {proc.returncode} متوقف شد.\n"
-                f"--- خروجی ---\n{output[-2000:]}"
-            )
+            raise XrayKnifeFailed(f"xray-knife exited {proc.returncode}.\n--- output ---\n{output[-2000:]}")
 
         if not os.path.isfile(out_path):
-            raise OutputNotWritten(
-                f"xray-knife با کد ۰ تمام شد ولی فایلی در {out_path!r} ایجاد نگردید."
-            )
+            raise OutputNotWritten(f"xray-knife wrote no file at {out_path!r}.\n--- output ---\n{output[-2000:]}")
 
         with open(out_path, encoding="utf-8", errors="replace") as handle:
             result = classify(parse_csv(handle.read()))
@@ -339,7 +284,7 @@ def run_test(
         result["stats"]["elapsed_sec"] = elapsed
         result["stats"]["lines_in"] = n_lines
         result["stats"]["unique_in"] = len(unique_in)
-        result["stats"]["test_url"] = test_url if test_url is not None else TEST_URL
+        result["stats"]["test_url"] = (test_url if test_url is not None else TEST_URL)
         result["stats"]["threads"] = int(threads if threads is not None else THREADS)
         result["out_path"] = out_path
         return result
@@ -384,7 +329,7 @@ def test_file(path: str, **kwargs: Any) -> Dict[str, Any]:
 def _main(argv: Sequence[str]) -> int:
     import json
     if len(argv) < 2:
-        print(f"راهنما: {os.path.basename(argv[0])} <configs.txt> [out.csv]", file=sys.stderr)
+        print(f"usage: {os.path.basename(argv[0])} <configs.txt> [out.csv]", file=sys.stderr)
         return 64
     in_path = argv[1]
     out_path = argv[2] if len(argv) > 2 else None
