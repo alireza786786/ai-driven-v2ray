@@ -1,0 +1,66 @@
+name: ♿ گزارش دسترسی‌پذیری نابینایان (Accessibility / a11y)
+description: گزارش مشکلات صفحه‌خوان، ساختار متن ۵ خطی یا ناوبری نابینایان و کم‌بینایان
+title: "♿ [a11y]: "
+labels: ["accessibility", "a11y", "user-experience"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🛡️ منشور دسترس‌پذیری پروژه ai-driven-v2ray
+        این پروژه متعهد به دسترسی آزاد و برابر به اینترنت برای تمامی افراد، به ویژه **نابینایان و کم‌بینایان** است.
+        چنانچه متون ۵ خطی کانفیگ‌ها، دکمه‌های تلگرام، وب‌سایت گیت‌هاب پیجز یا جدول‌ها توسط صفحه‌خوان شما به درستی خوانده نمی‌شوند، لطفاً این فرم را ارسال کنید.
+
+  - type: dropdown
+    id: assistive_technology
+    attributes:
+      label: ۱. ابزار کمکی / صفحه‌خوان مورد استفاده
+      description: کدام صفحه‌خوان یا فناوری کمکی را استفاده می‌کنید؟
+      options:
+        - "NVDA (ویندوز)"
+        - "JAWS (ویندوز)"
+        - "TalkBack (اندروید)"
+        - "VoiceOver (آی‌او‌اس / مک)"
+        - "سایر (در توضیحات ذکر شود)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platform_client
+    attributes:
+      label: ۲. کلاینت یا بستر مورد استفاده
+      description: خطا در چه پلتفرمی تجربه شد؟
+      options:
+        - "کانال و دکمه‌های تلگرام (@Goodbaye_filtering)"
+        - "کلاینت v2rayNG (اندروید)"
+        - "کلاینت v2rayN (ویندوز)"
+        - "کلاینت Streisand / Shadowrocket / FoXray (آی‌او‌اس)"
+        - "وب‌پنل آنلاین سابسکریپشن (GitHub Pages)"
+        - "مستندات مخزن گیت‌هاب (README / Forms)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: barrier_description
+    attributes:
+      label: ۳. شرح مانع یا اختلال در خوانایی
+      description: صفحه‌خوان چه متنی را اشتباه خواند یا کدام بخش غیرقابل دسترس بود؟ (مثلاً ایموجی‌های تگ ۵ خطی، عدم وجود متن جایگزین Alt، عدم خوانایی Base64 یا تداخل کاراکترهای جهت‌نما RTL/LTR).
+      placeholder: "مثال: در کانفیگ‌های VMess، صفحه‌خوان نام شهر و پینگ را بدون مکث یا نامفهوم می‌خواند..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested_improvement
+    attributes:
+      label: ۴. پیشنهاد شما برای اصلاح
+      description: ساختار خروجی چگونه باشد تا تجربه شنیداری و ناوبری با صفحه‌خوان بهینه‌تر شود؟
+      placeholder: "مثال: قبل از ایموجی پینگ، واژه Ping درج شود تا خروجی صوتی مناسب‌تر شود."
+    validations:
+      false
+
+  - type: checkboxes
+    id: accessibility_checklist
+    attributes:
+      label: ۵. اعتبارسنجی
+      options:
+        - label: "این مورد مانع دسترسی کامل یا سریع به کانفیگ‌ها و اطلاعات شده است."
+          required: true
