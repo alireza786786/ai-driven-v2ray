@@ -21,7 +21,7 @@ on:
   schedule:
     # هر ۵ دقیقه تلاش می‌کنیم؛ ولی «دروازهٔ زمانی» فقط هر ~۱۵ دقیقه واقعاً کار
     # می‌کند. این الگو تأخیر/حذفِ cronِ گیت‌هاب را جبران می‌کند.
-    - cron: "*/5 * * * *"
+    - cron: "*/45 * * * *"
   workflow_dispatch:
     inputs:
       force:
@@ -65,11 +65,11 @@ permissions:
 # فاصلهٔ هدفِ به‌روزرسانی (دقیقه). با update_interval_minutes در index.json یکی است.
 # ★ کاهش از ۳۱ → ۱۵ دقیقه (درخواستِ مالک: «وقفهٔ بینِ آپدیت‌ها را بیاور پایین»).
 env:
-  UPDATE_INTERVAL_MINUTES: "15"
-  AGG_UPDATE_INTERVAL_MIN: "15"   # به aggregate.py پاس داده می‌شود (index.json/ETA)
+  UPDATE_INTERVAL_MINUTES: "45"
+  AGG_UPDATE_INTERVAL_MIN: "45"   # به aggregate.py پاس داده می‌شود (index.json/ETA)
   # حاشیهٔ امنیتی: کمی کمتر از ۱۵ می‌گیریم تا اگر cron با ۱-۲ دقیقه تأخیر آمد،
   # باز هم به‌جای رد شدن، اجرا شود (جلوگیری از «۳۰ دقیقه‌ای شدن» تصادفی).
-  FRESHNESS_GATE_MINUTES: "13"
+  FRESHNESS_GATE_MINUTES: "40"
   # ── شاخهٔ انتشار ─────────────────────────────────────────────────────────
   #
   # ★★★ چرا خروجی‌ها روی `main` (شاخهٔ پیش‌فرض) منتشر می‌شوند و نه یک شاخهٔ جدا
