@@ -1,0 +1,51 @@
+name: 📡 گزارش خرابی یا مسدودی نودها
+description: گزارش قطعی، خطای تایم‌اوت، یا اطلاعات غلط در مکان‌یابی کانفیگ‌ها
+title: "📡 [Node Issue]: "
+labels: ["node-failure", "network"]
+body:
+  - type: dropdown
+    id: protocol
+    attributes:
+      label: پروتکل مورد نظر
+      options:
+        - "VLESS"
+        - "VMess"
+        - "Trojan"
+        - "Shadowsocks"
+        - "ShadowsocksR (SSR)"
+        - "WireGuard"
+        - "Hysteria 2"
+        - "TUIC"
+        - "SOCKS5"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: isp_network
+    attributes:
+      label: اینترنت و اپراتور شما
+      options:
+        - "همراه اول (MCI)"
+        - "ایرانسل (MTN)"
+        - "رایتل (Rightel)"
+        - "مخابرات ایران (TCI)"
+        - "شاتل / پارس‌آنلاین / آسیاتک"
+        - "سایر شبکه‌های ثابت (ADSL/VDSL/FTTH)"
+    validations:
+      required: true
+
+  - type: input
+    id: node_tag
+    attributes:
+      label: نام یا برچسب کانفیگ (طبق الگوی ۵ خطی)
+      placeholder: "👉🆔@Goodbaye_filtering 📡🇩🇪 Germany ®️Frankfurt 🅿️ping:120ms..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: issue_details
+    attributes:
+      label: شرح مشکل اتصال
+      description: نود متصل نمی‌شود، پینگ فیک دارد، هندشیک TLS فیل می‌شود یا ریست پکت رخ می‌دهد؟
+    validations:
+      required: true
