@@ -821,7 +821,7 @@ jobs:
           import json
           d = json.load(open("index.json"))
           c = d["categories"]
-          print("## 🔄 Aggregation Result — @Goodbaye_filtering\n")
+          print("## 🔄 Aggregation Result — @Raydikalx\n")
           print(f"- **Updated:** {d['updated_at']}")
           print(f"- **Next ETA:** {d.get('next_update_eta','?')}")
           print(f"- **Elapsed:** {d['elapsed_seconds']}s\n")
@@ -1019,7 +1019,7 @@ jobs:
           FETCH_TIMEOUT: '120'
         run: |
           set -euo pipefail
-          git config user.name  "Goodbaye_filtering-bot[actions]"
+          git config user.name  "raydikalx-bot[actions]"
           git config user.email "actions@users.noreply.github.com"
 
           STAMP=$(date -u +'%Y-%m-%d %H:%M UTC')
@@ -1286,7 +1286,7 @@ jobs:
             #    بعد بتواند این کامیت را «خروجی» تشخیص دهد و anchor را درست
             #    پیدا کند.
             COMMIT=$(git commit-tree "$TREE" -p "$ANCHOR" \
-                     -m "chore: update configs — $STAMP — $COUNT configs [@Goodbaye_filtering] $OUT_MARK")
+                     -m "chore: update configs — $STAMP — $COUNT configs [@Raydikalx] $OUT_MARK")
             echo "📦 commit=$COMMIT"
 
             # ۶) force-push با lease. lease روی همان نوکی بسته می‌شود که خودمان
@@ -1382,7 +1382,7 @@ jobs:
           python - <<'PY'
           import json, os, time, urllib.request, urllib.error
 
-          repo   = os.environ.get("GITHUB_REPOSITORY", "0xRadikal/ai-driven-v2ray")
+          repo   = os.environ.get("GITHUB_REPOSITORY", "0xRadikal/Free-v2ray-Configs")
           # شاخهٔ انتشار = شاخهٔ پیش‌فرض (`main`). نامِ قدیمیِ DATA_BRANCH فقط
           # برای سازگاریِ عقب‌رو خوانده می‌شود و مقدارش هم `main` است. اگر
           # هیچ‌کدام تنظیم نبود، پیش‌فرضِ درست `main` است — نه `data`؛ در
@@ -1461,7 +1461,7 @@ jobs:
           def md5_of(url):
               try:
                   r = urllib.request.urlopen(urllib.request.Request(
-                      url, headers={"User-Agent": "Goodbaye_filtering-ci", "Cache-Control": "no-cache"}),
+                      url, headers={"User-Agent": "raydikalx-ci", "Cache-Control": "no-cache"}),
                       timeout=30)
                   return hashlib.md5(r.read()).hexdigest()
               except Exception:
