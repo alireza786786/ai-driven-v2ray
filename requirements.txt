@@ -1,4 +1,4 @@
-requests
+orequests
 pyyaml
 maxminddb==3.1.1
 jdatetime
