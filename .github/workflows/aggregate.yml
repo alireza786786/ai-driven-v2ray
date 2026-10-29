@@ -1036,14 +1036,13 @@ jobs:
           #    این‌ها اختیاری‌اند (آبشار `continue-on-error` است) و منطقِ
           #    «فقط مسیرهای موجود stage می‌شوند» همان پایین از نبودشان
           #    عبور می‌کند.
-          OUTPUT_PATHS="all heavy light protocols archive index.json health.json verified fast secure top100.txt state.json Countries"
+          OUTPUT_PATHS="all heavy light protocols archive index.json health.json verified fast secure top100.txt state.json Countries servers all_servers.txt"
 
           is_output_path() {
             case "$1" in
               all/*|heavy/*|light/*|protocols/*|archive/*|index.json|health.json) return 0 ;;
               verified/*|fast/*|secure/*|top100.txt|state.json) return 0 ;;
-              Countries/*) return 0 ;;
-              *) return 1 ;;
+              Countries/*|servers/*|all_servers.txt) return 0 ;; *) return 1 ;;
             esac
           }
 
@@ -1374,6 +1373,13 @@ jobs:
       #   این مرحله عمداً `continue-on-error` است: انتشار روی گیت‌هاب همان
       #   لحظه انجام شده و لینک‌های raw تازه‌اند؛ اگر purge موقتاً throttle
       #   یا قطع شود، نباید کلِ اجرا شکست‌خورده اعلام شود.
+      - name: 📢 Broadcast to Telegram (@Goodbaye_filtering & VIP)
+        if: steps.gate.outputs.should_run == 'true'
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          TARGET_CHAT_ID: ${{ secrets.TARGET_CHAT_ID }}
+        run: |
+          python src/telegram_publisher.py || echo "⚠️ Telegram broadcast non-critical failure"
       - name: 🧹 Purge jsDelivr cache
         if: steps.gate.outputs.should_run == 'true'
         continue-on-error: true
@@ -1382,7 +1388,7 @@ jobs:
           python - <<'PY'
           import json, os, time, urllib.request, urllib.error
 
-          repo   = os.environ.get("GITHUB_REPOSITORY", "0xRadikal/Free-v2ray-Configs")
+          repo   = os.environ.get("GITHUB_REPOSITORY", "alireza786786/ai-driven-v2ray")
           # شاخهٔ انتشار = شاخهٔ پیش‌فرض (`main`). نامِ قدیمیِ DATA_BRANCH فقط
           # برای سازگاریِ عقب‌رو خوانده می‌شود و مقدارش هم `main` است. اگر
           # هیچ‌کدام تنظیم نبود، پیش‌فرضِ درست `main` است — نه `data`؛ در
