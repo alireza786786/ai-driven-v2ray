@@ -1,0 +1,22 @@
+name: 📥 پیشنهاد سورس جدید
+description: ثبت لینک سابسکریپشن عمومی یا کانال تلگرامی جدید جهت تست و اضافه شدن
+title: "📥 [Source]: "
+labels: ["source-submission"]
+body:
+  - type: input
+    id: source_url
+    attributes:
+      label: آدرس سورس یا کانال
+      placeholder: "https://t.me/example_channel یا https://raw.githubusercontent.com/.../sub"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: conditions
+    attributes:
+      label: شرایط پذیرش سورس
+      options:
+        - label: "سورس عمومی و بدون دریافت هزینه است."
+          required: true
+        - label: "پروتکل‌های خروجی با ۹ پروتکل استاندارد مخزن سازگارند."
+          required: true
