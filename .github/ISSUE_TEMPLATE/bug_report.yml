@@ -1,0 +1,38 @@
+name: 🐛 گزارش باگ در پایپ‌لاین یا پردازش نودها
+description: گزارش خطا در کدهای scripts/، اسکریپت‌های src/ یا کامیت‌های خودکار
+title: "🐛 [Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: "### ثبت گزارش نقص فنی بر اساس استانداردهای مخزن ai-driven-v2ray"
+
+  - type: dropdown
+    id: affected_component
+    attributes:
+      label: ماژول آسیب‌دیده
+      options:
+        - "پایپ‌لاین گیت‌هاب اکشنز (.github/workflows/aggregate.yml)"
+        - "پروتکل‌های UDP (WireGuard / Hysteria2 / TUIC)"
+        - "سیستم حقیقت‌سنجی L0 تا L3 (scripts/reachability.py, realtest.py)"
+        - "تفکیک کشوری GeoIP (scripts/geo.py, Countries/)"
+        - "انتشار تلگرام (src/telegram_publisher.py)"
+        - "فرمت ۵ خطی نام‌گذاری نودها"
+        - "مدیریت استیت و سورس‌ها (scripts/state.py, sources.py)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: bug_behavior
+    attributes:
+      label: شرح رفتار غیرمنتظره
+      description: چه اتفاقی افتاد و رفتار استاندارد طبق منشور Goodbaye چه باید می‌بود؟
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: لاگ‌ها و شواهد
+      description: بخش مربوطه از لاگ پایپ‌لاین یا خروجی تست pytest را قرار دهید.
+      render: shell
