@@ -5494,7 +5494,6 @@ proxies:
   password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
   udp: true
   sni: blog.nextjobopportunityandclaimyouridealrole.com
-  client-fingerprint: chrome
   network: tcp
 - name: "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | 47927B"
   server: 216.152.155.23
@@ -5567,7 +5566,6 @@ proxies:
   password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
   udp: true
   sni: learn.healthcarejobshubenhancemedicalprofessionalskillstoday.com
-  client-fingerprint: chrome
   network: tcp
 - name: "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | F3140E"
   server: 216.152.156.81
@@ -5609,7 +5607,6 @@ proxies:
   password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
   udp: true
   sni: connectwithemployerstohireyouridealteam.com
-  client-fingerprint: chrome
   network: tcp
 - name: "IL \U0001F1EE\U0001F1F1 | @Goodbaye_filtering | 7C445A"
   server: 64.176.163.182
@@ -5666,7 +5663,6 @@ proxies:
   password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
   udp: true
   sni: courses.unlockyourfuturefindyourperfectcareer.com
-  client-fingerprint: chrome
   network: tcp
 - name: "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | D24747"
   server: 66.163.112.171
@@ -5675,7 +5671,6 @@ proxies:
   password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
   udp: true
   sni: learn.unlockyourfuturefindyourperfectcareer.com
-  client-fingerprint: chrome
   network: tcp
 - name: "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | EC5858"
   server: 66.163.112.242
@@ -5691,7 +5686,6 @@ proxies:
   password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
   udp: true
   sni: resources.unlockyourfuturefindyourperfectcareer.com
-  client-fingerprint: chrome
   network: tcp
 - name: "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | 1BAF48"
   server: 66.163.112.31
@@ -5732,7 +5726,6 @@ proxies:
   password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
   udp: true
   sni: learn.findconnectwithemployersandbuildprofessionalnetwork.com
-  client-fingerprint: chrome
   network: tcp
 - name: "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | AF7392"
   server: 66.163.114.126
@@ -5741,7 +5734,6 @@ proxies:
   password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
   udp: true
   sni: resources.findconnectwithemployersandbuildprofessionalnetwork.com
-  client-fingerprint: chrome
   network: tcp
 - name: "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | 1F99DB"
   server: 66.163.114.132
@@ -5766,7 +5758,6 @@ proxies:
   password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
   udp: true
   sni: blog.findconnectwithemployersandbuildprofessionalnetwork.com
-  client-fingerprint: chrome
   network: tcp
 - name: "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | DBEC79"
   server: 66.163.114.245
@@ -20223,7 +20214,7 @@ proxies:
     path: /
     headers:
       Host: cp.xelzano.ir
-- name: "Global \U0001F310 | @Goodbaye_filtering | B58988"
+- name: "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | B58988"
   server: a.r-o-o-t3.ir
   port: 443
   type: vless
@@ -24928,7 +24919,7 @@ proxies:
     path: /
     headers:
       Host: bahr.musichubmel.ir
-- name: "Global \U0001F310 | @Goodbaye_filtering | A52EB3"
+- name: "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | A52EB3"
   server: ansooyefilter-bot.qeshmdiyar.ir
   port: 8443
   type: vless
@@ -36067,7 +36058,7 @@ proxies:
     short-id: ''
   client-fingerprint: chrome
   network: tcp
-- name: "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | BA0A66"
+- name: "SE \U0001F1F8\U0001F1EA | @Goodbaye_filtering | BA0A66"
   server: swidenafterlanzerotte.space
   port: 443
   type: vless
@@ -37391,7 +37382,7 @@ proxies:
   reality-opts:
     public-key: f6Tj8-uvWsLv3V-lGLuPciArp5oKqUImBg-U7-WJ-0A
     short-id: bb82c8
-  client-fingerprint: chrome
+  client-fingerprint: random
   network: tcp
 - name: "Global \U0001F310 | @Goodbaye_filtering | 2CC4E2"
   server: funagfrdfs.alixxplay.com
@@ -40571,16 +40562,19 @@ proxies:
     short-id: b6798bbbfb18587e
   client-fingerprint: chrome
   network: tcp
-- name: "IN \U0001F1EE\U0001F1F3 | @Goodbaye_filtering | 89E794"
+- name: "IN \U0001F1EE\U0001F1F3 | @Goodbaye_filtering | 2BC896"
   server: 13.140.56.100
   port: 14430
   type: vless
   uuid: 68512eac-cd53-4de3-8d1e-08f6e04af1a9
   udp: true
   tls: false
+  servername: 13.140.56.100
   network: ws
   ws-opts:
     path: /vless
+    headers:
+      Host: 13.140.56.100
 - name: "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 44FDC1"
   server: chatgpt.com
   port: 2096
@@ -48790,7 +48784,7 @@ proxies:
     short-id: 945974883e
   client-fingerprint: chrome
   network: tcp
-- name: "CZ \U0001F1E8\U0001F1FF | @Goodbaye_filtering | 092FF3"
+- name: "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 092FF3"
   server: cdn7-39.vk-cdnvideo.com
   port: 8443
   type: vless
@@ -53104,19 +53098,14 @@ proxies:
     path: /vless
     headers:
       Host: 45.138.100.248
-- name: "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | F81BCD"
+- name: "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | 4AFFF8"
   server: 45.138.100.248
-  port: 14430
+  port: 10443
   type: vless
   uuid: ae908ff5-f749-402c-af25-e6e9aef4d6bb
   udp: true
   tls: false
-  servername: 45.138.100.248
-  network: ws
-  ws-opts:
-    path: /vless
-    headers:
-      Host: 45.138.100.248
+  network: tcp
 - name: "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | 1FB1DB"
   server: 45.138.100.248
   port: 10443
@@ -62989,7 +62978,7 @@ proxies:
   reality-opts:
     public-key: k4l6TxwkBbx9DhZAFpByq5rfCWFSgyOex3f_eFe9CWU
     short-id: 83f8317a948bb769
-  client-fingerprint: chrome
+  client-fingerprint: firefox
   network: tcp
 - name: "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 9ABF67"
   server: 66.70.179.198
@@ -63002,7 +62991,7 @@ proxies:
   reality-opts:
     public-key: k4l6TxwkBbx9DhZAFpByq5rfCWFSgyOex3f_eFe9CWU
     short-id: 83f8317a948bb769
-  client-fingerprint: firefox
+  client-fingerprint: chrome
   network: tcp
 - name: "EE \U0001F1EA\U0001F1EA | @Goodbaye_filtering | 27093B"
   server: 185.155.97.58
@@ -74498,6 +74487,21 @@ proxies:
     path: /wmzmvws
     headers:
       Host: goodfamily19.site
+- name: "HK \U0001F1ED\U0001F1F0 | @Goodbaye_filtering | 40BF1F"
+  server: 47.76.57.83
+  port: 443
+  type: vmess
+  uuid: f23bb427-c1f9-4373-876c-2f43e9f790f3
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: vah4urdzl3jdx5r2.v.3dns.vip
+  network: ws
+  ws-opts:
+    path: /ws-vmess
+    headers:
+      Host: vah4urdzl3jdx5r2.v.3dns.vip
 - name: "HK \U0001F1ED\U0001F1F0 | @Goodbaye_filtering | 037F5D"
   server: 47.76.57.83
   port: 443
@@ -74592,6 +74596,17 @@ proxies:
   cipher: none
   udp: true
   tls: false
+  network: tcp
+- name: "IE \U0001F1EE\U0001F1EA | @Goodbaye_filtering | 03760D"
+  server: 54.229.151.97
+  port: 59236
+  type: vmess
+  uuid: 2387bfbc-10a6-4bd7-dc55-7cba954ce6e8
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: false
+  servername: tms.dingtalk.com
   network: tcp
 - name: "PL \U0001F1F5\U0001F1F1 | @Goodbaye_filtering | FAC2FA"
   server: 54.37.131.126
@@ -75661,6 +75676,21 @@ proxies:
     path: /ws
     headers:
       Host: vmess.lbw666.dpdns.org
+- name: "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 46B566"
+  server: cf.0sm.com
+  port: 443
+  type: vmess
+  uuid: 0cf6d970-3f1d-4aae-a989-92a8f76ae3db
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: vmess.lbw666.dpdns.org
+  network: ws
+  ws-opts:
+    path: /ws?ed=2048
+    headers:
+      Host: vmess.lbw666.dpdns.org
 - name: "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | A4F840"
   server: cf.877771.xyz
   port: 443
@@ -75783,17 +75813,6 @@ proxies:
   cipher: auto
   udp: true
   tls: false
-  network: tcp
-- name: "HK \U0001F1ED\U0001F1F0 | @Goodbaye_filtering | 51F6E0"
-  server: dog-us.kunlun01dns.com
-  port: 21010
-  type: vmess
-  uuid: 9464ca40-dd75-3742-a628-d931a9f413b2
-  alterId: 0
-  cipher: auto
-  udp: true
-  tls: false
-  servername: dog-us.kunlun01dns.com
   network: tcp
 - name: "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 42459D"
   server: esc.georkup.ir
@@ -76764,21 +76783,6 @@ proxies:
     path: /lMnsZUN4/
     headers:
       Host: v2ray1.dozapp.xyz
-- name: "HK \U0001F1ED\U0001F1F0 | @Goodbaye_filtering | FB921B"
-  server: vah4urdzl3jdx5r2.v.3dns.vip
-  port: 443
-  type: vmess
-  uuid: f23bb427c1f94373876c2f43e9f790f3
-  alterId: 0
-  cipher: auto
-  udp: true
-  tls: true
-  servername: vah4urdzl3jdx5r2.v.3dns.vip
-  network: ws
-  ws-opts:
-    path: /ws-vmess
-    headers:
-      Host: vah4urdzl3jdx5r2.v.3dns.vip
 - name: "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | E694E1"
   server: vjp3.0bad.com
   port: 443
@@ -76824,6 +76828,21 @@ proxies:
     path: /ws-vmess
     headers:
       Host: wjofHsQtEuEywxEq.v.3dns.vip
+- name: "SG \U0001F1F8\U0001F1EC | @Goodbaye_filtering | 5F9B5A"
+  server: wjofhsqteueywxeq.v.3dns.vip
+  port: 443
+  type: vmess
+  uuid: a9f4de8b-68f1-44b6-b6a2-1db60940503a
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: wjofhsqteueywxeq.v.3dns.vip
+  network: ws
+  ws-opts:
+    path: /ws-vmess
+    headers:
+      Host: wjofhsqteueywxeq.v.3dns.vip
 - name: "SG \U0001F1F8\U0001F1EC | @Goodbaye_filtering | 689659"
   server: ww11.levikogjgfdd.ir
   port: 18000
@@ -76835,6 +76854,21 @@ proxies:
   tls: false
   network: tcp
 - name: "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 12F9B1"
+  server: www.gptcloudai.com
+  port: 443
+  type: vmess
+  uuid: e70a5b70-f63c-4450-af8b-94990cdf80c0
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: www.gptcloudai.com
+  network: ws
+  ws-opts:
+    path: /truth
+    headers:
+      Host: www.gptcloudai.com
+- name: "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | B3074F"
   server: www.gptcloudai.com
   port: 443
   type: vmess
@@ -77064,6 +77098,21 @@ proxies:
     path: /truth
     headers:
       Host: www.windowssearchtools.com
+- name: "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 086EA8"
+  server: www.windowssearchtools.com
+  port: 443
+  type: vmess
+  uuid: ba1116e2-8c2f-4e3d-8e50-c954360cf970
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: www.windowssearchtools.com
+  network: ws
+  ws-opts:
+    path: /truth
+    headers:
+      Host: www.windowssearchtools.com
 - name: "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 1E2CCA"
   server: yg1.ygkkk.dpdns.org
   port: 443
@@ -77109,6 +77158,16 @@ proxies:
     path: /ws-vmess
     headers:
       Host: z0PQNWn0HY2FExTr.v.3dns.vip
+- name: "HK \U0001F1ED\U0001F1F0 | @Goodbaye_filtering | 5B239D"
+  server: zfd-boardv2.kunlun01dns.com
+  port: 16258
+  type: vmess
+  uuid: 0802ac03-7973-39ef-a019-ba02de6c01e1
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: false
+  network: tcp
 - name: "HK \U0001F1ED\U0001F1F0 | @Goodbaye_filtering | B4E356"
   server: zfd-boardv2.kunlun01dns.com
   port: 16322
@@ -79385,7 +79444,7 @@ proxy-groups:
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 96E789"
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | 531984"
   - "TR \U0001F1F9\U0001F1F7 | @Goodbaye_filtering | 7C44BA"
-  - "Global \U0001F310 | @Goodbaye_filtering | B58988"
+  - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | B58988"
   - "NL \U0001F1F3\U0001F1F1 | @Goodbaye_filtering | 36ADE1"
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 854B7E"
   - "IR \U0001F1EE\U0001F1F7 | @Goodbaye_filtering | 87B594"
@@ -79747,7 +79806,7 @@ proxy-groups:
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 50372C"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | C97895"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 577BCB"
-  - "Global \U0001F310 | @Goodbaye_filtering | A52EB3"
+  - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | A52EB3"
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | 62478F"
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | DC1551"
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 57A8B4"
@@ -80584,7 +80643,7 @@ proxy-groups:
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | 79D38F"
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | 970B2E"
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | 4820A7"
-  - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | BA0A66"
+  - "SE \U0001F1F8\U0001F1EA | @Goodbaye_filtering | BA0A66"
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 7E8CE1"
   - "IR \U0001F1EE\U0001F1F7 | @Goodbaye_filtering | 5CA3E3"
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 3BE742"
@@ -80924,7 +80983,7 @@ proxy-groups:
   - "TR \U0001F1F9\U0001F1F7 | @Goodbaye_filtering | 44B5F2"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 30F917"
   - "Global \U0001F310 | @Goodbaye_filtering | DC6584"
-  - "IN \U0001F1EE\U0001F1F3 | @Goodbaye_filtering | 89E794"
+  - "IN \U0001F1EE\U0001F1F3 | @Goodbaye_filtering | 2BC896"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 44FDC1"
   - "SK \U0001F1F8\U0001F1F0 | @Goodbaye_filtering | 2CEA85"
   - "NL \U0001F1F3\U0001F1F1 | @Goodbaye_filtering | 1CEB26"
@@ -81551,7 +81610,7 @@ proxy-groups:
   - "RU \U0001F1F7\U0001F1FA | @Goodbaye_filtering | 9D22AD"
   - "NL \U0001F1F3\U0001F1F1 | @Goodbaye_filtering | 0710A7"
   - "HK \U0001F1ED\U0001F1F0 | @Goodbaye_filtering | 66117E"
-  - "CZ \U0001F1E8\U0001F1FF | @Goodbaye_filtering | 092FF3"
+  - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 092FF3"
   - "Global \U0001F310 | @Goodbaye_filtering | C80870"
   - "Global \U0001F310 | @Goodbaye_filtering | A75A33"
   - "NL \U0001F1F3\U0001F1F1 | @Goodbaye_filtering | 79A58E"
@@ -81881,7 +81940,7 @@ proxy-groups:
   - "FI \U0001F1EB\U0001F1EE | @Goodbaye_filtering | 27A188"
   - "LT \U0001F1F1\U0001F1F9 | @Goodbaye_filtering | BE846B"
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | 4F606E"
-  - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | F81BCD"
+  - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | 4AFFF8"
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | 1FB1DB"
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 21715D"
   - "TR \U0001F1F9\U0001F1F7 | @Goodbaye_filtering | 80EE56"
@@ -83534,6 +83593,7 @@ proxy-groups:
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 80E8E4"
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 2325E3"
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | C8D095"
+  - "HK \U0001F1ED\U0001F1F0 | @Goodbaye_filtering | 40BF1F"
   - "HK \U0001F1ED\U0001F1F0 | @Goodbaye_filtering | 037F5D"
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | 24BE22"
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 854B1D"
@@ -83541,6 +83601,7 @@ proxy-groups:
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | AD16D2"
   - "TR \U0001F1F9\U0001F1F7 | @Goodbaye_filtering | B2FD04"
   - "FR \U0001F1EB\U0001F1F7 | @Goodbaye_filtering | 8E1B8F"
+  - "IE \U0001F1EE\U0001F1EA | @Goodbaye_filtering | 03760D"
   - "PL \U0001F1F5\U0001F1F1 | @Goodbaye_filtering | FAC2FA"
   - "GB \U0001F1EC\U0001F1E7 | @Goodbaye_filtering | DE13CE"
   - "GB \U0001F1EC\U0001F1E7 | @Goodbaye_filtering | A26980"
@@ -83621,6 +83682,7 @@ proxy-groups:
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 5D8148"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | A1CD58"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 96482D"
+  - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 46B566"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | A4F840"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | C08473"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | FAE0E1"
@@ -83630,7 +83692,6 @@ proxy-groups:
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | CC8E3A"
   - "SE \U0001F1F8\U0001F1EA | @Goodbaye_filtering | DA4D02"
   - "HK \U0001F1ED\U0001F1F0 | @Goodbaye_filtering | 07D20A"
-  - "HK \U0001F1ED\U0001F1F0 | @Goodbaye_filtering | 51F6E0"
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 42459D"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 9E1AF7"
   - "HK \U0001F1ED\U0001F1F0 | @Goodbaye_filtering | 05C1FE"
@@ -83705,12 +83766,13 @@ proxy-groups:
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 7B22B1"
   - "IR \U0001F1EE\U0001F1F7 | @Goodbaye_filtering | 865FFD"
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | B985F4"
-  - "HK \U0001F1ED\U0001F1F0 | @Goodbaye_filtering | FB921B"
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | E694E1"
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 7E81AD"
   - "SG \U0001F1F8\U0001F1EC | @Goodbaye_filtering | 0F0D25"
+  - "SG \U0001F1F8\U0001F1EC | @Goodbaye_filtering | 5F9B5A"
   - "SG \U0001F1F8\U0001F1EC | @Goodbaye_filtering | 689659"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 12F9B1"
+  - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | B3074F"
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | C85E95"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 618C2B"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 962E4E"
@@ -83725,9 +83787,11 @@ proxy-groups:
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 6600C1"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | F744E2"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 32DA38"
+  - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 086EA8"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 1E2CCA"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | ACE740"
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | A964A9"
+  - "HK \U0001F1ED\U0001F1F0 | @Goodbaye_filtering | 5B239D"
   - "HK \U0001F1ED\U0001F1F0 | @Goodbaye_filtering | B4E356"
 - name: ♻️ Auto | @Goodbaye_filtering
   type: url-test
@@ -85995,7 +86059,7 @@ proxy-groups:
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 96E789"
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | 531984"
   - "TR \U0001F1F9\U0001F1F7 | @Goodbaye_filtering | 7C44BA"
-  - "Global \U0001F310 | @Goodbaye_filtering | B58988"
+  - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | B58988"
   - "NL \U0001F1F3\U0001F1F1 | @Goodbaye_filtering | 36ADE1"
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 854B7E"
   - "IR \U0001F1EE\U0001F1F7 | @Goodbaye_filtering | 87B594"
@@ -86357,7 +86421,7 @@ proxy-groups:
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 50372C"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | C97895"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 577BCB"
-  - "Global \U0001F310 | @Goodbaye_filtering | A52EB3"
+  - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | A52EB3"
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | 62478F"
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | DC1551"
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 57A8B4"
@@ -87194,7 +87258,7 @@ proxy-groups:
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | 79D38F"
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | 970B2E"
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | 4820A7"
-  - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | BA0A66"
+  - "SE \U0001F1F8\U0001F1EA | @Goodbaye_filtering | BA0A66"
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 7E8CE1"
   - "IR \U0001F1EE\U0001F1F7 | @Goodbaye_filtering | 5CA3E3"
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 3BE742"
@@ -87534,7 +87598,7 @@ proxy-groups:
   - "TR \U0001F1F9\U0001F1F7 | @Goodbaye_filtering | 44B5F2"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 30F917"
   - "Global \U0001F310 | @Goodbaye_filtering | DC6584"
-  - "IN \U0001F1EE\U0001F1F3 | @Goodbaye_filtering | 89E794"
+  - "IN \U0001F1EE\U0001F1F3 | @Goodbaye_filtering | 2BC896"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 44FDC1"
   - "SK \U0001F1F8\U0001F1F0 | @Goodbaye_filtering | 2CEA85"
   - "NL \U0001F1F3\U0001F1F1 | @Goodbaye_filtering | 1CEB26"
@@ -88161,7 +88225,7 @@ proxy-groups:
   - "RU \U0001F1F7\U0001F1FA | @Goodbaye_filtering | 9D22AD"
   - "NL \U0001F1F3\U0001F1F1 | @Goodbaye_filtering | 0710A7"
   - "HK \U0001F1ED\U0001F1F0 | @Goodbaye_filtering | 66117E"
-  - "CZ \U0001F1E8\U0001F1FF | @Goodbaye_filtering | 092FF3"
+  - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 092FF3"
   - "Global \U0001F310 | @Goodbaye_filtering | C80870"
   - "Global \U0001F310 | @Goodbaye_filtering | A75A33"
   - "NL \U0001F1F3\U0001F1F1 | @Goodbaye_filtering | 79A58E"
@@ -88491,7 +88555,7 @@ proxy-groups:
   - "FI \U0001F1EB\U0001F1EE | @Goodbaye_filtering | 27A188"
   - "LT \U0001F1F1\U0001F1F9 | @Goodbaye_filtering | BE846B"
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | 4F606E"
-  - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | F81BCD"
+  - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | 4AFFF8"
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | 1FB1DB"
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 21715D"
   - "TR \U0001F1F9\U0001F1F7 | @Goodbaye_filtering | 80EE56"
@@ -90144,6 +90208,7 @@ proxy-groups:
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 80E8E4"
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 2325E3"
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | C8D095"
+  - "HK \U0001F1ED\U0001F1F0 | @Goodbaye_filtering | 40BF1F"
   - "HK \U0001F1ED\U0001F1F0 | @Goodbaye_filtering | 037F5D"
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | 24BE22"
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 854B1D"
@@ -90151,6 +90216,7 @@ proxy-groups:
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | AD16D2"
   - "TR \U0001F1F9\U0001F1F7 | @Goodbaye_filtering | B2FD04"
   - "FR \U0001F1EB\U0001F1F7 | @Goodbaye_filtering | 8E1B8F"
+  - "IE \U0001F1EE\U0001F1EA | @Goodbaye_filtering | 03760D"
   - "PL \U0001F1F5\U0001F1F1 | @Goodbaye_filtering | FAC2FA"
   - "GB \U0001F1EC\U0001F1E7 | @Goodbaye_filtering | DE13CE"
   - "GB \U0001F1EC\U0001F1E7 | @Goodbaye_filtering | A26980"
@@ -90231,6 +90297,7 @@ proxy-groups:
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 5D8148"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | A1CD58"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 96482D"
+  - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 46B566"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | A4F840"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | C08473"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | FAE0E1"
@@ -90240,7 +90307,6 @@ proxy-groups:
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | CC8E3A"
   - "SE \U0001F1F8\U0001F1EA | @Goodbaye_filtering | DA4D02"
   - "HK \U0001F1ED\U0001F1F0 | @Goodbaye_filtering | 07D20A"
-  - "HK \U0001F1ED\U0001F1F0 | @Goodbaye_filtering | 51F6E0"
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 42459D"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 9E1AF7"
   - "HK \U0001F1ED\U0001F1F0 | @Goodbaye_filtering | 05C1FE"
@@ -90315,12 +90381,13 @@ proxy-groups:
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 7B22B1"
   - "IR \U0001F1EE\U0001F1F7 | @Goodbaye_filtering | 865FFD"
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | B985F4"
-  - "HK \U0001F1ED\U0001F1F0 | @Goodbaye_filtering | FB921B"
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | E694E1"
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 7E81AD"
   - "SG \U0001F1F8\U0001F1EC | @Goodbaye_filtering | 0F0D25"
+  - "SG \U0001F1F8\U0001F1EC | @Goodbaye_filtering | 5F9B5A"
   - "SG \U0001F1F8\U0001F1EC | @Goodbaye_filtering | 689659"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 12F9B1"
+  - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | B3074F"
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | C85E95"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 618C2B"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 962E4E"
@@ -90335,9 +90402,11 @@ proxy-groups:
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 6600C1"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | F744E2"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 32DA38"
+  - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 086EA8"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 1E2CCA"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | ACE740"
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | A964A9"
+  - "HK \U0001F1ED\U0001F1F0 | @Goodbaye_filtering | 5B239D"
   - "HK \U0001F1ED\U0001F1F0 | @Goodbaye_filtering | B4E356"
 - name: "\U0001F52F Fallback | @Goodbaye_filtering"
   type: fallback
