@@ -3,18 +3,24 @@
 """
 aggregate.py — خط‌لولهٔ اصلیِ تجمیع کانفیگ‌های @Goodbaye_filtering.
 
-جریان کار (هیچ TCP-connect ای انجام نمی‌شود — مطابق تصمیم کاربر):
+جریان کار:
   ۱) واکشیِ هم‌زمانِ ۱۳ منبع (۸ سبک + ۵ انبوه) با ThreadPool
   ۲) استخراجِ کانفیگ‌های معتبر از هر منبع (direct یا base64)
   ۳) برای سه دستهٔ ALL / HEAVY / LIGHT:
        • حذف خراب‌ها (dummy)  → بایگانیِ broken
-       • حذف تکراری‌ها (CDN-aware dedup) → بایگانیِ duplicates
-       • برندینگِ یکتاها  «{CC} {flag} | @Goodbaye_filtering | {idx}»
-  ۴) نوشتنِ خروجی‌ها:
+       • حذف تکراری‌ها (CDN-aware dedup) → یکتاسازیِ endpoint
+       • برندینگِ یکتاها  «{CC} {flag} | @Goodbaye_filtering | {tag}»
+  ۴) آبشارِ کیفیت روی استخرِ ALL:
+       • L2: دست‌دادنِ واقعیِ TCP (بدون اعتماد به منابع)
+       • L3: سه دور درخواستِ واقعی از داخلِ پروکسی با xray-knife
+       • سبدهای verified / fast / secure و فهرستِ top100
+  ۵) نوشتنِ خروجی‌ها:
        all|heavy|light/  : configs.txt , configs_base64.txt , clash.yaml , singbox.json
        protocols/        : vless.txt , vmess.txt , ... (روی دستهٔ ALL)
-       archive/          : <cat>_broken.txt , <cat>_duplicates.txt  (+ base64)
+       archive/          : <cat>_broken.txt (+ base64)
+       Countries/        : یک فایل برای هر کشور (روی دستهٔ verified)
        index.json        : متادیتای کامل (شمارش‌ها، زمان، پروتکل‌ها، CDN URLها)
+       health.json       : گزارشِ منابع، مبدل‌ها و آمارِ آبشار
 
 اجرا:
     python scripts/aggregate.py --out <output_dir>
@@ -91,8 +97,21 @@ except Exception:  # pragma: no cover - محیطِ بدونِ geo
 #
 #   برنچ hard-code نیست تا تست‌ها و ورک‌فلو بتوانند مقدارش را بدهند.
 # ──────────────────────────────────────────────────────────────────────────────
-GH_USER = os.environ.get("AGG_GH_USER", "0xRadikal")
-GH_REPO = os.environ.get("AGG_GH_REPO", "ai-driven-v2ray")
+def _repo_slug() -> Tuple[str, str]:
+    """مالک و نامِ مخزن — از Actions، وگرنه مخزنِ رسمی.
+
+    پیش‌فرضِ ثابتِ قدیمی با نامِ واقعیِ مخزن واگرا شده بود؛ نتیجه: هر لینکی که
+    ابزار می‌ساخت به حسابِ دیگری اشاره می‌کرد.
+    """
+    owner, _, name = os.environ.get("GITHUB_REPOSITORY", "").partition("/")
+    if owner and name:
+        return owner, name
+    return "alireza786786", "ai-driven-v2ray"
+
+
+_DEFAULT_OWNER, _DEFAULT_REPO = _repo_slug()
+GH_USER = os.environ.get("AGG_GH_USER") or _DEFAULT_OWNER
+GH_REPO = os.environ.get("AGG_GH_REPO") or _DEFAULT_REPO
 
 # نامِ برنچِ انتشار از محیط خوانده می‌شود. `PUBLISH_BRANCH` نامِ صریحِ امروزی
 # است؛ دو نامِ قدیمی (`AGG_DATA_BRANCH` / `DATA_BRANCH`) برای سازگاریِ عقب‌رو
@@ -121,10 +140,10 @@ MAX_WORKERS = int(os.getenv("AGG_MAX_WORKERS", "16"))
 FETCH_RETRIES = int(os.getenv("AGG_FETCH_RETRIES", "3"))  # تعدادِ تلاشِ مجدد در صورتِ خطا/خالی‌بودن
 RETRY_BACKOFF = 1.5        # ثانیه × شمارهٔ تلاش
 
-#: بازهٔ به‌روزرسانی (دقیقه) — باید با Goodbaye_filtering/repo_trigger.py و
-#: UPDATE_INTERVAL_MINUTES در aggregate.yml هماهنگ باشد (پیش‌فرض ۱۵).
+#: بازهٔ به‌روزرسانی (دقیقه) — باید با cron و
+#: UPDATE_INTERVAL_MINUTES در aggregate.yml هماهنگ باشد (پیش‌فرض ۴۵).
 #: قابلِ override با متغیرِ محیطی AGG_UPDATE_INTERVAL_MIN.
-UPDATE_INTERVAL_MIN = int(os.getenv("AGG_UPDATE_INTERVAL_MIN", "15"))
+UPDATE_INTERVAL_MIN = int(os.getenv("AGG_UPDATE_INTERVAL_MIN", "45"))
 
 #: گزارشِ سلامتِ منابع (پر می‌شود در fetch_all) — برای index.json و health.json
 SOURCE_HEALTH: Dict[str, dict] = {}

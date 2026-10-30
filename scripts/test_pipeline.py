@@ -127,6 +127,41 @@ _TMP_DIRS: list = []
 _TMP_HOOKED = False
 
 
+def _bash(script: str, *args: str, errexit: bool = False,
+          timeout: int = 120):
+    """یک اسکریپتِ شل را از **فایل** اجرا می‌کند، نه با `bash -c`.
+
+    چرا: MSYS bash روی ویندوز آرگومان‌های پس از `-c` را در هم می‌ریزد
+    (سنجیده شد: `$@` خالی می‌شد و همهٔ مسیرها «سورس» تشخیص داده شدند).
+    فایل با `newline="\n"` نوشته می‌شود تا CRLF مسمومش نکند.
+    """
+    import shutil
+    import subprocess
+    import tempfile
+
+    # `subprocess` نامِ لختِ `bash` را از System32 پیدا می‌کند (WSL) که
+    # مسیرهای MSYS را نمی‌فهمد؛ مسیرِ واقعیِ Git Bash را صریح می‌دهیم.
+    bash = shutil.which("bash") or "bash"
+    fd, path = tempfile.mkstemp(suffix=".sh", prefix="tp_bash_")
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as fh:
+            fh.write(script)
+        # bashِ MSYS مسیرِ `C:\...` را نمی‌فهمد و بک‌اسلش‌ها را می‌خورد
+        # (سنجیده شد: `C:UsersHossein...: No such file`). مسیرِ /c/... می‌دهیم.
+        argv_path = path
+        if os.name == "nt":
+            drive, rest = os.path.splitdrive(path)
+            argv_path = "/" + drive[0].lower() + rest.replace("\\", "/")
+        argv = [bash] + (["-e"] if errexit else []) + [argv_path, *args]
+        return subprocess.run(argv, capture_output=True, text=True,
+                              timeout=timeout)
+    finally:
+        try:
+            os.remove(path)
+        except OSError:
+            pass
+
+
 # ──────────────────────────────────────────────────────────────────────────────
 # P0-1 — لیستِ سفیدِ رمزهای shadowsocks و طولِ کلیدِ SS-2022
 # ──────────────────────────────────────────────────────────────────────────────
@@ -3312,6 +3347,40 @@ def test_workflow_caches_xray_knife_keyed_by_its_checksum():
 _L3_HEADER = ("link,status,reason,tls,ip,delay,code,download,upload,"
               "location,ttfb,connect_time,success,total,endpoints")
 
+#: بدنهٔ شیمِ قلابیِ xray-knife — همان رفتارِ سنجیده‌شده، این بار در پایتون.
+_FAKE_XK_PAYLOAD = r'''
+import json, os, shutil, sys
+
+here = os.path.dirname(os.path.abspath(__file__))
+with open(os.path.join(here, "mode.json"), encoding="utf-8") as fh:
+    cfg = json.load(fh)
+args = sys.argv[1:]
+with open(os.path.join(here, "argv.log"), "w", encoding="utf-8") as fh:
+    for arg in args:
+        fh.write(arg + "\n")
+out = inp = None
+for i, value in enumerate(args):
+    if value in ("-o", "--out") and i + 1 < len(args):
+        out = args[i + 1]
+    elif value in ("-f", "--in") and i + 1 < len(args):
+        inp = args[i + 1]
+print("Results have been saved to %s" % (out or ""))
+if cfg["has_csv"] and out:
+    if cfg["rows_from_input"] and inp:
+        with open(os.path.join(here, "payload.csv"), encoding="utf-8") as fh:
+            header = fh.readline()
+        with open(inp, encoding="utf-8") as fh:
+            links = sorted({ln.strip() for ln in fh if ln.strip()})
+        with open(out, "w", encoding="utf-8", newline="\n") as fh:
+            fh.write(header)
+            for link in links:
+                fh.write(link + ",passed,,tls,9.9.9.9,120,204,0,0,US,"
+                         "119,8,1,1,cp.cloudflare.com=ok(120ms)\n")
+    else:
+        shutil.copyfile(os.path.join(here, "payload.csv"), out)
+sys.exit(int(cfg["rc"]))
+'''
+
 
 class _FakeXk:
     """
@@ -3340,44 +3409,36 @@ class _FakeXk:
         self.binary = ""
 
     def __enter__(self) -> "_FakeXk":
+        import json as _json
         import stat
         import tempfile
         self.dir = tempfile.mkdtemp(prefix="fakexk_")
-        self.binary = os.path.join(self.dir, "xray-knife")
-        payload = os.path.join(self.dir, "payload.csv")
+        payload_csv = os.path.join(self.dir, "payload.csv")
         if self.csv_text is not None:
-            with open(payload, "w", encoding="utf-8") as fh:
+            with open(payload_csv, "w", encoding="utf-8") as fh:
                 fh.write(self.csv_text)
-        # اسکریپت عمداً ساده است: هرچه کمتر منطق، کمتر جای اشتباهِ خودِ شیم
-        script = [
-            "#!/bin/sh",
-            'printf "%s\\n" "$@" > "$(dirname "$0")/argv.log"',
-            "OUT=''",
-            "while [ $# -gt 0 ]; do",
-            '  if [ "$1" = "-o" ]; then OUT="$2"; fi',
-            '  if [ "$1" = "-f" ]; then IN="$2"; fi',
-            "  shift",
-            "done",
-            'echo "🎉 Results have been saved to $OUT"',
-        ]
-        if self.csv_text is not None:
-            if self.rows_from_input:
-                # یک سطرِ CSV برای هر لینکِ *یکتای* ورودی — همان کاری که
-                # ابزارِ واقعی می‌کند («Removed N duplicate config link(s)»)
-                script += [
-                    f'head -1 "{payload}" > "$OUT"',
-                    'sort -u "$IN" | while IFS= read -r L; do',
-                    '  [ -n "$L" ] || continue',
-                    '  printf "%s,passed,,tls,9.9.9.9,120,204,0,0,US,119,8,'
-                    '1,1,cp.cloudflare.com=ok(120ms)\\n" "$L" >> "$OUT"',
-                    "done",
-                ]
-            else:
-                script += [f'cp "{payload}" "$OUT"']
-        script += [f"exit {int(self.rc)}"]
-        with open(self.binary, "w", encoding="utf-8") as fh:
-            fh.write("\n".join(script) + "\n")
-        os.chmod(self.binary, os.stat(self.binary).st_mode | stat.S_IEXEC)
+        # شیم عمداً **پایتون** است، نه اسکریپتِ شل: ویندوز فایلِ بی‌پسوندِ
+        # `#!/bin/sh` را با WinError 193 رد می‌کند. یک `.cmd` نازک، مفسرِ
+        # همین فرآیند را صدا می‌زند، پس رفتار روی هر دو سیستم یکی است.
+        with open(os.path.join(self.dir, "mode.json"), "w",
+                  encoding="utf-8") as fh:
+            _json.dump({"has_csv": self.csv_text is not None,
+                        "rows_from_input": self.rows_from_input,
+                        "rc": int(self.rc)}, fh)
+        payload_py = os.path.join(self.dir, "xk_payload.py")
+        with open(payload_py, "w", encoding="utf-8", newline="\n") as fh:
+            fh.write(_FAKE_XK_PAYLOAD)
+        if os.name == "nt":
+            self.binary = os.path.join(self.dir, "xray-knife.cmd")
+            with open(self.binary, "w", encoding="utf-8", newline="\n") as fh:
+                fh.write(f'@echo off\r\n"{sys.executable}" "{payload_py}" %*\r\n')
+        else:
+            self.binary = os.path.join(self.dir, "xray-knife")
+            with open(self.binary, "w", encoding="utf-8", newline="\n") as fh:
+                fh.write("#!/bin/sh\n"
+                         f'exec "{sys.executable}" "{payload_py}" "$@"\n')
+            os.chmod(self.binary,
+                     os.stat(self.binary).st_mode | stat.S_IEXEC)
         return self
 
     def __exit__(self, *exc: object) -> None:
@@ -4841,7 +4902,6 @@ def test_workflow_treats_cascade_output_as_output_not_as_source():
     خودِ تابعِ شل را جدا می‌کند و **اجرا** می‌کند — به متن اکتفا نمی‌کند.
     """
     import re as _re
-    import subprocess
 
     text = _workflow_text()
     m = _re.search(r"is_output_path\(\)\s*\{(.*?)\n          \}", text, _re.S)
@@ -4859,8 +4919,7 @@ def test_workflow_treats_cascade_output_as_output_not_as_source():
     cases_src = ["scripts/pipeline.py", ".github/workflows/aggregate.yml",
                  "README.md"]
 
-    proc = subprocess.run(["bash", "-c", script, "bash"] + cases_out + cases_src,
-                          capture_output=True, text=True)
+    proc = _bash(script, *cases_out, *cases_src)
     assert proc.returncode == 0, f"اجرای تابع شکست: {proc.stderr}"
     verdict = dict(reversed(ln.split(" ", 1))
                    for ln in proc.stdout.strip().splitlines() if " " in ln)
@@ -10606,23 +10665,24 @@ def _f7_run_decision(age: str, gate_sec: str = "780",
     # است (نمونه‌ها: سطرهای ۶۳۵، ۷۴۹، ۸۳۴ …). این را pyflakes گرفت، نه حدس.
     import re
     import shlex
-    import subprocess
     import tempfile
 
     block = _f7_decision_block()
     with tempfile.TemporaryDirectory() as td:
         out = os.path.join(td, "gh_output")
         open(out, "w").close()
+        # مسیر با اسلشِ جلو به bash داده می‌شود: بک‌اسلشِ ویندوز در
+        # نقل‌قولِ شل به‌عنوانِ کاراکترِ فرار دیده می‌شود.
         script = (
             "set -u\n"
             f"AGE={shlex.quote(age)}\n"
             f"GATE_SEC={shlex.quote(gate_sec)}\n"
             f"FRESHNESS_GATE_MINUTES={shlex.quote(gate_min)}\n"
-            f"GITHUB_OUTPUT={shlex.quote(out)}\n" + block + "\n"
+            f"GITHUB_OUTPUT={shlex.quote(out.replace(chr(92), '/'))}\n"
+            + block + "\n"
         )
         # `bash -e` = همان پوستهٔ پیش‌فرضِ GitHub Actions (`bash -e {0}`).
-        p = subprocess.run(["bash", "-e", "-c", script],
-                           capture_output=True, text=True, timeout=60)
+        p = _bash(script, errexit=True, timeout=60)
         with open(out, encoding="utf-8") as f:
             vals = re.findall(r"should_run=(\w+)", f.read())
     return (vals[-1] if vals else None, (p.stdout + p.stderr), p.returncode)
@@ -10736,7 +10796,6 @@ def test_zzz_f7_a_healthy_age_is_judged_exactly_as_before():
     """
     import re
     import shlex
-    import subprocess
     import tempfile
 
     def _old(age: str, gs: str) -> str:
@@ -10745,14 +10804,14 @@ def test_zzz_f7_a_healthy_age_is_judged_exactly_as_before():
             open(out, "w").close()
             script = (
                 f"set -u\nAGE={shlex.quote(age)}\nGATE_SEC={shlex.quote(gs)}\n"
-                f"GITHUB_OUTPUT={shlex.quote(out)}\n"
+                f"GITHUB_OUTPUT="
+                f"{shlex.quote(out.replace(chr(92), '/'))}\n"
                 'if [ "$AGE" -ge "$GATE_SEC" ]; then\n'
                 '  echo "should_run=true" >> "$GITHUB_OUTPUT"\n'
                 'else\n'
                 '  echo "should_run=false" >> "$GITHUB_OUTPUT"\n'
                 'fi\n')
-            subprocess.run(["bash", "-e", "-c", script],
-                           capture_output=True, text=True, timeout=60)
+            _bash(script, errexit=True, timeout=60)
             with open(out, encoding="utf-8") as f:
                 v = re.findall(r"should_run=(\w+)", f.read())
         return v[-1] if v else None
@@ -10827,7 +10886,6 @@ def test_zzz_f7_the_whole_gate_chain_agrees_with_a_real_index_json():
     """
     import re
     import shlex
-    import subprocess
     import tempfile
     import time
 
@@ -10836,7 +10894,9 @@ def test_zzz_f7_the_whole_gate_chain_agrees_with_a_real_index_json():
     j = run.rindex("\nfi")
     chain = run[i:j + len("\nfi")]
 
-    def _chain(index_text, python_name="python3"):
+    def _chain(index_text, python_name=None):
+        # روی ویندوز `python3` معمولاً همان stubِ فروشگاه است، نه مفسر.
+        py = shlex.quote((python_name or sys.executable).replace("\\", "/"))
         with tempfile.TemporaryDirectory() as td:
             out = os.path.join(td, "o")
             open(out, "w").close()
@@ -10844,12 +10904,15 @@ def test_zzz_f7_the_whole_gate_chain_agrees_with_a_real_index_json():
             if index_text is not None:
                 with open(gi, "w", encoding="utf-8") as f:
                     f.write(index_text)
-            snip = chain.replace("/tmp/gate_index.json", gi)
-            snip = snip.replace("AGE=$(python ", f"AGE=$({python_name} ", 1)
+            # مسیرِ پایتونِ درونِ heredoc باید اسلشِ جلو داشته باشد؛
+            # `open("C:\Users\...")` در پایتون یک خطای escape می‌دهد.
+            snip = chain.replace("/tmp/gate_index.json",
+                                 gi.replace("\\", "/"))
+            snip = snip.replace("AGE=$(python ", f"AGE=$({py} ", 1)
             script = ("set -u\nFRESHNESS_GATE_MINUTES='13'\n"
-                      f"GITHUB_OUTPUT={shlex.quote(out)}\n" + snip + "\n")
-            p = subprocess.run(["bash", "-e", "-c", script],
-                               capture_output=True, text=True, timeout=120)
+                      f"GITHUB_OUTPUT="
+                      f"{shlex.quote(out.replace(chr(92), '/'))}\n" + snip + "\n")
+            p = _bash(script, errexit=True, timeout=120)
             with open(out, encoding="utf-8") as f:
                 v = re.findall(r"should_run=(\w+)", f.read())
         return (v[-1] if v else None, p.returncode, p.stdout + p.stderr)
@@ -10878,18 +10941,18 @@ def test_zzz_f7_the_whole_gate_chain_agrees_with_a_real_index_json():
     # مستقیم تزریق می‌کند و هیچ ساعتی در آن دخیل نیست.
     cases = [
         # (برچسب، سازندهٔ محتوا، مفسر، انتظار)
-        ("تازه (۶۰ ثانیه)", lambda: _stamp(-60), "python3", "false"),
-        ("کهنه (۲۰ دقیقه)", lambda: _stamp(-1200), "python3", "true"),
-        ("لبه ۷۸۰", lambda: _stamp(-780), "python3", None),
-        ("لبه ۷۷۹", lambda: _stamp(-779), "python3", None),
+        ("تازه (۶۰ ثانیه)", lambda: _stamp(-60), None, "false"),
+        ("کهنه (۲۰ دقیقه)", lambda: _stamp(-1200), None, "true"),
+        ("لبه ۷۸۰", lambda: _stamp(-780), None, None),
+        ("لبه ۷۷۹", lambda: _stamp(-779), None, None),
         ("ISO fallback",
          lambda: json.dumps({"updated_at": "2020-01-01T00:00:00+00:00"}),
-         "python3", "true"),
-        ("JSONِ خراب", lambda: "{not json", "python3", "true"),
-        ("JSONِ تهی", lambda: "{}", "python3", "true"),
-        ("مُهرِ آینده (۳۰ روز)", lambda: _stamp(86400 * 30), "python3", "true"),
+         None, "true"),
+        ("JSONِ خراب", lambda: "{not json", None, "true"),
+        ("JSONِ تهی", lambda: "{}", None, "true"),
+        ("مُهرِ آینده (۳۰ روز)", lambda: _stamp(86400 * 30), None, "true"),
         ("مُهرِ 1e300", lambda: json.dumps({"updated_at_unix": 1e300}),
-         "python3", "true"),
+         None, "true"),
         ("مفسرِ python غایب", lambda: _stamp(-60),
          "definitely_not_a_python_zz", "true"),
     ]
@@ -11428,11 +11491,29 @@ def _f3_fake_xray_knife(kind: str = "good") -> str:
     if kind not in bodies:
         raise AssertionError(f"unknown f3 shim kind: {kind!r}")
 
-    path = os.path.join(_tmpdir(prefix="f3_bin_"), f"xk_{kind}")
-    with open(path, "w", encoding="utf-8") as fh:
-        fh.write("#!/usr/bin/env python3\n" + find_out + bodies[kind])
-    os.chmod(path, os.stat(path).st_mode | _stat.S_IEXEC | _stat.S_IXGRP
-             | _stat.S_IXOTH)
+    base = os.path.join(_tmpdir(prefix="f3_bin_"), f"xk_{kind}")
+    payload = base + ".py"
+    with open(payload, "w", encoding="utf-8", newline="\n") as fh:
+        fh.write(find_out + bodies[kind])
+    # ویندوز فایلِ بی‌پسوند یا `#!/usr/bin/env python3` را اجرا نمی‌کند
+    # (WinError 193)، پس یک لفافِ نازک مفسرِ همین فرآیند را صدا می‌زند.
+    if os.name == "nt":
+        path = base + ".cmd"
+        with open(path, "w", encoding="utf-8", newline="\n") as fh:
+            if kind == "hangs":
+                # حلقهٔ خودِ cmd، بدونِ فرزند: killِ cmd.exe واقعاً همه‌چیز
+                # را می‌بندد. `ping`/`timeout` فرزند یا stdin می‌خواستند و
+                # pipe تا پایانِ خواب باز می‌ماند.
+                fh.write("@echo off\r\n:loop\r\ngoto loop\r\n")
+            else:
+                fh.write(f'@echo off\r\n"{sys.executable}" "{payload}" %*\r\n')
+    else:
+        path = base
+        with open(path, "w", encoding="utf-8", newline="\n") as fh:
+            fh.write("#!/bin/sh\n"
+                     f'exec "{sys.executable}" "{payload}" "$@"\n')
+        os.chmod(path, os.stat(path).st_mode | _stat.S_IEXEC | _stat.S_IXGRP
+                 | _stat.S_IXOTH)
 
     # سلامتِ خودِ شیم را می‌سنجیم تا تستی که روی شیمِ خراب سبز می‌شود نداشته
     # باشیم (درسِ «آینهٔ ناوفادار» در F-12: پیش‌شرط باید *اثبات* شود).
@@ -13573,8 +13654,6 @@ def test_zzz_cty_the_shell_function_really_classifies_countries_paths() -> None:
     تابع را از فایل بیرون می‌کشد و زیرِ `bash` اجرا می‌کند — شاملِ
     حساسیت به بزرگی/کوچکیِ حرف، که در نامِ `Countries` عمدی است.
     """
-    import subprocess
-
     wf = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                       "..", ".github", "workflows", "aggregate.yml")
     with open(wf, encoding="utf-8") as fh:
@@ -13598,8 +13677,7 @@ def test_zzz_cty_the_shell_function_really_classifies_countries_paths() -> None:
     ]
     script = func + "\n" + "\n".join(
         f'is_output_path "{p}"; printf "%s\\n" "$?"' for p, _ in cases)
-    proc = subprocess.run(["bash", "-c", script], capture_output=True,
-                          text=True)
+    proc = _bash(script)
     assert proc.returncode == 0, proc.stderr
     got = [int(x) for x in proc.stdout.split()]
     want = [rc for _, rc in cases]
@@ -14414,6 +14492,39 @@ def _cty_filename_for(code: str) -> str:
     return countries.slug_for(names.get(code, code)) + ".txt"
 
 
+_SYMLINK_OK = None
+
+
+def _symlinks_available() -> bool:
+    """آیا سیستم اجازهٔ ساختِ symlink می‌دهد؟
+
+    ویندوزِ بدونِ حالتِ توسعه‌دهنده با WinError 1314 رد می‌کند. تست‌هایی
+    که موضوعشان خودِ symlink است در آن محیط اجراشدنی نیستند؛ به‌جای
+    شکستِ کاذب، صریح رد می‌شوند (روی CIِ لینوکس کامل اجرا می‌شوند).
+    """
+    global _SYMLINK_OK
+    if _SYMLINK_OK is not None:
+        return _SYMLINK_OK
+    import shutil
+    import tempfile
+
+    td = tempfile.mkdtemp(prefix="tp_symlink_")
+    try:
+        target = os.path.join(td, "target")
+        with open(target, "w", encoding="utf-8"):
+            pass
+        link = os.path.join(td, "link")
+        try:
+            os.symlink(target, link)
+            _SYMLINK_OK = True
+        except (OSError, NotImplementedError):
+            _SYMLINK_OK = False
+            print("  ⏭️ symlink unsupported on this platform — test skipped")
+    finally:
+        shutil.rmtree(td, ignore_errors=True)
+    return _SYMLINK_OK
+
+
 def test_zzz_cty_the_sweep_sees_a_dangling_symlink() -> None:
     """جارو باید symlinkِ معلق را هم ببیند، نه فقط فایلِ معمولی را.
 
@@ -14422,6 +14533,8 @@ def test_zzz_cty_the_sweep_sees_a_dangling_symlink() -> None:
     «هر `.tmp` بی‌قید حذف می‌شود» — پیش از اصلاح، این حرف با
     اندازه‌گیری نقض می‌شد.
     """
+    if not _symlinks_available():
+        return
     out = _tmpdir("cty_symsweep_")
     base = os.path.join(out, countries.COUNTRIES_DIR)
     os.makedirs(base, exist_ok=True)
@@ -14444,6 +14557,8 @@ def test_zzz_cty_remove_if_exists_sees_a_dangling_symlink() -> None:
     یتیم رهایش می‌کرد — و گامِ انتشار با `git add -A` همان یتیم را
     منتشر می‌کرد.
     """
+    if not _symlinks_available():
+        return
     out = _tmpdir("cty_symrm_")
     link = os.path.join(out, "L.txt")
     os.symlink(os.path.join(out, "NOWHERE"), link)
@@ -14459,6 +14574,8 @@ def test_zzz_cty_remove_if_exists_never_follows_a_live_symlink() -> None:
     مکملِ تستِ قبلی است: اگر روزی کسی برای «دیدنِ» لینکِ معلق سراغِ
     باز کردن یا خالی‌کردنِ هدف برود، دادهٔ مالک قربانی می‌شود.
     """
+    if not _symlinks_available():
+        return
     out = _tmpdir("cty_symrm2_")
     target = os.path.join(out, "TARGET.txt")
     with open(target, "w", encoding="utf-8") as fh:
@@ -14480,6 +14597,8 @@ def test_zzz_cty_write_text_refuses_to_follow_a_symlink() -> None:
     شرطِ جارو به‌تنهایی این‌جا کاری نمی‌تواند بکند. انتظار: خطای
     `OSError`ِ هسته (`ELOOP`) و **دست‌نخوردگیِ** فایلِ قربانی.
     """
+    if not _symlinks_available():
+        return
     out = _tmpdir("cty_symwt_")
     base = os.path.join(out, countries.COUNTRIES_DIR)
     os.makedirs(base, exist_ok=True)
@@ -14509,6 +14628,8 @@ def test_zzz_cty_a_round_never_writes_through_a_planted_symlink() -> None:
     انتظار: نه فایلی بیرون از `Countries/` ساخته شود، نه دادهٔ مالک
     بازنویسی شود، و دور همچنان خروجیِ درست بدهد.
     """
+    if not _symlinks_available():
+        return
     out = _tmpdir("cty_symround_")
     base = os.path.join(out, countries.COUNTRIES_DIR)
     os.makedirs(base, exist_ok=True)

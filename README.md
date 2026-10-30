@@ -1,133 +1,218 @@
-# 🛡️ AI-Driven V2Ray & Multi-Protocol Hub (Goodbaye Universal Standard)
-
-<div align="center">
-
-[![Auto Update Pipeline](https://github.com/alireza786786/ai-driven-v2ray/actions/workflows/aggregate.yml/badge.svg)](https://github.com/alireza786786/ai-driven-v2ray/actions/workflows/aggregate.yml)
-[![Telegram Main Channel](https://img.shields.io/badge/Telegram-Main_Channel-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/Goodbaye_filtering)
-[![Telegram VIP Channel](https://img.shields.io/badge/Telegram-VIP_Strict-FFD700?style=for-the-badge&logo=telegram&logoColor=black)](https://t.me/CONFIG_V2RAY_VIP)
-[![Web Panel](https://img.shields.io/badge/Online_WebPanel-GitHub_Pages-4CAF50?style=for-the-badge&logo=githubpages&logoColor=white)](https://alireza786786.github.io/ai-driven-v2ray/)
-
 <p align="center">
-  <b>سامانه خودکار و فوق‌پیشرفته جمع‌آوری، حقیقت‌سنجی ۱۴ لایه‌ای و انتشار کانفیگ‌های پرسرعت و زنده</b><br>
-  <i>مناسب شرایط فیلترینگ شدید، اختلال اینترنت و اتصال به اینترنت آزاد</i>
+  <a href="https://alireza786786.github.io/ai-driven-v2ray/">
+    <img src="docs/assets/hero-banner.svg" alt="Goodbaye Passage Standard — public config infrastructure" width="100%">
+  </a>
 </p>
 
-</div>
+<p align="center">
+  <b>GOODBAYE · PASSAGE STANDARD</b>
+  <br>
+  <sub>Numbers from a real run, not a promise. · <a href="README_FA.md">نسخهٔ فارسی</a></sub>
+</p>
+
+<p align="center">
+  <a href="https://github.com/alireza786786/ai-driven-v2ray/actions/workflows/aggregate.yml"><img alt="pipeline" src="https://github.com/alireza786786/ai-driven-v2ray/actions/workflows/aggregate.yml/badge.svg?branch=main"></a>
+  <a href="https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/index.json"><img alt="unique configs" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Falireza786786%2Fai-driven-v2ray%2Fmain%2Findex.json&query=%24.categories.all.unique&label=configs&color=14201b&style=flat-square"></a>
+  <a href="https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/health.json"><img alt="verified" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Falireza786786%2Fai-driven-v2ray%2Fmain%2Fhealth.json&query=%24.cascade.buckets.verified&label=verified&color=176b4d&style=flat-square"></a>
+  <a href="https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/health.json"><img alt="fast" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Falireza786786%2Fai-driven-v2ray%2Fmain%2Fhealth.json&query=%24.cascade.buckets.fast&label=fast&color=8f5418&style=flat-square"></a>
+  <a href="https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/health.json"><img alt="secure" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Falireza786786%2Fai-driven-v2ray%2Fmain%2Fhealth.json&query=%24.cascade.buckets.secure&label=secure&color=3a423c&style=flat-square"></a>
+</p>
+
+**Passage** is an automated pipeline, not a hand-curated list. Every 45 minutes it reads raw configs from 13 GitHub sources, removes duplicates, checks TCP reachability, then makes a real HTTP request through each surviving proxy — three separate rounds. Only configs that pass every round are marked verified and reach the recommended tiers; the raw `all` bucket is published too, clearly labelled as mostly untested.
+
+> Badges read `index.json` and `health.json` live, so they cannot go stale. The numbers written in the prose below are a dated snapshot; `health.json` is always the source of truth.
 
 ---
 
-## 🌐 دسترسی سریع به وب‌پنل و کانال‌های رسمی
+## Quick start
 
-| درگاه | نشانی اتصال | توضیحات |
+**Top 100** — verified configs sorted by median delay, capped at 100. Never padded with untested entries:
+
+```text
+https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/top100.txt
+```
+
+**All verified** — the same standard, no cap:
+
+```text
+https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/configs_base64.txt
+```
+
+**Web panel** — live counts, per-country search, copy buttons, QR codes, light/dark themes: [alireza786786.github.io/ai-driven-v2ray](https://alireza786786.github.io/ai-driven-v2ray/)
+
+<table>
+  <tr>
+    <td align="center"><a href="https://alireza786786.github.io/ai-driven-v2ray/"><img src="docs/assets/qr/panel.svg" width="118" alt="Panel QR"></a><br><sub>Panel</sub></td>
+    <td align="center"><a href="https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/top100.txt"><img src="docs/assets/qr/top100.svg" width="118" alt="Top 100 QR"></a><br><sub>Top 100</sub></td>
+    <td align="center"><a href="https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/configs_base64.txt"><img src="docs/assets/qr/verified.svg" width="118" alt="Verified QR"></a><br><sub>Verified</sub></td>
+    <td align="center"><a href="https://t.me/Goodbaye_filtering"><img src="docs/assets/qr/telegram.svg" width="118" alt="Telegram QR"></a><br><sub>Channel</sub></td>
+  </tr>
+</table>
+
+Each QR encodes the subscription URL itself, so the client fetches a fresh list on every refresh.
+
+---
+
+## Tiers
+
+All six tiers come from one pool, filtered by increasing evidence. Each ships as `txt`, `b64`, `yaml` (mihomo/Clash) and `json` (sing-box).
+
+| Tier | Criterion | Now | Formats |
+| :--- | :--- | ---: | :--- |
+| **verified** | real proxied request succeeded in all 3 L3 rounds — recommended | 1,145 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/singbox.json) |
+| **fast** | verified AND median delay below the threshold (500 ms in this run) | 340 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/singbox.json) |
+| **secure** | verified AND forward secrecy, certificate validation not disabled | 826 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/singbox.json) |
+| **all** | everything after de-duplication — largest list, mostly untested | 11,099 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/singbox.json) |
+| **light** | the 8 light sources only | 5,170 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/singbox.json) |
+| **heavy** | the 5 heavy sources only | 7,177 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/heavy/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/heavy/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/heavy/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/heavy/singbox.json) |
+
+`light` and `heavy` overlap and are not additive. Every `yaml` and `json` is checked with the real binaries before publishing (`mihomo -t`, `sing-box check`); results land in `validation.json`.
+
+`top100.txt` is a slice of `verified`, not a seventh tier: sorted by median delay and capped at 100.
+
+---
+
+## The cascade
+
+| Gate | Question | Cost | This run |
+| :--- | :--- | :--- | ---: |
+| **L0/L1 — structure** | Parses? Endpoint unique? Routable? | no network | 10,662 of 11,099 |
+| **L2 — reachability** | Does the TCP port actually accept connections? | separate DNS + 800 concurrent connects, 3 s each | 6,985 open |
+| **L3 — passage** | Does a real HTTP request through the proxy succeed? | xray-knife, 3 rounds, 5 s per config | 1,663 once · 1,145 all three |
+| **Buckets** | Which passed every round? Which are fast? Which are secure? | sort/compare only | 340 fast · 826 secure · top 100 |
+
+> **Snapshot:** 2026-10-28 17:48 UTC, from a GitHub runner in the US (Cloudflare colo `ORD`). The cascade took 276.94 s: L0/L1 0.24 s, L2 24.06 s, three L3 rounds 252.27 s. `health.json` records this for every run; trust it over this README.
+
+Funnel for that run: 19,952 raw → 8,831 duplicates removed → 11,099 unique (100%) → 10,662 structurally valid (96.1%) → 6,985 TCP-open (62.9%) → 1,663 worked at least once (15.0%) → 1,145 stable in all three rounds (10.3%).
+
+The per-round successes were 1,391 / 1,431 / 1,464, yet only 1,145 configs were present in all three sets. That means 518 configs — 31.15% of everything that ever worked — are flaky. Publishing after a single round would have shipped all 518 as "healthy".
+
+These percentages are about one vantage point, not your connection. A config that fails from Virginia may work from Tehran and vice versa. "Verified" means "answered a real request from the test machine at test time", not "guaranteed for you".
+
+---
+
+## Protocols
+
+Files are split out of `all/` and only published when non-empty. A 404 means "nothing of this protocol in this run" — never an empty subscription that wipes a client list.
+
+| Protocol | Now | Plain | Base64 |
+| :--- | ---: | :--- | :--- |
+| VLESS | 5,007 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vless.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vless_base64.txt) |
+| VMess | 3,425 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vmess.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vmess_base64.txt) |
+| Trojan | 1,392 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/trojan.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/trojan_base64.txt) |
+| Shadowsocks | 1,029 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocks.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocks_base64.txt) |
+| Hysteria 2 | 240 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/hysteria2.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/hysteria2_base64.txt) |
+| SOCKS | 3 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/socks.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/socks_base64.txt) |
+| TUIC | 2 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/tuic.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/tuic_base64.txt) |
+| ShadowsocksR | 1 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocksr.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocksr_base64.txt) |
+
+The parser also understands `hysteria`, `wireguard`, `juicity`, `anytls`, `snell` and `mieru`; none appeared in this run. The live list of published files is `protocol_files` in `index.json`.
+
+---
+
+## Countries
+
+48 countries, all from verified configs, located by GeoIP (DB-IP Country Lite). One file per non-empty country. The index is the canonical list of filenames:
+
+- [`Countries/index.json`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/index.json)
+- Examples: [`United_States.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/United_States.txt) (293), [`The_Netherlands.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/The_Netherlands.txt) (244), [`Germany.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/Germany.txt) (94), [`Canada.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/Canada.txt) (88).
+
+Use the names from the index; for example it is `The_Netherlands.txt`, not `Netherlands.txt`.
+
+---
+
+## Web panel
+
+<a href="https://alireza786786.github.io/ai-driven-v2ray/"><img src="docs/assets/readme-panel.png" alt="Passage panel: boarding pass, live counters, quick route" width="100%"></a>
+
+A static page published from `docs/` only. It fetches data in the browser from `raw.githubusercontent.com`, falls back to jsDelivr after 15 seconds, and stores nothing server-side. It shows live counts and the last-run timestamp, an explicit stale-data banner, the quality ladder, category/protocol/country search with copy buttons, a top-100 preview, a source-health table and QR dialogs.
+
+---
+
+## One-line remark
+
+Every node is rebranded to a single line — not five:
+
+```text
+CA 🇨🇦 | @Goodbaye_filtering | 8F8AB8
+US 🇺🇸 | @Goodbaye_filtering | 22A072
+```
+
+Format: `{CC} {flag} | @Goodbaye_filtering | {tag}`. The tag is derived from the config itself, not from its line number, so adding a config does not shift every later remark. Single-line remarks also survive clients that mishandle multi-line fragments.
+
+---
+
+## raw vs mirror
+
+| Host | Cache | Worst-case staleness |
 | :--- | :--- | :--- |
-| 📢 **کانال اصلی** | [https://t.me/Goodbaye_filtering](https://t.me/Goodbaye_filtering) | انتشار منظم پکیج‌ها و اطلاع‌رسانی وضعیت شبکه |
-| ⚡ **کانال اختصاصی VIP** | [https://t.me/CONFIG_V2RAY_VIP](https://t.me/CONFIG_V2RAY_VIP) | کانفیگ‌های گلچین فوق‌سریع **VIP Strict (پینگ زیر ۵۰۰ms)** |
-| 🌐 **وب‌پنل آنلاین سابسکریپشن** | [https://alireza786786.github.io/ai-driven-v2ray/](https://alireza786786.github.io/ai-driven-v2ray/) | پنل تحت وب مشاهده آنلاین، کپی لینک‌ها و تفکیک کشوری |
-| 🔄 **اشتراک‌گذاری با دوستان** | [اشتراک در تلگرام](https://t.me/share/url?url=https://t.me/Goodbaye_filtering) | معرفی سامانه اینترنت آزاد به دوستان |
+| `raw.githubusercontent.com` | ~5 min | 5 minutes |
+| `cdn.jsdelivr.net` (branch ref) | up to 12 h | 12 hours — 144× slower |
+
+Prefer raw. Use the mirror only when raw is blocked. For byte-identical pinning, use `@<commit-sha>/…` instead of a branch name. Everything lives on the default branch (`main`), so old links keep working.
 
 ---
 
-## 📜 منشور بنیادین Goodbaye Universal Standard
+## Metadata
 
-تمامی کانفیگ‌های خروجی این مخزن بر مبنای منشور غیرقابل‌تغییر Goodbaye سازمان‌دهی شده‌اند:
-
-### ۱. الگوی رسمی ریمارک ۵ خطی (URL-Encoded)
-نام، تگ و ریمارک هر نود با استانداردهای زیر بازنویسی می‌شود:
-
-```text
-👉🆔@Goodbaye_filtering
-📡[پرچم کشور] [نام کشور]
-®️[نام شهر یا دیتاسنتر]
-🅿️ping:[عدد پینگ واقعی]ms
-⚡VIP-Strict | [نوع پروتکل و نسخه آی‌پی]
-```
-
-*(تمامی ریمارک‌ها به صورت استاندارد URL-Encode شده‌اند تا فایل‌ها کاملاً تک‌خطی مانده و در کلاینت‌های اندروید، ویندوز و iOS بدون خطا ذخیره شوند).*
-
-### ۲. شاخص کیفیت سخت‌گیرانه (VIP Strict)
-* آستانه تأخیر پکیج‌های سریع: **پینگ واقعی زیر ۵۰۰ میلی‌ثانیه (Ping < 500ms)**
-* قبولی مشروط به موفقیت کامل در **۳ دور آزمون مستقلِ عبور ترافیک از هسته** جهت حذف نودهای لرزان و ناپایدار.
-
----
-
-## 🚀 لینک‌های اشتراک مستقیم (Subscriptions)
-
-> **نکته سرعت:** لینک‌های اصلی (GitHub Raw) کش ۵ دقیقه‌ای دارند و تا ۱۴۴ برابر تازه‌تر از CDNها هستند. در صورت اختلال در دسترسی، لینک‌های Mirror (آینه jsDelivr) به عنوان جایگزین فعال هستند.
-
-### 🌟 ۱. پکیج‌های اصلی و هوشمند
-
-| عنوان پکیج | سابسکریپشن معمولی (Raw) | سابسکریپشن Base64 | تنظیمات Clash Meta | تنظیمات Sing-box |
-| :--- | :--- | :--- | :--- | :--- |
-| 🏆 **Top 100 VIP** | [لینک مستقیم](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/top100.txt) | — | — | — |
-| ⚡ **Fast VIP (<500ms)** | [لینک مستقیم](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/configs.txt) | [Base64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/configs_base64.txt) | [Clash YAML](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/clash.yaml) | [Singbox JSON](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/singbox.json) |
-| 🔒 **Secure VIP (PFS)** | [لینک مستقیم](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/configs.txt) | [Base64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/configs_base64.txt) | [Clash YAML](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/clash.yaml) | [Singbox JSON](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/singbox.json) |
-| 📦 **All Verified VIP** | [لینک مستقیم](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/configs.txt) | [Base64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/configs_base64.txt) | [Clash YAML](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/clash.yaml) | [Singbox JSON](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/singbox.json) |
-
----
-
-### 🌍 ۲. تفکیک جغرافیایی بر پایه کشورها (Countries)
-تمامی کانفیگ‌های تاییدشده بر مبنای موقعیت واقعی شبکه (GeoIP) تفکیک شده و به صورت فایل‌های مجزا در دسترس هستند:
-
-* 🇩🇪 **آلمان:** `https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/Germany.txt`
-* 🇫🇮 **فنلاند:** `https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/Finland.txt`
-* 🇳🇱 **هلند:** `https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/Netherlands.txt`
-* 🇺🇸 **آمریکا:** `https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/United_States.txt`
-* 🇬🇧 **انگلستان:** `https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/United_Kingdom.txt`
-* 🇹🇷 **ترکیه:** `https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/Turkey.txt`
-* 📋 **ایندکس کامل کشورها:** `https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/index.json`
-
----
-
-### 🔌 ۳. تفکیک بر پایه پروتکل‌ها (Protocols)
-* **VLESS:** `https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vless.txt`
-* **VMess:** `https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vmess.txt`
-* **Trojan:** `https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/trojan.txt`
-* **Shadowsocks:** `https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocks.txt`
-* **Hysteria 2:** `https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/hysteria2.txt`
-* **TUIC:** `https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/tuic.txt`
-
----
-
-## 🔬 ساختار فنی و چرخه حقیقت‌سنجی (The 5-Layer Cascade)
-
-این مخزن به هیچ منبع ورودی اعتماد ۱۰۰ درصدی ندارد؛ نودها پیش از انتشار از یک آبشار پالایش ۵ مرحله‌ای عبور می‌کنند:
-
-```text
-[ لایه ۱: واکشی از صدها کانال تلگرام و سورس‌های گیت‌هاب ]
-  telegram_collector.py + collector_git.py
-                           │
-                           ▼
-[ لایه ۲: غربالگری نحوی و ساختاری L0 / L1 ]
-  یکتاسازی (host, port)، اعتبارسنجی فرمت UUID و حذف کاراکترهای مخرب
-                           │
-                           ▼
-[ لایه ۳: تست دسترسی‌پذیری پورت L2 ]
-  دست‌دادن همروند TCP در ۱۹ ثانیه با همروندی ۸۰۰ سوکت و پایش نشت دیسکریپتور
-                           │
-                           ▼
-[ لایه ۴: آزمون ترافیک واقعی با هسته پروکسی L3 ]
-  ۳ دور آزمون مستقل عبور ترافیک واقعی اینترنت با xray-knife و محاسبه میانه پینگ
-                           │
-                           ▼
-[ لایه ۵: ریمارک ۵ خطی Goodbaye و انتشار دوگانه ]
-  تولید کانفیگ‌های سازگار با کلش و سینگ‌باکس + مخابره به کانال‌های تلگرام و وب‌پنل
-```
-
----
-
-## 📱 کلاینت‌های پیشنهادی برای اتصال
-
-| سیستم‌عامل | نرم‌افزارهای سازگار |
+| File | What it is |
 | :--- | :--- |
-| **Android** | v2rayNG, Hiddify, Clash Meta for Android, FlClash, Sing-box |
-| **Windows** | v2rayN, Hiddify Next, Clash Verge Rev, FlClash |
-| **iOS / iPadOS** | Streisand, FoXray, V2Box, Sing-box |
-| **macOS / Linux** | Hiddify, Clash Verge Rev, FlClash |
+| [`index.json`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/index.json) | Counters, run/next-run times, every file URL on raw + mirror, protocol list |
+| [`health.json`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/health.json) | Per-source health, drops, GeoIP stats, full cascade report including the runner's country |
+| [`state.json`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/state.json) | Rolling source-yield history and automatic disable decisions |
+| [`validation.json`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/validation.json) | `sing-box check` and `mihomo -t` results |
+| [`Countries/index.json`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/index.json) | Country names, codes, flags, counts and filenames |
+
+Sources this run: 13 GitHub sources (8 light, 5 heavy), 12 healthy, 1 failed. No Telegram channel scraping is involved: the channel is an output of the pipeline, not an input.
 
 ---
 
-## 👤 سازنده و حق امتیاز
+## Clients
 
-* **طراح و توسعه‌دهنده:** [علیرضا (alireza786786)](https://github.com/alireza786786)
-* **مجوز انتشار:** متن‌باز تحت پروانه [MIT License](LICENSE)
-* **کانال اطلاع‌رسانی رسمی:** [@Goodbaye_filtering](https://t.me/Goodbaye_filtering)
+| OS | Clients |
+| :--- | :--- |
+| Android | v2rayNG, Hiddify, Clash Meta for Android, FlClash, sing-box |
+| Windows | v2rayN, Hiddify, Clash Verge Rev, FlClash |
+| iOS / iPadOS | Streisand, FoXray, V2Box, sing-box |
+| macOS / Linux | Hiddify, Clash Verge Rev, FlClash |
+
+For Base64 lists use "Import from URL" and enable auto-update. For Clash/mihomo import the `yaml`; for sing-box import the `json`.
+
+---
+
+## FAQ
+
+**A "verified" config does not connect for me.** Verified means it answered a real request from a US runner at test time. Networks move; keep the list fresh and keep backups.
+
+**fast vs secure?** Both are subsets of verified. `fast` is below the delay threshold (500 ms this run; code default 800 ms, configurable via `L3_FAST_MS`). `secure` has forward secrecy (TLS/REALITY/QUIC with (EC)DHE) and does not disable certificate validation. Speed and crypto properties are independent.
+
+**Why do some files 404?** Empty files are never published. If a protocol or country had no configs this run, its file does not exist. That is temporary, not an empty subscription that wipes a client's list.
+
+**How fresh is it?** The cron is every 45 minutes with a 40-minute freshness gate; GitHub can delay runs under load. The real last-run timestamp is in the panel and `health.json`.
+
+**Is it safe?** These are public proxies with unknown operators. Do not send passwords, banking or other sensitive data through them. The repository itself sees no traffic and collects no data.
+
+---
+
+## Layout
+
+```text
+scripts/        pipeline: fetch, structural filter, L2, L3, output builders
+src/            Telegram publishing + legacy collection (outside the main build)
+docs/           static panel — the only path GitHub Pages publishes
+verified/ fast/ secure/ all/ light/ heavy/
+Countries/      one file per country + index.json
+protocols/      one file per non-empty protocol
+index.json health.json state.json validation.json top100.txt
+```
+
+---
+
+## License & contact
+
+- License: [MIT](LICENSE).
+- Author: [alireza786786](https://github.com/alireza786786)
+- Channel: [@Goodbaye_filtering](https://t.me/Goodbaye_filtering)
+- Panel: [alireza786786.github.io/ai-driven-v2ray](https://alireza786786.github.io/ai-driven-v2ray/)
+
+This is an independent project, not affiliated with any company or provider. Configs are collected from public sources; you are responsible for how you use them and for complying with local law. No server here guarantees access or security.

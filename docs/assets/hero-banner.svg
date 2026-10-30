@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 460" width="1500" height="460" role="img" aria-label="Goodbaye Passage Standard">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8f3e9"/>
+      <stop offset=".55" stop-color="#f4eddf"/>
+      <stop offset="1" stop-color="#eee6d4"/>
+    </linearGradient>
+    <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M50 0H0v50" fill="none" stroke="#14201b" stroke-opacity=".05"/>
+    </pattern>
+    <clipPath id="frame"><rect width="1500" height="460" rx="0"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#frame)">
+    <rect width="1500" height="460" fill="url(#sky)"/>
+    <rect width="1500" height="460" fill="url(#grid)"/>
+
+    <g fill="none" stroke="#14201b" stroke-opacity=".20">
+      <path d="M1500 460V250c0-152.4-118.6-276-265-276S970 97.6 970 250v210" stroke-width="1.4"/>
+      <path d="M1444 460V252c0-137.2-106.5-248.4-238-248.4S968 114.8 968 252v208" stroke-width="1"/>
+      <path d="M1388 460V254c0-121.9-94.6-220.7-211.5-220.7S965 132.1 965 254v206" stroke-width=".8"/>
+      <path d="M1332 460V256c0-106.7-82.5-193.1-184.5-193.1S963 149.3 963 256v204" stroke-width=".6"/>
+      <path d="M1276 460V258c0-91.5-70.5-165.5-157.5-165.5S961 166.5 961 258v202" stroke-width=".5"/>
+    </g>
+
+    <g fill="none" stroke="#176b4d" stroke-opacity=".45">
+      <path d="M1124 460V268c0-46.4-35.8-84-80-84s-80 37.6-80 84v192" stroke-width="1.6"/>
+    </g>
+
+    <path d="M92 352c132 0 196-22 286-92s142-108 236-108h250" fill="none" stroke="#14201b" stroke-opacity=".38" stroke-width="1.2" stroke-dasharray="2 9"/>
+    <g fill="#176b4d">
+      <circle cx="200" cy="325" r="4"/>
+      <circle cx="442" cy="238" r="4"/>
+      <circle cx="664" cy="170" r="4"/>
+    </g>
+    <circle cx="864" cy="152" r="7" fill="#a96a24"/>
+    <circle cx="864" cy="152" r="15" fill="none" stroke="#a96a24" stroke-opacity=".45"/>
+
+    <path d="M92 108h44" stroke="#a96a24" stroke-width="3"/>
+    <text x="156" y="114" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" letter-spacing="6.5" fill="#5e665f">PUBLIC CONFIG INFRASTRUCTURE</text>
+
+    <text x="90" y="214" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="86" font-weight="700" letter-spacing="16" fill="#14201b">GOODBAYE</text>
+    <text x="94" y="262" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="17" letter-spacing="12" fill="#176b4d">PASSAGE STANDARD</text>
+
+    <path d="M94 306h620" stroke="#14201b" stroke-opacity=".22"/>
+    <text x="94" y="342" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" letter-spacing="4" fill="#6d7269">L0/L1 STRUCTURE · L2 REACHABILITY · L3 REAL TRAFFIC · MAIN</text>
+
+    <g transform="translate(94 384)">
+      <rect x="0" y="0" width="122" height="30" rx="15" fill="#14201b"/>
+      <circle cx="18" cy="15" r="4" fill="#5fd1a4"/>
+      <text x="32" y="19.5" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="10.5" letter-spacing="2.4" fill="#f6f1e6">LIVE OUTPUT</text>
+      <text x="146" y="19.5" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="10.5" letter-spacing="2.4" fill="#6d7269">ISSUE 01 / 2026</text>
+    </g>
+
+    <g transform="translate(1162 118)">
+      <circle r="42" fill="none" stroke="#14201b" stroke-opacity=".28"/>
+      <circle r="30" fill="none" stroke="#14201b" stroke-opacity=".18"/>
+      <path d="M-13 15V-1c0-7.2 5.8-13 13-13s13 5.8 13 13V15" fill="none" stroke="#14201b" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="0" cy="9" r="2" fill="#a96a24"/>
+    </g>
+  </g>
+</svg>

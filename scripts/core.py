@@ -117,8 +117,11 @@ SUPPORT_URL = os.environ.get(
 #: را به `aggregate.GH_USER`/`GH_REPO` قفل می‌کند تا واگرایی بی‌صدا رخ ندهد.
 #: (عمداً از `aggregate` import نمی‌شود: `aggregate` خودش `core` را import
 #:  می‌کند و وارونه‌کردنش حلقهٔ import می‌سازد.)
+_owner, _, _name = os.environ.get("GITHUB_REPOSITORY", "").partition("/")
+if not (_owner and _name):
+    _owner, _name = "alireza786786", "ai-driven-v2ray"
 PROJECT_URL = os.environ.get(
-    "AGG_PROJECT_URL", "https://github.com/0xRadikal/ai-driven-v2ray")
+    "AGG_PROJECT_URL") or f"https://github.com/{_owner}/{_name}"
 
 #: `total=0`/`expire=0` ⇒ «نامحدود» (به آستانه‌های بی‌نهایت نگاشت می‌شوند).
 HIDDIFY_SUBSCRIPTION_USERINFO = "upload=0; download=0; total=0; expire=0"

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="گذرگاه">
+  <rect width="64" height="64" rx="15" fill="#14201b"/>
+  <path d="M15 48V31.5C15 22.94 22.61 16 32 16s17 6.94 17 15.5V48"
+        fill="none" stroke="#f6f1e6" stroke-width="3.4" stroke-linecap="round"/>
+  <path d="M24 48V32.6C24 27.85 27.58 24 32 24s8 3.85 8 8.6V48"
+        fill="none" stroke="#5fd1a4" stroke-width="2.6" stroke-linecap="round"/>
+  <circle cx="32" cy="43" r="2.5" fill="#e0a568"/>
+  <path d="M46 18.5h4.5M48.25 16.25v4.5" stroke="#e0a568" stroke-width="1.6" stroke-linecap="round" opacity=".85"/>
+</svg>

@@ -114,6 +114,11 @@ ADDR_CAP = int(os.environ.get("L2_ADDR_CAP", "3"))
 #: مرزِ ایمنِ fd. اگر conc از این بالاتر بزند، پیش از سوختن هشدار می‌دهیم.
 _FD_HEADROOM = 200
 
+#: سقفِ نرمِ محافظه‌کارانه وقتی `resource` در دسترس نیست (ویندوز).
+#: همان ۱۰۲۴ی است که ۸۰۰ رویش سنجیده شد؛ نبودنِ `resource` نباید هشدار را
+#: خاموش کند، وگرنه یک هم‌روندیِ نامعقول بی‌صدا عبور می‌کند.
+_FALLBACK_SOFT_NOFILE = 1024
+
 ERR_TIMEOUT = "timeout"
 ERR_REFUSED = "refused"
 ERR_UNREACHABLE = "unreachable"
@@ -459,7 +464,9 @@ def headroom_warning(concurrency: Optional[int] = None) -> Optional[str]:
     """اگر conc به سقفِ fd نزدیک باشد، متنِ هشدار؛ وگرنه None."""
     conc = int(concurrency or CONCURRENCY)
     soft = _soft_nofile()
-    if soft > 0 and conc + _FD_HEADROOM > soft:
+    if soft <= 0:
+        soft = _FALLBACK_SOFT_NOFILE
+    if conc + _FD_HEADROOM > soft:
         return (f"concurrency={conc} leaves less than {_FD_HEADROOM} spare "
                 f"descriptors under a soft limit of {soft}; at 1200 this "
                 f"collapsed a 48.0% measurement to 1.1% with exit code 0")

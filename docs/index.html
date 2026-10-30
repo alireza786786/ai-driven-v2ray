@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>گذرگاه — کانفیگ‌هایی که واقعاً عبور می‌کنند</title>
+<meta name="description" content="پنل زندهٔ کانفیگ‌های V2Ray، Clash و Sing-box؛ هر موردِ تأییدشده در سه دور آزمونِ ترافیکِ واقعی از داخلِ پروکسی پاسخ داده است. ساختهٔ خطلولهٔ خودکارِ Goodbaye.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f6f1e6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/panel.css">
+<script>
+(function () {
+  try {
+    var saved = localStorage.getItem("passage-theme");
+    var theme = saved || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.dataset.theme = theme;
+  } catch (e) {}
+})();
+</script>
+<script src="assets/panel.js" defer></script>
+</head>
+<body id="top">
+
+<a class="skip-link" href="#main">پرش به محتوای اصلی</a>
+
+<svg class="icon-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M15 5.5A2.5 2.5 0 0 0 12.5 3H6a2.5 2.5 0 0 0-2.5 2.5V13"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m4.5 12.5 5 5 10-11"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18.5 13.5V19a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 19V7A1.5 1.5 0 0 1 5 5.5h5.5"/></symbol>
+  <symbol id="i-qr" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="6.5" height="6.5" rx="1"/><rect x="14" y="3.5" width="6.5" height="6.5" rx="1"/><rect x="3.5" y="14" width="6.5" height="6.5" rx="1"/><path d="M14 14h3v3h-3zM20.5 14v.01M20.5 20.5H17M14 20.5v-3"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M18.7 5.3l-1.4 1.4M6.7 17.3l-1.4 1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.3A8.3 8.3 0 0 1 9.7 4a8.5 8.5 0 1 0 10.3 10.3Z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 4.5 4.5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24"><path d="M9 19c-4.3 1.4-4.3-2.2-6-2.7m12 5.2v-3.6a3.2 3.2 0 0 0-.9-2.5c3-.3 6.2-1.5 6.2-6.9a5.4 5.4 0 0 0-1.5-3.7 5 5 0 0 0-.1-3.8s-1.2-.4-3.9 1.5a13.4 13.4 0 0 0-7 0C5.1.6 3.9 1 3.9 1a5 5 0 0 0-.1 3.8A5.4 5.4 0 0 0 2.3 8.4c0 5.4 3.1 6.6 6.1 6.9a3.2 3.2 0 0 0-.9 2.5v3.6"/></symbol>
+  <symbol id="i-telegram" viewBox="0 0 24 24"><path d="m21 4-3.4 16.1c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-4.9 9-8.1c.4-.3-.1-.5-.6-.2L5.1 13.1l-4.7-1.5C-.6 11.2-.6 10.3 1 9.7l18.4-7.1c.8-.3 1.5.2 1.6 1.4Z"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="m13.5 2-8 11h6l-1 9 8-11h-6l1-9Z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2.5 20 6v6c0 5-3.4 8.3-8 9.5-4.6-1.2-8-4.5-8-9.5V6l8-3.5Z"/><path d="m8.5 12 2.4 2.4 4.6-5"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.9 5.6 3.9 9S14.6 18.4 12 21c-2.6-2.6-3.9-5.6-3.9-9S9.4 5.6 12 3Z"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/></symbol>
+</svg>
+
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="brand" href="#top" aria-label="گذرگاه، آغاز صفحه">
+      <img src="assets/favicon.svg" alt="" width="36" height="36">
+      <span class="brand-text">
+        <strong>گذرگاه</strong>
+        <small>GOODBAYE · STANDARD</small>
+      </span>
+    </a>
+    <nav class="head-nav" aria-label="بخش‌های صفحه">
+      <a href="#start">شروع</a>
+      <a href="#quality">کیفیت</a>
+      <a href="#explore">کاوش</a>
+      <a href="#health">شفافیت</a>
+      <a href="#guide">اتصال</a>
+    </nav>
+    <div class="head-tools">
+      <div class="live-pill" id="status" data-state="loading" role="status" aria-live="polite">
+        <span class="live-dot" aria-hidden="true"></span>
+        <span id="status-text">در حال خواندنِ دادهٔ زنده…</span>
+      </div>
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="تغییرِ پوستهٔ روشن و تیره" aria-pressed="false">
+        <svg class="icon only-light" aria-hidden="true"><use href="#i-moon"/></svg>
+        <svg class="icon only-dark" aria-hidden="true"><use href="#i-sun"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="stale-banner" id="stale-banner" hidden>
+  <div class="wrap stale-inner">
+    <span class="stale-mark" aria-hidden="true">!</span>
+    <p id="stale-text">این داده‌ها قدیمی‌اند.</p>
+    <a id="stale-link" href="https://github.com/alireza786786/ai-driven-v2ray/actions/workflows/aggregate.yml" target="_blank" rel="noopener">وضعیتِ خطلوله</a>
+  </div>
+</div>
+
+<main id="main">
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span> زیرساختِ خودکارِ اتصال · استانداردِ گُودبای</p>
+        <h1 id="hero-title">از میانِ هزاران کانفیگ،<br><em>آن‌هایی که واقعاً<br>عبور می‌کنند.</em></h1>
+        <p class="lede">
+          هر عدد در این صفحه از دلِ آخرین اجرای خطلوله بیرون آمده است: از غربالِ ساختاری و
+          دست‌دادنِ TCP، تا سه دور آزمونِ ترافیکِ واقعی از <b>داخلِ</b> پروکسی.
+          اینجا چیزی تبلیغ نمی‌شود مگر فایلش موجود باشد.
+        </p>
+        <div class="hero-cta">
+          <button class="btn btn-primary" id="hero-copy-top100" type="button" disabled>
+            <svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>
+            کپیِ فهرستِ ۱۰۰ برتر
+          </button>
+          <a class="btn btn-ghost" href="#quality">
+            دیدنِ نردبانِ کیفیت
+            <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
+          </a>
+        </div>
+        <dl class="hero-stats" id="hero-stats" aria-busy="true">
+          <div class="stat">
+            <dt>کانفیگِ یکتا</dt>
+            <dd><span data-count id="stat-unique">—</span><small>پس از یکتاسازی</small></dd>
+          </div>
+          <div class="stat">
+            <dt>تأییدشده</dt>
+            <dd><span data-count id="stat-verified">—</span><small>عبور در هر ۳ دور</small></dd>
+          </div>
+          <div class="stat">
+            <dt>کشور</dt>
+            <dd><span data-count id="stat-countries">—</span><small>بر پایهٔ GeoIP</small></dd>
+          </div>
+          <div class="stat">
+            <dt>۱۰۰ برتر</dt>
+            <dd><span data-count id="stat-top100">—</span><small>مرتب بر اساسِ تأخیر</small></dd>
+          </div>
+        </dl>
+      </div>
+
+      <aside class="pass" aria-label="بلیتِ ورود و نشانیِ پنل">
+        <div class="pass-head">
+          <span class="pass-kicker">بلیتِ ورود</span>
+          <span class="pass-serial" dir="ltr">GB · 1405</span>
+        </div>
+        <div class="pass-title">
+          <h2>اسکن کن، وصل شو.</h2>
+          <p>همین صفحه را روی گوشی باز کن؛ نشانی و لینک‌ها همیشه همین‌جا تازه می‌مانند.</p>
+        </div>
+        <div class="pass-perf" aria-hidden="true"></div>
+        <div class="pass-body">
+          <div class="qr-frame">
+            <img src="assets/qr/panel.svg" alt="کیوآرکدِ نشانیِ این پنل" width="180" height="180">
+          </div>
+          <div class="pass-info">
+            <span class="mini-label">نشانیِ پنل</span>
+            <code class="url" id="panel-url" dir="ltr">alireza786786.github.io/ai-driven-v2ray/</code>
+            <button class="btn btn-quiet" id="panel-url-copy" type="button" data-copy-text="https://alireza786786.github.io/ai-driven-v2ray/">
+              <svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>
+              کپیِ نشانی
+            </button>
+            <div class="pass-meta">
+              <span><i class="dot dot-ok" aria-hidden="true"></i><span id="pass-updated">در انتظارِ داده</span></span>
+              <span id="pass-next">—</span>
+            </div>
+          </div>
+        </div>
+        <div class="pass-foot">
+          <span>در هر دور، فهرستِ کامل از نو ساخته می‌شود.</span>
+          <span class="pass-count"><b id="pass-verified">—</b> تأییدشده</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" id="start" aria-labelledby="start-title">
+    <div class="wrap">
+      <header class="section-head reveal">
+        <span class="sec-no" aria-hidden="true">۰۱</span>
+        <div>
+          <h2 id="start-title">مسیرِ کوتاه</h2>
+          <p>یک لینک بردار و تمام. اگر مطمئن نیستی، از ۱۰۰ برتر شروع کن؛ اگر بیشتر می‌خواهی، پلهٔ بعدی را بردار.</p>
+        </div>
+      </header>
+      <div class="route-grid reveal" id="route-grid" aria-busy="true">
+        <article class="route route-skeleton" aria-hidden="true"><div class="sk sk-line"></div><div class="sk sk-line short"></div><div class="sk sk-block"></div></article>
+        <article class="route route-skeleton" aria-hidden="true"><div class="sk sk-line"></div><div class="sk sk-line short"></div><div class="sk sk-block"></div></article>
+        <article class="route route-skeleton" aria-hidden="true"><div class="sk sk-line"></div><div class="sk sk-line short"></div><div class="sk sk-block"></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="quality" aria-labelledby="quality-title">
+    <div class="wrap">
+      <header class="section-head reveal">
+        <span class="sec-no" aria-hidden="true">۰۲</span>
+        <div>
+          <h2 id="quality-title">نردبانِ کیفیت</h2>
+          <p>یک استخر، چهار درجهٔ شواهد. هر پله فقط چیزی را نگه می‌دارد که پلهٔ قبل اثبات کرده است؛ «سریع» و «امن» دو محورِ جدا هستند، نه یک صف.</p>
+        </div>
+      </header>
+
+      <ol class="ladder reveal" id="ladder" aria-busy="true">
+        <li class="ladder-item" data-tier="all">
+          <div class="ladder-head">
+            <span class="ladder-name">همهٔ یکتاها</span>
+            <span class="ladder-count"><b data-tier-count="all">—</b> کانفیگ</span>
+          </div>
+          <div class="ladder-bar" aria-hidden="true"><i data-tier-bar="all" style="--w:100%"></i></div>
+          <p>غربالِ ساختاری و یکتاسازی روی هر چیزی که از منابع رسیده؛ بدونِ آزمونِ عبور. بزرگ‌ترین فهرست، کمترین شواهد.</p>
+          <div class="ladder-links" data-tier-links="all"></div>
+        </li>
+        <li class="ladder-item" data-tier="verified">
+          <div class="ladder-head">
+            <span class="ladder-name">تأییدشده</span>
+            <span class="ladder-count"><b data-tier-count="verified">—</b> کانفیگ</span>
+          </div>
+          <div class="ladder-bar" aria-hidden="true"><i data-tier-bar="verified"></i></div>
+          <p>در هر سه دورِ اجرا، یک درخواستِ واقعی از <b>داخلِ</b> پروکسی پاسخ داده است. نقطهٔ شروعِ پیشنهادی.</p>
+          <div class="ladder-links" data-tier-links="verified"></div>
+        </li>
+        <li class="ladder-item" data-tier="fast">
+          <div class="ladder-head">
+            <span class="ladder-name">سریع</span>
+            <span class="ladder-count"><b data-tier-count="fast">—</b> کانفیگ</span>
+          </div>
+          <div class="ladder-bar" aria-hidden="true"><i data-tier-bar="fast"></i></div>
+          <p>تأییدشده، با میانهٔ تأخیرِ کمتر از <b id="fast-threshold">آستانهٔ همین اجرا</b>. مناسبِ کارِ روزمره و ویدیو.</p>
+          <div class="ladder-links" data-tier-links="fast"></div>
+        </li>
+        <li class="ladder-item" data-tier="secure">
+          <div class="ladder-head">
+            <span class="ladder-name">امن</span>
+            <span class="ladder-count"><b data-tier-count="secure">—</b> کانفیگ</span>
+          </div>
+          <div class="ladder-bar" aria-hidden="true"><i data-tier-bar="secure"></i></div>
+          <p>تأییدشده، با forward secrecy و بدونِ غیرفعال‌کردنِ اعتبارسنجیِ گواهی. محورِ کیفیت، جدا از سرعت.</p>
+          <div class="ladder-links" data-tier-links="secure"></div>
+        </li>
+      </ol>
+      <p class="footnote reveal" id="ladder-note">درصدها نسبت به استخرِ یکتای همین اجرا محاسبه می‌شوند.</p>
+    </div>
+  </section>
+
+  <section class="section" id="explore" aria-labelledby="explore-title">
+    <div class="wrap">
+      <header class="section-head reveal">
+        <span class="sec-no" aria-hidden="true">۰۳</span>
+        <div>
+          <h2 id="explore-title">کاوش</h2>
+          <p>دسته، قالب و مسیر را انتخاب کن؛ نشانیِ آماده را بردار. همهٔ فایل‌های تبلیغ‌شده همین حالا روی شاخهٔ <code dir="ltr">main</code> وجود دارند.</p>
+        </div>
+      </header>
+
+      <div class="composer reveal" aria-labelledby="composer-title">
+        <div class="composer-head">
+          <h3 id="composer-title">سازندهٔ لینک</h3>
+          <span class="composer-count" id="composer-count">—</span>
+        </div>
+        <div class="composer-controls">
+          <div class="field">
+            <span class="field-label" id="tier-label">دسته</span>
+            <div class="segmented" id="composer-tier" role="group" aria-labelledby="tier-label"></div>
+          </div>
+          <div class="field">
+            <span class="field-label" id="format-label">قالب</span>
+            <div class="segmented" id="composer-format" role="group" aria-labelledby="format-label"></div>
+          </div>
+          <div class="field field-route">
+            <span class="field-label" id="route-label">مسیر</span>
+            <div class="segmented segmented-route" id="composer-route" role="group" aria-labelledby="route-label">
+              <button type="button" data-route="primary" aria-pressed="true">اصلی <small>raw</small></button>
+              <button type="button" data-route="mirror" aria-pressed="false">آینه <small>jsDelivr</small></button>
+            </div>
+          </div>
+        </div>
+        <div class="composer-out">
+          <code id="composer-url" dir="ltr">—</code>
+          <div class="composer-actions">
+            <button class="btn btn-primary btn-sm" id="composer-copy" type="button">
+              <svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>
+              کپی
+            </button>
+            <a class="btn btn-quiet btn-sm" id="composer-open" href="#" target="_blank" rel="noopener">
+              باز کردن
+              <svg class="icon" aria-hidden="true"><use href="#i-external"/></svg>
+            </a>
+          </div>
+        </div>
+        <p class="composer-note" id="composer-note">—</p>
+      </div>
+
+      <div class="explore-grid">
+        <section class="panel-card reveal" aria-labelledby="countries-title">
+          <div class="panel-card-head">
+            <div>
+              <h3 id="countries-title">بر پایهٔ کشور</h3>
+              <p>فقط کانفیگ‌های تأییدشده، گروه‌بندی‌شده با GeoIP.</p>
+            </div>
+            <span class="pill" id="country-count">—</span>
+          </div>
+          <div class="search-wrap">
+            <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+            <label class="sr-only" for="country-search">جست‌وجوی کشور</label>
+            <input id="country-search" type="search" inputmode="search" autocomplete="off" placeholder="جست‌وجو: نام یا کدِ کشور">
+          </div>
+          <ul class="country-grid" id="country-grid" aria-busy="true"></ul>
+          <p class="empty-note" id="country-empty" hidden>کشوری با این جست‌وجو پیدا نشد.</p>
+          <button class="btn btn-quiet btn-sm more-btn" id="country-toggle" type="button" hidden>نمایشِ همهٔ کشورها</button>
+        </section>
+
+        <section class="panel-card reveal" aria-labelledby="protocols-title">
+          <div class="panel-card-head">
+            <div>
+              <h3 id="protocols-title">بر پایهٔ پروتکل</h3>
+              <p>از استخرِ کاملِ یکتاها؛ فایلِ خالی منتشر نمی‌شود.</p>
+            </div>
+          </div>
+          <ul class="protocol-list" id="protocol-list" aria-busy="true"></ul>
+          <p class="empty-note" hidden>فهرستِ پروتکل‌ها در دسترس نیست.</p>
+        </section>
+      </div>
+
+      <section class="top100 reveal" aria-labelledby="top100-title">
+        <div class="top100-head">
+          <div>
+            <h3 id="top100-title">۱۰۰ برتر</h3>
+            <p>تأییدشده‌ها، مرتب بر اساسِ میانهٔ تأخیر؛ بدونِ پرکردنِ مصنوعیِ فهرست.</p>
+          </div>
+          <span class="pill" id="top100-meta">—</span>
+        </div>
+        <ol class="top100-list" id="top100-list" aria-busy="true"></ol>
+        <button class="btn btn-quiet btn-sm more-btn" id="top100-toggle" type="button" aria-expanded="false" hidden>نمایشِ همهٔ ۱۰۰</button>
+        <p class="empty-note" id="top100-empty" hidden>فهرستِ ۱۰۰ برتر در این لحظه خوانده نشد؛ از دکمهٔ کپیِ بالای صفحه استفاده کن.</p>
+      </section>
+    </div>
+  </section>
+
+  <section class="section" id="health" aria-labelledby="health-title">
+    <div class="wrap">
+      <header class="section-head reveal">
+        <span class="sec-no" aria-hidden="true">۰۴</span>
+        <div>
+          <h2 id="health-title">شفافیت</h2>
+          <p>همان چیزی که خطلوله دربارهٔ خودش می‌داند: سلامتِ منابع، افتِ هر لایه و چیزهایی که مبدل‌ها نتوانستند بیان کنند.</p>
+        </div>
+      </header>
+
+      <div class="health-grid reveal">
+        <article class="health-card">
+          <span class="mini-label">منابعِ سالم</span>
+          <b class="health-value" id="health-sources-count">—</b>
+          <p>هر منبع در این دور پاسخ داده یا رد شده؛ سیاههٔ کامل در <a id="health-link" href="https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/health.json" target="_blank" rel="noopener">health.json</a>.</p>
+        </article>
+        <article class="health-card">
+          <span class="mini-label">کانفیگِ لرزان</span>
+          <b class="health-value" id="health-flaky">—</b>
+          <p>در بعضی دورها عبور کرده و در بعضی نه؛ به همین دلیل «تأییدشده» فقط نتیجهٔ هر سه دور را می‌پذیرد.</p>
+        </article>
+        <article class="health-card">
+          <span class="mini-label">زمانِ اجرا</span>
+          <b class="health-value" id="health-duration">—</b>
+          <p>از واکشی و غربال تا پایانِ آزمونِ ترافیکِ واقعی در آخرین اجرای ثبت‌شده.</p>
+        </article>
+        <article class="health-card">
+          <span class="mini-label">خروجِ آزمون</span>
+          <b class="health-value" id="health-exit">—</b>
+          <p>مقصدی که ترافیکِ آزمون از آن بیرون آمده؛ همان چیزی که «عبور» را واقعی می‌کند.</p>
+        </article>
+      </div>
+
+      <section class="sub-block reveal" aria-labelledby="layers-title">
+        <div class="sub-head">
+          <h3 id="layers-title">افتِ لایه‌ها</h3>
+          <p>ورودیِ هر پله و آنچه از آن بیرون می‌آید؛ اعداد از <code dir="ltr">health.json</code> خوانده می‌شوند.</p>
+        </div>
+        <ol class="layer-list" id="health-layers" aria-busy="true"></ol>
+      </section>
+
+      <section class="sub-block reveal" aria-labelledby="sources-title">
+        <div class="sub-head">
+          <h3 id="sources-title">منابع</h3>
+          <p>وضعیتِ هر منبع، مستقل از بقیه سنجیده می‌شود؛ شکستِ یکی، بقیه را متوقف نمی‌کند.</p>
+        </div>
+        <div class="table-wrap">
+          <table class="sources-table" id="health-sources" aria-busy="true">
+            <caption class="sr-only">وضعیت منابع در آخرین اجرا</caption>
+            <thead>
+              <tr><th scope="col">منبع</th><th scope="col">لایه</th><th scope="col">وضعیت</th><th scope="col">کانفیگ</th><th scope="col">تأخیر · ms</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="sub-block reveal" aria-labelledby="converters-title">
+        <div class="sub-head">
+          <h3 id="converters-title">مبدل‌ها</h3>
+          <p>هر کانفیگی که در قالبِ مقصد قابلِ بیان نباشد، از همان خروجی حذف می‌شود — نه اینکه فایلِ نیمه‌خراب منتشر شود.</p>
+        </div>
+        <div class="converter-grid" id="health-converters"></div>
+      </section>
+    </div>
+  </section>
+
+  <section class="section" id="guide" aria-labelledby="guide-title">
+    <div class="wrap">
+      <header class="section-head reveal">
+        <span class="sec-no" aria-hidden="true">۰۵</span>
+        <div>
+          <h2 id="guide-title">اتصال</h2>
+          <p>لینکِ تأییدشده را در کلاینتت اضافه کن؛ فقط همین. اگر کلاینت از Base64 پشتیبانی می‌کند، همان را بردار.</p>
+        </div>
+      </header>
+
+      <div class="guide-grid reveal">
+        <details class="client" open>
+          <summary>
+            <span class="client-name">Hiddify / v2rayNG</span>
+            <span class="client-os">اندروید · ویندوز · iOS</span>
+          </summary>
+          <ol>
+            <li>در کلاینت، گزینهٔ «افزودن پروفایل از لینک» یا «Import from URL» را بزن.</li>
+            <li>نشانیِ <b>تأییدشده (Base64)</b> را بچسبان و ذخیره کن.</li>
+            <li>به‌روزرسانیِ خودکارِ اشتراک را روشن کن؛ فایل هر دور از نو ساخته می‌شود.</li>
+          </ol>
+          <div class="client-actions" data-guide-links="hiddify"></div>
+        </details>
+        <details class="client">
+          <summary>
+            <span class="client-name">Clash Verge / mihomo</span>
+            <span class="client-os">ویندوز · مک · اندروید</span>
+          </summary>
+          <ol>
+            <li>فایلِ <code dir="ltr">clash.yaml</code> را به‌عنوان پروفایل وارد کن.</li>
+            <li>اگر کلاینت آدرسِ اشتراک می‌خواهد، نشانیِ Clash را بده.</li>
+            <li>پروفایل را انتخاب و اتصال را برقرار کن.</li>
+          </ol>
+          <div class="client-actions" data-guide-links="clash"></div>
+        </details>
+        <details class="client">
+          <summary>
+            <span class="client-name">sing-box</span>
+            <span class="client-os">چندسکویی</span>
+          </summary>
+          <ol>
+            <li>فایلِ <code dir="ltr">singbox.json</code> را در پوشهٔ پیکربندی بگذار یا از راهِ لینک وارد کن.</li>
+            <li>پروفایل را فعال کن.</li>
+            <li>این خروجی پیش از انتشار با مبدلِ همان قالب ساخته می‌شود.</li>
+          </ol>
+          <div class="client-actions" data-guide-links="singbox"></div>
+        </details>
+      </div>
+
+      <div class="callout reveal" role="note">
+        <svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>
+        <p><b>این پروکسی‌ها عمومی‌اند.</b> رمز، حساب بانکی یا اطلاعاتِ حساس را از مسیرِ آن‌ها رد نکن. برای کارهای حساس، سرورِ شخصی انتخابِ امن‌تری است.</p>
+      </div>
+
+      <details class="faq reveal">
+        <summary>چرا بعضی از کانفیگ‌های «تأییدشده» هنوز وصل نمی‌شوند؟</summary>
+        <p>«تأییدشده» یعنی در لحظهٔ آزمون، از داخلِ همان سرور یک درخواستِ واقعی پاسخ داده است. شبکه، مسیرِ شما و سرور هر سه عوض می‌شوند؛ پس فهرست را تازه نگه دار و چند گزینهٔ پشتیبان داشته باش.</p>
+      </details>
+      <details class="faq reveal">
+        <summary>تفاوتِ raw و آینه چیست؟</summary>
+        <p>لینکِ raw تقریباً با کشِ ۵ دقیقه تازه است؛ آینهٔ jsDelivr کشِ بسیار بلندتری دارد و فقط برای وقتی است که دسترسی به raw اختلال دارد. برای انتخابِ روزمره، raw را ترجیح بده.</p>
+      </details>
+      <details class="faq reveal">
+        <summary>چرا فایلی که در فهرست نیست، ۴۰۴ می‌دهد؟</summary>
+        <p>سیاستِ مخزن ساده است: فایلِ خالی منتشر نمی‌شود. اگر پروتکلی در یک دور هیچ کانفیگی نداشته باشد، فایلش وجود ندارد؛ این یک خطای موقت است، نه اشتراکِ خالی که فهرستِ کلاینت را پاک کند.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="section closing" aria-labelledby="closing-title">
+    <div class="wrap closing-grid">
+      <div class="closing-copy reveal">
+        <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span> همیشه یک نسخهٔ تازه</p>
+        <h2 id="closing-title">پنل را روی گوشی داشته باش.</h2>
+        <p>این صفحه خودش داده‌ها را از مخزن می‌خواند؛ نشانی را اسکن کن یا یکی از فهرست‌ها را مستقیم به کلاینت بده.</p>
+        <div class="closing-actions">
+          <a class="btn btn-primary" href="https://github.com/alireza786786/ai-driven-v2ray" target="_blank" rel="noopener">
+            <svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>
+            مخزن در گیت‌هاب
+          </a>
+          <a class="btn btn-ghost" href="https://t.me/Goodbaye_filtering" target="_blank" rel="noopener">
+            <svg class="icon" aria-hidden="true"><use href="#i-telegram"/></svg>
+            کانالِ تلگرام
+          </a>
+        </div>
+      </div>
+      <div class="qr-row reveal">
+        <button class="qr-tile" type="button" data-qr="panel" aria-label="نمایشِ بزرگِ کیوآرکدِ پنل">
+          <img src="assets/qr/panel.svg" alt="کیوآرکدِ پنل" width="132" height="132">
+          <span class="qr-cap">پنل</span>
+        </button>
+        <button class="qr-tile" type="button" data-qr="top100" aria-label="نمایشِ بزرگِ کیوآرکدِ فهرستِ ۱۰۰ برتر">
+          <img src="assets/qr/top100.svg" alt="کیوآرکدِ فهرستِ ۱۰۰ برتر" width="132" height="132">
+          <span class="qr-cap">۱۰۰ برتر</span>
+        </button>
+        <button class="qr-tile" type="button" data-qr="telegram" aria-label="نمایشِ بزرگِ کیوآرکدِ کانالِ تلگرام">
+          <img src="assets/qr/telegram.svg" alt="کیوآرکدِ کانالِ تلگرام" width="132" height="132">
+          <span class="qr-cap">تلگرام</span>
+        </button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-inner">
+    <div class="foot-brand">
+      <img src="assets/favicon.svg" alt="" width="28" height="28">
+      <div>
+        <b>گذرگاه</b>
+        <span>استانداردِ گُودبای · انتشارِ خودکار روی <code dir="ltr">main</code></span>
+      </div>
+    </div>
+    <p class="foot-meta" id="foot-meta">دادهٔ زنده برای اولین بار خوانده می‌شود…</p>
+    <div class="foot-links">
+      <a href="https://github.com/alireza786786/ai-driven-v2ray" target="_blank" rel="noopener">مخزن</a>
+      <a href="https://t.me/Goodbaye_filtering" target="_blank" rel="noopener">تلگرام</a>
+      <a href="https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/index.json" target="_blank" rel="noopener">index.json</a>
+      <a href="https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/validation.json" target="_blank" rel="noopener">validation.json</a>
+    </div>
+  </div>
+</footer>
+
+<noscript>
+  <div class="noscript">
+    <p>برای نمایشِ زندهٔ داده‌ها جاوااسکریپت لازم است. همین حالا می‌توانی فهرست‌ها را مستقیم برداری:</p>
+    <p>
+      <a href="https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/top100.txt">۱۰۰ برتر</a> ·
+      <a href="https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/configs_base64.txt">تأییدشده (Base64)</a> ·
+      <a href="https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/configs.txt">همهٔ کانفیگ‌ها</a>
+    </p>
+  </div>
+</noscript>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<dialog class="qr-dialog" id="qr-dialog" aria-labelledby="qr-title">
+  <form method="dialog" class="qr-dialog-inner">
+    <button class="icon-btn dialog-close" type="submit" aria-label="بستن">
+      <span aria-hidden="true">✕</span>
+    </button>
+    <h2 id="qr-title">اسکنِ فهرست</h2>
+    <div class="qr-dialog-frame"><img id="qr-img" src="assets/qr/top100.svg" alt="کیوآرکد" width="240" height="240"></div>
+    <p class="qr-dialog-hint">با دوربینِ گوشی یا اسکنرِ کلاینت، همین نشانی را باز کن.</p>
+    <code class="url" id="qr-url" dir="ltr">—</code>
+    <div class="qr-dialog-actions">
+      <button class="btn btn-primary btn-sm" id="qr-copy" type="button">
+        <svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>
+        کپیِ نشانی
+      </button>
+      <a class="btn btn-quiet btn-sm" id="qr-open" href="#" target="_blank" rel="noopener">
+        باز کردن
+        <svg class="icon" aria-hidden="true"><use href="#i-external"/></svg>
+      </a>
+    </div>
+  </form>
+</dialog>
+
+</body>
+</html>

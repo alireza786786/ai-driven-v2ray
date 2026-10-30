@@ -138,6 +138,15 @@ _HOST_ADDRS: Dict[str, Tuple[str, ...]] = {}
 #: منفی، هر میزبان دقیقاً یک بار امتحان و یک بار شمرده می‌شود.
 _HOST_FAILED: Set[str] = set()
 
+#: میزبان‌هایی که *به‌خاطرِ نبودِ پایگاهِ داده* برچسب نگرفتند.
+#:
+#: این‌ها در کشِ منفی نمی‌نشینند، چون شکست تقصیرِ میزبان نیست: اگر پایگاهِ داده
+#: بعداً بیاید باید دوباره امتحان شوند. ولی اگر جایی ثبت نشوند، `warm_up`ِ
+#: دوباره (all / heavy / light) همان‌ها را از نو «رد» می‌کند و `skipped_no_db`
+#: سه بار شمرده می‌شود — همان بیش‌شماریِ `dns_failed` از راهی دیگر. پس در این
+#: مجموعه نگه داشته می‌شوند و به‌محضِ دسترس‌شدنِ پایگاهِ داده پاک می‌شوند.
+_HOST_SKIPPED: Set[str] = set()
+
 _stats = collections.Counter()
 
 
@@ -351,11 +360,17 @@ def warm_up(hosts: Iterable[str]) -> Dict[str, int]:
     (اندازه‌گیری: بیش از ۱۰ دقیقه) در حالی که همروند ۴٫۹ ثانیه است.
     """
     uniq: Set[str] = set()
+    # پایگاهِ داده آمده است ⇒ میزبان‌هایی که به‌خاطرِ نبودش رد شدند دوباره شانس
+    # می‌گیرند. اگر این پاک‌سازی نبود، اسکیپِ ماندگار به یک کشِ منفیِ دائمی
+    # تبدیل می‌شد و میزبان هرگز برچسب نمی‌گرفت.
+    if _get_reader() is not None:
+        _HOST_SKIPPED.clear()
     for h in hosts:
         h = (h or "").strip().lower()
-        # هم موفق‌ها و هم ناموفق‌ها رد می‌شوند: بارِ دوم نه پرسشِ تازه‌ای لازم
-        # است و نه شمارشِ تازه‌ای درست است.
-        if h and h not in _HOST_CC and h not in _HOST_FAILED:
+        # هم موفق‌ها، هم ناموفق‌ها و هم اسکیپ‌شده‌های بی‌دیتابیس رد می‌شوند:
+        # بارِ دوم نه پرسشِ تازه‌ای لازم است و نه شمارشِ تازه‌ای درست است.
+        if (h and h not in _HOST_CC and h not in _HOST_FAILED
+                and h not in _HOST_SKIPPED):
             uniq.add(h)
     if not uniq:
         return dict(_stats)
@@ -397,9 +412,9 @@ def warm_up(hosts: Iterable[str]) -> Dict[str, int]:
                 _HOST_FAILED.add(h)
                 _stats["unknown_after_dns"] += 1
     elif named:
-        # اینجا عمداً در کشِ منفی ثبت نمی‌شود: علتِ شکست نبودِ پایگاهِ داده است،
-        # نه خودِ میزبان. اگر پایگاهِ داده بعداً بیاید، باید دوباره امتحان شود.
-        _stats["skipped_no_db"] += len(named)
+        # علتِ شکست نبودِ پایگاهِ داده است، نه خودِ میزبان؛ ولی ثبت در این
+        # مجموعه جلوی شمارشِ دوباره در دورهای after/light را می‌گیرد.
+        _HOST_SKIPPED.update(named)
 
     return dict(_stats)
 
@@ -427,8 +442,9 @@ def country_for_host(host: str) -> Optional[Tuple[str, str]]:
     if h in _HOST_FAILED:
         return None
     if _get_reader() is None:
-        _stats["skipped_no_db"] += 1
+        _HOST_SKIPPED.add(h)
         return None
+    _HOST_SKIPPED.discard(h)
     literal = is_ip_literal(h)
     with _dns_timeout():
         addrs = resolve_all(h)
@@ -475,6 +491,9 @@ def stats() -> Dict[str, int]:
     """
     out = {k: int(_stats.get(k, 0)) for k in _STAT_KEYS}
     out["db_loaded"] = 1 if _get_reader() is not None else 0
+    # از طولِ مجموعه گرفته می‌شود، نه از یک شمارنده: هر میزبان دقیقاً یک عضو
+    # است، پس warm_up چندباره عدد را متورم نمی‌کند.
+    out["skipped_no_db"] = len(_HOST_SKIPPED)
     out["hosts_resolved"] = out["by_ip_literal"] + out["by_dns"]
     out["hosts_unknown"] = (
         out["unknown_ip_literal"] + out["unknown_after_dns"]
@@ -488,6 +507,7 @@ def reset() -> None:
     _HOST_CC.clear()
     _HOST_ADDRS.clear()
     _HOST_FAILED.clear()
+    _HOST_SKIPPED.clear()
     _stats.clear()
     if _get_reader() is not None:
         _stats["db_loaded"] = 1

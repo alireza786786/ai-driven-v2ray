@@ -77,6 +77,7 @@
 
 from __future__ import annotations
 
+import errno
 import json
 import os
 import re
@@ -569,14 +570,23 @@ def _write_text(path: str, content: str) -> None:
     # و `*.txt.tmp` را نمی‌گرفت — با شبیه‌سازیِ گیتِ واقعی دیده شد که
     # `Countries/Germany.txt.tmp` وارد درختِ منتشرشده می‌شود.
     try:
-        # ★ `O_NOFOLLOW`: اگر روی مسیرِ `.tmp` یک symlink باشد، هسته با
-        # `ELOOP` رد می‌کند و **هرگز** از آن عبور نمی‌کند. جارو هم همین
-        # را می‌گیرد، ولی این لایه از جارو مستقل است: اگر لینک **پس از**
-        # جارو ساخته شود (TOCTOU)، تنها همین لایه جلویش را می‌گیرد.
-        # `O_TRUNC` هست تا رفتارِ `open(..., "w")` عیناً حفظ شود و
+        # ★ گاردِ ضدِ symlink — روی POSIX با `O_NOFOLLOW`، روی ویندوز که
+        # این پرچم را ندارد با بررسیِ صریح + `O_EXCL`. مقدارِ `O_EXCL` مهم
+        # است: اگر بینِ حذفِ فایلِ قبلی و `open` کسی یک symlink بسازد،
+        # `open` به‌جای دنبال‌کردنِ آن با `EEXIST` شکست می‌خورد.
+        # `O_TRUNC` روی POSIX تا رفتارِ `open(..., "w")` عیناً حفظ شود و
         # `0o666` با umask به همان `0o644`ِ قبلی می‌رسد (سنجیده شد).
-        fd = os.open(tmp, os.O_WRONLY | os.O_CREAT | os.O_TRUNC
-                     | os.O_NOFOLLOW, 0o666)
+        nofollow = getattr(os, "O_NOFOLLOW", 0)
+        if nofollow:
+            fd = os.open(tmp, os.O_WRONLY | os.O_CREAT | os.O_TRUNC
+                         | nofollow, 0o666)
+        else:
+            if os.path.islink(tmp):
+                raise OSError(errno.ELOOP,
+                              "refusing to write through a symlink", tmp)
+            if os.path.lexists(tmp):
+                os.remove(tmp)
+            fd = os.open(tmp, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o666)
         with os.fdopen(fd, "w", encoding="utf-8") as fh:
             fh.write(content)
         os.replace(tmp, path)
