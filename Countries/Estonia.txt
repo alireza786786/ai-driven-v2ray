@@ -2,11 +2,13 @@
 #profile-update-interval: 1
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
 #support-url: https://t.me/goodbaye_filtering
-#profile-web-page-url: https://github.com/0xRadikal/ai-driven-v2ray
-# @Goodbaye_filtering — ESTONIA (EE) — 3 configs
+#profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
+# @Goodbaye_filtering — ESTONIA (EE) — 5 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
-vless://abca037b-bee5-41cc-a888-0668e4c66176@31.76.70.90:443?path=/conv4/stream/77dd2aeeb94331fbff325bb48850392b&security=tls&encryption=none&insecure=0&fp=chrome&type=xhttp&allowInsecure=0&sni=597dad6b.con.fernarchive.online#EE 🇪🇪 | @Goodbaye_filtering | 49E4EF
-vless://ca14493b-b984-4ffb-bc0e-9cb5da969e15@146.19.143.218:443?encryption=none&type=tcp&flow=xtls-rprx-vision&security=reality&sni=tau1.freerunet.online&pbk=l1mx_plNc2oiWxJCcZLh3SGfFU-5QxYpgQ__Ea59WEg&sid=4a7b1c8d&allowInsecure=1#EE 🇪🇪 | @Goodbaye_filtering | 11FD6D
+vless://ca14493b-b984-4ffb-bc0e-9cb5da969e15@146.19.143.218:443?flow=xtls-rprx-vision&fp=random&host=tau1.freerunet.online&pbk=l1mx_plNc2oiWxJCcZLh3SGfFU-5QxYpgQ__Ea59WEg&security=reality&sid=4a7b1c8d&sni=tau1.freerunet.online&type=tcp#EE 🇪🇪 | @Goodbaye_filtering | F8974C
+vless://ca14493b-b984-4ffb-bc0e-9cb5da969e15@146.19.143.218:443?encryption=none&flow=xtls-rprx-vision&pbk=l1mx_plNc2oiWxJCcZLh3SGfFU-5QxYpgQ__Ea59WEg&security=reality&sid=4a7b1c8d&sni=tau1.freerunet.online&type=tcp&fp=chrome#EE 🇪🇪 | @Goodbaye_filtering | 11FD6D
+vless://5d9fb46f-c4bc-4d6e-9a26-a4d5f51abd28@ee-2e06d85dc0.shamanapp.online:34451?encryption=none&host=ee-2e06d85dc0.shamanapp.online&mode=stream-up&path=%2FShamanXHTTP2026&security=tls&sni=ee-2e06d85dc0.shamanapp.online&type=xhttp#EE 🇪🇪 | @Goodbaye_filtering | E704A0
+vless://abca037b-bee5-41cc-a888-0668e4c66176@597dad6b.con.fernarchive.online:443?type=xhttp&headerType=none&security=tls&encryption=none&sni=597dad6b.con.fernarchive.online&fp=chrome&path=/conv4/stream/77dd2aeeb94331fbff325bb48850392b&mode=auto#EE 🇪🇪 | @Goodbaye_filtering | D27488
 trojan://humanity@185.36.141.81:443?sni=www.calmlunch.com&type=ws&path=/assignment&fp=chrome#EE 🇪🇪 | @Goodbaye_filtering | 3EFF12

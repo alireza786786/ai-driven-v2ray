@@ -2,14 +2,9 @@
 #profile-update-interval: 1
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
 #support-url: https://t.me/goodbaye_filtering
-#profile-web-page-url: https://github.com/0xRadikal/ai-driven-v2ray
-# @Goodbaye_filtering — ARMENIA (AM) — 6 configs
+#profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
+# @Goodbaye_filtering — ARMENIA (AM) — 1 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
-vless://eaa34d9f-662d-4378-8210-3508b5eee727@217.216.218.123:443?encryption=none&fp=&mode=auto&pbk=B4gdMxfjdXtFuqg-Ek9CDKiJT6QQiKb-tV2VODt_ik0&security=reality&sid=def9b800fb6a3ddb&sni=savesafe.top&type=xhttp#AM 🇦🇲 | @Goodbaye_filtering | 053B6D
-vless://eaa34d9f-662d-4378-8210-3508b5eee727@217.216.218.162:443?encryption=none&fp=&mode=auto&pbk=B4gdMxfjdXtFuqg-Ek9CDKiJT6QQiKb-tV2VODt_ik0&security=reality&sid=def9b800fb6a3ddb&sni=savesafe.top&type=xhttp#AM 🇦🇲 | @Goodbaye_filtering | 78E986
-vless://eaa34d9f-662d-4378-8210-3508b5eee727@217.216.218.108:443?encryption=none&fp=&mode=auto&pbk=B4gdMxfjdXtFuqg-Ek9CDKiJT6QQiKb-tV2VODt_ik0&security=reality&sid=def9b800fb6a3ddb&sni=savesafe.top&type=xhttp#AM 🇦🇲 | @Goodbaye_filtering | 69D1F6
-vless://eaa34d9f-662d-4378-8210-3508b5eee727@217.216.218.151:443?encryption=none&fp=&mode=auto&pbk=B4gdMxfjdXtFuqg-Ek9CDKiJT6QQiKb-tV2VODt_ik0&security=reality&sid=def9b800fb6a3ddb&sni=savesafe.top&type=xhttp#AM 🇦🇲 | @Goodbaye_filtering | 6B927D
-vless://f667a096-5231-4cfb-8759-92bb32473139@77.91.68.70:55983?security=reality&encryption=none&pbk=nWQ7b9l9X6N3PrXLgIzOvMM8iSYrqjVHEb9ikWxqYSg&headerType=none&type=tcp&sni=yahoo.com&sid=0e#AM 🇦🇲 | @Goodbaye_filtering | 476AF1
 vless://f667a096-5231-4cfb-8759-92bb32473139@77.91.68.70:55983?security=reality&encryption=none&sni=yahoo.com&fp=chrome&pbk=nWQ7b9l9X6N3PrXLgIzOvMM8iSYrqjVHEb9ikWxqYSg&sid=0e&type=tcp&headerType=none&path=/#AM 🇦🇲 | @Goodbaye_filtering | 911010

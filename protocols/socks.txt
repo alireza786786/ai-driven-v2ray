@@ -4,6 +4,6 @@
 #support-url: https://t.me/goodbaye_filtering
 #profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
 # @Goodbaye_filtering — socks — 3 configs
-socks://Og%3D%3D@140.238.243.61:1080#IN 🇮🇳 | @Goodbaye_filtering | F27EB8
-socks://Og%3D%3D@144.24.111.128:1088#IN 🇮🇳 | @Goodbaye_filtering | 1369B4
+socks://ODg4ODo4ODg4@47.236.168.243:1080#SG 🇸🇬 | @Goodbaye_filtering | 054493
+socks://Og%3D%3D@207.180.217.98:1088#DE 🇩🇪 | @Goodbaye_filtering | E07A7B
 socks://Og%3D%3D@69.55.49.177:38182#US 🇺🇸 | @Goodbaye_filtering | E208F9

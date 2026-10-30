@@ -2,9 +2,13 @@
 #profile-update-interval: 1
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
 #support-url: https://t.me/goodbaye_filtering
-#profile-web-page-url: https://github.com/0xRadikal/ai-driven-v2ray
-# @Goodbaye_filtering — IRAN (IR) — 1 configs
+#profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
+# @Goodbaye_filtering — IRAN (IR) — 5 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
-trojan://humanity@45.131.4.38:443?alpn=http%2F1.1&host=www.pleadcourt.org&insecure=0&path=%2Fassignment&security=tls&sni=www.pleadcourt.org&type=ws&fp=android#IR 🇮🇷 | @Goodbaye_filtering | D965C7
+trojan://humanity@45.131.4.38:443?alpn=http%2F1.1&host=www.pleadcourt.org&insecure=0&path=%2Fassignment&security=tls&sni=www.pleadcourt.org&type=ws&fp=ios#IR 🇮🇷 | @Goodbaye_filtering | D965C7
+trojan://abbrhagrwexxna4v@89.42.196.114:443?security=none&headerType=none&type=tcp#IR 🇮🇷 | @Goodbaye_filtering | FC0943
+vless://9fcb8080-1ad9-4a37-b92f-46be7053e39a@Ng1.istgahfilm.ir:8857?mode=auto&path=%2F&security=reality&encryption=none&pbk=0z13Oz2r2Khq0jHUgbPWxseVLoQTlFMuMDwL9a-X7yY&host=aparat.com&fp=chrome&spx=%2F&type=xhttp&sni=aparat.com&sid=37962ada43f6#IR 🇮🇷 | @Goodbaye_filtering | DF0112
+vless://9fcb8080-1ad9-4a37-b92f-46be7053e39a@Ng1.istgahfilm.ir:8857?mode=auto&security=reality&encryption=none&pbk=0z13Oz2r2Khq0jHUgbPWxseVLoQTlFMuMDwL9a-X7yY&fp=chrome&type=xhttp&sni=aparat.com&sid=37962ada43f6#IR 🇮🇷 | @Goodbaye_filtering | A55D4F
+vless://0205a7e1-970d-468a-926c-7e3b4c9a8b9d@Konglam.goodphilips.ir:443?mode=gun&security=reality&encryption=mlkem768x25519plus.native.0rtt.Czbg9hcwQievAuL-xnehRb6R4iBpzARvfocZiezGIgo&pbk=x1K53K_cLlg8QvxQhDnfRvMkQbtWkdzKdmaeYCIo4Hc&fp=chrome&type=grpc&sni=amp-api-edge.apps.apple.com&sid=e85705ad62739603#IR 🇮🇷 | @Goodbaye_filtering | 140BF1

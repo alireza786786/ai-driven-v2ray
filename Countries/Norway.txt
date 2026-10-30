@@ -2,9 +2,9 @@
 #profile-update-interval: 1
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
 #support-url: https://t.me/goodbaye_filtering
-#profile-web-page-url: https://github.com/0xRadikal/ai-driven-v2ray
+#profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
 # @Goodbaye_filtering — NORWAY (NO) — 1 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
-ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpBUmd2R1p5d0ErZ2FjZ0dWMjZCdm11MDUrd1ptUlcvaitBZFUrWjhCdDQ0PQ@185.213.23.63:990#NO 🇳🇴 | @Goodbaye_filtering | D97531
+vless://abca037b-bee5-41cc-a888-0668e4c66176@144.31.217.28:443?path=/conv4/stream/77dd2aeeb94331fbff325bb48850392b&security=tls&encryption=none&insecure=0&fp=chrome&type=xhttp&allowInsecure=0&sni=9187bd6f.con.fernarchive.online#NO 🇳🇴 | @Goodbaye_filtering | 6B1896

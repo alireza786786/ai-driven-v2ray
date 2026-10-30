@@ -2,14 +2,20 @@
 #profile-update-interval: 1
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
 #support-url: https://t.me/goodbaye_filtering
-#profile-web-page-url: https://github.com/0xRadikal/ai-driven-v2ray
-# @Goodbaye_filtering — SWEDEN (SE) — 6 configs
+#profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
+# @Goodbaye_filtering — SWEDEN (SE) — 12 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
-vless://80de563a-cac8-40ea-8cb0-4cb082dd92f9@5.178.109.174:14430?&sni=5.178.109.174&type=ws&headerType=none&host=5.178.109.174&path=/vless#SE 🇸🇪 | @Goodbaye_filtering | 19CF1C
-vless://80de563a-cac8-40ea-8cb0-4cb082dd92f9@5.178.109.174:14430?path=%2Fvless&security=&encryption=none&host=5.178.109.174&type=ws#SE 🇸🇪 | @Goodbaye_filtering | 35BA6A
-vless://d1641bc6-3757-43db-815a-9b3f4d9b0d7e@191.44.114.154:8443?flow=xtls-rprx-vision&fp=firefox&pbk=ndQzAcG4g-2OhvFb8EjFnZyxJ2lhawiulTLJOZrK8lY&security=reality&sid=c4359f3827231250&sni=www.wikipedia.org&type=tcp#SE 🇸🇪 | @Goodbaye_filtering | 59CD6B
+hy2://a0052f4f-4c63-0002-a16f-ab2d5d718cd3@192.142.23.46:443?sni=diffoscope.com#SE 🇸🇪 | @Goodbaye_filtering | 903A3D
+vless://80de563a-cac8-40ea-8cb0-4cb082dd92f9@5.178.109.174:14430?path=/vless&security=&encryption=none&host=5.178.109.174&type=ws#SE 🇸🇪 | @Goodbaye_filtering | 35BA6A
+vless://42a64b9a-ab79-4094-8656-30366a7c2ea3@2.26.55.145:1443?security=reality&encryption=none&pbk=PUj1la__ltNjv_ASE5n4HJY7GiRs--N-0aYhkcAApCI&headerType=none&type=tcp&flow=xtls-rprx-vision&sni=se.peregrine-sub.net&sid=7b6803a79bba5c52#SE 🇸🇪 | @Goodbaye_filtering | 0BEC2C
+vless://80de563a-cac8-40ea-8cb0-4cb082dd92f9@5.178.109.174:14430?&sni=5.178.109.174&type=ws&headerType=none&host=5.178.109.174&path=%2Fvless#SE 🇸🇪 | @Goodbaye_filtering | 19CF1C
+vless://9c6e83fc-b755-4ad4-9b0a-14b610153d8f@31.172.65.4:8443?security=reality&type=tcp&sni=www.bing.com&fp=qq&flow=xtls-rprx-vision&sid=0e7741edc378622f&pbk=wRvUAKwcHc4pBNVouIcVjQkVD9aCRR-AmtcFyBV36lU#SE 🇸🇪 | @Goodbaye_filtering | 837B22
 vless://42a64b9a-ab79-4094-8656-30366a7c2ea3@se.peregrine-sub.net:1443?security=reality&encryption=none&pbk=PUj1la__ltNjv_ASE5n4HJY7GiRs--N-0aYhkcAApCI&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=se.peregrine-sub.net&sid=7b6803a79bba5c52#SE 🇸🇪 | @Goodbaye_filtering | C3C7E8
-vless://5a519754-a673-4462-83f6-5eb25d2af141@se3.h1cloud.net:25387?security=reality&encryption=none&pbk=_nrnGiJUdyeLv2afSwe6P4j02AMayY34WFMjUJp5Kwc&headerType=none&fp=chrome&type=tcp&sni=www.cloudflare.com&sid=9608a9c65d315d52#SE 🇸🇪 | @Goodbaye_filtering | C3C52F
-vless://9ea8b000-58ce-4f71-b108-989dd4f248f1@13.143.180.50:443?type=xhttp&mode=auto&sni=mirror.timeweb.ru&security=reality&encryption=none&fp=firefox&pbk=fwQbdsfHEnx2pzokCnyN698SUq5fkQKngnsyPGjmeDg&path=%2Fubuntu#SE 🇸🇪 | @Goodbaye_filtering | 3AB597
+vless://9ea8b000-58ce-4f71-b108-989dd4f248f1@13.143.180.50:443?mode=auto&path=%2Fubuntu&security=reality&encryption=none&pbk=fwQbdsfHEnx2pzokCnyN698SUq5fkQKngnsyPGjmeDg&fp=firefox&type=xhttp&sni=mirror.timeweb.ru#SE 🇸🇪 | @Goodbaye_filtering | 3AB597
+vless://a0fa7e19-70ec-41e0-b0cc-bcc984d4201a@s12.bsh-net.ru:443?security=reality&encryption=none&pbk=QvT-t_h_AF2EAT4Ggh_a6pcCK3StY8G9WCXn6-dJbxk&headerType=none&type=tcp&flow=xtls-rprx-vision&sni=s12.bsh-net.ru&sid=51079f144d661484#SE 🇸🇪 | @Goodbaye_filtering | C363C8
+trojan://humanity@77.221.138.199:8443?sni=www.calmlunch.com&type=ws&path=/assignment&fp=chrome#SE 🇸🇪 | @Goodbaye_filtering | 1FE54B
+vless://c325206e-0f0c-4472-9d76-43e9b9b2ef63@109.120.155.155:444?security=tls&type=ws&path=/@Marisa_kristi&host=bapj1qapjk4.0sds0li1bwcz0i76it0gjxv1.workers.dev&packetEncoding=xudp&sni=bapj1qapjk4.0sds0li1bwcz0i76it0gjxv1.workers.dev&fp=chrome&encryption=none#SE 🇸🇪 | @Goodbaye_filtering | 3750F9
+vless://99ab6748-3d57-4562-9451-843c15960b9b@109.120.155.155:444?security=tls&type=ws&path=/@Marisa_kristi&host=ke859ch2gse1iery3hiz.e3q4a5mjld11kpj0zj8dq.workers.dev&packetEncoding=xudp&sni=ke859ch2gse1iery3hiz.e3q4a5mjld11kpj0zj8dq.workers.dev&fp=chrome&encryption=none#SE 🇸🇪 | @Goodbaye_filtering | 3F69F8
+vless://a0fa7e19-70ec-41e0-b0cc-bcc984d4201a@13.143.180.104:443?encryption=none&flow=xtls-rprx-vision&fp=&pbk=QvT-t_h_AF2EAT4Ggh_a6pcCK3StY8G9WCXn6-dJbxk&security=reality&sid=51079f144d661484&sni=s12.bsh-net.ru&type=tcp#SE 🇸🇪 | @Goodbaye_filtering | 6A7E75
