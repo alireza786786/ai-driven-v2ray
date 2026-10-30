@@ -3,20 +3,12 @@
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
 #support-url: https://t.me/goodbaye_filtering
 #profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
-# @Goodbaye_filtering — UNITED ARAB EMIRATES (AE) — 13 configs
+# @Goodbaye_filtering — UNITED ARAB EMIRATES (AE) — 5 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
-vless://aee7ae19-672f-49d8-8a92-aa7cdfc89f89@185.253.116.33:14430?sni=185.253.116.33&type=ws&host=185.253.116.33&path=/vless#AE 🇦🇪 | @Goodbaye_filtering | 04523B
-vless://aee7ae19-672f-49d8-8a92-aa7cdfc89f89@185.253.116.33:14430?encryption=none&path=%2Fvless&security=none&type=ws#AE 🇦🇪 | @Goodbaye_filtering | A06703
-vless://39947382-3212-41c9-bc3a-589574ac8b23@84.235.244.108:22573?security=none&type=ws&path=%2F&host=uae.unixzone.us#AE 🇦🇪 | @Goodbaye_filtering | 134D04
-vless://39947382-3212-41c9-bc3a-589574ac8b23@84.235.244.108:22573?security=none&type=ws&path=%2F&host=uae.unixzone.us&sni=uae.unixzone.us#AE 🇦🇪 | @Goodbaye_filtering | A14EFE
-vless://39947382-3212-41c9-bc3a-589574ac8b23@uae.unixzone.us:22573?fp=chrome&security=none&type=ws#AE 🇦🇪 | @Goodbaye_filtering | 7A5ED4
-vless://39947382-3212-41c9-bc3a-589574ac8b23@uae.unixzone.us:22573?fp=random&path=%2F&security=none&type=ws#AE 🇦🇪 | @Goodbaye_filtering | 3A8431
-vless://39947382-3212-41c9-bc3a-589574ac8b23@uae.unixzone.us:22573?fp=firefox&security=none&sni=uae.unixzone.us&type=ws#AE 🇦🇪 | @Goodbaye_filtering | 03AC51
-vless://39947382-3212-41c9-bc3a-589574ac8b23@uae.unixzone.us:22573?security=none&type=ws&path=%2F&host=uae.unixzone.us#AE 🇦🇪 | @Goodbaye_filtering | ABB365
-vless://39947382-3212-41c9-bc3a-589574ac8b23@uae.unixzone.us:22573?security=none&type=ws&path=%2F&host=uae.unixzone.us&sni=uae.unixzone.us#AE 🇦🇪 | @Goodbaye_filtering | 2B1CF9
+vless://965ffbbe-c6b6-4d5f-8dea-6d8abc55d9c0@95.174.68.188:14430?fp=unsafe&host=95.174.68.188&path=%2Fvless&security=none&sni=95.174.68.188&type=ws#AE 🇦🇪 | @Goodbaye_filtering | F16E75
 vless://965ffbbe-c6b6-4d5f-8dea-6d8abc55d9c0@95.174.68.188:14430?path=%2Fvless&security=none&type=ws#AE 🇦🇪 | @Goodbaye_filtering | 01F511
-vless://965ffbbe-c6b6-4d5f-8dea-6d8abc55d9c0@95.174.68.188:14430?host=95.174.68.188&path=%2Fvless&security=none&sni=95.174.68.188&type=ws#AE 🇦🇪 | @Goodbaye_filtering | F16E75
-vless://965ffbbe-c6b6-4d5f-8dea-6d8abc55d9c0@95.174.68.188:14430?path=%2Fvless&security=none&sni=95.174.68.188&type=ws#AE 🇦🇪 | @Goodbaye_filtering | 607218
 vless://965ffbbe-c6b6-4d5f-8dea-6d8abc55d9c0@95.174.68.188:14430?host=95.174.68.188&path=%2Fvless&security=none&type=ws#AE 🇦🇪 | @Goodbaye_filtering | 64BB8E
+vless://965ffbbe-c6b6-4d5f-8dea-6d8abc55d9c0@95.174.68.188:14430?path=%2Fvless&security=none&sni=95.174.68.188&type=ws#AE 🇦🇪 | @Goodbaye_filtering | 607218
+vless://aee7ae19-672f-49d8-8a92-aa7cdfc89f89@185.253.116.33:14430?sni=185.253.116.33&type=ws&host=185.253.116.33&path=/vless#AE 🇦🇪 | @Goodbaye_filtering | 04523B

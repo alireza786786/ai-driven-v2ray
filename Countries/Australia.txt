@@ -3,14 +3,11 @@
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
 #support-url: https://t.me/goodbaye_filtering
 #profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
-# @Goodbaye_filtering — AUSTRALIA (AU) — 7 configs
+# @Goodbaye_filtering — AUSTRALIA (AU) — 4 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
-trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@45.63.30.142:443?sni=connectwithemployerstohireyouridealteam.com&type=tcp#AU 🇦🇺 | @Goodbaye_filtering | 063CD6
+trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@45.63.30.142:443?allowInsecure=1&sni=connectwithemployerstohireyouridealteam.com&type=tcp#AU 🇦🇺 | @Goodbaye_filtering | 063CD6
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@45.63.30.142:443?security=tls&sni=connectwithemployerstohireyouridealteam.com#AU 🇦🇺 | @Goodbaye_filtering | 373E2E
-vless://36e89875-9c53-482b-bc41-d3890e9da176@51.161.204.244:443?flow=xtls-rprx-vision&fp=chrome&pbk=gCAazs5uxNuMZIxfDdw8wPE0nwKY4QfBfBkQveKAkEk&security=reality&sid=0ad08b47f498efd2&sni=www.cloudflare.com&type=tcp#AU 🇦🇺 | @Goodbaye_filtering | 2B377C
-vless://a14b736b-a92a-48d6-a596-5d31f7378ded@51.161.204.242:443?flow=xtls-rprx-vision&fp=random&pbk=a2qGjvUPq6Nz5FTbn_MSHp-055q2h8YXqIL5VIJ5zwE&security=reality&sid=d15c17cef9b2e456&sni=www.cloudflare.com&type=tcp#AU 🇦🇺 | @Goodbaye_filtering | AD387D
-vless://a14b736b-a92a-48d6-a596-5d31f7378ded@51.161.204.242:443?flow=xtls-rprx-vision&fp=random&host=www.cloudflare.com&pbk=a2qGjvUPq6Nz5FTbn_MSHp-055q2h8YXqIL5VIJ5zwE&security=reality&sid=d15c17cef9b2e456&sni=www.cloudflare.com&type=tcp#AU 🇦🇺 | @Goodbaye_filtering | 849AAB
-vless://e9a8144e-5237-488a-afb1-9ca3d8d54c80@au001.zestapp778.com:35652?security=tls&encryption=none&insecure=0&headerType=none&fp=chrome&type=tcp&allowInsecure=0&sni=au001.zestapp778.com#AU 🇦🇺 | @Goodbaye_filtering | E3FA3D
-vless://e9a8144e-5237-488a-afb1-9ca3d8d54c80@au001.zestapp778.com:35652?security=tls&type=tcp#AU 🇦🇺 | @Goodbaye_filtering | 3CEBCE
+vless://948df76f-505d-4608-9c76-a933ee3ccc76@46.250.240.80:2053?fp=chrome&pbk=CYFeysLf--_IVhxQOCd3ZxLrAVWFFOkJzvIGHOVXN3E&security=reality&sid=4cc9dc65f7770115&sni=www.cloudflare.com&type=tcp#AU 🇦🇺 | @Goodbaye_filtering | 6D786F
+vless://36e89875-9c53-482b-bc41-d3890e9da176@51.161.204.244:443?security=reality&type=tcp&packetEncoding=xudp&sni=www.cloudflare.com&fp=firefox&flow=xtls-rprx-vision&sid=0ad08b47f498efd2&pbk=gCAazs5uxNuMZIxfDdw8wPE0nwKY4QfBfBkQveKAkEk#AU 🇦🇺 | @Goodbaye_filtering | 2B377C
