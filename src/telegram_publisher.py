@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # ==============================================================================
 # Goodbaye Universal Standard - Telegram Publisher
-# Rules: 4 Inline Buttons | VIP Strict (Ping < 500ms) | Approval Gate ("ارسال شود")
+# Rules: 4 Inline Buttons | Fast tier (L3_FAST_MS, default 800 ms) | Approval Gate ("ارسال شود")
 # Schedule: ۳ اجرای خودکار استراحت (۴۵ دقیقه‌ای) + اجرای چهارم ارسال به تلگرام
 # Repository: https://github.com/alireza786786/ai-driven-v2ray
 # ==============================================================================
@@ -24,7 +24,7 @@ logger = logging.getLogger("telegram_publisher")
 TELEGRAM_PACKAGES = [
     {
         "file": "top100.txt",
-        "title": "پکیج طلایی Top 100 VIP (زیر ۵۰۰ میلی‌ثانیه)",
+        "title": "پکیج طلایی Top 100 — سریع‌ترین کانفیگ‌های تأییدشده",
         "status": "ارسال شود"       # ◄◄ وضعیت: "ارسال شود" یا "ارسال نشود"
     },
     {
@@ -125,7 +125,7 @@ def build_caption(package_title: str, file_path: str, count: int) -> str:
         f"📡 مناسب دوران اختلال، فیلترینگ و شبکه ملی\n\n"
         f"📅 تاریخ شمسی: `{date_str}`\n"
         f"⏰ ساعت تهران: `{time_str}`\n"
-        f"📊 شاخص کیفیت: `VIP Strict (Ping < 500ms)`\n"
+        f"📊 شاخص کیفیت: `تأییدشده در ۳ دورِ آزمونِ واقعی`\n"
         f"🔢 تعداد کانفیگ سالم این فایل: `{count}`\n\n"
         f"🌐 لینک مستقیم وب‌پنل / سابسکریپشن:\n"
         f"`{BASE_URL}/{file_path}`"

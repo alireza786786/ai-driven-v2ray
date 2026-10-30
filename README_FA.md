@@ -65,14 +65,14 @@ https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/co
 
 در هر اجرا شش دسته منتشر می‌شود. این‌ها شش منبعِ جدا نیستند؛ یک استخرِ واحدند که با سطوحِ مختلفِ شواهد غربال شده‌اند. هر دسته در چهار قالب می‌آید: `txt` (خط‌به‌خط)، `b64` (فرمتِ کلاسیکِ اشتراک)، `yaml` (پروفایلِ mihomo/Clash) و `json` (پروفایلِ sing-box).
 
-| دسته | معیارِ ورود | همین حالا | قالب‌ها |
+| دسته | معیارِ ورود | اجرای ۸ آبان | قالب‌ها |
 | :--- | :--- | ---: | :--- |
-| **verified** | در هر سه دورِ L3 یک درخواستِ واقعی موفق بوده — پیشنهادی | ۱٬۱۴۵ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/singbox.json) |
-| **fast** | verified و میانهٔ تأخیر زیرِ آستانه (در این اجرا: ۵۰۰ms) | ۳۴۰ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/singbox.json) |
-| **secure** | verified و دارای forward secrecy، بدونِ خاموش‌کردنِ اعتبارسنجیِ گواهی | ۸۲۶ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/singbox.json) |
-| **all** | همه‌چیز پس از حذفِ تکراری — بزرگ‌ترین فهرست، عمدتاً تست‌نشده | ۱۱٬۰۹۹ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/singbox.json) |
-| **light** | فقط هشت منبعِ سبک | ۵٬۱۷۰ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/singbox.json) |
-| **heavy** | فقط پنج منبعِ پرحجم | ۷٬۱۷۷ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/heavy/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/heavy/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/heavy/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/heavy/singbox.json) |
+| **verified** | در هر سه دورِ L3 یک درخواستِ واقعی موفق بوده — پیشنهادی | ۱٬۶۵۶ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/singbox.json) |
+| **fast** | verified و میانهٔ تأخیر زیرِ آستانه (در این اجرا: ۸۰۰ms) | ۱٬۰۲۲ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/singbox.json) |
+| **secure** | verified و دارای forward secrecy، بدونِ خاموش‌کردنِ اعتبارسنجیِ گواهی | ۱٬۱۸۵ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/singbox.json) |
+| **all** | همه‌چیز پس از حذفِ تکراری — بزرگ‌ترین فهرست، عمدتاً تست‌نشده | ۱۱٬۰۳۵ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/singbox.json) |
+| **light** | فقط هشت منبعِ سبک | ۵٬۲۴۲ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/singbox.json) |
+| **heavy** | فقط پنج منبعِ پرحجم | ۷٬۰۰۰ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/heavy/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/heavy/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/heavy/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/heavy/singbox.json) |
 
 `light` و `heavy` زیرمجموعه‌هایی از `all` هستند، نه دو استخرِ جدا؛ جمع‌شان با `all` برابر نمی‌شود.
 
@@ -90,27 +90,27 @@ https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/co
 
 | دروازه | پرسشی که می‌پرسد | هزینه | نتیجهٔ این اجرا |
 | :--- | :--- | :--- | ---: |
-| **L0/L1 — ساختار** | قابلِ پارس است؟ endpoint یکتاست؟ آدرس قابلِ مسیریابی است؟ | بدونِ شبکه | ۱۰٬۶۶۲ از ۱۱٬۰۹۹ |
-| **L2 — دست‌دادن** | آیا پورتِ TCP واقعاً اتصال را می‌پذیرد؟ | DNS جدا + ۸۰۰ اتصالِ هم‌زمان، ۳ ثانیه برای هر endpoint | ۶٬۹۸۵ باز |
-| **L3 — عبور** | آیا یک درخواستِ واقعیِ HTTP از داخلِ پروکسی پاسخ می‌گیرد؟ | `xray-knife`، سه دور، ۵ ثانیه برای هر کانفیگ | ۱٬۶۶۳ یک‌بار · ۱٬۱۴۵ هر سه بار |
-| **دسته‌بندی** | کدام‌ها در هر سه دور قبول شدند؟ سریع‌ترها کدام‌اند؟ امن‌ها کدام‌اند؟ | فقط مرتب‌سازی و مقایسه | ۳۴۰ سریع · ۸۲۶ امن · ۱۰۰ برتر |
+| **L0/L1 — ساختار** | قابلِ پارس است؟ endpoint یکتاست؟ آدرس قابلِ مسیریابی است؟ | بدونِ شبکه | ۱۰٬۵۹۰ از ۱۱٬۰۳۵ |
+| **L2 — دست‌دادن** | آیا پورتِ TCP واقعاً اتصال را می‌پذیرد؟ | DNS جدا + ۸۰۰ اتصالِ هم‌زمان، ۳ ثانیه برای هر endpoint | ۶٬۸۷۰ باز |
+| **L3 — عبور** | آیا یک درخواستِ واقعیِ HTTP از داخلِ پروکسی پاسخ می‌گیرد؟ | `xray-knife`، سه دور، ۵ ثانیه برای هر کانفیگ | ۱٬۸۸۱ یک‌بار · ۱٬۶۵۶ هر سه بار |
+| **دسته‌بندی** | کدام‌ها در هر سه دور قبول شدند؟ سریع‌ترها کدام‌اند؟ امن‌ها کدام‌اند؟ | فقط مرتب‌سازی و مقایسه | ۱٬۰۲۲ سریع · ۱٬۱۸۵ امن · ۱۰۰ برتر |
 
-> **عکسِ لحظه‌ای:** اجرای ۶ آبان ۱۴۰۵ (۲۸ اکتبر ۲۰۲۶)، ساعتِ ۱۷:۴۸ UTC، از یک رانرِ گیت‌هاب در آمریکا (کلویِ Cloudflare: `ORD`). کلِ آبشار ۲۷۶٫۹۴ ثانیه طول کشید: L0/L1 حدودِ ۰٫۲۴ ثانیه، L2 حدودِ ۲۴٫۰۶ ثانیه و سه دورِ L3 حدودِ ۲۵۲٫۲۷ ثانیه. تاریخ و اعدادِ دقیقِ هر اجرا در `health.json` می‌ماند؛ اگر این README قدیمی شد، آن فایل قدیمی نمی‌شود.
+> **عکسِ لحظه‌ای:** اجرای ۸ آبان ۱۴۰۵ (۳۰ اکتبر ۲۰۲۶)، ساعتِ ۰۰:۰۸ UTC، از یک رانرِ گیت‌هاب در آمریکا (کلویِ Cloudflare: `SEA`). کلِ آبشار ۲۵۴٫۹۷ ثانیه طول کشید: L0/L1 حدودِ ۰٫۵۲ ثانیه، L2 حدودِ ۳۲٫۹۳ ثانیه و سه دورِ L3 حدودِ ۲۲۰٫۴۱ ثانیه. تاریخ و اعدادِ دقیقِ هر اجرا در `health.json` می‌ماند؛ اگر این README قدیمی شد، آن فایل قدیمی نمی‌شود.
 
 ### قیف، روی همان اجرا
 
 | مرحله | کانفیگ | سهم از استخرِ یکتا |
 | :--- | ---: | ---: |
-| واکشیِ خام از ۱۳ منبع | ۱۹٬۹۵۲ | — |
-| حذفِ ۸٬۸۳۱ موردِ تکراری | ۱۱٬۰۹۹ | ۱۰۰٪ |
-| ساختارِ معتبر (L0/L1) | ۱۰٬۶۶۲ | ۹۶٫۱٪ |
-| پورتِ باز (L2) | ۶٬۹۸۵ | ۶۲٫۹٪ |
-| حداقل یک عبورِ واقعی (L3) | ۱٬۶۶۳ | ۱۵٫۰٪ |
-| عبور در هر سه دور ← `verified` | ۱٬۱۴۵ | ۱۰٫۳٪ |
-| زیرِ آستانهٔ سرعت ← `fast` | ۳۴۰ | ۳٫۱٪ |
-| دارای forward secrecy ← `secure` | ۸۲۶ | ۷٫۴٪ |
+| واکشیِ خام از ۱۳ منبع | ۲۰٬۱۳۲ | — |
+| پس از یکتاسازی و کنارگذاریِ تکراری/خراب | ۱۱٬۰۳۵ | ۱۰۰٪ |
+| ساختارِ معتبر (L0/L1) | ۱۰٬۵۹۰ | ۹۶٫۰٪ |
+| پورتِ باز (L2) | ۶٬۸۷۰ | ۶۲٫۳٪ |
+| حداقل یک عبورِ واقعی (L3) | ۱٬۸۸۱ | ۱۷٫۰٪ |
+| عبور در هر سه دور ← `verified` | ۱٬۶۵۶ | ۱۵٫۰٪ |
+| زیرِ آستانهٔ سرعت ← `fast` | ۱٬۰۲۲ | ۹٫۳٪ |
+| دارای forward secrecy ← `secure` | ۱٬۱۸۵ | ۱۰٫۷٪ |
 
-سه دورِ L3 به‌تنهایی ۱٬۳۹۱ و ۱٬۴۳۱ و ۱٬۴۶۴ موفقیت برگرداندند، اما فقط ۱٬۱۴۵ کانفیگ در هر سه مجموعه حاضر بود. یعنی ۵۱۸ کانفیگ — ۳۱٫۱۵٪ از هر چیزی که حداقل یک‌بار کار کرد — لرزان است. اگر فقط یک دور تست می‌کردیم، همهٔ آن ۵۱۸ مورد را هم به‌عنوان «سالم» تحویل می‌دادیم.
+سه دورِ L3 به‌تنهایی ۱٬۷۶۴ و ۱٬۷۹۶ و ۱٬۷۸۹ موفقیت برگرداندند، اما فقط ۱٬۶۵۶ کانفیگ در هر سه مجموعه حاضر بود. یعنی ۲۲۵ کانفیگ — ۱۱٫۹۶٪ از هر چیزی که حداقل یک‌بار کار کرد — لرزان است. اگر فقط یک دور تست می‌کردیم، همهٔ آن ۲۲۵ مورد را هم به‌عنوان «سالم» تحویل می‌دادیم.
 
 **این درصدها دربارهٔ اتصالِ شما حرف نمی‌زنند.** آزمون از یک ماشین در آمریکا انجام شده؛ کانفیگی که آنجا شکست می‌خورد ممکن است از تهران عالی کار کند و برعکس. «تأییدشده» یعنی «در لحظهٔ آزمون، از داخلِ همان ماشین، یک درخواستِ واقعی پاسخ داد» — نه «برای شما تضمینی است».
 
@@ -120,39 +120,39 @@ https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/co
 
 فایل‌ها از `all` جدا می‌شوند و فقط وقتی منتشر می‌شوند که خالی نباشند. اگر پروتکلی در یک دور هیچ کانفیگی نداشته باشد، فایلش وجود ندارد و نشانی‌اش ۴۰۴ می‌دهد؛ این یعنی «این دور چیزی از این پروتکل نبود»، نه «اشتراکِ خالی» که فهرستِ کلاینت را پاک کند.
 
-| پروتکل | همین حالا | ساده | Base64 |
+| پروتکل | اجرای ۸ آبان | ساده | Base64 |
 | :--- | ---: | :--- | :--- |
-| VLESS | ۵٬۰۰۷ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vless.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vless_base64.txt) |
-| VMess | ۳٬۴۲۵ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vmess.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vmess_base64.txt) |
-| Trojan | ۱٬۳۹۲ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/trojan.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/trojan_base64.txt) |
-| Shadowsocks | ۱٬۰۲۹ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocks.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocks_base64.txt) |
-| Hysteria 2 | ۲۴۰ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/hysteria2.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/hysteria2_base64.txt) |
+| VLESS | ۴٬۷۰۳ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vless.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vless_base64.txt) |
+| VMess | ۳٬۵۴۵ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vmess.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vmess_base64.txt) |
+| Trojan | ۱٬۵۰۹ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/trojan.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/trojan_base64.txt) |
+| Shadowsocks | ۱٬۰۱۲ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocks.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocks_base64.txt) |
+| Hysteria 2 | ۲۶۱ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/hysteria2.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/hysteria2_base64.txt) |
 | SOCKS | ۳ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/socks.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/socks_base64.txt) |
-| TUIC | ۲ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/tuic.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/tuic_base64.txt) |
-| ShadowsocksR | ۱ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocksr.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocksr_base64.txt) |
+| TUIC | ۱ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/tuic.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/tuic_base64.txt) |
+| AnyTLS | ۱ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/anytls.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/anytls_base64.txt) |
 
-پارسر پروتکل‌های `hysteria`، `wireguard`، `juicity`، `anytls`، `snell` و `mieru` را هم می‌شناسد، ولی در این دور هیچ کانفیگی از آن‌ها نبود. فهرستِ همیشه‌به‌روزِ فایل‌های موجود، کلیدِ `protocol_files` در `index.json` است.
+پارسر پروتکل‌های `hysteria`، `wireguard`، `juicity`، `shadowsocksr`، `snell` و `mieru` را هم می‌شناسد، ولی در این دور هیچ کانفیگی از آن‌ها نبود. فهرستِ همیشه‌به‌روزِ فایل‌های موجود، کلیدِ `protocol_files` در `index.json` است.
 
 ---
 
 ## کشورها
 
-۴۸ کشور، همه از میانِ کانفیگ‌های تأییدشده و بر اساسِ موقعیتِ واقعیِ شبکه (GeoIP با پایگاهِ DB-IP Country Lite). یک فایل برای هر کشور؛ کشورهایی که در این دور کانفیگ نداشتند، فایل ندارند.
+۵۵ کشور، همه از میانِ کانفیگ‌های تأییدشده و بر اساسِ موقعیتِ واقعیِ شبکه (GeoIP با پایگاهِ DB-IP Country Lite). یک فایل برای هر کشور؛ کشورهایی که در این دور کانفیگ نداشتند، فایل ندارند.
 
 | کشور | تعداد | فایل |
 | :--- | ---: | :--- |
-| United States | ۲۹۳ | [`Countries/United_States.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/United_States.txt) |
-| The Netherlands | ۲۴۴ | [`Countries/The_Netherlands.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/The_Netherlands.txt) |
-| Germany | ۹۴ | [`Countries/Germany.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/Germany.txt) |
-| Canada | ۸۸ | [`Countries/Canada.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/Canada.txt) |
-| Singapore | ۶۸ | [`Countries/Singapore.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/Singapore.txt) |
-| Hong Kong | ۳۵ | [`Countries/Hong_Kong.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/Hong_Kong.txt) |
-| France | ۳۱ | [`Countries/France.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/France.txt) |
-| Japan | ۲۴ | [`Countries/Japan.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/Japan.txt) |
-| United Kingdom | ۲۳ | [`Countries/United_Kingdom.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/United_Kingdom.txt) |
-| Finland | ۲۲ | [`Countries/Finland.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/Finland.txt) |
+| United States | ۳۵۴ | [`Countries/United_States.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/United_States.txt) |
+| Canada | ۲۷۰ | [`Countries/Canada.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/Canada.txt) |
+| The Netherlands | ۲۴۱ | [`Countries/The_Netherlands.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/The_Netherlands.txt) |
+| Germany | ۱۳۶ | [`Countries/Germany.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/Germany.txt) |
+| Singapore | ۱۰۶ | [`Countries/Singapore.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/Singapore.txt) |
+| United Kingdom | ۵۱ | [`Countries/United_Kingdom.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/United_Kingdom.txt) |
+| Hong Kong | ۴۹ | [`Countries/Hong_Kong.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/Hong_Kong.txt) |
+| Japan | ۴۲ | [`Countries/Japan.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/Japan.txt) |
+| France | ۳۹ | [`Countries/France.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/France.txt) |
+| Finland | ۳۰ | [`Countries/Finland.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/Finland.txt) |
 
-فهرستِ کاملِ ۴۸ کشور، همراه با کد، پرچم و تعداد، در [`Countries/index.json`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/index.json) است. نامِ فایل‌ها همیشه از همان ایندکس بیاورید؛ مثلاً نامِ درست `The_Netherlands.txt` است، نه `Netherlands.txt`.
+فهرستِ کاملِ ۵۵ کشور، همراه با کد، پرچم و تعداد، در [`Countries/index.json`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/index.json) است. نامِ فایل‌ها همیشه از همان ایندکس بیاورید؛ مثلاً نامِ درست `The_Netherlands.txt` است، نه `Netherlands.txt`.
 
 ---
 
@@ -218,18 +218,18 @@ US 🇺🇸 | @Goodbaye_filtering | 22A072
 
 | منبع | لایه | کانفیگ | وضعیت |
 | :--- | :--- | ---: | :--- |
-| `iampedii/whitedns-sub` — `base64.txt` | light | ۲۱۲ | سالم |
-| `4n0nymou3/multi-proxy-config-fetcher` — `proxy_configs.txt` | light | ۱۷۹ | سالم |
-| `mahsanet/MahsaFreeConfig` — `mci/sub_1.txt` | light | ۲۳ | سالم |
-| `mahsanet/MahsaFreeConfig` — `mtn/sub_1.txt` | light | ۱۵ | سالم |
-| `ALIILAPRO/v2rayNG-Config` — `server.txt` | light | ۳٬۹۵۲ | سالم |
-| `Au1rxx/free-vpn-subscriptions` — `v2ray-base64.txt` | light | ۱٬۷۷۷ | سالم |
-| `Danialsamadi/v2go` — `AllConfigsSub.txt` | light | ۵۳۴ | سالم |
+| `iampedii/whitedns-sub` — `base64.txt` | light | ۱۷۱ | سالم |
+| `4n0nymou3/multi-proxy-config-fetcher` — `proxy_configs.txt` | light | ۳۰۹ | سالم |
+| `mahsanet/MahsaFreeConfig` — `mci/sub_1.txt` | light | ۲۷ | سالم |
+| `mahsanet/MahsaFreeConfig` — `mtn/sub_1.txt` | light | ۱۶ | سالم |
+| `ALIILAPRO/v2rayNG-Config` — `server.txt` | light | ۴٬۰۰۴ | سالم |
+| `Au1rxx/free-vpn-subscriptions` — `v2ray-base64.txt` | light | ۱٬۷۲۴ | سالم |
+| `Danialsamadi/v2go` — `AllConfigsSub.txt` | light | ۶۲۳ | سالم |
 | `LalatinaHub/LatinaSub` — `sub` | light | ۵۰۰ | سالم |
 | `roosterkid/openproxylist` — `V2RAY_RAW.txt` | heavy | ۱۵۰ | سالم |
-| `barry-far/V2ray-Config` — `All_Configs_base64_Sub.txt` | heavy | ۸٬۰۷۶ | سالم |
+| `barry-far/V2ray-Config` — `All_Configs_base64_Sub.txt` | heavy | ۸٬۱۹۵ | سالم |
 | `ShadowException/VPN` — `VPN-cat` | heavy | ۱۴۳ | سالم |
-| `Delta-Kronecker/V2ray-Config` — `all_configs.txt` | heavy | ۴٬۳۹۱ | سالم |
+| `Delta-Kronecker/V2ray-Config` — `all_configs.txt` | heavy | ۴٬۲۷۰ | سالم |
 | `Epodonios/v2ray-configs` — `All_Configs_Sub.txt` | heavy | ۰ | ناموفق در این دور |
 
 </details>
@@ -260,7 +260,7 @@ US 🇺🇸 | @Goodbaye_filtering | 22A072
 <details>
 <summary>تفاوتِ fast و secure چیست؟</summary>
 
-هر دو زیرمجموعهٔ `verified` هستند. `fast` تأخیرِ میانهٔ کمتر از آستانه دارد (در این اجرا ۵۰۰ms؛ پیش‌فرضِ کد ۸۰۰ms است و با `L3_FAST_MS` تغییر می‌کند). `secure` علاوه بر تأیید، forward secrecy دارد — یعنی لایهٔ TLS/REALITY/QUIC با (EC)DHE کلید می‌سازد — و اعتبارسنجیِ گواهی را خاموش نکرده است. یکی دربارهٔ سرعت است، دیگری دربارهٔ خصوصیتِ رمزنگاری؛ می‌توانید هم‌زمان دنبالِ اشتراکی باشید که هر دو را دارد.
+هر دو زیرمجموعهٔ `verified` هستند. `fast` تأخیرِ میانهٔ کمتر از آستانه دارد (در این اجرا ۸۰۰ms — همان پیش‌فرضِ کد؛ با `L3_FAST_MS` تغییر می‌کند). `secure` علاوه بر تأیید، forward secrecy دارد — یعنی لایهٔ TLS/REALITY/QUIC با (EC)DHE کلید می‌سازد — و اعتبارسنجیِ گواهی را خاموش نکرده است. یکی دربارهٔ سرعت است، دیگری دربارهٔ خصوصیتِ رمزنگاری؛ می‌توانید هم‌زمان دنبالِ اشتراکی باشید که هر دو را دارد.
 </details>
 
 <details>

@@ -57,14 +57,14 @@ Each QR encodes the subscription URL itself, so the client fetches a fresh list 
 
 All six tiers come from one pool, filtered by increasing evidence. Each ships as `txt`, `b64`, `yaml` (mihomo/Clash) and `json` (sing-box).
 
-| Tier | Criterion | Now | Formats |
+| Tier | Criterion | 2026-10-30 run | Formats |
 | :--- | :--- | ---: | :--- |
-| **verified** | real proxied request succeeded in all 3 L3 rounds — recommended | 1,145 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/singbox.json) |
-| **fast** | verified AND median delay below the threshold (500 ms in this run) | 340 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/singbox.json) |
-| **secure** | verified AND forward secrecy, certificate validation not disabled | 826 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/singbox.json) |
-| **all** | everything after de-duplication — largest list, mostly untested | 11,099 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/singbox.json) |
-| **light** | the 8 light sources only | 5,170 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/singbox.json) |
-| **heavy** | the 5 heavy sources only | 7,177 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/heavy/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/heavy/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/heavy/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/heavy/singbox.json) |
+| **verified** | real proxied request succeeded in all 3 L3 rounds — recommended | 1,656 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/singbox.json) |
+| **fast** | verified AND median delay below the threshold (800 ms in this run) | 1,022 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/singbox.json) |
+| **secure** | verified AND forward secrecy, certificate validation not disabled | 1,185 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/singbox.json) |
+| **all** | everything after de-duplication — largest list, mostly untested | 11,035 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/singbox.json) |
+| **light** | the 8 light sources only | 5,242 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/singbox.json) |
+| **heavy** | the 5 heavy sources only | 7,000 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/heavy/configs.txt) · [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/heavy/configs_base64.txt) · [yaml](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/heavy/clash.yaml) · [json](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/heavy/singbox.json) |
 
 `light` and `heavy` overlap and are not additive. Every `yaml` and `json` is checked with the real binaries before publishing (`mihomo -t`, `sing-box check`); results land in `validation.json`.
 
@@ -76,16 +76,16 @@ All six tiers come from one pool, filtered by increasing evidence. Each ships as
 
 | Gate | Question | Cost | This run |
 | :--- | :--- | :--- | ---: |
-| **L0/L1 — structure** | Parses? Endpoint unique? Routable? | no network | 10,662 of 11,099 |
-| **L2 — reachability** | Does the TCP port actually accept connections? | separate DNS + 800 concurrent connects, 3 s each | 6,985 open |
-| **L3 — passage** | Does a real HTTP request through the proxy succeed? | xray-knife, 3 rounds, 5 s per config | 1,663 once · 1,145 all three |
-| **Buckets** | Which passed every round? Which are fast? Which are secure? | sort/compare only | 340 fast · 826 secure · top 100 |
+| **L0/L1 — structure** | Parses? Endpoint unique? Routable? | no network | 10,590 of 11,035 |
+| **L2 — reachability** | Does the TCP port actually accept connections? | separate DNS + 800 concurrent connects, 3 s each | 6,870 open |
+| **L3 — passage** | Does a real HTTP request through the proxy succeed? | xray-knife, 3 rounds, 5 s per config | 1,881 once · 1,656 all three |
+| **Buckets** | Which passed every round? Which are fast? Which are secure? | sort/compare only | 1,022 fast · 1,185 secure · top 100 |
 
-> **Snapshot:** 2026-10-28 17:48 UTC, from a GitHub runner in the US (Cloudflare colo `ORD`). The cascade took 276.94 s: L0/L1 0.24 s, L2 24.06 s, three L3 rounds 252.27 s. `health.json` records this for every run; trust it over this README.
+> **Snapshot:** 2026-10-30 00:08 UTC, from a GitHub runner in the US (Cloudflare colo `SEA`). The cascade took 254.97 s: L0/L1 0.52 s, L2 32.93 s, three L3 rounds 220.41 s. `health.json` records this for every run; trust it over this README.
 
-Funnel for that run: 19,952 raw → 8,831 duplicates removed → 11,099 unique (100%) → 10,662 structurally valid (96.1%) → 6,985 TCP-open (62.9%) → 1,663 worked at least once (15.0%) → 1,145 stable in all three rounds (10.3%).
+Funnel for that run: 20,132 raw fetched → 11,035 unique after de-duplication (100%) → 10,590 structurally valid (96.0%) → 6,870 TCP-open (62.3%) → 1,881 worked at least once (17.0%) → 1,656 stable in all three rounds (15.0%).
 
-The per-round successes were 1,391 / 1,431 / 1,464, yet only 1,145 configs were present in all three sets. That means 518 configs — 31.15% of everything that ever worked — are flaky. Publishing after a single round would have shipped all 518 as "healthy".
+The per-round successes were 1,764 / 1,796 / 1,789, yet only 1,656 configs were present in all three sets. That means 225 configs — 11.96% of everything that ever worked — are flaky. Publishing after a single round would have shipped all 225 as "healthy".
 
 These percentages are about one vantage point, not your connection. A config that fails from Virginia may work from Tehran and vice versa. "Verified" means "answered a real request from the test machine at test time", not "guaranteed for you".
 
@@ -95,27 +95,27 @@ These percentages are about one vantage point, not your connection. A config tha
 
 Files are split out of `all/` and only published when non-empty. A 404 means "nothing of this protocol in this run" — never an empty subscription that wipes a client list.
 
-| Protocol | Now | Plain | Base64 |
+| Protocol | 2026-10-30 run | Plain | Base64 |
 | :--- | ---: | :--- | :--- |
-| VLESS | 5,007 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vless.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vless_base64.txt) |
-| VMess | 3,425 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vmess.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vmess_base64.txt) |
-| Trojan | 1,392 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/trojan.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/trojan_base64.txt) |
-| Shadowsocks | 1,029 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocks.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocks_base64.txt) |
-| Hysteria 2 | 240 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/hysteria2.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/hysteria2_base64.txt) |
+| VLESS | 4,703 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vless.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vless_base64.txt) |
+| VMess | 3,545 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vmess.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vmess_base64.txt) |
+| Trojan | 1,509 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/trojan.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/trojan_base64.txt) |
+| Shadowsocks | 1,012 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocks.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocks_base64.txt) |
+| Hysteria 2 | 261 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/hysteria2.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/hysteria2_base64.txt) |
 | SOCKS | 3 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/socks.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/socks_base64.txt) |
-| TUIC | 2 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/tuic.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/tuic_base64.txt) |
-| ShadowsocksR | 1 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocksr.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocksr_base64.txt) |
+| TUIC | 1 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/tuic.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/tuic_base64.txt) |
+| AnyTLS | 1 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/anytls.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/anytls_base64.txt) |
 
-The parser also understands `hysteria`, `wireguard`, `juicity`, `anytls`, `snell` and `mieru`; none appeared in this run. The live list of published files is `protocol_files` in `index.json`.
+The parser also understands `hysteria`, `wireguard`, `juicity`, `shadowsocksr`, `snell` and `mieru`; none appeared in this run. The live list of published files is `protocol_files` in `index.json`.
 
 ---
 
 ## Countries
 
-48 countries, all from verified configs, located by GeoIP (DB-IP Country Lite). One file per non-empty country. The index is the canonical list of filenames:
+55 countries, all from verified configs, located by GeoIP (DB-IP Country Lite). One file per non-empty country. The index is the canonical list of filenames:
 
 - [`Countries/index.json`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/index.json)
-- Examples: [`United_States.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/United_States.txt) (293), [`The_Netherlands.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/The_Netherlands.txt) (244), [`Germany.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/Germany.txt) (94), [`Canada.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/Canada.txt) (88).
+- Examples: [`United_States.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/United_States.txt) (354), [`Canada.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/Canada.txt) (270), [`The_Netherlands.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/The_Netherlands.txt) (241), [`Germany.txt`](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/Germany.txt) (136).
 
 Use the names from the index; for example it is `The_Netherlands.txt`, not `Netherlands.txt`.
 
@@ -184,7 +184,7 @@ For Base64 lists use "Import from URL" and enable auto-update. For Clash/mihomo 
 
 **A "verified" config does not connect for me.** Verified means it answered a real request from a US runner at test time. Networks move; keep the list fresh and keep backups.
 
-**fast vs secure?** Both are subsets of verified. `fast` is below the delay threshold (500 ms this run; code default 800 ms, configurable via `L3_FAST_MS`). `secure` has forward secrecy (TLS/REALITY/QUIC with (EC)DHE) and does not disable certificate validation. Speed and crypto properties are independent.
+**fast vs secure?** Both are subsets of verified. `fast` is below the delay threshold (800 ms this run — the code default, configurable via `L3_FAST_MS`). `secure` has forward secrecy (TLS/REALITY/QUIC with (EC)DHE) and does not disable certificate validation. Speed and crypto properties are independent.
 
 **Why do some files 404?** Empty files are never published. If a protocol or country had no configs this run, its file does not exist. That is temporary, not an empty subscription that wipes a client's list.
 
