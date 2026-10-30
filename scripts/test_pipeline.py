@@ -15394,5 +15394,40 @@ def test_subscription_check_with_the_real_mihomo_binary():
         "all/configs.txt", "light/configs_base64.txt"], r
 
 
+def test_telegram_share_button_opens_share_dialog_not_the_channel():
+    """دکمهٔ «اشتراک‌گذاری» باید `t.me/share/url` باشد، نه لینکِ خودِ کانال.
+
+    دکمهٔ شیشه‌ایِ URL در تلگرام دیالوگِ اشتراک را باز نمی‌کند؛ وقتی به لینکِ
+    کانال وصل بود، زدنش فقط همان کانال را باز می‌کرد — یعنی دکمه هیچ کاری
+    نمی‌کرد. تنها راهِ رسمی برای دکمه‌ها، پیوندِ `t.me/share/url` است.
+    """
+    import importlib.util
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    path = os.path.join(root, "src", "telegram_publisher.py")
+    spec = importlib.util.spec_from_file_location("telegram_publisher_under_test", path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+
+    rows = mod.get_inline_keyboard()["inline_keyboard"]
+    assert len(rows) == 4, "منشور: دقیقاً ۴ دکمه"
+    assert all(len(r) == 1 for r in rows)
+
+    share = rows[3][0]
+    assert share["text"] == "🔄 اشتراک‌گذاری با دوستان"
+    assert share["url"] != mod.CHANNEL_URL, "دکمه نباید خودِ کانال را باز کند"
+
+    parts = urllib.parse.urlsplit(share["url"])
+    assert parts.scheme == "https" and parts.netloc == "t.me", parts
+    assert parts.path == "/share/url", parts.path
+    q = urllib.parse.parse_qs(parts.query, strict_parsing=True)
+    assert q["url"] == [mod.CHANNEL_URL], "لینکِ اشتراک‌شده باید دعوتِ کانال باشد"
+    assert q["text"] and "گودبای" in q["text"][0]
+
+    # سه دکمهٔ دیگر باید دست‌نخورده باشند
+    assert rows[0][0]["url"] == mod.CHANNEL_URL
+    assert rows[1][0]["url"] == "https://t.me/CONFIG_V2RAY_VIP"
+    assert rows[2][0]["url"] == mod.BASE_URL + "/"
+
+
 if __name__ == "__main__":
     sys.exit(_run_all())

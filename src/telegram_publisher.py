@@ -14,6 +14,7 @@ import json
 import logging
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
+from urllib.parse import quote
 import requests
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -67,6 +68,7 @@ VIP_CHANNEL = "@CONFIG_V2RAY_VIP"
 # نشانیِ عمومیِ کانال برای دکمه‌ها. کانالِ خصوصی با آیدیِ عددی ارسال می‌شود،
 # ولی لینکِ دعوت تنها نشانی‌ای است که کاربر می‌تواند باز کند.
 CHANNEL_URL = os.getenv("MAIN_CHANNEL_URL", "https://t.me/+m4GhEHGLd2k5ZjU0")
+SHARE_TEXT = "کانال گودبای فیلترینگ — کانفیگ‌های رایگان و به‌روز V2Ray"
 COUNTER_FILE = "data/publish_counter.txt"
 
 # هر چند اجرا یک بار به تلگرام ارسال شود (۳ دور استراحت + دور چهارم ارسال).
@@ -77,6 +79,19 @@ PUBLISH_EVERY = max(1, int(os.getenv("TELEGRAM_PUBLISH_EVERY", "4") or 4))
 MAX_SAFE_CONFIG_LIMIT = 3500
 
 
+def build_share_url() -> str:
+    """دیالوگِ اشتراک‌گذاریِ خودِ تلگرام.
+
+    دکمهٔ شیشه‌ایِ URL نمی‌تواند دیالوگ اشتراک را باز کند و اگر مستقیم به
+    کانال لینک شود فقط کانال را باز می‌کند — کاربر همان کارِ قبلی را می‌کند.
+    `t.me/share/url` تنها راهی است که تلگرام برای دکمه‌ها به رسمیت می‌شناسد.
+    """
+    return (
+        "https://t.me/share/url?url=" + quote(CHANNEL_URL, safe="")
+        + "&text=" + quote(SHARE_TEXT, safe="")
+    )
+
+
 def get_inline_keyboard() -> dict:
     """۴ دکمه شیشه‌ای رسمی طبق اصل دوم منشور بنیادین."""
     return {
@@ -84,7 +99,7 @@ def get_inline_keyboard() -> dict:
             [{"text": "📢 کانال رسمی Goodbaye Filtering", "url": CHANNEL_URL}],
             [{"text": "⚡ کانال اختصاصی VIP", "url": "https://t.me/CONFIG_V2RAY_VIP"}],
             [{"text": "🌐 وب‌پنل آنلاین سابسکریپشن", "url": f"{BASE_URL}/"}],
-            [{"text": "🔄 اشتراک‌گذاری با دوستان", "url": CHANNEL_URL}]
+            [{"text": "🔄 اشتراک‌گذاری با دوستان", "url": build_share_url()}]
         ]
     }
 
