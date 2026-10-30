@@ -97,16 +97,17 @@ Files are split out of `all/` and only published when non-empty. A 404 means "no
 
 | Protocol | 2026-10-30 run | Plain | Base64 |
 | :--- | ---: | :--- | :--- |
-| VLESS | 4,703 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vless.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vless_base64.txt) |
-| VMess | 3,545 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vmess.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vmess_base64.txt) |
-| Trojan | 1,509 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/trojan.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/trojan_base64.txt) |
-| Shadowsocks | 1,012 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocks.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocks_base64.txt) |
-| Hysteria 2 | 261 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/hysteria2.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/hysteria2_base64.txt) |
+| VLESS | 4,623 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vless.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vless_base64.txt) |
+| VMess | 3,555 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vmess.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vmess_base64.txt) |
+| Trojan | 1,660 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/trojan.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/trojan_base64.txt) |
+| Shadowsocks | 996 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocks.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocks_base64.txt) |
+| Hysteria 2 | 269 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/hysteria2.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/hysteria2_base64.txt) |
 | SOCKS | 3 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/socks.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/socks_base64.txt) |
-| TUIC | 1 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/tuic.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/tuic_base64.txt) |
-| AnyTLS | 1 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/anytls.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/anytls_base64.txt) |
+| ShadowsocksR | 1 | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocksr.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocksr_base64.txt) |
 
-The parser also understands `hysteria`, `wireguard`, `juicity`, `shadowsocksr`, `snell` and `mieru`; none appeared in this run. The live list of published files is `protocol_files` in `index.json`.
+The parser also understands `hysteria`, `tuic`, `wireguard`, `juicity`, `anytls`, `snell` and `mieru`; none appeared in this run. The live list of published files is `protocol_files` in `index.json`; `protocol_files_mirror` lists their `servers/` twins.
+
+Two older names keep working. `servers/` mirrors every published pair from `protocols/`, with `socks5.txt` as the historical name for `socks.txt`; `all_servers.txt` is a byte-identical copy of `all/configs.txt` kept because users have copied that link. Both follow the same rule as everything else — an empty file is never published, so a 404 means "nothing this run".
 
 ---
 
@@ -202,7 +203,9 @@ src/            Telegram publishing + legacy collection (outside the main build)
 docs/           static panel — the only path GitHub Pages publishes
 verified/ fast/ secure/ all/ light/ heavy/
 Countries/      one file per country + index.json
-protocols/      one file per non-empty protocol
+protocols/      one file per non-empty protocol, plus its base64 twin
+servers/        compatibility mirror of protocols/ (socks -> socks5)
+all_servers.txt legacy name for a copy of all/configs.txt
 index.json health.json state.json validation.json top100.txt
 ```
 

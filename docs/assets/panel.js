@@ -76,7 +76,7 @@
     fast: { src: "assets/qr/fast.svg", title: "سریع (Base64)", url: RAW_BASE + "/fast/configs_base64.txt" },
     secure: { src: "assets/qr/secure.svg", title: "امن (Base64)", url: RAW_BASE + "/secure/configs_base64.txt" },
     all: { src: "assets/qr/all.svg", title: "همهٔ یکتاها (Base64)", url: RAW_BASE + "/all/configs_base64.txt" },
-    telegram: { src: "assets/qr/telegram.svg", title: "کانالِ تلگرام", url: "https://t.me/Goodbaye_filtering" }
+    telegram: { src: "assets/qr/telegram.svg", title: "کانالِ تلگرام", url: "https://t.me/+m4GhEHGLd2k5ZjU0" }
   };
 
   var copyTimers = new WeakMap();
@@ -931,21 +931,23 @@
       var url = safeUrl(files[name]);
       var url64 = safeUrl(files64[name]);
       if (url) {
-        var copy = make("button", "icon-btn");
+        var copy = make("button", "micro-btn");
         copy.type = "button";
         copy.dataset.copyValue = url;
         copy.setAttribute("aria-label", "کپیِ لینکِ " + name);
         copy.title = "کپیِ متن";
         copy.appendChild(icon("copy"));
+        copy.appendChild(make("span", null, "TXT"));
         actions.appendChild(copy);
       }
       if (url64) {
-        var copy64 = make("button", "icon-btn");
+        var copy64 = make("button", "micro-btn");
         copy64.type = "button";
         copy64.dataset.copyValue = url64;
         copy64.setAttribute("aria-label", "کپیِ Base64 برای " + name);
         copy64.title = "کپیِ Base64";
         copy64.appendChild(icon("copy"));
+        copy64.appendChild(make("span", null, "B64"));
         actions.appendChild(copy64);
       }
       li.appendChild(actions);
@@ -1219,7 +1221,6 @@
       tdStatus.dataset.label = "وضعیت";
       var badge = make("span", "status-badge");
       badge.dataset.status = src.status || "unknown";
-      badge.appendChild(make("i", "dot"));
       badge.appendChild(make("span", null, STATUS_FA[src.status] || src.status || "نامعلوم"));
       tdStatus.appendChild(badge);
       if (src.http_code) tdStatus.title = "HTTP " + src.http_code;

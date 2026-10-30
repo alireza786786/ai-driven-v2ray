@@ -31,6 +31,7 @@ import argparse
 import datetime as _dt
 import json
 import os
+import shutil
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -681,6 +682,63 @@ def write_protocols(out_dir: str, all_unique: List[str]) -> Dict[str, int]:
     return counts
 
 
+# نام‌های پوشهٔ `servers/` — قراردادِ عمومیِ قدیمیِ مخزن که در مستندات و
+# README وعده داده شده است. تنها تفاوتِ نام: `socks` در protocols/ به
+# `socks5` در servers/ نگاشت می‌شود.
+_SERVERS_DIR_ALIASES = {"socks": "socks5"}
+
+
+def write_servers_mirror(out_dir: str) -> int:
+    """آینهٔ `servers/` از `protocols/` (هر دو قالب: txt و base64).
+
+    چرا آینه و نه حذفِ protocols/؟ لینک‌های `protocols/*` در index.json،
+    README و سابسکریپشنِ کاربران منتشر شده‌اند و شکستنشان یعنی خالی شدنِ
+    بی‌صدای اشتراک. `servers/` هم قراردادِ وعده‌داده‌شده است؛ هر دو می‌مانند.
+
+    سیاستِ فایلِ خالی همان است: اگر پروتکلی در این دور داده نداشته باشد،
+    نسخهٔ بایاتِ قبلی‌اش در servers/ هم حذف می‌شود (۴۰۴ صادقانه، نه بدنهٔ خالی).
+    """
+    src = os.path.join(out_dir, "protocols")
+    dst = os.path.join(out_dir, "servers")
+    os.makedirs(dst, exist_ok=True)
+    if not os.path.isdir(src):
+        return 0
+
+    wanted = set()
+    for name in sorted(os.listdir(src)):
+        if not name.endswith(".txt"):
+            continue
+        stem = name[:-4]
+        if stem.endswith("_base64"):
+            proto, suffix = stem[:-7], "_base64.txt"
+        else:
+            proto, suffix = stem, ".txt"
+        target = _SERVERS_DIR_ALIASES.get(proto, proto) + suffix
+        wanted.add(target)
+        shutil.copyfile(os.path.join(src, name), os.path.join(dst, target))
+
+    for name in sorted(os.listdir(dst)):
+        if name.endswith(".txt") and name not in wanted:
+            _remove_if_exists(os.path.join(dst, name))
+
+    return len(wanted) // 2
+
+
+def write_all_servers_package(out_dir: str) -> None:
+    """`all_servers.txt` — پکیجِ جامعِ تمامِ پروتکل‌ها.
+
+    محتوا بیت‌به‌بیت همان `all/configs.txt` است؛ فقط نامِ تبلیغ‌شدهٔ قدیمی را
+    نگه می‌دارد تا لینکی که کاربران کپی کرده‌اند نمیرد. اگر این دور خروجیِ ALL
+    نوشته نشده باشد، نسخهٔ بایات حذف می‌شود (همان قراردادِ ۴۰۴ صادقانه).
+    """
+    src = os.path.join(out_dir, "all", "configs.txt")
+    dst = os.path.join(out_dir, "all_servers.txt")
+    if not os.path.exists(src):
+        _remove_if_exists(dst)
+        return
+    shutil.copyfile(src, dst)
+
+
 def build_index(results: Dict[str, CategoryResult], proto_counts: Dict[str, int],
                 elapsed: float, out_dir: Optional[str] = None) -> dict:
     """سندِ `index.json` — فهرستِ ماشین‌خوانِ هر چیزی که منتشر شده.
@@ -1195,6 +1253,10 @@ def main() -> int:
 
     proto_counts = write_protocols(out_dir, res_all.unique)
     log("  • protocols: " + ", ".join(f"{k}={v}" for k, v in proto_counts.items() if v))
+
+    mirrored = write_servers_mirror(out_dir)
+    write_all_servers_package(out_dir)
+    log(f"  • servers: {mirrored} file-pairs mirrored · all_servers.txt rebuilt")
 
     elapsed = time.time() - t0
     # `out_dir` پاس داده می‌شود تا تبلیغ به **واقعیتِ دیسک** گره بخورد، نه به

@@ -554,6 +554,70 @@ def test_empty_protocol_never_publishes_a_file_and_prunes_both_members():
     assert counts.get("vless") == 1
 
 
+def test_servers_mirror_restores_the_promised_layout_and_uses_socks5_name():
+    """پوشهٔ servers/ باید آینهٔ protocols/ باشد، با نام‌های وعده‌داده‌شده.
+
+    باگِ واقعی روی مخزن: هر ۱۸ فایلِ servers/ دقیقاً ۱ بایت (خالی) بودند و
+    هیچ‌چیز آن‌ها را بازنویسی نمی‌کرد؛ یعنی ساختاری که README تبلیغ می‌کرد
+    عملاً مرده بود.
+    """
+    import aggregate
+
+    d = _fresh_outdir()
+    sdir = os.path.join(d, "servers")
+    os.makedirs(sdir, exist_ok=True)
+    # فایلِ بایاتِ دورِ قبل برای پروتکلی که این دور داده ندارد
+    with open(os.path.join(sdir, "wireguard.txt"), "w") as f:
+        f.write("# stale\nwireguard://old\n")
+    with open(os.path.join(sdir, "wireguard_base64.txt"), "w") as f:
+        f.write("b2xk\n")
+
+    lines = ["vless://u@1.2.3.4:443#a", "socks://u:p@5.6.7.8:1080#b"]
+    aggregate.write_protocols(d, lines)
+    pairs = aggregate.write_servers_mirror(d)
+
+    assert pairs == 2, pairs
+    assert os.path.exists(os.path.join(sdir, "vless.txt"))
+    assert os.path.exists(os.path.join(sdir, "vless_base64.txt"))
+    # socks در protocols/ می‌ماند، ولی در servers/ نامِ socks5 دارد
+    assert os.path.exists(os.path.join(sdir, "socks5.txt"))
+    assert os.path.exists(os.path.join(sdir, "socks5_base64.txt"))
+    assert not os.path.exists(os.path.join(sdir, "socks.txt"))
+    # آینه باید بیت‌به‌بیت همان protocols/ باشد
+    with open(os.path.join(d, "protocols", "socks.txt"), "rb") as a, \
+            open(os.path.join(sdir, "socks5.txt"), "rb") as b:
+        assert a.read() == b.read()
+    # و فایل‌های بایات/خالی نباید در servers/ زنده بمانند
+    left = set(os.listdir(sdir))
+    assert "wireguard.txt" not in left
+    assert "wireguard_base64.txt" not in left
+
+
+def test_all_servers_package_mirrors_all_configs_and_prunes_when_all_is_missing():
+    """all_servers.txt باید همان all/configs.txt باشد، نه یک نسخهٔ یخ‌زده.
+
+    باگِ واقعی: فایل روی مخزن از ۵٬۴۲۲٬۶۷۴ بایت تکان نمی‌خورد چون هیچ
+    کدی آن را نمی‌نوشت؛ فقط نامش در OUTPUT_PATHS مانده بود.
+    """
+    import aggregate
+
+    d = _fresh_outdir()
+    dst = os.path.join(d, "all_servers.txt")
+    with open(dst, "w") as f:
+        f.write("STALE\n")
+
+    # اگر all/configs.txt نباشد، نسخهٔ بایات باید حذف شود
+    aggregate.write_all_servers_package(d)
+    assert not os.path.exists(dst), "stale all_servers.txt must be pruned"
+
+    os.makedirs(os.path.join(d, "all"), exist_ok=True)
+    with open(os.path.join(d, "all", "configs.txt"), "w") as f:
+        f.write("# header\nvless://u@1.2.3.4:443#a\n")
+    aggregate.write_all_servers_package(d)
+    with open(dst, "rb") as a, open(os.path.join(d, "all", "configs.txt"), "rb") as b:
+        assert a.read() == b.read()
+
+
 def test_index_only_advertises_urls_whose_files_exist():
     """index.json نباید لینکی را تبلیغ کند که ۴۰۴ می‌دهد.
 

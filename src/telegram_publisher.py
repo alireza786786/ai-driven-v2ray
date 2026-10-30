@@ -3,7 +3,8 @@
 # ==============================================================================
 # Goodbaye Universal Standard - Telegram Publisher
 # Rules: 4 Inline Buttons | Fast tier (L3_FAST_MS, default 800 ms) | Approval Gate ("ارسال شود")
-# Schedule: ۳ اجرای خودکار استراحت (۴۵ دقیقه‌ای) + اجرای چهارم ارسال به تلگرام
+# Schedule: هر TELEGRAM_PUBLISH_EVERY (پیش‌فرض ۴) اجرای موفق یک‌بار ارسال؛
+#           شمارش از GITHUB_RUN_NUMBER می‌آید، نه از فایلِ کامیت‌نشده.
 # Repository: https://github.com/alireza786786/ai-driven-v2ray
 # ==============================================================================
 
@@ -58,10 +59,19 @@ TELEGRAM_PACKAGES = [
 # پیکربندی هویت و آدرس‌های پویا (Dynamic Settings)
 # ──────────────────────────────────────────────────────────────────────────────
 REPO_NAME = os.getenv("GITHUB_REPOSITORY", "").split("/")[-1] or "ai-driven-v2ray"
+REPO_OWNER = os.getenv("GITHUB_REPOSITORY", "").split("/")[0] or "alireza786786"
 BASE_URL = f"https://alireza786786.github.io/{REPO_NAME}"
+RAW_BASE = f"https://raw.githubusercontent.com/{REPO_OWNER}/{REPO_NAME}/main"
 MAIN_CHANNEL = "@Goodbaye_filtering"
 VIP_CHANNEL = "@CONFIG_V2RAY_VIP"
+# نشانیِ عمومیِ کانال برای دکمه‌ها. کانالِ خصوصی با آیدیِ عددی ارسال می‌شود،
+# ولی لینکِ دعوت تنها نشانی‌ای است که کاربر می‌تواند باز کند.
+CHANNEL_URL = os.getenv("MAIN_CHANNEL_URL", "https://t.me/+m4GhEHGLd2k5ZjU0")
 COUNTER_FILE = "data/publish_counter.txt"
+
+# هر چند اجرا یک بار به تلگرام ارسال شود (۳ دور استراحت + دور چهارم ارسال).
+PUBLISH_EVERY = max(1, int(os.getenv("TELEGRAM_PUBLISH_EVERY", "4") or 4))
+
 
 # سقف ایمنی برای جلوگیری از اسپم کانال (حداکثر ۳۵۰۰ کانفیگ در هر فایل)
 MAX_SAFE_CONFIG_LIMIT = 3500
@@ -71,10 +81,10 @@ def get_inline_keyboard() -> dict:
     """۴ دکمه شیشه‌ای رسمی طبق اصل دوم منشور بنیادین."""
     return {
         "inline_keyboard": [
-            [{"text": "📢 کانال اصلی Goodbaye Filtering", "url": "https://t.me/Goodbaye_filtering"}],
+            [{"text": "📢 کانال رسمی Goodbaye Filtering", "url": CHANNEL_URL}],
             [{"text": "⚡ کانال اختصاصی VIP", "url": "https://t.me/CONFIG_V2RAY_VIP"}],
             [{"text": "🌐 وب‌پنل آنلاین سابسکریپشن", "url": f"{BASE_URL}/"}],
-            [{"text": "🔄 اشتراک‌گذاری با دوستان", "url": "https://t.me/share/url?url=https://t.me/Goodbaye_filtering"}]
+            [{"text": "🔄 اشتراک‌گذاری با دوستان", "url": CHANNEL_URL}]
         ]
     }
 
@@ -127,8 +137,9 @@ def build_caption(package_title: str, file_path: str, count: int) -> str:
         f"⏰ ساعت تهران: `{time_str}`\n"
         f"📊 شاخص کیفیت: `تأییدشده در ۳ دورِ آزمونِ واقعی`\n"
         f"🔢 تعداد کانفیگ سالم این فایل: `{count}`\n\n"
-        f"🌐 لینک مستقیم وب‌پنل / سابسکریپشن:\n"
-        f"`{BASE_URL}/{file_path}`"
+        f"🌐 لینک مستقیم فایل (سابسکریپشن):\n"
+        f"`{RAW_BASE}/{Path(str(file_path)).as_posix()}`\n"
+        f"🖥️ وب‌پنل:\n`{BASE_URL}/`"
     )
 
 
@@ -170,27 +181,40 @@ def main():
     target_chats = [c.strip() for c in target_chats_raw.split(",") if c.strip()]
     if not target_chats:
         target_chats = [MAIN_CHANNEL]
+    if any(c.startswith("https://t.me/+") or c.startswith("t.me/+") for c in target_chats):
+        logger.error(
+            "❌ TARGET_CHAT_ID یک لینکِ دعوت است. Bot API لینکِ دعوت را نمی‌شناسد؛ "
+            "آیدیِ عددی (مثل -1001234567890) یا یوزرنیمِ عمومی (@channel) بدهید "
+            "و مطمئن شوید ربات در کانال ادمین است."
+        )
+        return
 
-    # مدیریت چرخه ارسال: ۳ اجرای خودکار استراحت + اجرای چهارم ارسال به تلگرام
-    counter_path = Path(COUNTER_FILE)
-    counter_path.parent.mkdir(parents=True, exist_ok=True)
-    cycle_count = 0
-    if counter_path.exists():
+    # مدیریت چرخهٔ ارسال — چرا دیگر به فایلِ شمارنده تکیه نمی‌کنیم:
+    # آن فایل در data/ است و data/ جزو OUTPUT_PATHS نیست، پس افزایشش هیچ‌وقت
+    # کامیت نمی‌شد. نتیجه: هر اجرا عدد ۱ را می‌خواند، ۲ می‌کرد و دور چهارم
+    # هرگز نمی‌رسید — یعنی «هیچ‌چیز به تلگرام نمی‌رفت».
+    # GITHUB_RUN_NUMBER خودش یکنوا و پایدار است و نیازی به حالتِ ذخیره‌شده ندارد.
+    run_number = os.getenv("GITHUB_RUN_NUMBER", "").strip()
+    if run_number.isdigit():
+        cycle_count = int(run_number)
+    else:
+        counter_path = Path(COUNTER_FILE)
+        counter_path.parent.mkdir(parents=True, exist_ok=True)
         try:
             cycle_count = int(counter_path.read_text(encoding="utf-8").strip())
         except Exception:
             cycle_count = 0
+        cycle_count += 1
+        counter_path.write_text(str(cycle_count), encoding="utf-8")
 
-    # ثبت دور جدید
-    cycle_count += 1
-    counter_path.write_text(str(cycle_count), encoding="utf-8")
-
-    # اگر اجرای اول، دوم یا سوم باشد -> تلگرام استراحت می‌کند
-    if cycle_count % 4 != 0:
-        logger.info(f"⏳ دور #{cycle_count % 4}/4: سیستم در حال استراحت ۴۵ دقیقه‌ای است (ارسال تلگرام در دور چهارم انجام می‌شود).")
+    if cycle_count % PUBLISH_EVERY != 0:
+        logger.info(
+            f"⏳ دور #{cycle_count}: استراحت (ارسال در هر {PUBLISH_EVERY} اجرا یک‌بار — "
+            f"دور بعدی: #{((cycle_count // PUBLISH_EVERY) + 1) * PUBLISH_EVERY})."
+        )
         return
 
-    logger.info(f"🚀 دور #{cycle_count} (اجرای چهارم): آغاز فرآیند انتشار پکیج‌های مجاز به تلگرام...")
+    logger.info(f"🚀 دور #{cycle_count}: انتشار در {', '.join(target_chats)} آغاز شد…")
 
     for pkg in TELEGRAM_PACKAGES:
         file_path_str = pkg.get("file", "")

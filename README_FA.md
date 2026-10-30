@@ -122,16 +122,17 @@ https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/co
 
 | پروتکل | اجرای ۸ آبان | ساده | Base64 |
 | :--- | ---: | :--- | :--- |
-| VLESS | ۴٬۷۰۳ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vless.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vless_base64.txt) |
-| VMess | ۳٬۵۴۵ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vmess.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vmess_base64.txt) |
-| Trojan | ۱٬۵۰۹ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/trojan.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/trojan_base64.txt) |
-| Shadowsocks | ۱٬۰۱۲ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocks.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocks_base64.txt) |
-| Hysteria 2 | ۲۶۱ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/hysteria2.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/hysteria2_base64.txt) |
+| VLESS | ۴٬۶۲۳ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vless.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vless_base64.txt) |
+| VMess | ۳٬۵۵۵ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vmess.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/vmess_base64.txt) |
+| Trojan | ۱٬۶۶۰ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/trojan.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/trojan_base64.txt) |
+| Shadowsocks | ۹۹۶ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocks.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocks_base64.txt) |
+| Hysteria 2 | ۲۶۹ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/hysteria2.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/hysteria2_base64.txt) |
 | SOCKS | ۳ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/socks.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/socks_base64.txt) |
-| TUIC | ۱ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/tuic.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/tuic_base64.txt) |
-| AnyTLS | ۱ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/anytls.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/anytls_base64.txt) |
+| ShadowsocksR | ۱ | [txt](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocksr.txt) | [b64](https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocksr_base64.txt) |
 
-پارسر پروتکل‌های `hysteria`، `wireguard`، `juicity`، `shadowsocksr`، `snell` و `mieru` را هم می‌شناسد، ولی در این دور هیچ کانفیگی از آن‌ها نبود. فهرستِ همیشه‌به‌روزِ فایل‌های موجود، کلیدِ `protocol_files` در `index.json` است.
+پارسر پروتکل‌های `hysteria`، `tuic`، `wireguard`، `juicity`، `anytls`، `snell` و `mieru` را هم می‌شناسد، ولی در این دور هیچ کانفیگی از آن‌ها نبود. فهرستِ همیشه‌به‌روزِ فایل‌های موجود، کلیدِ `protocol_files` در `index.json` است؛ دوقلوهای پوشهٔ `servers/` هم زیرِ `protocol_files_mirror` می‌آیند.
+
+دو نامِ قدیمی هم زنده می‌مانند: پوشهٔ `servers/` آینهٔ `protocols/` است (هر جفتِ منتشرشده، با نامِ تاریخیِ `socks5.txt` به‌جای `socks.txt`) و `all_servers.txt` نسخهٔ بایت‌به‌بایتِ `all/configs.txt` است که به‌خاطرِ لینک‌های کپی‌شدهٔ کاربران نگه داشته می‌شود. قاعده برای این دو هم همان است: فایلِ خالی هرگز منتشر نمی‌شود؛ ۴۰۴ یعنی «این دور چیزی از آن نبود».
 
 ---
 
@@ -299,7 +300,9 @@ verified/       کانفیگ‌های قبول‌شده در هر سه دور
 fast/ secure/   زیرمجموعه‌های سریع و امن
 all/ light/ heavy/
 Countries/      یک فایل برای هر کشور + index.json
-protocols/      یک فایل برای هر پروتکلِ غیرخالی
+protocols/      یک فایل برای هر پروتکلِ غیرخالی، به‌همراهِ دوقلوی Base64
+servers/        آینهٔ سازگاریِ protocols/ (socks ← socks5)
+all_servers.txt نامِ قدیمیِ نسخهٔ کپیِ all/configs.txt
 index.json health.json state.json validation.json top100.txt
 ```
 
