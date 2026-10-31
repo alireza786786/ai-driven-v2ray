@@ -1,5 +1,5 @@
 {
-  "round": 14,
+  "round": 15,
   "schema": 1,
   "sources": {
     "03dd6ba32e0a": {
@@ -38,11 +38,12 @@
     "099e14c9420a": {
       "disabled_since": null,
       "fail": 0,
-      "last_seen": "2026-10-31T05:39:54Z",
+      "last_seen": "2026-10-31T11:16:02Z",
       "reason": null,
-      "rounds": 14,
+      "rounds": 15,
       "tier": "light",
       "unique": [
+        1,
         1,
         1,
         1,
@@ -73,15 +74,16 @@
         27,
         27,
         26,
+        27,
         27
       ]
     },
     "17d79afe99aa": {
       "disabled_since": null,
       "fail": 0,
-      "last_seen": "2026-10-31T05:39:54Z",
+      "last_seen": "2026-10-31T11:16:02Z",
       "reason": null,
-      "rounds": 14,
+      "rounds": 15,
       "tier": "light",
       "unique": [
         69,
@@ -97,7 +99,8 @@
         75,
         88,
         89,
-        89
+        89,
+        70
       ],
       "url": "https://raw.githubusercontent.com/4n0nymou3/multi-proxy-config-fetcher/refs/heads/main/configs/proxy_configs.txt",
       "yield": [
@@ -114,15 +117,16 @@
         176,
         207,
         204,
-        204
+        204,
+        171
       ]
     },
     "26c4b656bc53": {
       "disabled_since": null,
       "fail": 0,
-      "last_seen": "2026-10-31T05:39:54Z",
+      "last_seen": "2026-10-31T11:16:02Z",
       "reason": null,
-      "rounds": 14,
+      "rounds": 15,
       "tier": "light",
       "unique": [
         461,
@@ -138,7 +142,8 @@
         476,
         472,
         485,
-        485
+        485,
+        488
       ],
       "url": "https://raw.githubusercontent.com/Au1rxx/free-vpn-subscriptions/main/output/v2ray-base64.txt",
       "yield": [
@@ -155,15 +160,16 @@
         944,
         944,
         944,
+        944,
         944
       ]
     },
     "3d9683d61c66": {
       "disabled_since": null,
       "fail": 0,
-      "last_seen": "2026-10-31T05:39:54Z",
+      "last_seen": "2026-10-31T11:16:02Z",
       "reason": null,
-      "rounds": 14,
+      "rounds": 15,
       "tier": "heavy",
       "unique": [
         8,
@@ -179,7 +185,8 @@
         13,
         19,
         7,
-        16
+        16,
+        14
       ],
       "url": "https://raw.githubusercontent.com/roosterkid/openproxylist/refs/heads/main/V2RAY_RAW.txt",
       "yield": [
@@ -196,15 +203,16 @@
         140,
         139,
         141,
-        136
+        136,
+        138
       ]
     },
     "651369651731": {
       "disabled_since": null,
       "fail": 0,
-      "last_seen": "2026-10-31T05:39:54Z",
+      "last_seen": "2026-10-31T11:16:02Z",
       "reason": null,
-      "rounds": 14,
+      "rounds": 15,
       "tier": "heavy",
       "unique": [
         2374,
@@ -220,7 +228,8 @@
         2047,
         2030,
         2019,
-        2021
+        2021,
+        2107
       ],
       "url": "https://raw.githubusercontent.com/Delta-Kronecker/V2ray-Config/refs/heads/main/config/all_configs.txt",
       "yield": [
@@ -237,15 +246,16 @@
         2873,
         2873,
         2873,
-        2873
+        2873,
+        2966
       ]
     },
     "8686f61fd235": {
       "disabled_since": null,
       "fail": 0,
-      "last_seen": "2026-10-31T05:39:54Z",
+      "last_seen": "2026-10-31T11:16:02Z",
       "reason": null,
-      "rounds": 14,
+      "rounds": 15,
       "tier": "heavy",
       "unique": [
         0,
@@ -261,7 +271,8 @@
         3511,
         3522,
         3502,
-        3500
+        3500,
+        3494
       ],
       "url": "https://raw.githubusercontent.com/barry-far/V2ray-Config/refs/heads/main/All_Configs_base64_Sub.txt",
       "yield": [
@@ -278,15 +289,16 @@
         4537,
         4525,
         4496,
-        4496
+        4496,
+        4519
       ]
     },
     "a04365da7f6d": {
       "disabled_since": null,
       "fail": 0,
-      "last_seen": "2026-10-31T05:39:54Z",
+      "last_seen": "2026-10-31T11:16:02Z",
       "reason": null,
-      "rounds": 14,
+      "rounds": 15,
       "tier": "light",
       "unique": [
         3132,
@@ -302,7 +314,8 @@
         3228,
         3267,
         3280,
-        3280
+        3280,
+        3304
       ],
       "url": "https://raw.githubusercontent.com/ALIILAPRO/v2rayNG-Config/main/server.txt",
       "yield": [
@@ -319,15 +332,16 @@
         3914,
         3938,
         3939,
-        3941
+        3941,
+        3951
       ]
     },
     "c751be4ebbaa": {
       "disabled_since": null,
       "fail": 0,
-      "last_seen": "2026-10-31T05:39:54Z",
+      "last_seen": "2026-10-31T11:16:02Z",
       "reason": null,
-      "rounds": 14,
+      "rounds": 15,
       "tier": "light",
       "unique": [
         32,
@@ -343,7 +357,8 @@
         35,
         51,
         56,
-        57
+        57,
+        32
       ],
       "url": "https://raw.githubusercontent.com/Danialsamadi/v2go/main/AllConfigsSub.txt",
       "yield": [
@@ -360,7 +375,8 @@
         600,
         629,
         694,
-        694
+        694,
+        594
       ]
     },
     "d55275670dda": {
@@ -399,9 +415,9 @@
     "dbf1e97aa252": {
       "disabled_since": null,
       "fail": 0,
-      "last_seen": "2026-10-31T05:39:54Z",
+      "last_seen": "2026-10-31T11:16:02Z",
       "reason": null,
-      "rounds": 14,
+      "rounds": 15,
       "tier": "light",
       "unique": [
         47,
@@ -417,7 +433,8 @@
         23,
         58,
         54,
-        54
+        54,
+        39
       ],
       "url": "https://raw.githubusercontent.com/iampedii/whitedns-sub/main/base64.txt",
       "yield": [
@@ -434,15 +451,16 @@
         137,
         222,
         165,
+        165,
         165
       ]
     },
     "ec3b2e2b4363": {
       "disabled_since": null,
       "fail": 0,
-      "last_seen": "2026-10-31T05:39:54Z",
+      "last_seen": "2026-10-31T11:16:02Z",
       "reason": null,
-      "rounds": 14,
+      "rounds": 15,
       "tier": "heavy",
       "unique": [
         84,
@@ -458,10 +476,12 @@
         84,
         84,
         84,
-        84
+        84,
+        83
       ],
       "url": "https://raw.githubusercontent.com/ShadowException/VPN/refs/heads/main/configs/VPN-cat",
       "yield": [
+        106,
         106,
         106,
         106,
@@ -481,9 +501,9 @@
     "f9192be4f09b": {
       "disabled_since": null,
       "fail": 0,
-      "last_seen": "2026-10-31T05:39:54Z",
+      "last_seen": "2026-10-31T11:16:02Z",
       "reason": null,
-      "rounds": 14,
+      "rounds": 15,
       "tier": "light",
       "unique": [
         47,
@@ -498,6 +518,7 @@
         35,
         36,
         38,
+        43,
         43,
         43
       ],
@@ -516,9 +537,10 @@
         244,
         239,
         238,
+        238,
         238
       ]
     }
   },
-  "updated_at": "2026-10-31T05:39:54Z"
+  "updated_at": "2026-10-31T11:16:02Z"
 }

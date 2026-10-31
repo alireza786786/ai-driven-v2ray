@@ -1,10 +1,10 @@
-#profile-title: @Goodbaye_filtering — GREECE (GR)
+#profile-title: @Goodbaye_filtering — PHILIPPINES (PH)
 #profile-update-interval: 1
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
 #support-url: https://t.me/goodbaye_filtering
 #profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
-# @Goodbaye_filtering — GREECE (GR) — 1 configs
+# @Goodbaye_filtering — PHILIPPINES (PH) — 1 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
-vless://8f704ed6-9a1a-4d04-94dd-1bff501716de@85.90.197.220:443?encryption=none&type=tcp&flow=xtls-rprx-vision&security=reality&sni=www.cloudflare.com&fp=chrome&pbk=biNcdU5mywtNw-KyPpLHindBxdEyAolT1WJ26N0b7y4&sid=94acb54627612d43&allowInsecure=1#GR 🇬🇷 | @Goodbaye_filtering | C82D7F
+trojan://5t6i121em5lkmsmk@ph001.zestapp778.com:46298?type=tcp&security=tls&fp=chrome&sni=ph001.zestapp778.com#PH 🇵🇭 | @Goodbaye_filtering | 3DD07A

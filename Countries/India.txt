@@ -3,20 +3,16 @@
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
 #support-url: https://t.me/goodbaye_filtering
 #profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
-# @Goodbaye_filtering — INDIA (IN) — 13 configs
+# @Goodbaye_filtering — INDIA (IN) — 9 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
-vless://68512eac-cd53-4de3-8d1e-08f6e04af1a9@13.140.56.100:14430?security=none&type=ws&path=%2Fvless&host=13.140.56.100&sni=13.140.56.100#IN 🇮🇳 | @Goodbaye_filtering | 2BC896
 vless://68512eac-cd53-4de3-8d1e-08f6e04af1a9@13.140.56.100:14430?security=none&type=ws&path=%2Fvless#IN 🇮🇳 | @Goodbaye_filtering | 89E794
 vless://68512eac-cd53-4de3-8d1e-08f6e04af1a9@13.140.56.100:14430?host=13.140.56.100&path=%2Fvless&security=none&type=ws#IN 🇮🇳 | @Goodbaye_filtering | F29707
-vless://e99ba96d-dec8-42eb-be53-19e71eef7cab@5.253.42.164:40443?alpn=h2%2Chttp%2F1.1&flow=xtls-rprx-vision&fp=chrome&pbk=g77ZJbm18JEotapmVRjaXi133MzkbhkU2lxhVeXx8zw&security=reality&sid=68a8&sni=deepl.com&type=raw#IN 🇮🇳 | @Goodbaye_filtering | 2D0ED1
-vless://e99ba96d-dec8-42eb-be53-19e71eef7cab@5.253.42.164:40443?security=reality&encryption=none&pbk=g77ZJbm18JEotapmVRjaXi133MzkbhkU2lxhVeXx8zw&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=deepl.com&sid=68a8#IN 🇮🇳 | @Goodbaye_filtering | 550CAF
-vless://e99ba96d-dec8-42eb-be53-19e71eef7cab@5.253.42.164:40443/?type=tcp&encryption=none&flow=xtls-rprx-vision&sni=deepl.com&alpn=networld_vpn-channel%40.networld_vpn-channel%40.networld_vpn-channel%40.networld_vpn-channel%40.networld_vpn-channel%40.networld_vpn-channel%40.networld_vpn-&fp=chrome&security=reality&pbk=g77ZJbm18JEotapmVRjaXi133MzkbhkU2lxhVeXx8zw&sid=68a8#IN 🇮🇳 | @Goodbaye_filtering | 685828
-vless://af5eac96-e478-488a-bc8c-45269d7e8847@5.253.28.224:40443?flow=xtls-rprx-vision&fp=chrome&pbk=g77ZJbm18JEotapmVRjaXi133MzkbhkU2lxhVeXx8zw&security=reality&sid=68a8&sni=deepl.com&type=tcp#IN 🇮🇳 | @Goodbaye_filtering | 26380E
-vmess://eyJhZGQiOiIxNTIuNjcuOC4yMDUiLCJhaWQiOjAsImhvc3QiOiIiLCJpZCI6IjlkYjRjNzA4LWFlZjgtNDM1OS04MjFiLTM4ZTQ3OTkwYmUwZCIsIm5ldCI6IndzIiwicGF0aCI6IiIsInBvcnQiOiI4MCIsInBzIjoiSU4g8J+HrvCfh7MgfCBAR29vZGJheWVfZmlsdGVyaW5nIHwgQTcxMjBCIiwic25pIjoiaW4tMTUyLjY3LjguMjA1LTAyMDAiLCJ0bHMiOiIiLCJ0eXBlIjoibm9uZSIsInYiOiIyIn0=
-trojan://5t6i121em5lkmsmk@in002.zestapp778.com:42733?type=tcp&security=tls&fp=chrome&sni=in002.zestapp778.com#IN 🇮🇳 | @Goodbaye_filtering | ED0FA3
-trojan://5t6i121em5lkmsmk@in002.zestapp778.com:42733?allowInsecure=1&sni=in002.zestapp778.com&type=tcp#IN 🇮🇳 | @Goodbaye_filtering | 29B220
+vless://68512eac-cd53-4de3-8d1e-08f6e04af1a9@13.140.56.100:14430?security=none&type=ws&path=%2Fvless&host=13.140.56.100&sni=13.140.56.100#IN 🇮🇳 | @Goodbaye_filtering | 2BC896
+trojan://5t6i121em5lkmsmk@in002.zestapp778.com:42733?sni=in002.zestapp778.com&allowInsecure=1&type=tcp&fp=chrome#IN 🇮🇳 | @Goodbaye_filtering | 29B220
+trojan://5t6i121em5lkmsmk@in002.zestapp778.com:42733?security=tls&sni=in002.zestapp778.com#IN 🇮🇳 | @Goodbaye_filtering | ED0FA3
+trojan://5t6i121em5lkmsmk@139.84.210.39:42733?sni=in002.zestapp778.com&type=tcp&fp=chrome#IN 🇮🇳 | @Goodbaye_filtering | 44A920
 trojan://5t6i121em5lkmsmk@in002.zestapp778.com:42733?allowInsecure=1&type=tcp#IN 🇮🇳 | @Goodbaye_filtering | 515F34
-ss://YWVzLTI1Ni1nY206UmV4bkJnVTdFVjVBRHhH@172.105.39.124:7002#IN 🇮🇳 | @Goodbaye_filtering | A6FE37
-vmess://eyJ2IjpudWxsLCJwcyI6IklOIPCfh67wn4ezIHwgQEdvb2RiYXllX2ZpbHRlcmluZyB8IDAwRTQ0MyIsImFkZCI6IjE1Mi42Ny44LjIwNSIsInBvcnQiOjgwLCJpZCI6IjlkYjRjNzA4LWFlZjgtNDM1OS04MjFiLTM4ZTQ3OTkwYmUwZCIsImFpZCI6IjAiLCJzY3kiOiJhdXRvIiwibmV0Ijoid3MiLCJ0eXBlIjpudWxsLCJob3N0IjpudWxsLCJhbHBuIjpudWxsLCJwYXRoIjoiLyIsInRscyI6Im5vbmUiLCJzbmkiOm51bGwsImZwIjpudWxsLCJuYW1lIjoiSU4g8J+HrvCfh7MgfCBAR29vZGJheWVfZmlsdGVyaW5nIHwgMDBFNDQzIn0=
+vless://16ae3ea5-cf3e-6973-7bf3-2b4b28d0ea88@122.176.216.52:443?path=%2Fws%2F16ae3ea5-cf3e-6973-7bf3-2b4b28d0ea88&security=tls&alpn=h2&encryption=none&insecure=0&host=app-6ada5023.deploy.meerasolution.com&fp=chrome&type=ws&allowInsecure=0&sni=app-6ada5023.deploy.meerasolution.com#IN 🇮🇳 | @Goodbaye_filtering | E43169
+vless://16ae3ea5-cf3e-6973-7bf3-2b4b28d0ea88@122.176.216.52:443?fp=chrome&host=app-6ada5023.deploy.meerasolution.com&path=%2Fws%2F16ae3ea5-cf3e-6973-7bf3-2b4b28d0ea88&security=tls&sni=app-6ada5023.deploy.meerasolution.com&type=ws#IN 🇮🇳 | @Goodbaye_filtering | 8537A4

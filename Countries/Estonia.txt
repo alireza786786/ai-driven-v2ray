@@ -3,11 +3,10 @@
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
 #support-url: https://t.me/goodbaye_filtering
 #profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
-# @Goodbaye_filtering — ESTONIA (EE) — 4 configs
+# @Goodbaye_filtering — ESTONIA (EE) — 3 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
-vless://7a0348d6-55d3-4c23-b22f-6277fcb2264c@185.225.205.53:443?security=reality&type=tcp&sni=addons.mozilla.org&fp=qq&flow=xtls-rprx-vision&sid=2e82d7ac&pbk=2XyUS3_ONl5REQ7NiwikdJphAe7oJ61-21zuqnN67y8&encryption=none#EE 🇪🇪 | @Goodbaye_filtering | 25F6D8
-vless://7a0348d6-55d3-4c23-b22f-6277fcb2264c@31.77.68.36:443?security=reality&type=tcp&sni=addons.mozilla.org&fp=chrome&flow=xtls-rprx-vision&sid=64e4efa1&pbk=Daj7jHuHFEC_LV-Fv1fBSaTSQRM9vfgf_DtjMn9svl0&encryption=none#EE 🇪🇪 | @Goodbaye_filtering | 4679E5
-vless://ca14493b-b984-4ffb-bc0e-9cb5da969e15@146.19.143.218:443?security=reality&type=tcp&packetEncoding=xudp&sni=tau1.freerunet.online&fp=chrome&flow=xtls-rprx-vision&sid=4a7b1c8d&pbk=l1mx_plNc2oiWxJCcZLh3SGfFU-5QxYpgQ__Ea59WEg&encryption=none#EE 🇪🇪 | @Goodbaye_filtering | 11FD6D
+vless://c29fa587-b10d-445d-b7e3-eaa6d1bd1330@132.243.66.98:443?encryption=none&fp=firefox&host=media.aava.lalibobi.online&path=/live/showroom&security=tls&sni=media.aava.lalibobi.online&type=ws#EE 🇪🇪 | @Goodbaye_filtering | ACBB95
+vless://ca14493b-b984-4ffb-bc0e-9cb5da969e15@146.19.143.218:443?encryption=none&flow=xtls-rprx-vision&pbk=l1mx_plNc2oiWxJCcZLh3SGfFU-5QxYpgQ__Ea59WEg&security=reality&sid=4a7b1c8d&sni=tau1.freerunet.online&type=tcp&fp=qq#EE 🇪🇪 | @Goodbaye_filtering | 11FD6D
 trojan://humanity@185.36.141.81:443?sni=www.calmlunch.com&type=ws&path=/assignment&fp=chrome#EE 🇪🇪 | @Goodbaye_filtering | 3EFF12

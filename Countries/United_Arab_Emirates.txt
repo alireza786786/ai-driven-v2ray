@@ -3,13 +3,15 @@
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
 #support-url: https://t.me/goodbaye_filtering
 #profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
-# @Goodbaye_filtering — UNITED ARAB EMIRATES (AE) — 6 configs
+# @Goodbaye_filtering — UNITED ARAB EMIRATES (AE) — 8 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
 vless://aee7ae19-672f-49d8-8a92-aa7cdfc89f89@185.253.116.33:14430?sni=185.253.116.33&type=ws&host=185.253.116.33&path=/vless#AE 🇦🇪 | @Goodbaye_filtering | 04523B
 vless://aee7ae19-672f-49d8-8a92-aa7cdfc89f89@185.253.116.33:14430?encryption=none&path=%2Fvless&security=none&type=ws#AE 🇦🇪 | @Goodbaye_filtering | A06703
-vless://965ffbbe-c6b6-4d5f-8dea-6d8abc55d9c0@95.174.68.188:14430?path=%2Fvless&security=none&type=ws#AE 🇦🇪 | @Goodbaye_filtering | 01F511
-vless://965ffbbe-c6b6-4d5f-8dea-6d8abc55d9c0@95.174.68.188:14430?security=none&type=ws&path=%2Fvless&host=95.174.68.188&sni=95.174.68.188#AE 🇦🇪 | @Goodbaye_filtering | F16E75
+trojan://humanity@46.174.142.238:443?security=tls&sni=www.cordweave.com&insecure=1&allowInsecure=1&type=ws&path=%2Fassignment#AE 🇦🇪 | @Goodbaye_filtering | FB05DD
+vless://965ffbbe-c6b6-4d5f-8dea-6d8abc55d9c0@95.174.68.188:14430?security=none&type=ws&path=%2Fvless&sni=95.174.68.188#AE 🇦🇪 | @Goodbaye_filtering | 607218
+vless://965ffbbe-c6b6-4d5f-8dea-6d8abc55d9c0@95.174.68.188:14430?fp=unsafe&host=95.174.68.188&path=%2Fvless&security=none&sni=95.174.68.188&type=ws#AE 🇦🇪 | @Goodbaye_filtering | F16E75
 vless://965ffbbe-c6b6-4d5f-8dea-6d8abc55d9c0@95.174.68.188:14430?security=none&type=ws&path=%2Fvless&host=95.174.68.188#AE 🇦🇪 | @Goodbaye_filtering | 64BB8E
-vless://965ffbbe-c6b6-4d5f-8dea-6d8abc55d9c0@95.174.68.188:14430?path=%2Fvless&security=none&sni=95.174.68.188&type=ws#AE 🇦🇪 | @Goodbaye_filtering | 607218
+vless://965ffbbe-c6b6-4d5f-8dea-6d8abc55d9c0@95.174.68.188:14430?path=%2Fvless&security=none&type=ws#AE 🇦🇪 | @Goodbaye_filtering | 01F511
+trojan://humanity@95.182.95.144:443?security=tls&sni=www.cordweave.com&insecure=1&allowInsecure=1&type=ws&path=%2Fassignment#AE 🇦🇪 | @Goodbaye_filtering | 7FD900
