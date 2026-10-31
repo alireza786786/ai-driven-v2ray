@@ -2433,6 +2433,7 @@
         "US 🇺🇸 | @Goodbaye_filtering | F1EB1B",
         "RU 🇷🇺 | @Goodbaye_filtering | F74F10",
         "RU 🇷🇺 | @Goodbaye_filtering | 05FC9A",
+        "RU 🇷🇺 | @Goodbaye_filtering | 945FCC",
         "RU 🇷🇺 | @Goodbaye_filtering | 9B9CD3",
         "CA 🇨🇦 | @Goodbaye_filtering | 3B4C92",
         "CA 🇨🇦 | @Goodbaye_filtering | 702C4F",
@@ -4785,6 +4786,7 @@
         "TR 🇹🇷 | @Goodbaye_filtering | 30012A",
         "TR 🇹🇷 | @Goodbaye_filtering | 030214",
         "TR 🇹🇷 | @Goodbaye_filtering | 513267",
+        "TR 🇹🇷 | @Goodbaye_filtering | 8247C7",
         "DE 🇩🇪 | @Goodbaye_filtering | 9E5388",
         "JP 🇯🇵 | @Goodbaye_filtering | 514EAB",
         "JP 🇯🇵 | @Goodbaye_filtering | ABFDC7",
@@ -7728,6 +7730,7 @@
         "US 🇺🇸 | @Goodbaye_filtering | F1EB1B",
         "RU 🇷🇺 | @Goodbaye_filtering | F74F10",
         "RU 🇷🇺 | @Goodbaye_filtering | 05FC9A",
+        "RU 🇷🇺 | @Goodbaye_filtering | 945FCC",
         "RU 🇷🇺 | @Goodbaye_filtering | 9B9CD3",
         "CA 🇨🇦 | @Goodbaye_filtering | 3B4C92",
         "CA 🇨🇦 | @Goodbaye_filtering | 702C4F",
@@ -10080,6 +10083,7 @@
         "TR 🇹🇷 | @Goodbaye_filtering | 30012A",
         "TR 🇹🇷 | @Goodbaye_filtering | 030214",
         "TR 🇹🇷 | @Goodbaye_filtering | 513267",
+        "TR 🇹🇷 | @Goodbaye_filtering | 8247C7",
         "DE 🇩🇪 | @Goodbaye_filtering | 9E5388",
         "JP 🇯🇵 | @Goodbaye_filtering | 514EAB",
         "JP 🇯🇵 | @Goodbaye_filtering | ABFDC7",
@@ -47394,6 +47398,19 @@
     },
     {
       "type": "vmess",
+      "tag": "RU 🇷🇺 | @Goodbaye_filtering | 945FCC",
+      "server": "158.160.180.165",
+      "server_port": 24212,
+      "uuid": "c58c1205-b308-416f-8503-c04557abf93d",
+      "security": "auto",
+      "alter_id": 0,
+      "tls": {
+        "enabled": true,
+        "server_name": "158.160.180.165"
+      }
+    },
+    {
+      "type": "vmess",
       "tag": "RU 🇷🇺 | @Goodbaye_filtering | 9B9CD3",
       "server": "158.160.211.200",
       "server_port": 11556,
@@ -79879,6 +79896,22 @@
       "server": "octpus1.gsmonline.ir",
       "server_port": 8080,
       "uuid": "ea183122-9b4a-4dc3-afe2-adb114e2019d",
+      "security": "auto",
+      "alter_id": 0,
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": "snapp.ir"
+        }
+      }
+    },
+    {
+      "type": "vmess",
+      "tag": "TR 🇹🇷 | @Goodbaye_filtering | 8247C7",
+      "server": "octpus1.gsmonline.ir",
+      "server_port": 8080,
+      "uuid": "f33d1026-ce3b-4175-9f81-feb522fcfef1",
       "security": "auto",
       "alter_id": 0,
       "transport": {

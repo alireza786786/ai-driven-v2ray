@@ -28147,6 +28147,17 @@ proxies:
   udp: true
   tls: true
   network: tcp
+- name: "RU \U0001F1F7\U0001F1FA | @Goodbaye_filtering | 945FCC"
+  server: 158.160.180.165
+  port: 24212
+  type: vmess
+  uuid: c58c1205-b308-416f-8503-c04557abf93d
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: 158.160.180.165
+  network: tcp
 - name: "RU \U0001F1F7\U0001F1FA | @Goodbaye_filtering | 9B9CD3"
   server: 158.160.211.200
   port: 11556
@@ -57792,6 +57803,21 @@ proxies:
     path: /
     headers:
       Host: snapp.ir
+- name: "TR \U0001F1F9\U0001F1F7 | @Goodbaye_filtering | 8247C7"
+  server: octpus1.gsmonline.ir
+  port: 8080
+  type: vmess
+  uuid: f33d1026-ce3b-4175-9f81-feb522fcfef1
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: false
+  servername: snapp.ir
+  network: ws
+  ws-opts:
+    path: /
+    headers:
+      Host: snapp.ir
 - name: "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 9E5388"
   server: oDDJKX2OdVb0VnKF.v.3dns.vip
   port: 443
@@ -67553,6 +67579,7 @@ proxy-groups:
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | F1EB1B"
   - "RU \U0001F1F7\U0001F1FA | @Goodbaye_filtering | F74F10"
   - "RU \U0001F1F7\U0001F1FA | @Goodbaye_filtering | 05FC9A"
+  - "RU \U0001F1F7\U0001F1FA | @Goodbaye_filtering | 945FCC"
   - "RU \U0001F1F7\U0001F1FA | @Goodbaye_filtering | 9B9CD3"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 3B4C92"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 702C4F"
@@ -69939,6 +69966,7 @@ proxy-groups:
   - "TR \U0001F1F9\U0001F1F7 | @Goodbaye_filtering | 30012A"
   - "TR \U0001F1F9\U0001F1F7 | @Goodbaye_filtering | 030214"
   - "TR \U0001F1F9\U0001F1F7 | @Goodbaye_filtering | 513267"
+  - "TR \U0001F1F9\U0001F1F7 | @Goodbaye_filtering | 8247C7"
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 9E5388"
   - "JP \U0001F1EF\U0001F1F5 | @Goodbaye_filtering | 514EAB"
   - "JP \U0001F1EF\U0001F1F5 | @Goodbaye_filtering | ABFDC7"
@@ -72943,6 +72971,7 @@ proxy-groups:
   - "US \U0001F1FA\U0001F1F8 | @Goodbaye_filtering | F1EB1B"
   - "RU \U0001F1F7\U0001F1FA | @Goodbaye_filtering | F74F10"
   - "RU \U0001F1F7\U0001F1FA | @Goodbaye_filtering | 05FC9A"
+  - "RU \U0001F1F7\U0001F1FA | @Goodbaye_filtering | 945FCC"
   - "RU \U0001F1F7\U0001F1FA | @Goodbaye_filtering | 9B9CD3"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 3B4C92"
   - "CA \U0001F1E8\U0001F1E6 | @Goodbaye_filtering | 702C4F"
@@ -75329,6 +75358,7 @@ proxy-groups:
   - "TR \U0001F1F9\U0001F1F7 | @Goodbaye_filtering | 30012A"
   - "TR \U0001F1F9\U0001F1F7 | @Goodbaye_filtering | 030214"
   - "TR \U0001F1F9\U0001F1F7 | @Goodbaye_filtering | 513267"
+  - "TR \U0001F1F9\U0001F1F7 | @Goodbaye_filtering | 8247C7"
   - "DE \U0001F1E9\U0001F1EA | @Goodbaye_filtering | 9E5388"
   - "JP \U0001F1EF\U0001F1F5 | @Goodbaye_filtering | 514EAB"
   - "JP \U0001F1EF\U0001F1F5 | @Goodbaye_filtering | ABFDC7"

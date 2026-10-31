@@ -3,7 +3,7 @@
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
 #support-url: https://t.me/goodbaye_filtering
 #profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
-# @Goodbaye_filtering — trojan — 1689 configs
+# @Goodbaye_filtering — trojan — 1694 configs
 trojan://!str18844@zxcvbn@os-tr-2.cats22.net:443#JP 🇯🇵 | @Goodbaye_filtering | F278EA
 trojan://!str18844@zxcvbn@os-tr-3.cats22.net:443#JP 🇯🇵 | @Goodbaye_filtering | ED4401
 trojan://!str18844@zxcvbn@os-tr-5.cats22.net:443#JP 🇯🇵 | @Goodbaye_filtering | AF45EA
@@ -121,6 +121,7 @@ trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@216.152.147.93:443?sni=connectingpeopl
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@216.152.147.93:443?security=tls&insecure=0&headerType=none&type=tcp&allowInsecure=0&sni=connectingpeoplewithgreatjobs.com#CA 🇨🇦 | @Goodbaye_filtering | 6B3EB5
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@216.152.155.131:443?allowInsecure=1&type=tcp#US 🇺🇸 | @Goodbaye_filtering | 7B15EE
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@216.152.155.131:443?security=tls&insecure=0&headerType=none&type=tcp&allowInsecure=0&sni=www.nextjobopportunityandclaimyouridealrole.com#US 🇺🇸 | @Goodbaye_filtering | C5C4FE
+trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@216.152.155.158:443?allowInsecure=1&sni=resources.nextjobopportunityandclaimyouridealrole.com#US 🇺🇸 | @Goodbaye_filtering | 9A77C9
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@216.152.155.158:443?security=tls&sni=resources.nextjobopportunityandclaimyouridealrole.com#US 🇺🇸 | @Goodbaye_filtering | 5BA270
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@216.152.155.176:443?security=tls#US 🇺🇸 | @Goodbaye_filtering | 671DD4
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@216.152.155.176:443?allowInsecure=1&sni=blog.nextjobopportunityandclaimyouridealrole.com&type=tcp#US 🇺🇸 | @Goodbaye_filtering | B143E4
@@ -141,7 +142,7 @@ trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@216.152.156.212:443?security=tls#US �
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@216.152.156.212:443?allowInsecure=1&sni=216.152.156.212&type=tcp#US 🇺🇸 | @Goodbaye_filtering | 5C3772
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@216.152.156.212:443?allowInsecure=1&sni=courses.healthcarejobshubenhancemedicalprofessionalskillstoday.com&type=tcp#US 🇺🇸 | @Goodbaye_filtering | D9D90E
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@216.152.156.212:443?security=tls&sni=courses.healthcarejobshubenhancemedicalprofessionalskillstoday.com#US 🇺🇸 | @Goodbaye_filtering | DC936D
-trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@216.152.156.42:443#US 🇺🇸 | @Goodbaye_filtering | 7AC966
+trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@216.152.156.42:443?#US 🇺🇸 | @Goodbaye_filtering | 7AC966
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@216.152.156.42:443?allowInsecure=1&sni=216.152.156.42&type=tcp#US 🇺🇸 | @Goodbaye_filtering | 792421
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@216.152.156.42:443?allowInsecure=1&sni=blog.healthcarejobshubenhancemedicalprofessionalskillstoday.com&type=tcp#US 🇺🇸 | @Goodbaye_filtering | D0B12B
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@216.152.156.42:443?security=tls&sni=blog.healthcarejobshubenhancemedicalprofessionalskillstoday.com#US 🇺🇸 | @Goodbaye_filtering | 17A12B
@@ -175,6 +176,7 @@ trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@64.176.7.205:443?sni=advanceyouremploy
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@64.176.7.205:443?security=tls&insecure=0&headerType=none&type=tcp&allowInsecure=0&sni=advanceyouremploymentskillsandcareerdevelopmenthub.com#CL 🇨🇱 | @Goodbaye_filtering | 1C085E
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@66.163.112.121:443?allowInsecure=1&sni=66.163.112.121&type=tcp#US 🇺🇸 | @Goodbaye_filtering | CFA29A
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@66.163.112.121:443?security=tls&insecure=0&headerType=none&type=tcp&allowInsecure=0&sni=www.unlockyourfuturefindyourperfectcareer.com#US 🇺🇸 | @Goodbaye_filtering | 4E295C
+trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@66.163.112.13:443?#US 🇺🇸 | @Goodbaye_filtering | DEE7A9
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@66.163.112.13:443?allowInsecure=1&sni=66.163.112.13&type=tcp#US 🇺🇸 | @Goodbaye_filtering | 67F66B
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@66.163.112.13:443?allowInsecure=1&sni=api.nextjobopportunityandclaimyouridealrole.com&type=tcp#US 🇺🇸 | @Goodbaye_filtering | 186908
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@66.163.112.13:443?allowInsecure=0&sni=blog.unlockyourfuturefindyourperfectcareer.com#US 🇺🇸 | @Goodbaye_filtering | E41C76
@@ -224,10 +226,12 @@ trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@66.163.114.45:443?security=tls&insecur
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@66.163.118.131:443?security=tls&insecure=0&type=tcp&allowInsecure=0&sni=www.discovergreatjobsandadvanceyourcareer.com#ES 🇪🇸 | @Goodbaye_filtering | FA4837
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@66.163.118.166:443?allowInsecure=0&sni=learn.discovergreatjobsandadvanceyourcareer.com#ES 🇪🇸 | @Goodbaye_filtering | 257A25
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@66.163.118.166:443?security=tls&sni=learn.discovergreatjobsandadvanceyourcareer.com#ES 🇪🇸 | @Goodbaye_filtering | 4AC48F
+trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@66.163.118.244:443?#ES 🇪🇸 | @Goodbaye_filtering | 3B5924
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@66.163.118.244:443?security=tls&sni=api.discovergreatjobsandadvanceyourcareer.com#ES 🇪🇸 | @Goodbaye_filtering | 15FDDA
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@66.163.118.251:443?security=tls&insecure=0&headerType=none&type=tcp&allowInsecure=0&sni=resources.discovergreatjobsandadvanceyourcareer.com#ES 🇪🇸 | @Goodbaye_filtering | 2A8C03
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@66.163.118.62:443?#ES 🇪🇸 | @Goodbaye_filtering | 32DD1D
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@66.163.118.62:443?insecure=0&type=tcp&headerType=none&security=tls&sni=courses.discovergreatjobsandadvanceyourcareer.com&allowInsecure=0#ES 🇪🇸 | @Goodbaye_filtering | 2712B5
+trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@66.163.122.113:443?sni=api.searchnationwidecareerchangehelperandguidancetoday.com#US 🇺🇸 | @Goodbaye_filtering | 4AC1E7
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@66.163.122.113:443?security=tls&insecure=0&headerType=none&type=tcp&allowInsecure=0&sni=api.searchnationwidecareerchangehelperandguidancetoday.com#US 🇺🇸 | @Goodbaye_filtering | 651D8C
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@66.163.122.25:443?sni=cdn.searchnationwidecareerchangehelperandguidancetoday.com#US 🇺🇸 | @Goodbaye_filtering | 86F297
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@66.163.122.25:443?allowInsecure=1&insecure=1&security=tls&sni=cdn.searchnationwidecareerchangehelperandguidancetoday.com&type=tcp&headerType=none#US 🇺🇸 | @Goodbaye_filtering | 77C617
@@ -534,6 +538,7 @@ trojan://5t6i121em5lkmsmk@216.128.185.90:46977?type=tcp&security=tls&sni=ca001.z
 trojan://5t6i121em5lkmsmk@br001.zestapp778.com:39533?type=tcp&security=tls&fp=chrome&sni=br001.zestapp778.com#BR 🇧🇷 | @Goodbaye_filtering | 245197
 trojan://5t6i121em5lkmsmk@ca001.zestapp778.com:46977?allowInsecure=1&sni=ca001.zestapp778.com&type=tcp#CA 🇨🇦 | @Goodbaye_filtering | AA675E
 trojan://5t6i121em5lkmsmk@ca001.zestapp778.com:46977?type=tcp&security=tls&fp=chrome&sni=ca001.zestapp778.com#CA 🇨🇦 | @Goodbaye_filtering | 76F0F6
+trojan://5t6i121em5lkmsmk@en001.zestapp778.com:29813?allowInsecure=1&sni=en001.zestapp778.com#GB 🇬🇧 | @Goodbaye_filtering | AEF0D7
 trojan://5t6i121em5lkmsmk@fr001.zestapp778.com:16778?sni=fr001.zestapp778.com&allowInsecure=1&type=tcp#FR 🇫🇷 | @Goodbaye_filtering | F8A04C
 trojan://5t6i121em5lkmsmk@in002.zestapp778.com:42733?allowInsecure=1&type=tcp#IN 🇮🇳 | @Goodbaye_filtering | 515F34
 trojan://5t6i121em5lkmsmk@in002.zestapp778.com:42733?allowInsecure=1&sni=in002.zestapp778.com&type=tcp#IN 🇮🇳 | @Goodbaye_filtering | 29B220
