@@ -1,11 +1,11 @@
 {
   "brand": "@Goodbaye_filtering",
   "generator": "Goodbaye_filteringBot aggregator",
-  "updated_at": "2026-10-30T17:57:19.403553+00:00",
-  "updated_at_unix": 1793383039,
-  "next_update_eta": "2026-10-30T18:42:19.403553+00:00",
+  "updated_at": "2026-10-31T04:45:35.786508+00:00",
+  "updated_at_unix": 1793421935,
+  "next_update_eta": "2026-10-31T05:30:35.786508+00:00",
   "update_interval_minutes": 45,
-  "elapsed_seconds": 26.1,
+  "elapsed_seconds": 24.2,
   "raw_base": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main",
   "cdn_base": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main",
   "primary_base": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main",
@@ -23,21 +23,19 @@
   },
   "categories": {
     "all": {
-      "unique": 11156,
+      "unique": 11112,
       "broken": 1,
-      "duplicates": 9130,
-      "total_fetched": 20308,
-      "active_sources": 12,
+      "duplicates": 9188,
+      "total_fetched": 20320,
+      "active_sources": 11,
       "protocols": {
-        "vless": 4674,
-        "vmess": 3558,
-        "trojan": 1651,
-        "shadowsocks": 999,
-        "hysteria2": 269,
-        "socks": 2,
-        "anytls": 1,
-        "shadowsocksr": 1,
-        "tuic": 1
+        "vless": 4612,
+        "vmess": 3580,
+        "trojan": 1689,
+        "shadowsocks": 996,
+        "hysteria2": 227,
+        "socks": 7,
+        "shadowsocksr": 1
       },
       "files": {
         "configs_txt": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/all/configs.txt",
@@ -51,17 +49,17 @@
       }
     },
     "heavy": {
-      "unique": 7043,
+      "unique": 6962,
       "broken": 1,
-      "duplicates": 5843,
-      "total_fetched": 12908,
+      "duplicates": 5857,
+      "total_fetched": 12839,
       "active_sources": 4,
       "protocols": {
-        "vless": 4151,
-        "trojan": 1487,
-        "shadowsocks": 971,
-        "vmess": 393,
-        "hysteria2": 40,
+        "vless": 4075,
+        "trojan": 1500,
+        "shadowsocks": 969,
+        "vmess": 382,
+        "hysteria2": 35,
         "shadowsocksr": 1
       },
       "files": {
@@ -76,20 +74,18 @@
       }
     },
     "light": {
-      "unique": 5297,
+      "unique": 5405,
       "broken": 0,
-      "duplicates": 2103,
-      "total_fetched": 7400,
-      "active_sources": 8,
+      "duplicates": 2076,
+      "total_fetched": 7481,
+      "active_sources": 7,
       "protocols": {
-        "vmess": 3476,
-        "vless": 1050,
-        "trojan": 317,
-        "hysteria2": 236,
-        "shadowsocks": 214,
-        "socks": 2,
-        "anytls": 1,
-        "tuic": 1
+        "vmess": 3499,
+        "vless": 1122,
+        "trojan": 346,
+        "shadowsocks": 232,
+        "hysteria2": 199,
+        "socks": 7
       },
       "files": {
         "configs_txt": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/light/configs.txt",
@@ -104,18 +100,18 @@
     }
   },
   "protocols": {
-    "vless": 4674,
-    "vmess": 3558,
-    "trojan": 1651,
-    "shadowsocks": 999,
-    "hysteria2": 269,
-    "socks": 2,
+    "vless": 4612,
+    "vmess": 3580,
+    "trojan": 1689,
+    "shadowsocks": 996,
+    "hysteria2": 227,
+    "socks": 7,
     "shadowsocksr": 1,
-    "tuic": 1,
-    "anytls": 1,
     "hysteria": 0,
+    "tuic": 0,
     "wireguard": 0,
     "juicity": 0,
+    "anytls": 0,
     "snell": 0,
     "mieru": 0
   },
@@ -126,8 +122,6 @@
     "shadowsocks": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocks.txt",
     "shadowsocksr": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocksr.txt",
     "hysteria2": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/hysteria2.txt",
-    "tuic": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/tuic.txt",
-    "anytls": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/anytls.txt",
     "socks": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/socks.txt"
   },
   "protocol_files_base64": {
@@ -137,8 +131,6 @@
     "shadowsocks": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocks_base64.txt",
     "shadowsocksr": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/shadowsocksr_base64.txt",
     "hysteria2": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/hysteria2_base64.txt",
-    "tuic": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/tuic_base64.txt",
-    "anytls": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/anytls_base64.txt",
     "socks": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/protocols/socks_base64.txt"
   },
   "protocol_files_mirror": {
@@ -148,8 +140,6 @@
     "shadowsocks": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/protocols/shadowsocks.txt",
     "shadowsocksr": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/protocols/shadowsocksr.txt",
     "hysteria2": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/protocols/hysteria2.txt",
-    "tuic": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/protocols/tuic.txt",
-    "anytls": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/protocols/anytls.txt",
     "socks": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/protocols/socks.txt"
   },
   "archive": {
@@ -162,14 +152,14 @@
     "light_count": 8,
     "heavy_count": 5,
     "total_count": 13,
-    "healthy": 12,
-    "unhealthy": 1,
+    "healthy": 11,
+    "unhealthy": 0,
     "health_url": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/health.json",
     "health_url_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/health.json"
   },
   "cascade_categories": {
     "verified": {
-      "unique": 1182,
+      "unique": 1608,
       "criterion": "a real proxied request succeeded in ALL rounds of this run",
       "files": {
         "configs_txt": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/verified/configs.txt",
@@ -183,7 +173,7 @@
       }
     },
     "fast": {
-      "unique": 756,
+      "unique": 1170,
       "criterion": "verified AND median delay across all rounds is under the threshold",
       "files": {
         "configs_txt": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/fast/configs.txt",
@@ -197,7 +187,7 @@
       }
     },
     "secure": {
-      "unique": 840,
+      "unique": 1162,
       "criterion": "verified AND forward secrecy ((EC)DHE via TLS/REALITY/QUIC) AND certificate validation not disabled",
       "files": {
         "configs_txt": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/secure/configs.txt",
@@ -218,8 +208,8 @@
     "url_mirror": "https://cdn.jsdelivr.net/gh/alireza786786/ai-driven-v2ray@main/top100.txt"
   },
   "countries": {
-    "count": 45,
-    "configs": 1182,
+    "count": 53,
+    "configs": 1608,
     "source": "verified",
     "criterion": "verified configs grouped by the server's country (GeoIP); one .txt per country",
     "index": "https://raw.githubusercontent.com/alireza786786/ai-driven-v2ray/main/Countries/index.json",

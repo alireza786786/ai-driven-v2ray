@@ -1,0 +1,10 @@
+#profile-title: @Goodbaye_filtering — BRITISH VIRGIN ISLANDS (VG)
+#profile-update-interval: 1
+#subscription-userinfo: upload=0; download=0; total=0; expire=0
+#support-url: https://t.me/goodbaye_filtering
+#profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
+# @Goodbaye_filtering — BRITISH VIRGIN ISLANDS (VG) — 1 configs
+# source: verified/ — every config passed a real proxied request in ALL L3 rounds
+# location: GeoIP (DB-IP Country Lite) on the real network address of the server
+# note: this is where the SERVER is, not necessarily where your traffic exits
+vless://70756c73-0000-4000-8000-650000000000@104.234.239.139:443?encryption=none&security=tls&sni=parsa-panel-u48we.wotic15356.workers.dev&fp=chrome&type=ws&host=parsa-panel-u48we.wotic15356.workers.dev&path=%2Fpulse#VG 🇻🇬 | @Goodbaye_filtering | C1D5A6

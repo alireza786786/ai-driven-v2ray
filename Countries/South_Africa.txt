@@ -3,10 +3,9 @@
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
 #support-url: https://t.me/goodbaye_filtering
 #profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
-# @Goodbaye_filtering — SOUTH AFRICA (ZA) — 3 configs
+# @Goodbaye_filtering — SOUTH AFRICA (ZA) — 2 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
-ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpLcElqd3g4VzJNYlN6ZXps@20.87.213.148:443#ZA 🇿🇦 | @Goodbaye_filtering | DDDEC1
 ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpYc3k4T3g0eU9WM3hMbHB4dGp6czNY@102.133.165.160:16233#ZA 🇿🇦 | @Goodbaye_filtering | 6BDFB5
 ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTphZHVCOUhHeFFIakEyU0JNUmprSFg2@102.37.156.224:443#ZA 🇿🇦 | @Goodbaye_filtering | 4A412B

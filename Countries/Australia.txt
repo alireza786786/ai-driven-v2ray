@@ -7,6 +7,6 @@
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
-trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@45.63.30.142:443?allowInsecure=1&sni=connectwithemployerstohireyouridealteam.com&type=tcp#AU 🇦🇺 | @Goodbaye_filtering | 063CD6
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@45.63.30.142:443?security=tls&sni=connectwithemployerstohireyouridealteam.com#AU 🇦🇺 | @Goodbaye_filtering | 373E2E
+trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@45.63.30.142:443?allowInsecure=1&sni=connectwithemployerstohireyouridealteam.com&type=tcp#AU 🇦🇺 | @Goodbaye_filtering | 063CD6
 vless://948df76f-505d-4608-9c76-a933ee3ccc76@46.250.240.80:2053?fp=chrome&pbk=CYFeysLf--_IVhxQOCd3ZxLrAVWFFOkJzvIGHOVXN3E&security=reality&sid=4cc9dc65f7770115&sni=www.cloudflare.com&type=tcp#AU 🇦🇺 | @Goodbaye_filtering | 6D786F
