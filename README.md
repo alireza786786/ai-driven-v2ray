@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://alireza786786.github.io/ai-driven-v2ray/">
-    <img src="docs/assets/hero-banner.svg" alt="Goodbaye Passage Standard — public config infrastructure" width="100%">
+    <img src="docs/assets/banner.jpeg" alt="AI-Driven V2Ray – شکستن حصار فیلترینگ" width="100%">
   </a>
 </p>
 
