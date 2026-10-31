@@ -14,8 +14,10 @@ name: 🔄 Aggregate V2Ray Configs
 
 on:
   schedule:
-    # هر ۴۵ دقیقه؛ دروازهٔ ۴۰ دقیقه‌ای از اجرای تکراری جلوگیری می‌کند.
-    - cron: "*/45 * * * *"
+    on:
+  schedule:
+    # اجرا در دقیقه ۱۵ و ۴۵ هر ساعت (هر ۳۰ دقیقه یک‌بار به صورت دقیق)
+    - cron: "15,45 * * * *"
   workflow_dispatch:
     inputs:
       force:
@@ -58,11 +60,11 @@ permissions:
 
 # فاصلهٔ هدفِ به‌روزرسانی (دقیقه). با update_interval_minutes در index.json یکی است.
 env:
-  UPDATE_INTERVAL_MINUTES: "45"
-  AGG_UPDATE_INTERVAL_MIN: "45"   # به aggregate.py پاس داده می‌شود (index.json/ETA)
+  UPDATE_INTERVAL_MINUTES: "30"
+  AGG_UPDATE_INTERVAL_MIN: "30"   # به aggregate.py پاس داده می‌شود (index.json/ETA)
   # دروازهٔ تازگی: اگر آخرین خروجی کمتر از ۴۰ دقیقه پیش منتشر شده باشد،
   # این اجرا کارِ سنگین را شروع نمی‌کند (۵ دقیقه حاشیه نسبت به cron).
-  FRESHNESS_GATE_MINUTES: "40"
+  FRESHNESS_GATE_MINUTES: "25"
   # ── شاخهٔ انتشار ─────────────────────────────────────────────────────────
   #
   # ★★★ چرا خروجی‌ها روی `main` (شاخهٔ پیش‌فرض) منتشر می‌شوند و نه یک شاخهٔ جدا
