@@ -14,8 +14,6 @@ name: 🔄 Aggregate V2Ray Configs
 
 on:
   schedule:
-    on:
-  schedule:
     # اجرا در دقیقه ۱۵ و ۴۵ هر ساعت (هر ۳۰ دقیقه یک‌بار به صورت دقیق)
     - cron: "15,45 * * * *"
   workflow_dispatch:
