@@ -3,8 +3,10 @@
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
 #support-url: https://t.me/goodbaye_filtering
 #profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
-# @Goodbaye_filtering — NORWAY (NO) — 1 configs
+# @Goodbaye_filtering — NORWAY (NO) — 3 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
 ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpBUmd2R1p5d0ErZ2FjZ0dWMjZCdm11MDUrd1ptUlcvaitBZFUrWjhCdDQ0PQ==@185.213.23.63:990#NO 🇳🇴 | @Goodbaye_filtering | D97531
+vless://ccb8ff48-3934-4250-b4ec-bb76b95d154f@no1.fox-lisa.ru:443?security=reality&encryption=none&pbk=NaCZ-sS4poEbFwKmD7ePAVyc5OhHxsD9nkAStjXkoWs&headerType=none&fp=firefox&type=tcp&flow=xtls-rprx-vision&sni=no1.fox-lisa.ru&sid=027af64166562b09#NO 🇳🇴 | @Goodbaye_filtering | 0A33C0
+vless://ccb8ff48-3934-4250-b4ec-bb76b95d154f@185.90.61.65:443?security=reality&encryption=none&pbk=NaCZ-sS4poEbFwKmD7ePAVyc5OhHxsD9nkAStjXkoWs&headerType=none&fp=firefox&type=tcp&flow=xtls-rprx-vision&sni=no1.fox-lisa.ru&sid=027af64166562b09#NO 🇳🇴 | @Goodbaye_filtering | 3109E4
