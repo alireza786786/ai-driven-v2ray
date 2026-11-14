@@ -3,15 +3,14 @@
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
 #support-url: https://t.me/goodbaye_filtering
 #profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
-# @Goodbaye_filtering — IRAN (IR) — 8 configs
+# @Goodbaye_filtering — IRAN (IR) — 7 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
-trojan://humanity@45.131.4.38:443?alpn=http%2F1.1&host=www.pleadcourt.org&insecure=0&path=%2Fassignment&security=tls&sni=www.pleadcourt.org&type=ws&fp=chrome#IR 🇮🇷 | @Goodbaye_filtering | D965C7
-vmess://eyJ2IjoiMiIsInBzIjoiSVIg8J+HrvCfh7cgfCBAR29vZGJheWVfZmlsdGVyaW5nIHwgQ0ZCRTQ3IiwiYWRkIjoiOTIuNDIuMjAzLjI0MCIsInBvcnQiOiIyMDUyIiwiaWQiOiI2YTlkNGMwYi05MzhhLTRiNTgtOTExZC1lM2NhNDVkMTdhYjUiLCJhaWQiOiIwIiwic2N5IjoiYXV0byIsIm5ldCI6InRjcCIsInR5cGUiOiIiLCJ0bHMiOiIifQ==
-vless://f47057d5-120d-4b42-b6d6-30469aef6813@tunell2027.crackerbinam.org:48312?security=reality&encryption=none&pbk=d9eM_jy8ztZrOf3DMq1m55VQSo7bnKcG1dRnO9ktJ2Y&headerType=http&type=tcp&sni=www.cloudflare.com&sid=902c315efc#IR 🇮🇷 | @Goodbaye_filtering | ACF076
-vless://4e91c09c-287f-4c22-b649-e6183461bedb@6a76d93ce8874566.tunvi.w-ert.org:15100?security=tls&type=tcp&sni=ask.w-ert.org&fp=chrome&flow=xtls-rprx-vision&encryption=mlkem768x25519plus.native.0rtt.g4zPsP8_Ju17nfVQ9cRaBqzWPbv0Ve4ELGpzE9yf8CA#IR 🇮🇷 | @Goodbaye_filtering | 6E5127
-vless://f47057d5-120d-4b42-b6d6-30469aef6813@tunell2027.crackerbinam.org:48312?security=reality&encryption=none&pbk=d9eM_jy8ztZrOf3DMq1m55VQSo7bnKcG1dRnO9ktJ2Y&host=technolife.com&headerType=http&fp=chrome&spx=%2F&type=tcp&sni=www.cloudflare.com&sid=902c315efc#IR 🇮🇷 | @Goodbaye_filtering | B1BD86
-vless://212b2c89-b62d-4a21-bb80-747c3b30218a@89.42.196.92:1819?mode=auto&path=/SLDBDLSNABSLXSLSMBELX&security=reality&encryption=mlkem768x25519plus.native.0rtt.wlu2pTaOai2XaV0oUc2sy3rCbpWyWcOMSqlewHtg7jI&extra={"mode":"auto","xPaddingBytes":"100-1000"}&pbk=WczyJ2T78CnXB9GT4mD3GdpWtWMrPYxsdlKw4yBMZxQ&host=38.107.233.215&fp=chrome&spx=/415afaebd8ae71c&type=xhttp&sni=www.cloudflare.com&sid=fe#IR 🇮🇷 | @Goodbaye_filtering | 4A8BF7
-vless://212b2c89-b62d-4a21-bb80-747c3b30218a@89.42.196.92:1819?mode=auto&path=/SLDBDLSNABSLXSLSMBELX&security=reality&encryption=mlkem768x25519plus.native.0rtt.wlu2pTaOai2XaV0oUc2sy3rCbpWyWcOMSqlewHtg7jI&extra={"mode":"auto","xPaddingBytes":"100-1000"}&pbk=WczyJ2T78CnXB9GT4mD3GdpWtWMrPYxsdlKw4yBMZxQ&host=38.107.233.215&fp=chrome&spx=/415afaebd8ae71c&type=xhttp&sni=www.cloudflare.com&sid=e2df69a59b#IR 🇮🇷 | @Goodbaye_filtering | 1E3902
-vless://4e91c09c-287f-4c22-b649-e6183461bedb@tun2.w-ert.org:40286?security=tls&encryption=mlkem768x25519plus.native.0rtt.g4zPsP8_Ju17nfVQ9cRaBqzWPbv0Ve4ELGpzE9yf8CA&insecure=0&headerType=none&fp=chrome&type=tcp&allowInsecure=0&flow=xtls-rprx-vision&sni=ask.w-ert.org#IR 🇮🇷 | @Goodbaye_filtering | 0A7182
+vless://b4192dfb-f458-4303-b877-29a41a6d8416@94.183.164.176:443?encryption=none&type=grpc&serviceName=ebl&mode=multi&security=reality&sni=optim.tildacdn.pub&fp=chrome&pbk=_KeOS5u_irk1547CMVB3RdwQzz1SzrQZk-IV-btF7TU&fm=#IR 🇮🇷 | @Goodbaye_filtering | EF1170
+vless://12776e55-6230-48b9-b069-1bb8a04b4237@94.183.164.176:443?encryption=none&type=grpc&security=reality&serviceName=ebl&sni=optim.tildacdn.pub&fp=firefox&pbk=_KeOS5u_irk1547CMVB3RdwQzz1SzrQZk-IV-btF7TU#IR 🇮🇷 | @Goodbaye_filtering | C12062
+vless://667016ca-f02e-4b5f-bfc3-3d8ed81e9bec@base.hosamobenl.co.uk:443?security=tls&type=tcp&packetEncoding=xudp&alpn=http%2F1.1&pcs=8f40a40d49c7e830e78111a9846f43f322ba049cee043259c108f28a66c16b2a&sni=base.hosamobenl.co.uk&fp=chrome&encryption=none#IR 🇮🇷 | @Goodbaye_filtering | 6AC1C8
+vless://fe7b3b6b-c1aa-44e1-b105-943712191bc3@31.14.116.82:2053?encryption=none&security=none&type=tcp#IR 🇮🇷 | @Goodbaye_filtering | 410A1A
+vless://b11716c2-6d11-4752-b2bf-ac240b0136e4@duke.abrdns.com:8443?security=reality&encryption=none&pbk=5wTeknadiZ3XFJA2bAe1ee5pkx-KL_3Wh8dZRzkonUQ&headerType=none&fp=chrome&type=tcp&sni=snapp.ir&sid=278eba2e20817876#IR 🇮🇷 | @Goodbaye_filtering | A4483A
+vless://667016ca-f02e-4b5f-bfc3-3d8ed81e9bec@base.hosamobenl.co.uk:443?encryption=none&security=tls&type=tcp#IR 🇮🇷 | @Goodbaye_filtering | 0D2884
+vless://667016ca-f02e-4b5f-bfc3-3d8ed81e9bec@base.hosamobenl.co.uk:443?path=%2F&security=tls&sni=base.hosamobenl.co.uk#IR 🇮🇷 | @Goodbaye_filtering | 52D791
