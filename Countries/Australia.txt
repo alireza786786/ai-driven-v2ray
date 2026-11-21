@@ -7,6 +7,6 @@
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
+trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@45.63.30.142:443?security=tls&sni=connectwithemployerstohireyouridealteam.com&type=tcp&headerType=none#AU 🇦🇺 | @Goodbaye_filtering | 373E2E
 trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@45.63.30.142:443?allowInsecure=1&sni=connectwithemployerstohireyouridealteam.com&type=tcp#AU 🇦🇺 | @Goodbaye_filtering | 063CD6
-trojan://0ab6c98dae3b48e8b9c4a776b6c9c19a@45.63.30.142:443?security=tls&sni=connectwithemployerstohireyouridealteam.com#AU 🇦🇺 | @Goodbaye_filtering | 373E2E
-vless://948df76f-505d-4608-9c76-a933ee3ccc76@46.250.240.80:2053?fp=chrome&pbk=CYFeysLf--_IVhxQOCd3ZxLrAVWFFOkJzvIGHOVXN3E&security=reality&sid=4cc9dc65f7770115&sni=www.cloudflare.com&type=tcp#AU 🇦🇺 | @Goodbaye_filtering | 6D786F
+vless://f7fa5a16-1279-46ba-ac18-001b41884080@46.250.240.80:2053?encryption=none&security=reality&sni=www.cloudflare.com&fp=chrome&pbk=nrG0dLD2wazG9wHwqCDb7sF6UNRophzBmCX3hDxuqAE&sid=3611e663b53177f2&type=tcp#AU 🇦🇺 | @Goodbaye_filtering | 452DFB

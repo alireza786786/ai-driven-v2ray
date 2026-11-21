@@ -3,11 +3,19 @@
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
 #support-url: https://t.me/goodbaye_filtering
 #profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
-# @Goodbaye_filtering — ESTONIA (EE) — 4 configs
+# @Goodbaye_filtering — ESTONIA (EE) — 12 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
-vless://7a0348d6-55d3-4c23-b22f-6277fcb2264c@185.225.205.53:443?security=reality&type=tcp&sni=addons.mozilla.org&fp=qq&flow=xtls-rprx-vision&sid=2e82d7ac&pbk=2XyUS3_ONl5REQ7NiwikdJphAe7oJ61-21zuqnN67y8&encryption=none#EE 🇪🇪 | @Goodbaye_filtering | 25F6D8
-vless://7a0348d6-55d3-4c23-b22f-6277fcb2264c@31.77.68.36:443?security=reality&type=tcp&sni=addons.mozilla.org&fp=chrome&flow=xtls-rprx-vision&sid=64e4efa1&pbk=Daj7jHuHFEC_LV-Fv1fBSaTSQRM9vfgf_DtjMn9svl0&encryption=none#EE 🇪🇪 | @Goodbaye_filtering | 4679E5
-vless://ca14493b-b984-4ffb-bc0e-9cb5da969e15@146.19.143.218:443?security=reality&type=tcp&packetEncoding=xudp&sni=tau1.freerunet.online&fp=chrome&flow=xtls-rprx-vision&sid=4a7b1c8d&pbk=l1mx_plNc2oiWxJCcZLh3SGfFU-5QxYpgQ__Ea59WEg&encryption=none#EE 🇪🇪 | @Goodbaye_filtering | 11FD6D
-trojan://humanity@185.36.141.81:443?sni=www.calmlunch.com&type=ws&path=/assignment&fp=chrome#EE 🇪🇪 | @Goodbaye_filtering | 3EFF12
+vless://13cca0fd-bb3e-44e4-9ced-1c6efcabbb03@95.85.243.72:443?security=reality&encryption=none&pbk=m3opvubdy_gjBiBkXnAw3eDUP4alVeVWxKkvZHIINjs&headerType=none&fp=chrome&type=tcp&sni=212.192.156.15&sid=426165a0badade80#EE 🇪🇪 | @Goodbaye_filtering | 37CD69
+vless://097eae28-f0e7-4b18-bce2-16cf7d9deb05@191.217.238.38:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=firefox&pbk=vq0Fi871QaDVmxY7F0XWByt9muX3-16E31XfHWZj9D8&sid=28138197d12e8e38&sni=www.bmw.de#EE 🇪🇪 | @Goodbaye_filtering | B1CF9F
+vless://9a597d68-6688-4046-bf24-a5a541e115e0@77.83.198.104:8443?encryption=none&type=tcp&flow=xtls-rprx-vision&security=reality&sni=www.apple.com&fp=chrome&pbk=6FI4VM9WlQEGVjyCvLDQLz1jOkrzzhtfGl9eQTBn6HU&sid=f8d0271b4b5f9efc&allowInsecure=1#EE 🇪🇪 | @Goodbaye_filtering | 8D6330
+vless://cda0862a-0f87-4be9-8ed8-1d0c9e382839@5d0319t.nl7.h1clayd.click:443?&security=reality&pbk=l-GzBDuNuhnjxoRlZqKvT7jAt_sbVAxhGFsAttO5kXs&sid=361d0dd59c70516f&fp=chrome&sni=5d0319t.nl7.h1clayd.click&type=tcp&headerType=none&host=5d0319t.nl7.h1clayd.click&path=%2F#EE 🇪🇪 | @Goodbaye_filtering | 12A2B5
+vless://cda0862a-0f87-4be9-8ed8-1d0c9e382839@15b171g.nl7.h1clayd.click:443?security=reality&type=grpc&mode=gun&serviceName=5b79e8a94241&packetEncoding=xudp&sni=15b171g.nl7.h1clayd.click&fp=chrome&sid=50a749f0eccb628c&pbk=zbz--PMjcIC4Ggr3j-ibDf0fzXRTj0lM_HzjPJyMkVE&encryption=none#EE 🇪🇪 | @Goodbaye_filtering | D3FD69
+vless://cda0862a-0f87-4be9-8ed8-1d0c9e382839@132.243.67.224:443?security=reality&sni=717252g.nl8.h1clayd.click&fp=chrome&pbk=PD8Jdlg3xB9QY--jwQjp8PFPzCS8-Oryw6-HWBcHMFU&sid=d3bd772514c87d28&type=grpc&serviceName=204adda7e3da#EE 🇪🇪 | @Goodbaye_filtering | 6F49DF
+vless://cda0862a-0f87-4be9-8ed8-1d0c9e382839@13.143.239.6:443?type=grpc&headerType=none&security=reality&encryption=none&sni=717252g.nl8.h1clayd.click&fp=chrome&pbk=PD8Jdlg3xB9QY--jwQjp8PFPzCS8-Oryw6-HWBcHMFU&sid=d3bd772514c87d28&serviceName=204adda7e3da&mode=gun#EE 🇪🇪 | @Goodbaye_filtering | 2E11E6
+vless://cda0862a-0f87-4be9-8ed8-1d0c9e382839@132.243.66.159:443?encryption=none&fp=firefox&pbk=UoS8qZ74hP_ECcncCz55lzvlcVss3R7VA0WYZE0YQCY&security=reality&sid=ba2a3dce62b99092&sni=04535dt.us8.h1clayd.click&type=tcp#EE 🇪🇪 | @Goodbaye_filtering | 262CAF
+vless://cda0862a-0f87-4be9-8ed8-1d0c9e382839@717252g.nl8.h1clayd.click:443?encryption=none&pbk=PD8Jdlg3xB9QY--jwQjp8PFPzCS8-Oryw6-HWBcHMFU&security=reality&serviceName=204adda7e3da&sid=d3bd772514c87d28&sni=717252g.nl8.h1clayd.click&spx=%2F&type=grpc&fp=ios#EE 🇪🇪 | @Goodbaye_filtering | F59C9F
+vless://4201786b-d99b-4147-a5f0-20d47acddb81@7aa271t.es1.h1clayd.click:443?security=reality&flow=xtls-rprx-vision&pbk=ZSmetD4e9QG5CiXhniHg5HJB68L4kwbgAkJmMHtVwEE&sid=42426c882c5fcd41&fp=chrome&sni=7aa271t.es1.h1clayd.click&type=tcp&headerType=none&host=7aa271t.es1.h1clayd.click&path=%2F#EE 🇪🇪 | @Goodbaye_filtering | 1E3471
+vless://4201786b-d99b-4147-a5f0-20d47acddb81@38917fx.es1.h1clayd.click:443?encryption=none&security=reality&type=xhttp&sni=38917fx.es1.h1clayd.click&fp=chrome&pbk=4mgkA2kT_Im0rkGi-fVSUU5CyF5xvMVcjA6MXBSEDAA&sid=d5501b156391e01d#EE 🇪🇪 | @Goodbaye_filtering | 6B5D17
+vless://4201786b-d99b-4147-a5f0-20d47acddb81@7aa271t.es9.h1clayd.click:443?security=reality&type=tcp&sni=7aa271t.es9.h1clayd.click&host=7aa271t.es9.h1clayd.click&flow=xtls-rprx-vision&fp=random&pbk=ZSmetD4e9QG5CiXhniHg5HJB68L4kwbgAkJmMHtVwEE&sid=42426c882c5fcd41&allowInsecure=1#EE 🇪🇪 | @Goodbaye_filtering | F2B6B9

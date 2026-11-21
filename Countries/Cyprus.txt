@@ -1,10 +1,10 @@
-#profile-title: @Goodbaye_filtering — ALBANIA (AL)
+#profile-title: @Goodbaye_filtering — CYPRUS (CY)
 #profile-update-interval: 1
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
 #support-url: https://t.me/goodbaye_filtering
 #profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
-# @Goodbaye_filtering — ALBANIA (AL) — 1 configs
+# @Goodbaye_filtering — CYPRUS (CY) — 1 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
-ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpsc3Uxdi8zaU5FUndERFZ3eEN1NTAzM0tDVXFRT29FbFlRdWw2M2ttcUo4PQ@130.49.189.158:43558#AL 🇦🇱 | @Goodbaye_filtering | 5AB7D3
+vless://d73e3cdc-a80b-4e73-a11b-cc467d7a84f8@45.88.176.223:443?mode=auto&path=%2Fmedia%2Fe1c76c&security=tls&encryption=none&insecure=0&fp=firefox&type=xhttp&allowInsecure=0&sni=m.yourvibe.my#CY 🇨🇾 | @Goodbaye_filtering | 772702
