@@ -3,11 +3,10 @@
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
 #support-url: https://t.me/goodbaye_filtering
 #profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
-# @Goodbaye_filtering — socks — 7 configs
-socks://ODg4ODo4ODg4@47.236.168.243:1080#SG 🇸🇬 | @Goodbaye_filtering | 054493
-socks://Og%3D%3D@140.238.243.61:1080#IN 🇮🇳 | @Goodbaye_filtering | F27EB8
-socks://Og%3D%3D@20.121.179.183:3008#US 🇺🇸 | @Goodbaye_filtering | 86FB79
-socks://Og%3D%3D@37.221.194.29:1080#DE 🇩🇪 | @Goodbaye_filtering | 657E9D
-socks://Og%3D%3D@67.207.92.87:1088#US 🇺🇸 | @Goodbaye_filtering | 98A6C6
+# @Goodbaye_filtering — socks — 6 configs
+socks://eTJzdFRRbmY6d2oyc052RHU@45.201.39.74:62000#TH 🇹🇭 | @Goodbaye_filtering | 78AED1
+socks://MTIzNDU2OjEyMzQ1Ng%3D%3D@8.209.236.192:1080#JP 🇯🇵 | @Goodbaye_filtering | 885644
+socks://Og%3D%3D@43.155.128.61:1080#KR 🇰🇷 | @Goodbaye_filtering | CEC499
 socks://Og%3D%3D@69.55.49.177:38182#US 🇺🇸 | @Goodbaye_filtering | E208F9
-socks://Og%3D%3D@82.180.146.251:10800#NL 🇳🇱 | @Goodbaye_filtering | 4DB43F
+socks://Og%3D%3D@89.106.84.72:1080#US 🇺🇸 | @Goodbaye_filtering | E263AF
+socks://Ok5vbmU%3D@69.55.49.177:38182#US 🇺🇸 | @Goodbaye_filtering | EE3388
