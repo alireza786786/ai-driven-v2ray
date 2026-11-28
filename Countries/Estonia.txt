@@ -7,7 +7,7 @@
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
-vless://7a0348d6-55d3-4c23-b22f-6277fcb2264c@185.225.205.53:443?security=reality&type=tcp&sni=addons.mozilla.org&fp=qq&flow=xtls-rprx-vision&sid=2e82d7ac&pbk=2XyUS3_ONl5REQ7NiwikdJphAe7oJ61-21zuqnN67y8&encryption=none#EE 🇪🇪 | @Goodbaye_filtering | 25F6D8
-vless://7a0348d6-55d3-4c23-b22f-6277fcb2264c@31.77.68.36:443?security=reality&type=tcp&sni=addons.mozilla.org&fp=chrome&flow=xtls-rprx-vision&sid=64e4efa1&pbk=Daj7jHuHFEC_LV-Fv1fBSaTSQRM9vfgf_DtjMn9svl0&encryption=none#EE 🇪🇪 | @Goodbaye_filtering | 4679E5
-vless://ca14493b-b984-4ffb-bc0e-9cb5da969e15@146.19.143.218:443?security=reality&type=tcp&packetEncoding=xudp&sni=tau1.freerunet.online&fp=chrome&flow=xtls-rprx-vision&sid=4a7b1c8d&pbk=l1mx_plNc2oiWxJCcZLh3SGfFU-5QxYpgQ__Ea59WEg&encryption=none#EE 🇪🇪 | @Goodbaye_filtering | 11FD6D
-trojan://humanity@185.36.141.81:443?sni=www.calmlunch.com&type=ws&path=/assignment&fp=chrome#EE 🇪🇪 | @Goodbaye_filtering | 3EFF12
+vless://cda0862a-0f87-4be9-8ed8-1d0c9e382839@143.246.41.117:443?mode=auto&path=/d610f026b146&security=reality&encryption=none&pbk=jhVdP7NFUaEXGfrmOqJlMCHTvqn3fymbzPfPT6NO4i0&type=xhttp&sni=80cb66x.nl13.h1clayd.click&sid=f72d4a2c7cbbacb1#EE 🇪🇪 | @Goodbaye_filtering | 745B0F
+vless://cda0862a-0f87-4be9-8ed8-1d0c9e382839@717252g.nl8.h1clayd.click:443?security=reality&encryption=none&pbk=PD8Jdlg3xB9QY--jwQjp8PFPzCS8-Oryw6-HWBcHMFU&fp=chrome&type=grpc&serviceName=204adda7e3da&sni=717252g.nl8.h1clayd.click&sid=d3bd772514c87d28#EE 🇪🇪 | @Goodbaye_filtering | F59C9F
+vless://cda0862a-0f87-4be9-8ed8-1d0c9e382839@132.243.66.159:443?security=reality&encryption=none&pbk=UoS8qZ74hP_ECcncCz55lzvlcVss3R7VA0WYZE0YQCY&headerType=&fp=chrome&type=tcp&sni=04535dt.us8.h1clayd.click&sid=ba2a3dce62b99092#EE 🇪🇪 | @Goodbaye_filtering | 262CAF
+vless://55ba7b31-b0eb-4362-9c9b-fc53b0a53fab@89.125.13.161:8443?encryption=none&security=reality&type=xhttp&sni=ee1.setlocation.top&fp=firefox&pbk=8kxKr4wsOvuLmNXQFdtPqKwtIA-zX2nvrZ2ro_nMTVA&sid=14605d12bfd95119&spx=%2F&path=%2F810011f9c542&mode=auto#EE 🇪🇪 | @Goodbaye_filtering | 31CDF2

@@ -3,27 +3,38 @@
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
 #support-url: https://t.me/goodbaye_filtering
 #profile-web-page-url: https://github.com/alireza786786/ai-driven-v2ray
-# @Goodbaye_filtering — JAPAN (JP) — 20 configs
+# @Goodbaye_filtering — JAPAN (JP) — 31 configs
 # source: verified/ — every config passed a real proxied request in ALL L3 rounds
 # location: GeoIP (DB-IP Country Lite) on the real network address of the server
 # note: this is where the SERVER is, not necessarily where your traffic exits
-ss://YWVzLTEyOC1nY206c2hhZG93c29ja3M@149.22.87.240:443#JP 🇯🇵 | @Goodbaye_filtering | 2459E0
-ss://YWVzLTEyOC1nY206c2hhZG93c29ja3M@149.22.87.241:443#JP 🇯🇵 | @Goodbaye_filtering | 9EF41E
 ss://YWVzLTEyOC1nY206c2hhZG93c29ja3M@149.22.87.204:443#JP 🇯🇵 | @Goodbaye_filtering | 554D18
-vless://7072eeba-94fd-4fb3-92f2-a4506dd84cd8@31.76.91.98:443?security=reality&type=tcp&packetEncoding=xudp&sni=fuji.etherhub.cc&fp=chrome&flow=xtls-rprx-vision&sid=bd6f67b6b2152b45&pbk=ejx56dFtS4LK_Th6HSLFFdm7v7zqRpv8KfjrWAw4Sjg#JP 🇯🇵 | @Goodbaye_filtering | 890048
-vless://a6be8b6d-3033-4a99-b9bd-75e2ab12cfd0@31.76.91.238:443?security=reality&encryption=none&pbk=OnFi4-dm6Pf7o5CboFwfhbIA539vVtsd7ZYlPnWJVxo&headerType=none&fp=firefox&type=tcp&flow=xtls-rprx-vision&sni=japan.selfsteal.com&sid=f336420d3cd15950#JP 🇯🇵 | @Goodbaye_filtering | 72BEEA
-vless://4e4f1f70-5e56-4a76-bb9d-db087f4690c4@43.170.8.95:443?fp=chrome&host=jp3.yohototo.top&path=%2Ftyxyws&security=tls&sni=jp3.yohototo.top&type=ws#JP 🇯🇵 | @Goodbaye_filtering | 645DE6
-vless://81f686e2-0700-4e7d-b3aa-2f7fc544bcc3@ga1data.xyy123.bid:443?flow=xtls-rprx-vision&fp=chrome&pbk=Z7B8VKvjAiBH93XEkHFWCVBfK8Mu5HTLtAwfr5LuYlk&security=reality&sid=00b0389a&sni=www.amzn.com&type=tcp#JP 🇯🇵 | @Goodbaye_filtering | 08B5EE
-vless://b4caaf57-ad77-4948-a6f5-51b3513799bf@46.250.250.149:2053?fp=chrome&pbk=hieuCHb3HYdDYHmTDyWw2SGqyfo36AVuA-wSiZMdU1M&security=reality&sid=9922313fffed1c63&sni=www.apple.com&type=tcp#JP 🇯🇵 | @Goodbaye_filtering | CB0C73
-vless://4e4f1f70-5e56-4a76-bb9d-db087f4690c4@154.31.114.162:8443?host=jp3.yohototo.top&path=%2Ftyxyws&security=tls&sni=jp3.yohototo.top&type=ws#JP 🇯🇵 | @Goodbaye_filtering | 8EB17B
-vless://871bfce7-8440-4394-8d82-56b51f20fdad@18.183.215.124:28573?alpn=http%252f1.1&flow=xtls-rprx-vision&fp=random&host=www.sony.com&pbk=1DJr9toke7FRuSXjibBVuNvRnLnJnN5kXwUBG6Romzg&security=reality&sid=03653bc03be10c97&sni=www.sony.com&type=tcp#JP 🇯🇵 | @Goodbaye_filtering | C99F45
-vless://814bd064-544d-4255-a070-5705c03f6da9@3.114.220.22:19645?flow=xtls-rprx-vision&fp=random&host=www.apple.com&pbk=k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0&security=reality&sid=48050fab&sni=www.apple.com&type=tcp#JP 🇯🇵 | @Goodbaye_filtering | F984AC
-vless://814bd064-544d-4255-a070-5705c03f6da9@3.114.220.22:18007?flow=xtls-rprx-vision&fp=ios&pbk=k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0&security=reality&sid=48050fab&sni=www.apple.com&type=tcp#JP 🇯🇵 | @Goodbaye_filtering | 8451BB
-vless://814bd064-544d-4255-a070-5705c03f6da9@3.114.220.22:19645?flow=xtls-rprx-vision&fp=chrome&path=%2F&pbk=k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0&security=reality&sid=48050fab&sni=www.apple.com&type=tcp#JP 🇯🇵 | @Goodbaye_filtering | 68B267
-vless://871bfce7-8440-4394-8d82-56b51f20fdad@18.183.215.124:28573?alpn=http%2F1.1&flow=xtls-rprx-vision&fp=firefox&pbk=1DJr9toke7FRuSXjibBVuNvRnLnJnN5kXwUBG6Romzg&security=reality&sid=03653bc03be10c97&sni=www.sony.com&type=tcp#JP 🇯🇵 | @Goodbaye_filtering | F54D4A
-vless://871bfce7-8440-4394-8d82-56b51f20fdad@18.183.215.124:28573?flow=xtls-rprx-vision&fp=chrome&pbk=1DJr9toke7FRuSXjibBVuNvRnLnJnN5kXwUBG6Romzg&security=reality&sid=03653bc03be10c97&sni=www.sony.com&type=tcp#JP 🇯🇵 | @Goodbaye_filtering | 4C5B39
-vless://814bd064-544d-4255-a070-5705c03f6da9@3.114.220.22:19645?flow=xtls-rprx-vision&fp=chrome&pbk=k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0&security=reality&sid=48050fab&sni=www.apple.com&type=tcp#JP 🇯🇵 | @Goodbaye_filtering | 147361
-vless://871bfce7-8440-4394-8d82-56b51f20fdad@18.183.215.124:28573?flow=xtls-rprx-vision&fp=edge&host=www.sony.com&path=%2F&pbk=1DJr9toke7FRuSXjibBVuNvRnLnJnN5kXwUBG6Romzg&security=reality&sid=03653bc03be10c97&sni=www.sony.com&type=tcp#JP 🇯🇵 | @Goodbaye_filtering | F749E0
-vless://814bd064-544d-4255-a070-5705c03f6da9@3.114.220.22:18007?alpn=http%2F1.1&flow=xtls-rprx-vision&fp=chrome&pbk=k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0&security=reality&sid=48050fab&sni=www.apple.com&type=tcp#JP 🇯🇵 | @Goodbaye_filtering | A7EEB3
-vless://814bd064-544d-4255-a070-5705c03f6da9@3.114.220.22:10583?flow=xtls-rprx-vision&fp=chrome&pbk=k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0&security=reality&sid=48050fab&sni=www.apple.com&type=tcp#JP 🇯🇵 | @Goodbaye_filtering | 02A024
-vless://4e4f1f70-5e56-4a76-bb9d-db087f4690c4@152.69.200.216:443?fp=chrome&host=jp3.yohototo.top&path=%2Ftyxyws&security=tls&sni=jp3.yohototo.top&type=ws#JP 🇯🇵 | @Goodbaye_filtering | 3C8099
+ss://YWVzLTEyOC1nY206c2hhZG93c29ja3M@149.22.87.241:443#JP 🇯🇵 | @Goodbaye_filtering | 9EF41E
+ss://YWVzLTEyOC1nY206c2hhZG93c29ja3M@149.22.87.240:443#JP 🇯🇵 | @Goodbaye_filtering | 2459E0
+ss://YWVzLTEyOC1nY206QndscWg3R2NGQg==@168.138.205.100:53758#JP 🇯🇵 | @Goodbaye_filtering | 1A14DC
+ss://YWVzLTI1Ni1nY206MTIzNDU2@47.74.0.207:5555#JP 🇯🇵 | @Goodbaye_filtering | 41533A
+ss://YWVzLTI1Ni1nY206MTIzNDU2@8.216.18.167:5555#JP 🇯🇵 | @Goodbaye_filtering | B5851B
+ss://aes-256-gcm:123456@8.216.9.42:5555#JP 🇯🇵 | @Goodbaye_filtering | 21926D
+ss://YWVzLTI1Ni1nY206MTIzNDU2@8.216.9.15:5555#JP 🇯🇵 | @Goodbaye_filtering | 0A4EFE
+ss://YWVzLTI1Ni1nY206MTIzNDU2@8.216.18.189:5555#JP 🇯🇵 | @Goodbaye_filtering | 43302E
+ss://YWVzLTEyOC1nY206QndscWg3R2NGQg==@jpa.123069.xyz:53758#JP 🇯🇵 | @Goodbaye_filtering | 66A632
+ss://YWVzLTI1Ni1nY206MTIzNDU2@8.216.17.19:5555#JP 🇯🇵 | @Goodbaye_filtering | 5C8144
+ss://YWVzLTI1Ni1nY206MTIzNDU2@8.216.18.173:5555#JP 🇯🇵 | @Goodbaye_filtering | F554AD
+ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTo1M2RlYTUwNjNkZmY0NWU0OTYxZmI5Y2JhNWQzZjgzYQ==@jp-telegram-khp25-viber-09773510813.premiumx.giize.com:1080#JP 🇯🇵 | @Goodbaye_filtering | 8A0CAD
+vless://66171cbe-0b4b-4b24-99f6-d5a822f4dc9a@158.101.151.157:443?security=reality&type=raw&sni=www.microsoft.com&fp=chrome&flow=xtls-rprx-vision&sid=684c7531e599dec0&pbk=99eQkMBHqOEKororOWKFlmH8M0o9VaVpV9w1vQIxhz8&encryption=none#JP 🇯🇵 | @Goodbaye_filtering | AA31A8
+vmess://eyJhZGQiOiIxNjguMTM4LjQzLjc1IiwiYWlkIjowLCJob3N0IjoiIiwiaWQiOiIxMWMzNjI3Zi0zMWU4LTQ2OTUtZGZiZC0zNDA3NmUyZjFmNWQiLCJuZXQiOiJ3cyIsInBhdGgiOiIvY2N0djEzLm0zdTgiLCJwb3J0IjoiODAiLCJwcyI6IkpQIPCfh6/wn4e1IHwgQEdvb2RiYXllX2ZpbHRlcmluZyB8IDY5Q0YwRCIsInNuaSI6ImpwMDEuYTBhLnh5eiIsInRscyI6IiIsInR5cGUiOiJub25lIiwidiI6IjIifQ==
+vmess://eyJ2IjpudWxsLCJwcyI6IkpQIPCfh6/wn4e1IHwgQEdvb2RiYXllX2ZpbHRlcmluZyB8IEE5NDBENiIsImFkZCI6IjE2OC4xMzguNDMuNzUiLCJwb3J0Ijo4MCwiaWQiOiIxMWMzNjI3Zi0zMWU4LTQ2OTUtZGZiZC0zNDA3NmUyZjFmNWQiLCJhaWQiOiIwIiwic2N5IjoiYXV0byIsIm5ldCI6IndzIiwidHlwZSI6bnVsbCwiaG9zdCI6IjE2OC4xMzguNDMuNzUiLCJhbHBuIjpudWxsLCJwYXRoIjoiL2NjdHYxMy5tM3U4IiwidGxzIjoibm9uZSIsInNuaSI6bnVsbCwiZnAiOm51bGwsIm5hbWUiOiJKUCDwn4ev8J+HtSB8IEBHb29kYmF5ZV9maWx0ZXJpbmcgfCBBOTQwRDYifQ==
+vmess://eyJhZGQiOiIxNjguMTM4LjQzLjc1IiwiYWlkIjowLCJob3N0IjoiIiwiaWQiOiIxMWMzNjI3Zi0zMWU4LTQ2OTUtZGZiZC0zNDA3NmUyZjFmNWQiLCJuZXQiOiJ3cyIsInBhdGgiOiIvY2N0djEzLm0zdTgiLCJwb3J0IjoiODAiLCJwcyI6IkpQIPCfh6/wn4e1IHwgQEdvb2RiYXllX2ZpbHRlcmluZyB8IDc0QTcxOSIsInNuaSI6IjE2OC4xMzguNDMuNzUiLCJ0bHMiOiIiLCJ0eXBlIjoibm9uZSIsInYiOiIyIn0=
+vmess://eyJ2IjpudWxsLCJwcyI6IkpQIPCfh6/wn4e1IHwgQEdvb2RiYXllX2ZpbHRlcmluZyB8IDc1QzdFRCIsImFkZCI6IjE2OC4xMzguNDMuNzUiLCJwb3J0Ijo4MCwiaWQiOiIxMWMzNjI3Zi0zMWU4LTQ2OTUtZGZiZC0zNDA3NmUyZjFmNWQiLCJhaWQiOiIwIiwic2N5IjoiYXV0byIsIm5ldCI6IndzIiwidHlwZSI6bnVsbCwiaG9zdCI6Im5vbmUiLCJhbHBuIjpudWxsLCJwYXRoIjoiL2NjdHYxMy5tM3U4IiwidGxzIjoibm9uZSIsInNuaSI6bnVsbCwiZnAiOm51bGwsIm5hbWUiOiJKUCDwn4ev8J+HtSB8IEBHb29kYmF5ZV9maWx0ZXJpbmcgfCA3NUM3RUQifQ==
+ss://YWVzLTI1Ni1nY206MTIzNDU2@8.216.3.160:5555#JP 🇯🇵 | @Goodbaye_filtering | 4A0C02
+ss://YWVzLTI1Ni1nY206MTIzNDU2@47.245.42.226:5555#JP 🇯🇵 | @Goodbaye_filtering | 0ABA16
+vmess://eyJ2IjoiMiIsInBzIjoiSlAg8J+Hr/Cfh7UgfCBAR29vZGJheWVfZmlsdGVyaW5nIHwgMUUxQzE0IiwiYWRkIjoiMTY4LjEzOC40My43NSIsInBvcnQiOiI4MCIsImlkIjoiMTFjMzYyN2YtMzFlOC00Njk1LWRmYmQtMzQwNzZlMmYxZjVkIiwiYWlkIjoiMCIsInNjeSI6ImF1dG8iLCJuZXQiOiJ3cyIsInR5cGUiOiIiLCJ0bHMiOiIiLCJwYXRoIjoiL2NjdHYxMy5tM3U4IiwiaG9zdCI6ImpwMDEuYTBhLnh5eiJ9
+ss://YWVzLTI1Ni1nY206MTIzNDU2@8.211.174.191:5555#JP 🇯🇵 | @Goodbaye_filtering | E6EE98
+ss://YWVzLTI1Ni1nY206MTIzNDU2@8.211.130.59:5555#JP 🇯🇵 | @Goodbaye_filtering | 80E313
+ss://YWVzLTI1Ni1nY206MTIzNDU2@8.216.10.204:5555#JP 🇯🇵 | @Goodbaye_filtering | DF6400
+ss://aes-256-gcm:123456@8.211.154.126:5555#JP 🇯🇵 | @Goodbaye_filtering | EE41A8
+ss://YWVzLTI1Ni1nY206MTIzNDU2@8.216.3.83:5555#JP 🇯🇵 | @Goodbaye_filtering | 87B79C
+ss://YWVzLTI1Ni1nY206MTIzNDU2@8.216.4.158:5555#JP 🇯🇵 | @Goodbaye_filtering | FA5B93
+ss://YWVzLTI1Ni1nY206MTIzNDU2@8.216.8.135:5555#JP 🇯🇵 | @Goodbaye_filtering | 36F42C
+ss://YWVzLTI1Ni1nY206MTIzNDU2@8.216.15.55:5555#JP 🇯🇵 | @Goodbaye_filtering | EBC150
+vless://7072eeba-94fd-4fb3-92f2-a4506dd84cd8@31.76.91.98:443?flow=xtls-rprx-vision&encryption=none&security=reality&sni=fuji.etherhub.cc&fp=chrome&pbk=ejx56dFtS4LK_Th6HSLFFdm7v7zqRpv8KfjrWAw4Sjg&sid=bd6f67b6b2152b45&type=tcp&headerType=none#JP 🇯🇵 | @Goodbaye_filtering | 890048
+ss://YWVzLTI1Ni1nY206MTIzNDU2@8.216.5.89:5555#JP 🇯🇵 | @Goodbaye_filtering | BB3AD6
